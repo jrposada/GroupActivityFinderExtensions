@@ -1,0 +1,30 @@
+{
+    "Lua.diagnostics.globals": [
+        "EVENT_MANAGER",
+        "EVENT_ADD_ON_LOADED",
+        "ZO_PreHookHandler",
+        "ZO_DungeonFinder_KeyboardListSection",
+        "MAX_JOURNAL_QUESTS",
+        "GetJournalQuestInfo",
+        "QUEST_TYPE_UNDAUNTED_PLEDGE",
+        "INSTANCE_TYPE_GROUP",
+        "QUEST_STEP_TYPE_AND",
+        "GetUnitEffectiveChampionPoints",
+        "IsAchievementComplete",
+        "GetDiffBetweenTimeStamps",
+        "GetTimeStamp",
+        "LEFT",
+        "ZO_DungeonFinder_Keyboard",
+        "ZO_DungeonFinder_KeyboardQueueButton",
+        "BOTTOM",
+        "BSTATE_NORMAL",
+        "ZO_ACTIVITY_FINDER_ROOT_MANAGER",
+        "BSTATE_PRESSED",
+        "BSTATE_DISABLED",
+        "WINDOW_MANAGER",
+        "PDP_PledgesCheck",
+        "unpack",
+        "CT_LABEL",
+        "GuiRoot"
+    ]
+}
