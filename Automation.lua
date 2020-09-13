@@ -240,7 +240,7 @@ local function UndauntedPledges()
 				if isVeteran==c then
 					Button=PDP_PledgesCheck or WINDOW_MANAGER:CreateControlFromVirtual("PDP_PledgesCheck", parent, "ZO_DefaultButton")
 					Button:SetWidth(200, 28)
-					Button:SetText("Check active pledges")
+					Button:SetText(DP.Loc("CheckActivePledges"))
 					Button:ClearAnchors()
 					Button:SetAnchor(BOTTOM,parent,BOTTOM,w/5,0)
 					Button:SetClickSound("Click")
