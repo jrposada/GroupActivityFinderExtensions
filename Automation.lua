@@ -146,13 +146,12 @@ local DungeonIndex={
 local function GetGoalPledges()
     local pledgeQuests, haveQuest = {}, false
     for i=1, MAX_JOURNAL_QUESTS do
-        local name,_,_,stepType,_,_,_,_,_,questType,instanceType=GetJournalQuestInfo(i)
-        if name and name~="" and questType==QUEST_TYPE_UNDAUNTED_PLEDGE and instanceType==INSTANCE_TYPE_GROUP and name:match(".*:%s*(.*)") then
+        local name,_,_,stepType,_,completed,_,_,_,questType,instanceType=GetJournalQuestInfo(i)
+        if name and name~="" and not completed and questType==QUEST_TYPE_UNDAUNTED_PLEDGE and instanceType==INSTANCE_TYPE_GROUP and name:match(".*:%s*(.*)") then
             local text=string.format("%s",name:gsub(".*:%s*",""):gsub(" "," "):gsub("%s+"," "):lower())
             local number=string.match(text,"%sii$")
             text=string.match(text,"[^%s]+")..(number or "")
-			pledgeQuests[text]=stepType~=QUEST_STEP_TYPE_AND
-			DP.LogLater(text.." "..stepType)
+            pledgeQuests[text]=stepType~=QUEST_STEP_TYPE_AND
             if stepType==QUEST_STEP_TYPE_AND then haveQuest=true end
         end
     end
@@ -206,21 +205,21 @@ local function UndauntedPledges()
                                     number=string.match(dpName,"%sii$")
 									dpName=string.match(dpName,"[^%s]+")..(number or "")
 									if controlQuestName==dpName then
-										local quest=pledgeQuests[controlQuestName]
+										local questCompleted=pledgeQuests[controlQuestName]
 										-- Save if it needs to be checked
-										obj.pledge=quest==false
-										if quest then
-											text="|t20:20:/esoui/art/lfg/lfg_indexicon_dungeon_down.dds|t" -- Ok
-										elseif quest==false then
+										obj.pledge=questCompleted==false
+										if questCompleted==true then
+											-- In Journal and completed
 											text="|t20:20:/esoui/art/lfg/lfg_indexicon_dungeon_up.dds|t"
+										elseif questCompleted==false then
+											-- In Journal and no completed
+											text="|t20:20:/esoui/art/lfg/lfg_indexicon_dungeon_down.dds|t" -- Ok
 										else
-											-- No quest
+											-- TODO: Differentiate between done and no in journal and not done and not in journal
+											-- No in journal quest
 											text="|t20:20:/esoui/art/lfg/lfg_indexicon_dungeon_over.dds|t"
 										end
 									end
-									-- esoui/art/lfg/lfg_indexicon_dungeon_down.dds
-									-- esoui/art/lfg/lfg_indexicon_dungeon_over.dds
-									-- esoui/art/lfg/lfg_indexicon_dungeon_up.dds
 								end
 							end
 							local pledge = DP.UI.Label("PDP_DungeonInfo_Pledge"..c..i, obj, {100,20}, {LEFT,LEFT,445,0}, "ZoFontGameLarge", nil, {0,1}, text)
