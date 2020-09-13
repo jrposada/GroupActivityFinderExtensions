@@ -144,22 +144,23 @@ local DungeonIndex={
     }
 
 local function GetGoalPledges()
-    local pledges, haveQuest = {}, false
+    local pledgeQuests, haveQuest = {}, false
     for i=1, MAX_JOURNAL_QUESTS do
-        local name,_,_,stepType,_,completed,_,_,_,questType,instanceType=GetJournalQuestInfo(i)
-        if name and name~="" and not completed and questType==QUEST_TYPE_UNDAUNTED_PLEDGE and instanceType==INSTANCE_TYPE_GROUP and name:match(".*:%s*(.*)") then
+        local name,_,_,stepType,_,_,_,_,_,questType,instanceType=GetJournalQuestInfo(i)
+        if name and name~="" and questType==QUEST_TYPE_UNDAUNTED_PLEDGE and instanceType==INSTANCE_TYPE_GROUP and name:match(".*:%s*(.*)") then
             local text=string.format("%s",name:gsub(".*:%s*",""):gsub(" "," "):gsub("%s+"," "):lower())
             local number=string.match(text,"%sii$")
             text=string.match(text,"[^%s]+")..(number or "")
-            pledges[text]=stepType~=QUEST_STEP_TYPE_AND
+			pledgeQuests[text]=stepType~=QUEST_STEP_TYPE_AND
+			DP.LogLater(text.." "..stepType)
             if stepType==QUEST_STEP_TYPE_AND then haveQuest=true end
         end
     end
-    return pledges, haveQuest
+    return pledgeQuests, haveQuest
 end
 
 local function UndauntedPledges()
-    local pledges, haveQuest={}, false
+    local pledgeQuests, haveQuest={}, false
 	local day=math.floor(GetDiffBetweenTimeStamps(GetTimeStamp(),1517464800)/86400)
 
     local function CheckPledges(c)
@@ -183,47 +184,53 @@ local function UndauntedPledges()
 				for i=1,parent:GetNumChildren() do
 					local obj=parent:GetChild(i)
 					if obj then
-						--Achievement
 						local id=obj.node.data.id
 						if DungeonIndex[id] then
-							local text=IsAchievementComplete(DungeonIndex[id].id) and "|t16:16:/esoui/art/cadwell/check.dds|t" or ""
-							text=text..((DungeonIndex[id].hm and IsAchievementComplete(DungeonIndex[id].hm)) and "|t20:20:/esoui/art/unitframes/target_veteranrank_icon.dds|t" or "")
-							text=text..((DungeonIndex[id].tt and IsAchievementComplete(DungeonIndex[id].tt)) and "|t20:20:/esoui/art/ava/overview_icon_underdog_score.dds|t" or "")
-							text=text..((DungeonIndex[id].nd and IsAchievementComplete(DungeonIndex[id].nd)) and "|t20:20:/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds|t" or "")
-							local info=DP.UI.Label("BUI_DungeonInfo"..c..i, obj, {80,20}, {LEFT,LEFT,465,0}, "ZoFontGameLarge", nil, {0,1}, text)
-							--Quest
-							local orig=obj.text:GetText()
-							local text=orig:lower() text=text:gsub("the ",""):gsub(" "," ")
+							local text=""
+							-- Get quest name from current control
+							local controlQuestName=obj.text:GetText():lower():gsub("the ",""):gsub(" "," ")
 							if c==3 then
-								local _start,_end=string.find(text,"s|t")
-								if _start then text=string.sub(text,_end+2) end
+								local _start,_end=string.find(controlQuestName,"s|t")
+								if _start then controlQuestName=string.sub(controlQuestName,_end+2) end
 							end
-                            local number=string.match(text,"%sii$")
-                            text=string.match(text,"[^%s]+")..(number or "")
---							d(text)
-							--Daily pledges
-							local daily=""
+                            local number=string.match(controlQuestName,"%sii$")
+							controlQuestName=string.match(controlQuestName,"[^%s]+")..(number or "")
+
+							-- Dialy pledges
 							for npc=1,3 do
-								local dp=DailyPledgesList[npc]
-								local n=1+(day+dp.shift)%#dp
-								local name=dp[n].en
-								if name then
-									name=name:lower()
-                                    local number=string.match(name,"%sii$")
-                                    name=string.match(name,"[^%s]+")..(number or "")
-									if text==name then daily=" ("..DP.Loc("UndauntedDaily")..")" obj.text:SetText(orig.." |c3388EE"..daily.."|r") end
+								local dpList=DailyPledgesList[npc]
+								local n=1+(day+dpList.shift)%#dpList
+								local dpName=dpList[n].en
+								if dpName then
+									dpName=dpName:lower()
+                                    number=string.match(dpName,"%sii$")
+									dpName=string.match(dpName,"[^%s]+")..(number or "")
+									if controlQuestName==dpName then
+										local quest=pledgeQuests[controlQuestName]
+										-- Save if it needs to be checked
+										obj.pledge=quest==false
+										if quest then
+											text="|t20:20:/esoui/art/lfg/lfg_indexicon_dungeon_down.dds|t" -- Ok
+										elseif quest==false then
+											text="|t20:20:/esoui/art/lfg/lfg_indexicon_dungeon_up.dds|t"
+										else
+											-- No quest
+											text="|t20:20:/esoui/art/lfg/lfg_indexicon_dungeon_over.dds|t"
+										end
+									end
+									-- esoui/art/lfg/lfg_indexicon_dungeon_down.dds
+									-- esoui/art/lfg/lfg_indexicon_dungeon_over.dds
+									-- esoui/art/lfg/lfg_indexicon_dungeon_up.dds
 								end
 							end
-							--Current pledges
-							local completed=pledges[text]
-							obj.pledge=completed==false
-							if completed==false then
-								obj.text:SetText(orig.." |c3388EE- "..DP.Loc("UndauntedQuest")..daily.."|r")
-							elseif completed==true then
-								obj.text:SetText(orig.." |c33EE33- "..DP.Loc("UndauntedDone")..daily.."|r")
-							end
-						else
---							d("["..id.."] "..obj.text:GetText())
+							local pledge = DP.UI.Label("PDP_DungeonInfo_Pledge"..c..i, obj, {100,20}, {LEFT,LEFT,445,0}, "ZoFontGameLarge", nil, {0,1}, text)
+
+							-- Achievement
+							local achivementText=(IsAchievementComplete(DungeonIndex[id].id) and "|t16:16:/esoui/art/cadwell/check.dds|t" or "")
+							achivementText=achivementText..((DungeonIndex[id].hm and IsAchievementComplete(DungeonIndex[id].hm)) and "|t20:20:/esoui/art/unitframes/target_veteranrank_icon.dds|t" or "")
+							achivementText=achivementText..((DungeonIndex[id].tt and IsAchievementComplete(DungeonIndex[id].tt)) and "|t20:20:/esoui/art/ava/overview_icon_underdog_score.dds|t" or "")
+							achivementText=achivementText..((DungeonIndex[id].nd and IsAchievementComplete(DungeonIndex[id].nd)) and "|t20:20:/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds|t" or "")
+							local achivements = DP.UI.Label("PDP_DungeonInfo_Achivements"..c..i, pledge, {80,20}, {RIGHT,RIGHT,0,0}, "ZoFontGameLarge", nil, {0,1}, achivementText)
 						end
 					end
 				end
@@ -256,8 +263,8 @@ local function UndauntedPledges()
 		end
 	end
 
-    ZO_PreHookHandler(ZO_DungeonFinder_KeyboardListSection, 'OnEffectivelyShown', function() pledges, haveQuest=GetGoalPledges() DP.CallLater("MarkPledges",200,MarkPledges) end)
-	ZO_PreHookHandler(ZO_DungeonFinder_KeyboardListSection, 'OnEffectivelyHidden', function() pledges={} end)
+    ZO_PreHookHandler(ZO_DungeonFinder_KeyboardListSection, 'OnEffectivelyShown', function() pledgeQuests, haveQuest=GetGoalPledges() DP.CallLater("MarkPledges",200,MarkPledges) end)
+	ZO_PreHookHandler(ZO_DungeonFinder_KeyboardListSection, 'OnEffectivelyHidden', function() pledgeQuests={} end)
 end
 
 function DP.Automation_Init()

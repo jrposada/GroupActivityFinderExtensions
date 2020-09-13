@@ -11,3 +11,7 @@ function DP.CallLater(name,ms,func,opt1,opt2)
 		EVENT_MANAGER:UnregisterForUpdate("CallLater_"..name)
 	end
 end
+
+function DP.LogLater(obj)
+	zo_callLater(function() d(obj) end, 200)
+end

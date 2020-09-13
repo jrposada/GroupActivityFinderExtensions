@@ -25,6 +25,9 @@
         "PDP_PledgesCheck",
         "unpack",
         "CT_LABEL",
-        "GuiRoot"
+        "GuiRoot",
+        "zo_callLater",
+        "d",
+        "RIGHT"
     ]
 }
