@@ -29,6 +29,10 @@
         "zo_callLater",
         "d",
         "RIGHT",
-        "GetCompletedQuestInfo"
+        "GetCompletedQuestInfo",
+        "ZO_GetEffectiveDungeonDifficulty",
+        "DUNGEON_DIFFICULTY_NORMAL",
+        "GAFE_PledgesCheck",
+        "GAFE_QuestsCheck"
     ]
 }

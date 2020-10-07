@@ -147,7 +147,7 @@ local DungeonIndex={
 
 
 local function GetGoalPledges()
-    local pledgeQuests, haveQuest = {}, false
+    local pledgeQuests, havePledge = {}, false
     for i=1, MAX_JOURNAL_QUESTS do
         local name,_,_,stepType,_,completed,_,_,_,questType,instanceType=GetJournalQuestInfo(i)
         if name and name~="" and not completed and questType==QUEST_TYPE_UNDAUNTED_PLEDGE and instanceType==INSTANCE_TYPE_GROUP and name:match(".*:%s*(.*)") then
@@ -155,17 +155,18 @@ local function GetGoalPledges()
             local number=string.match(text,"%sii$")
             text=string.match(text,"[^%s]+")..(number or "")
             pledgeQuests[text]=stepType~=QUEST_STEP_TYPE_AND
-            if stepType==QUEST_STEP_TYPE_AND then haveQuest=true end
+            if stepType==QUEST_STEP_TYPE_AND then havePledge=true end
         end
     end
-    return pledgeQuests, haveQuest
+    return pledgeQuests, havePledge
 end
 
 local function UndauntedPledges()
-    local pledgeQuests, haveQuest={}, false
+    local pledgeQuests, havePledge, haveQuests={}, false, false
 	local day=math.floor(GetDiffBetweenTimeStamps(GetTimeStamp(),1517464800)/86400)
 
-    local function CheckPledges(c)
+	local function CheckPledges()
+		local c = ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and 2 or 3 -- Normal => 2, Veteran => 3
 		local parent=_G["ZO_DungeonFinder_KeyboardListSectionScrollChildContainer"..c]
 		if parent then
 			for i=1,parent:GetNumChildren() do
@@ -178,8 +179,22 @@ local function UndauntedPledges()
 		end
 	end
 
+	local function CheckQuests()
+		local c = ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and 2 or 3 -- Normal => 2, Veteran => 3
+		local parent=_G["ZO_DungeonFinder_KeyboardListSectionScrollChildContainer"..c]
+		if parent then
+			for i=1,parent:GetNumChildren() do
+				local obj=parent:GetChild(i)
+				if obj and obj.quest and obj.check:GetState()==0 then
+					obj.check:SetState(BSTATE_PRESSED, true)
+					ZO_ACTIVITY_FINDER_ROOT_MANAGER:ToggleLocationSelected(obj.node.data)
+				end
+			end
+		end
+	end
+
     local function MarkPledges()
-		local isVeteran=GetUnitEffectiveChampionPoints('player')>=160 and 3 or 2
+		local isVeteranEnabled=GetUnitEffectiveChampionPoints('player')>=160 and 3 or 2
 		for c=2,3 do
 			local parent=_G["ZO_DungeonFinder_KeyboardListSectionScrollChildContainer"..c]
 			if parent then
@@ -234,6 +249,10 @@ local function UndauntedPledges()
 							achivementText=achivementText..((DungeonIndex[id].tt and IsAchievementComplete(DungeonIndex[id].tt)) and "|t20:20:/esoui/art/ava/overview_icon_underdog_score.dds|t" or "")
 							achivementText=achivementText..((DungeonIndex[id].nd and IsAchievementComplete(DungeonIndex[id].nd)) and "|t20:20:/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds|t" or "")
 							local achivements = GAFE.UI.Label("PDP_DungeonInfo_Achivements"..c..i, pledge, {105,20}, {RIGHT,RIGHT,0,0}, "ZoFontGameLarge", nil, {0,1}, achivementText)
+
+							-- Quest
+							obj.quest = GetCompletedQuestInfo(DungeonIndex[id].q) == "" and true or false
+							haveQuests = haveQuests or obj.quest
 						end
 					end
 				end
@@ -241,32 +260,43 @@ local function UndauntedPledges()
 			local parent=ZO_DungeonFinder_Keyboard
 			if parent then
 				local w=parent:GetWidth()
-				if isVeteran==c then
-					Button=PDP_PledgesCheck or WINDOW_MANAGER:CreateControlFromVirtual("PDP_PledgesCheck", parent, "ZO_DefaultButton")
-					Button:SetWidth(200, 28)
-					Button:SetText(GAFE.Loc("CheckActivePledges"))
-					Button:ClearAnchors()
-					Button:SetAnchor(BOTTOM,parent,BOTTOM,w/5,0)
-					Button:SetClickSound("Click")
-					Button:SetHandler("OnClicked", function()CheckPledges(c)end)
-					Button:SetState(haveQuest and BSTATE_NORMAL or BSTATE_DISABLED)
-					Button:SetDrawTier(2)
+				if isVeteranEnabled==c then
+					local questsButton=GAFE_QuestsCheck or WINDOW_MANAGER:CreateControlFromVirtual("GAFE_QuestsCheck", parent, "ZO_DefaultButton")
+					questsButton:SetWidth(200, 28)
+					questsButton:SetText(GAFE.Loc("CheckMissingQuests"))
+					questsButton:ClearAnchors()
+					questsButton:SetAnchor(BOTTOM,parent,BOTTOM,w/3,0)
+					questsButton:SetClickSound("Click")
+					questsButton:SetHandler("OnClicked", function()CheckQuests()end)
+					questsButton:SetState(haveQuests and BSTATE_NORMAL or BSTATE_DISABLED)
+					questsButton:SetDrawTier(2)
+
+					local pledgesButton=GAFE_PledgesCheck or WINDOW_MANAGER:CreateControlFromVirtual("GAFE_PledgesCheck", parent, "ZO_DefaultButton")
+					pledgesButton:SetWidth(200, 28)
+					pledgesButton:SetText(GAFE.Loc("CheckActivePledges"))
+					pledgesButton:ClearAnchors()
+					pledgesButton:SetAnchor(BOTTOM,parent,BOTTOM,0,0)
+					pledgesButton:SetClickSound("Click")
+					pledgesButton:SetHandler("OnClicked", function()CheckPledges()end)
+					pledgesButton:SetState(havePledge and BSTATE_NORMAL or BSTATE_DISABLED)
+					pledgesButton:SetDrawTier(2)
 				end
 				if ZO_DungeonFinder_KeyboardQueueButton then
 					ZO_DungeonFinder_KeyboardQueueButton:ClearAnchors()
-					ZO_DungeonFinder_KeyboardQueueButton:SetAnchor(BOTTOM,parent,BOTTOM,-w/5,0)
+					ZO_DungeonFinder_KeyboardQueueButton:SetAnchor(BOTTOM,parent,BOTTOM,-w/3,0)
 					ZO_DungeonFinder_KeyboardQueueButton:SetDrawTier(2)
 				end
-				local header=_G["ZO_DungeonFinder_KeyboardListSectionScrollChildZO_ActivityFinderTemplateNavigationHeader_Keyboard"..c-1]
-				if header then
-					local state=header.text:GetColor()
-					if (isVeteran==c)~=(state==1) then header:OnMouseUp(true) end
-				end
+				-- TODO: Collapse corresponding panel depending on dungeon mode
+				-- local header=_G["ZO_DungeonFinder_KeyboardListSectionScrollChildZO_ActivityFinderTemplateNavigationHeader_Keyboard"..c-1]
+				-- if header then
+				-- 	local state=header.text:GetColor()
+				-- 	if (isVeteranEnabled==c)~=(state==1) then header:OnMouseUp(true) end
+				-- end
 			end
 		end
 	end
 
-    ZO_PreHookHandler(ZO_DungeonFinder_KeyboardListSection, 'OnEffectivelyShown', function() pledgeQuests, haveQuest=GetGoalPledges() GAFE.CallLater("MarkPledges",200,MarkPledges) end)
+    ZO_PreHookHandler(ZO_DungeonFinder_KeyboardListSection, 'OnEffectivelyShown', function() pledgeQuests, havePledge=GetGoalPledges() GAFE.CallLater("MarkPledges",200,MarkPledges) end)
 	ZO_PreHookHandler(ZO_DungeonFinder_KeyboardListSection, 'OnEffectivelyHidden', function() pledgeQuests={} end)
 end
 
