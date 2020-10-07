@@ -1,5 +1,5 @@
-## Title: Daily Pledges
-## Description: Quality of life improvements for Daily Pledges.
+## Title: Group & Activity Finder Extensions
+## Description: Quality of life improvements for the Group & Activity Finder.
 ## Author: Panicida
 ## APIVersion: 100032
 
@@ -13,11 +13,13 @@
 ; You can read the full terms at:
 ; https://account.elderscrollsonline.com/add-on-terms
 
-Vars.lua
-Utils.lua
-Controls.lua
-Automation.lua
-Initialize.lua
+Infrastructure/Vars.lua
+Infrastructure/Utils.lua
+Infrastructure/Controls.lua
 
 lang\en.lua
 lang\$(language).lua
+
+Business/Automation.lua
+
+Main.lua

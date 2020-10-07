@@ -1,7 +1,7 @@
-local DP = DailyPledges
-DP.UI = {}
+local GAFE = GroupActivityFinderExtensions
+GAFE.UI = {}
 
-function DP.UI.Label(name, parent, dims, anchor, font, color, align, text, hidden)
+function GAFE.UI.Label(name, parent, dims, anchor, font, color, align, text, hidden)
 	--Validate arguments
 --	if (name==nil or name=="") then return end
 	parent=(parent==nil) and GuiRoot or parent

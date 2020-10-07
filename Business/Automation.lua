@@ -1,4 +1,4 @@
-local DP = DailyPledges
+local GAFE = GroupActivityFinderExtensions
 
 local DailyPledgesList = {
 	[1]={	--Maj
@@ -222,14 +222,14 @@ local function UndauntedPledges()
 									end
 								end
 							end
-							local pledge = DP.UI.Label("PDP_DungeonInfo_Pledge"..c..i, obj, {100,20}, {LEFT,LEFT,445,0}, "ZoFontGameLarge", nil, {0,1}, text)
+							local pledge = GAFE.UI.Label("PDP_DungeonInfo_Pledge"..c..i, obj, {100,20}, {LEFT,LEFT,445,0}, "ZoFontGameLarge", nil, {0,1}, text)
 
 							-- Achievement
 							local achivementText=(IsAchievementComplete(DungeonIndex[id].id) and "|t16:16:/esoui/art/cadwell/check.dds|t" or "")
 							achivementText=achivementText..((DungeonIndex[id].hm and IsAchievementComplete(DungeonIndex[id].hm)) and "|t20:20:/esoui/art/unitframes/target_veteranrank_icon.dds|t" or "")
 							achivementText=achivementText..((DungeonIndex[id].tt and IsAchievementComplete(DungeonIndex[id].tt)) and "|t20:20:/esoui/art/ava/overview_icon_underdog_score.dds|t" or "")
 							achivementText=achivementText..((DungeonIndex[id].nd and IsAchievementComplete(DungeonIndex[id].nd)) and "|t20:20:/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds|t" or "")
-							local achivements = DP.UI.Label("PDP_DungeonInfo_Achivements"..c..i, pledge, {80,20}, {RIGHT,RIGHT,0,0}, "ZoFontGameLarge", nil, {0,1}, achivementText)
+							local achivements = GAFE.UI.Label("PDP_DungeonInfo_Achivements"..c..i, pledge, {80,20}, {RIGHT,RIGHT,0,0}, "ZoFontGameLarge", nil, {0,1}, achivementText)
 						end
 					end
 				end
@@ -240,7 +240,7 @@ local function UndauntedPledges()
 				if isVeteran==c then
 					Button=PDP_PledgesCheck or WINDOW_MANAGER:CreateControlFromVirtual("PDP_PledgesCheck", parent, "ZO_DefaultButton")
 					Button:SetWidth(200, 28)
-					Button:SetText(DP.Loc("CheckActivePledges"))
+					Button:SetText(GAFE.Loc("CheckActivePledges"))
 					Button:ClearAnchors()
 					Button:SetAnchor(BOTTOM,parent,BOTTOM,w/5,0)
 					Button:SetClickSound("Click")
@@ -262,10 +262,10 @@ local function UndauntedPledges()
 		end
 	end
 
-    ZO_PreHookHandler(ZO_DungeonFinder_KeyboardListSection, 'OnEffectivelyShown', function() pledgeQuests, haveQuest=GetGoalPledges() DP.CallLater("MarkPledges",200,MarkPledges) end)
+    ZO_PreHookHandler(ZO_DungeonFinder_KeyboardListSection, 'OnEffectivelyShown', function() pledgeQuests, haveQuest=GetGoalPledges() GAFE.CallLater("MarkPledges",200,MarkPledges) end)
 	ZO_PreHookHandler(ZO_DungeonFinder_KeyboardListSection, 'OnEffectivelyHidden', function() pledgeQuests={} end)
 end
 
-function DP.Automation_Init()
+function GAFE.Automation_Init()
     UndauntedPledges()
 end

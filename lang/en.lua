@@ -1,5 +1,5 @@
-local DP = DailyPledges
+local GAFE = GroupActivityFinderExtensions
 
-DP.Localization.en = {
+GAFE.Localization.en = {
     CheckActivePledges = "Check active pledges"
 }

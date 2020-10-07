@@ -1,6 +1,6 @@
-local DP = DailyPledges
+local GAFE = GroupActivityFinderExtensions
 
-function DP.CallLater(name,ms,func,opt1,opt2)
+function GAFE.CallLater(name,ms,func,opt1,opt2)
 	if ms then
 		EVENT_MANAGER:RegisterForUpdate("CallLater_"..name, ms,
 		function()
@@ -12,6 +12,6 @@ function DP.CallLater(name,ms,func,opt1,opt2)
 	end
 end
 
-function DP.LogLater(obj)
+function GAFE.LogLater(obj)
 	zo_callLater(function() d(obj) end, 200)
 end
