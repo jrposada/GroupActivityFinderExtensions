@@ -20,6 +20,6 @@ Infrastructure/Controls.lua
 lang\en.lua
 lang\$(language).lua
 
-Business/DailyPledges.lua
+Business/DungeonFinder.lua
 
 Main.lua
