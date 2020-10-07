@@ -20,6 +20,6 @@ Infrastructure/Controls.lua
 lang\en.lua
 lang\$(language).lua
 
-Business/Automation.lua
+Business/DailyPledges.lua
 
 Main.lua

@@ -1,5 +1,7 @@
 local GAFE = GroupActivityFinderExtensions
 
+GAFE.DailyPledges = {}
+
 local DailyPledgesList = {
 	[1]={	--Maj
 		{en="Elden Hollow II",		ru="Элденская расщелина II",	de="Eldengrund II",	fr="Creuset des aînés II"},
@@ -266,6 +268,6 @@ local function UndauntedPledges()
 	ZO_PreHookHandler(ZO_DungeonFinder_KeyboardListSection, 'OnEffectivelyHidden', function() pledgeQuests={} end)
 end
 
-function GAFE.Automation_Init()
+function GAFE.DailyPledges.Init()
     UndauntedPledges()
 end
