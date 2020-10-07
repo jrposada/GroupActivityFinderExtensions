@@ -58,92 +58,93 @@ local DailyPledgesList = {
 
 local DungeonIndex={
     --Normal
-    [2]	={id=294},	--Fungal Grotto I
-    [3]	={id=301},	--Spindleclutch I
-    [4]	={id=325},	--Banished Cells I
-    [5]	={id=78},	--Darkshade Caverns I
-    [6]	={id=79},	--Wayrest Sewers I
-    [7]	={id=11},	--Elden Hollow I
-    [8]	={id=272},	--Arx Corinium
-    [9]	={id=80},	--Crypt of Hearts I
-    [10]	={id=551},	--City of Ash I
-    [11]	={id=357},	--Direfrost Keep
-    [12]	={id=391},	--Volenfell
-    [13]	={id=81},	--Tempest Island
-    [14]	={id=393},	--Blessed Crucible
-    [15]	={id=410},	--Blackheart Haven
-    [16]	={id=417},	--Selene's Web
-    [17]	={id=570},	--Vaults of Madness
-    [18]	={id=1562},	--Fungal Grotto II
-    [22]	={id=1595},	--Wayrest Sewers II
-    [288]	={id=1346},	--White-Gold Tower
-    [289]	={id=1345},	--Imperial City Prison
-    [293]	={id=1504},	--Ruins of Mazzatun
-    [295]	={id=1522},	--Cradle of Shadows
-    [300]	={id=1555},	--Banished Cells II
-    [303]	={id=1579},	--Elden Hollow II
-    [308]	={id=1587},	--Darkshade Caverns II
-    [316]	={id=1571},	--Spindleclutch II
-    [317]	={id=1616},	--Crypt of Hearts II
-    [322]	={id=1603},	--City of Ash II
-    [324]	={id=1690},	--Bloodroot Forge
-    [368]	={id=1698},	--Falkreath Hold
-    [420]	={id=1959},	--Fang Lair
-    [418]	={id=1975},	--Scalecaller Peak
-    [428]	={id=2162},	--March of Sacrifices
-    [426]	={id=2152},	--Moon Hunter Keep
-    [433]	={id=2260},	--Frostvault
-    [435]	={id=2270},	--Depths of Malatar
-    [496]	={id=2425},	--Lair of Maarselok
-    [494]	={id=2415},	--Moongrave Fane
-    [503]	={id=2539},	--Icereach
-    [505]	={id=2549},	--Unhallowed Grave
+    [2]		={id=294, 	q=3993 },	--Fungal Grotto I
+    [18]	={id=1562,	q=4303 },	--Fungal Grotto II
+    [3]		={id=301, 	q=4054 },	--Spindleclutch I
+    [316]	={id=1571, 	q=4555 },	--Spindleclutch II
+    [4]		={id=325, 	q=4107 },	--Banished Cells I
+    [300]	={id=1555, 	q=4597 },	--Banished Cells II
+    [5]		={id=78, 	q=4145 },	--Darkshade Caverns I
+    [308]	={id=1587, 	q=4641 },	--Darkshade Caverns II
+    [7]		={id=11, 	q=4336 },	--Elden Hollow I
+    [303]	={id=1579, 	q=4675 },	--Elden Hollow II
+    [6]		={id=79, 	q=4246 },	--Wayrest Sewers I
+    [22]	={id=1595, 	q=4813 },	--Wayrest Sewers II
+    [8]		={id=272, 	q=4202 },	--Arx Corinium
+    [10]	={id=551, 	q=4778 },	--City of Ash I
+    [322]	={id=1603, 	q=5120 },	--City of Ash II
+    [9]		={id=80, 	q=4379 },	--Crypt of Hearts I
+    [317]	={id=1616, 	q=5113 },	--Crypt of Hearts II
+    [11]	={id=357, 	q=4346 },	--Direfrost Keep
+    [13]	={id=81, 	q=4538 },	--Tempest Island
+    [12]	={id=391, 	q=4432 },	--Volenfell
+    [15]	={id=410, 	q=4589 },	--Blackheart Haven
+    [14]	={id=393, 	q=4469 },	--Blessed Crucible
+    [16]	={id=417, 	q=4733 },	--Selene's Web
+    [17]	={id=570, 	q=4822 },	--Vaults of Madness
+    [324]	={id=1690, 	q=5889 },	--Bloodroot Forge
+    [509]   ={id=2704},	--Castle Thorn
+    [295]	={id=1522, 	q=5702 },	--Cradle of Shadows
+    [435]	={id=2270, 	q=6251 },	--Depths of Malatar
+    [368]	={id=1698, 	q=5891 },	--Falkreath Hold
+    [420]	={id=1959, 	q=6064 },	--Fang Lair
+    [433]	={id=2260, 	q=6249 },	--Frostvault
+    [503]	={id=2539, 	q=6414 },	--Icereach
+    [289]	={id=1345, 	q=5136 },	--Imperial City Prison
+    [496]	={id=2425, 	q=6351 },	--Lair of Maarselok
+    [428]	={id=2162, 	q=6188 },	--March of Sacrifices
+    [426]	={id=2152, 	q=6186 },	--Moon Hunter Keep
+    [494]	={id=2415, 	q=6349 },	--Moongrave Fane
+    [293]	={id=1504, 	q=5403 },	--Ruins of Mazzatun
+    [418]	={id=1975, 	q=6065 },	--Scalecaller Peak
     [507]	={id=2694},	--Stone Garden
-    [509] ={id=2704},	--Castle Thorn
+    [505]	={id=2549,	q=6416 },	--Unhallowed Grave
+    [288] 	={id=1346,	q=5342 },	--White-Gold Tower
     --Veteran
-    [19]	={id=421,	hm=448,	tt=446,	nd=1572},	--Spindleclutch II
-    [20]	={id=1549,	hm=1554,	tt=1552,	nd=1553},	--Banished Cells I
-    [21]	={id=464,	hm=467,	tt=465,	nd=1588},	--Darkshade Caverns II
-    [23]	={id=1573,	hm=1578,	tt=1576,	nd=1577},	--Elden Hollow I
-    [261]	={id=1610,	hm=1615,	tt=1613,	nd=1614},	--Crypt of Hearts I
-    [267]	={id=878,	hm=1114,	tt=1108,	nd=1107},	--City of Ash II
-    [268]	={id=880,	hm=1303,	tt=1128,	nd=1129},	--Imperial City Prison
-    [287]	={id=1120,	hm=1279,	tt=1275,	nd=1276},	--White-Gold Tower
-    [294]	={id=1505,	hm=1506,	tt=1507,	nd=1508},	--Ruins of Mazzatun
-    [296]	={id=1523,	hm=1524,	tt=1525,	nd=1526},	--Cradle of Shadows
-    [299]	={id=1556,	hm=1561,	tt=1559,	nd=1560},	--Fungal Grotto I
-    [301]	={id=545,	hm=451,	tt=449,	nd=1564},	--Banished Cells II
-    [302]	={id=459,	hm=463,	tt=461,	nd=1580},	--Elden Hollow II
-    [304]	={id=1629,	hm=1634,	tt=1632,	nd=1633},	--Volenfell
-    [305]	={id=1604,	hm=1609,	tt=1607,	nd=1608},	--Arx Corinium
-    [306]	={id=1589,	hm=1594,	tt=1592,	nd=1593},	--Wayrest Sewers I
-    [307]	={id=678,	hm=681,	tt=679,	nd=1596},	--Wayrest Sewers II
-    [309]	={id=1581,	hm=1586,	tt=1584,	nd=1585},	--Darkshade Caverns I
-    [310]	={id=1597,	hm=1602,	tt=1600,	nd=1601},	--City of Ash I
-    [311]	={id=1617,	hm=1622,	tt=1620,	nd=1621},	--Tempest Island
-    [312]	={id=343,	hm=342,	tt=340,	nd=1563},	--Fungal Grotto II
-    [313]	={id=1635,	hm=1640,	tt=1638,	nd=1639},	--Selene's Web
-    [314]	={id=1653,	hm=1658,	tt=1656,	nd=1657},	--Vaults of Madness
-    [315]	={id=1565,	hm=1570,	tt=1568,	nd=1569},	--Spindleclutch I
-    [318]	={id=876,	hm=1084,	tt=941,	nd=942},	--Crypt of Hearts II
-    [319]	={id=1623,	hm=1628,	tt=1626,	nd=1627},	--Direfrost Keep
-    [320]	={id=1641,	hm=1646,	tt=1644,	nd=1645},	--Blessed Crucible
-    [321]	={id=1647,	hm=1652,	tt=1650,	nd=1651},	--Blackheart Haven
-    [325]	={id=1691,	hm=1696,	tt=1694,	nd=1695},	--Bloodroot Forge
-    [369]	={id=1699,	hm=1704,	tt=1702,	nd=1703},	--Falkreath Hold
-    [421]	={id=1960,	hm=1965,	tt=1963,	nd=1964},	--Fang Lair
-    [419]	={id=1976,	hm=1981,	tt=1979,	nd=1980},	--Scalecaller Peak
-    [429]	={id=2163,	hm=2164,	tt=2165,	nd=2166},	--March of Sacrifices
-    [427]	={id=2153,	hm=2154,	tt=2155,	nd=2156},	--Moon Hunter Keep
-    [434]	={id=2261,	hm=2262,	tt=2263,	nd=2264},	--Frostvault
-    [436]	={id=2271,	hm=2272,	tt=2273,	nd=2274},	--Depths of Malatar
-    [497]	={id=2426,	hm=2427,	tt=2428,	nd=2429},	--Lair of Maarselok
-    [495]	={id=2416,	hm=2417,	tt=2418,	nd=2419},	--Moongrave Fane
-    [504]	={id=2540,	hm=2541,	tt=2542,	nd=2543},	--Icereach
-    [506]	={id=2550,	hm=2551,	tt=2552,	nd=2553},	--Unhallowed Grave
-    [508]	={id=2695,	hm=2755,	tt=2697,	nd=2698},	--Stone Garden
-    [510]	={id=2705,	hm=2706,	tt=2707,	nd=2708},	--Castle Thorn
-    }
+    [299]	={id=1556,	q=3993, 	hm=1561,	tt=1559,	nd=1560},	--Fungal Grotto I
+    [312]	={id=343,	q=4303, 	hm=342,		tt=340,		nd=1563},	--Fungal Grotto II
+    [315]	={id=1565,	q=4054, 	hm=1570,	tt=1568,	nd=1569},	--Spindleclutch I
+    [19]	={id=421,	q=4555, 	hm=448,		tt=446,		nd=1572},	--Spindleclutch II
+    [20]	={id=1549,	q=4107,		hm=1554,	tt=1552,	nd=1553},	--Banished Cells I
+    [301]	={id=545,	q=4597,		hm=451,		tt=449,		nd=1564},	--Banished Cells II
+    [309]	={id=1581,	q=4145, 	hm=1586,	tt=1584,	nd=1585},	--Darkshade Caverns I
+    [21]	={id=464,	q=4641, 	hm=467,		tt=465,		nd=1588},	--Darkshade Caverns II
+    [23]	={id=1573,	q=4336, 	hm=1578,	tt=1576,	nd=1577},	--Elden Hollow I
+    [302]	={id=459,	q=4675,		hm=463,		tt=461,		nd=1580},	--Elden Hollow II
+    [306]	={id=1589, 	q=4246, 	hm=1594,	tt=1592,	nd=1593},	--Wayrest Sewers I
+    [307]	={id=678,	q=4813, 	hm=681,		tt=679,		nd=1596},	--Wayrest Sewers II
+    [305]	={id=1604,	q=4202, 	hm=1609,	tt=1607,	nd=1608},	--Arx Corinium
+    [310]	={id=1597,	q=4778, 	hm=1602,	tt=1600,	nd=1601},	--City of Ash I
+    [267]	={id=878,	q=5120, 	hm=1114,	tt=1108,	nd=1107},	--City of Ash II
+    [261]	={id=1610,	q=4379, 	hm=1615,	tt=1613,	nd=1614},	--Crypt of Hearts I
+    [318]	={id=876,	q=5113, 	hm=1084,	tt=941,		nd=942},	--Crypt of Hearts II
+    [319]	={id=1623,	q=4346, 	hm=1628,	tt=1626,	nd=1627},	--Direfrost Keep
+    [311]	={id=1617,	q=4538, 	hm=1622,	tt=1620,	nd=1621},	--Tempest Island
+    [304]	={id=1629,	q=4432, 	hm=1634,	tt=1632,	nd=1633},	--Volenfell
+    [321]	={id=1647,	q=4589, 	hm=1652,	tt=1650,	nd=1651},	--Blackheart Haven
+    [320]	={id=1641,	q=4469, 	hm=1646,	tt=1644,	nd=1645},	--Blessed Crucible
+    [313]	={id=1635,	q=4733, 	hm=1640,	tt=1638,	nd=1639},	--Selene's Web
+    [314]	={id=1653,	q=4822, 	hm=1658,	tt=1656,	nd=1657},	--Vaults of Madness
+    [325]	={id=1691,	q=5889, 	hm=1696,	tt=1694,	nd=1695},	--Bloodroot Forge
+	[510]	={id=2705,	hm=2706,	tt=2707,	nd=2708},	--Castle Thorn
+    [296]	={id=1523,	q=5702, 	hm=1524,	tt=1525,	nd=1526},	--Cradle of Shadows
+    [436]	={id=2271,	q=6251, 	hm=2272,	tt=2273,	nd=2274},	--Depths of Malatar
+    [369]	={id=1699,	q=5891, 	hm=1704,	tt=1702,	nd=1703},	--Falkreath Hold
+    [421]	={id=1960,	q=6064, 	hm=1965,	tt=1963,	nd=1964},	--Fang Lair
+    [434]	={id=2261,	q=6249, 	hm=2262,	tt=2263,	nd=2264},	--Frostvault
+    [504]	={id=2540,	q=6414, 	hm=2541,	tt=2542,	nd=2543},	--Icereach
+    [268]	={id=880,	q=5136, 	hm=1303,	tt=1128,	nd=1129},	--Imperial City Prison
+    [497]	={id=2426,	q=6351, 	hm=2427,	tt=2428,	nd=2429},	--Lair of Maarselok
+    [429]	={id=2163,	q=6188, 	hm=2164,	tt=2165,	nd=2166},	--March of Sacrifices
+    [427]	={id=2153,	q=6186, 	hm=2154,	tt=2155,	nd=2156},	--Moon Hunter Keep
+    [495]	={id=2416,	q=6349, 	hm=2417,	tt=2418,	nd=2419},	--Moongrave Fane
+    [294]	={id=1505,	q=5403, 	hm=1506,	tt=1507,	nd=1508},	--Ruins of Mazzatun
+    [419]	={id=1976,	q=6065, 	hm=1981,	tt=1979,	nd=1980},	--Scalecaller Peak
+	[508]	={id=2695,	hm=2755,	tt=2697,	nd=2698},	--Stone Garden
+    [506]	={id=2550,	q=6416, 	hm=2551,	tt=2552,	nd=2553},	--Unhallowed Grave
+    [287]	={id=1120,	q=5342, 	hm=1279,	tt=1275,	nd=1276},	--White-Gold Tower
+}
+
 
 local function GetGoalPledges()
     local pledgeQuests, haveQuest = {}, false
@@ -224,14 +225,15 @@ local function UndauntedPledges()
 									end
 								end
 							end
-							local pledge = GAFE.UI.Label("PDP_DungeonInfo_Pledge"..c..i, obj, {100,20}, {LEFT,LEFT,445,0}, "ZoFontGameLarge", nil, {0,1}, text)
+							local pledge = GAFE.UI.Label("PDP_DungeonInfo_Pledge"..c..i, obj, {125,20}, {LEFT,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, text)
 
 							-- Achievement
-							local achivementText=(IsAchievementComplete(DungeonIndex[id].id) and "|t16:16:/esoui/art/cadwell/check.dds|t" or "")
+							local achivementText=(IsAchievementComplete(DungeonIndex[id].id) and "|t20:20:/esoui/art/cadwell/check.dds|t" or "")
+							achivementText=achivementText..((DungeonIndex[id].q and GetCompletedQuestInfo(DungeonIndex[id].q) ~= "" and true or false) and "|t20:20:/esoui/art/icons/achievements_indexicon_quests_up.dds|t" or "")
 							achivementText=achivementText..((DungeonIndex[id].hm and IsAchievementComplete(DungeonIndex[id].hm)) and "|t20:20:/esoui/art/unitframes/target_veteranrank_icon.dds|t" or "")
 							achivementText=achivementText..((DungeonIndex[id].tt and IsAchievementComplete(DungeonIndex[id].tt)) and "|t20:20:/esoui/art/ava/overview_icon_underdog_score.dds|t" or "")
 							achivementText=achivementText..((DungeonIndex[id].nd and IsAchievementComplete(DungeonIndex[id].nd)) and "|t20:20:/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds|t" or "")
-							local achivements = GAFE.UI.Label("PDP_DungeonInfo_Achivements"..c..i, pledge, {80,20}, {RIGHT,RIGHT,0,0}, "ZoFontGameLarge", nil, {0,1}, achivementText)
+							local achivements = GAFE.UI.Label("PDP_DungeonInfo_Achivements"..c..i, pledge, {105,20}, {RIGHT,RIGHT,0,0}, "ZoFontGameLarge", nil, {0,1}, achivementText)
 						end
 					end
 				end

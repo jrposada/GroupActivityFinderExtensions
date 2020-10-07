@@ -28,6 +28,7 @@
         "GuiRoot",
         "zo_callLater",
         "d",
-        "RIGHT"
+        "RIGHT",
+        "GetCompletedQuestInfo"
     ]
 }
