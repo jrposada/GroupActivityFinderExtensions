@@ -9,6 +9,7 @@ local function OnAddOnLoaded(eventCode, addonName)
 	EVENT_MANAGER:UnregisterForEvent(GAFE.name.."_Event", EVENT_ADD_ON_LOADED)
 
     -- Load saved variables
+    GAFE.SavedVars = ZO_SavedVars:NewAccountWide(GAFE.name.."_Vars", GAFE.varsVersion, nil, GAFE.DefaultVars)
 
     -- Initialize stuff
     GAFE.DailyPledges.Init()

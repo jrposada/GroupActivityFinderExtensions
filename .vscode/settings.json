@@ -33,6 +33,18 @@
         "ZO_GetEffectiveDungeonDifficulty",
         "DUNGEON_DIFFICULTY_NORMAL",
         "GAFE_PledgesCheck",
-        "GAFE_QuestsCheck"
+        "GAFE_QuestsCheck",
+        "GroupActivityFinderExtensions",
+        "ZO_SavedVars",
+        "GAFE_AutoConfirmActivity",
+        "EVENT_PLAYER_ACTIVATED",
+        "EVENT_ACTIVITY_FINDER_STATUS_UPDATE",
+        "ACTIVITY_FINDER_STATUS_READY_CHECK",
+        "EVENT_PLAYER_DEACTIVATED",
+        "ZO_SearchingForGroupStatus",
+        "CT_BUTTON",
+        "IsActiveWorldBattleground",
+        "TOP",
+        "AcceptLFGReadyCheckNotification"
     ]
 }

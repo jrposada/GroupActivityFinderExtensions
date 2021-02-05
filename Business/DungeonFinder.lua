@@ -1,4 +1,5 @@
 local GAFE = GroupActivityFinderExtensions
+local EM = EVENT_MANAGER
 
 GAFE.DailyPledges = {}
 
@@ -193,8 +194,9 @@ local function UndauntedPledges()
 		end
 	end
 
-    local function MarkPledges()
-		local isVeteranEnabled=GetUnitEffectiveChampionPoints('player')>=160 and 3 or 2
+	local function MarkPledges()
+		-- Mark pledges
+		local difficultyMode = ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and 3 or 2 -- Normal => 2, Veteran => 3
 		for c=2,3 do
 			local parent=_G["ZO_DungeonFinder_KeyboardListSectionScrollChildContainer"..c]
 			if parent then
@@ -240,7 +242,7 @@ local function UndauntedPledges()
 									end
 								end
 							end
-							local pledge = GAFE.UI.Label("PDP_DungeonInfo_Pledge"..c..i, obj, {125,20}, {LEFT,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, text)
+							local pledge = GAFE.UI.Label("PDP_DungeonInfo_Pledge"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, text)
 
 							-- Achievement
 							local achivementText=(IsAchievementComplete(DungeonIndex[id].id) and "|t20:20:/esoui/art/cadwell/check.dds|t" or "")
@@ -248,7 +250,7 @@ local function UndauntedPledges()
 							achivementText=achivementText..((DungeonIndex[id].hm and IsAchievementComplete(DungeonIndex[id].hm)) and "|t20:20:/esoui/art/unitframes/target_veteranrank_icon.dds|t" or "")
 							achivementText=achivementText..((DungeonIndex[id].tt and IsAchievementComplete(DungeonIndex[id].tt)) and "|t20:20:/esoui/art/ava/overview_icon_underdog_score.dds|t" or "")
 							achivementText=achivementText..((DungeonIndex[id].nd and IsAchievementComplete(DungeonIndex[id].nd)) and "|t20:20:/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds|t" or "")
-							local achivements = GAFE.UI.Label("PDP_DungeonInfo_Achivements"..c..i, pledge, {105,20}, {RIGHT,RIGHT,0,0}, "ZoFontGameLarge", nil, {0,1}, achivementText)
+							local achivements = GAFE.UI.Label("PDP_DungeonInfo_Achivements"..c..i, pledge, {105,20}, {RIGHT,pledge,RIGHT,0,0}, "ZoFontGameLarge", nil, {0,1}, achivementText)
 
 							-- Quest
 							obj.quest = GetCompletedQuestInfo(DungeonIndex[id].q) == "" and true or false
@@ -257,41 +259,28 @@ local function UndauntedPledges()
 					end
 				end
 			end
-			local parent=ZO_DungeonFinder_Keyboard
-			if parent then
-				local w=parent:GetWidth()
-				if isVeteranEnabled==c then
-					local questsButton=GAFE_QuestsCheck or WINDOW_MANAGER:CreateControlFromVirtual("GAFE_QuestsCheck", parent, "ZO_DefaultButton")
-					questsButton:SetWidth(200, 28)
-					questsButton:SetText(GAFE.Loc("CheckMissingQuests"))
-					questsButton:ClearAnchors()
-					questsButton:SetAnchor(BOTTOM,parent,BOTTOM,w/3,0)
-					questsButton:SetClickSound("Click")
-					questsButton:SetHandler("OnClicked", function()CheckQuests()end)
-					questsButton:SetState(haveQuests and BSTATE_NORMAL or BSTATE_DISABLED)
-					questsButton:SetDrawTier(2)
 
-					local pledgesButton=GAFE_PledgesCheck or WINDOW_MANAGER:CreateControlFromVirtual("GAFE_PledgesCheck", parent, "ZO_DefaultButton")
-					pledgesButton:SetWidth(200, 28)
-					pledgesButton:SetText(GAFE.Loc("CheckActivePledges"))
-					pledgesButton:ClearAnchors()
-					pledgesButton:SetAnchor(BOTTOM,parent,BOTTOM,0,0)
-					pledgesButton:SetClickSound("Click")
-					pledgesButton:SetHandler("OnClicked", function()CheckPledges()end)
-					pledgesButton:SetState(havePledge and BSTATE_NORMAL or BSTATE_DISABLED)
-					pledgesButton:SetDrawTier(2)
-				end
-				if ZO_DungeonFinder_KeyboardQueueButton then
-					ZO_DungeonFinder_KeyboardQueueButton:ClearAnchors()
-					ZO_DungeonFinder_KeyboardQueueButton:SetAnchor(BOTTOM,parent,BOTTOM,-w/3,0)
-					ZO_DungeonFinder_KeyboardQueueButton:SetDrawTier(2)
-				end
-				-- TODO: Collapse corresponding panel depending on dungeon mode
-				-- local header=_G["ZO_DungeonFinder_KeyboardListSectionScrollChildZO_ActivityFinderTemplateNavigationHeader_Keyboard"..c-1]
-				-- if header then
-				-- 	local state=header.text:GetColor()
-				-- 	if (isVeteranEnabled==c)~=(state==1) then header:OnMouseUp(true) end
-				-- end
+			-- Collapse corresponding panel depending on dungeon mode
+			local header=_G["ZO_DungeonFinder_KeyboardListSectionScrollChildZO_ActivityFinderTemplateNavigationHeader_Keyboard"..c-1]
+			if header then
+				local state=header.text:GetColor()
+				if ((difficultyMode==c)==(state==1)) then header:OnMouseUp(true) end
+			end
+		end
+
+		-- Add check pledges buttons
+		local parent=ZO_DungeonFinder_Keyboard
+		if parent then
+			local w=parent:GetWidth()
+			local dims = {200,28}
+
+			local questsButton=GAFE_QuestsCheck or GAFE.UI.Button("GAFE_QuestsCheck", parent, dims, {BOTTOM,parent,BOTTOM,w/3,0}, GAFE.Loc("CheckMissingQuests"), CheckQuests, haveQuests)
+			local pledgesButton=GAFE_PledgesCheck or GAFE.UI.Button("GAFE_PledgesCheck", parent, dims, {BOTTOM,parent,BOTTOM,0,0}, GAFE.Loc("CheckActivePledges"), CheckPledges, havePledge)
+
+			if ZO_DungeonFinder_KeyboardQueueButton then
+				ZO_DungeonFinder_KeyboardQueueButton:ClearAnchors()
+				ZO_DungeonFinder_KeyboardQueueButton:SetAnchor(BOTTOM,parent,BOTTOM,-w/3,0)
+				ZO_DungeonFinder_KeyboardQueueButton:SetDrawTier(2)
 			end
 		end
 	end
@@ -300,6 +289,47 @@ local function UndauntedPledges()
 	ZO_PreHookHandler(ZO_DungeonFinder_KeyboardListSection, 'OnEffectivelyHidden', function() pledgeQuests={} end)
 end
 
+local function AutoConfirm()
+	local autoConfirm
+
+	local function RefreshAutoConfirmEvents()
+		local saveData = GAFE.SavedVars
+		local eventName=GAFE.name.."_ActivityFinderStatusUpdate"
+		if saveData.autoConfirm then
+			EM:RegisterForEvent(eventName, EVENT_PLAYER_ACTIVATED, function()
+				EM:RegisterForEvent(eventName, EVENT_ACTIVITY_FINDER_STATUS_UPDATE, function(_,status)
+					if status==ACTIVITY_FINDER_STATUS_READY_CHECK and not IsActiveWorldBattleground() then
+						GAFE.CallLater("ReadyCheck", 1000, AcceptLFGReadyCheckNotification)
+					end
+				end)
+			end)
+			EVENT_MANAGER:RegisterForEvent(eventName, EVENT_PLAYER_DEACTIVATED, function()
+				EVENT_MANAGER:UnregisterForEvent(eventName, EVENT_ACTIVITY_FINDER_STATUS_UPDATE)
+			end)
+		else
+			EVENT_MANAGER:UnregisterForEvent(eventName, EVENT_ACTIVITY_FINDER_STATUS_UPDATE)
+			EVENT_MANAGER:UnregisterForEvent(eventName, EVENT_PLAYER_ACTIVATED)
+			EVENT_MANAGER:UnregisterForEvent(eventName, EVENT_PLAYER_DEACTIVATED)
+		end
+	end
+
+	local function ToggleAutoConfirm()
+		local saveData = GAFE.SavedVars
+		saveData.autoConfirm = not saveData.autoConfirm
+		autoConfirm.GAFE_SetChecked(saveData.autoConfirm)
+		RefreshAutoConfirmEvents()
+	end
+
+	-- Auto confirm checkbox
+	local parent=ZO_SearchingForGroupStatus
+	if parent then
+		local saveData = GAFE.SavedVars
+		autoConfirm=GAFE_AutoConfirmActivity or GAFE.UI.Checkbox("GAFE_AutoConfirmActivity", parent, {200,28}, {BOTTOM,parent,TOP,0,-5}, GAFE.Loc("AutoConfirm"), ToggleAutoConfirm, true, saveData.autoConfirm)
+	end
+	RefreshAutoConfirmEvents()
+end
+
 function GAFE.DailyPledges.Init()
-    UndauntedPledges()
+	UndauntedPledges()
+	AutoConfirm()
 end
