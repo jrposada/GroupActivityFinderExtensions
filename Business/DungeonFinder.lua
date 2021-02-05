@@ -56,50 +56,51 @@ local DailyPledgesList = {
 	},
 }
 
+-- https://esoitem.uesp.net/viewlog.php
 local DungeonIndex={
     --Normal
-    [2]		={id=294, 	q=3993 },	--Fungal Grotto I
-    [18]	={id=1562,	q=4303 },	--Fungal Grotto II
-    [3]		={id=301, 	q=4054 },	--Spindleclutch I
-    [316]	={id=1571, 	q=4555 },	--Spindleclutch II
-    [4]		={id=325, 	q=4107 },	--Banished Cells I
-    [300]	={id=1555, 	q=4597 },	--Banished Cells II
-    [5]		={id=78, 	q=4145 },	--Darkshade Caverns I
-    [308]	={id=1587, 	q=4641 },	--Darkshade Caverns II
-    [7]		={id=11, 	q=4336 },	--Elden Hollow I
-    [303]	={id=1579, 	q=4675 },	--Elden Hollow II
-    [6]		={id=79, 	q=4246 },	--Wayrest Sewers I
-    [22]	={id=1595, 	q=4813 },	--Wayrest Sewers II
-    [8]		={id=272, 	q=4202 },	--Arx Corinium
-    [10]	={id=551, 	q=4778 },	--City of Ash I
-    [322]	={id=1603, 	q=5120 },	--City of Ash II
-    [9]		={id=80, 	q=4379 },	--Crypt of Hearts I
-    [317]	={id=1616, 	q=5113 },	--Crypt of Hearts II
-    [11]	={id=357, 	q=4346 },	--Direfrost Keep
-    [13]	={id=81, 	q=4538 },	--Tempest Island
-    [12]	={id=391, 	q=4432 },	--Volenfell
-    [15]	={id=410, 	q=4589 },	--Blackheart Haven
-    [14]	={id=393, 	q=4469 },	--Blessed Crucible
-    [16]	={id=417, 	q=4733 },	--Selene's Web
-    [17]	={id=570, 	q=4822 },	--Vaults of Madness
-    [324]	={id=1690, 	q=5889 },	--Bloodroot Forge
-    [509]   ={id=2704},	--Castle Thorn
-    [295]	={id=1522, 	q=5702 },	--Cradle of Shadows
-    [435]	={id=2270, 	q=6251 },	--Depths of Malatar
-    [368]	={id=1698, 	q=5891 },	--Falkreath Hold
-    [420]	={id=1959, 	q=6064 },	--Fang Lair
-    [433]	={id=2260, 	q=6249 },	--Frostvault
-    [503]	={id=2539, 	q=6414 },	--Icereach
-    [289]	={id=1345, 	q=5136 },	--Imperial City Prison
-    [496]	={id=2425, 	q=6351 },	--Lair of Maarselok
-    [428]	={id=2162, 	q=6188 },	--March of Sacrifices
-    [426]	={id=2152, 	q=6186 },	--Moon Hunter Keep
-    [494]	={id=2415, 	q=6349 },	--Moongrave Fane
-    [293]	={id=1504, 	q=5403 },	--Ruins of Mazzatun
-    [418]	={id=1975, 	q=6065 },	--Scalecaller Peak
-    [507]	={id=2694},	--Stone Garden
-    [505]	={id=2549,	q=6416 },	--Unhallowed Grave
-    [288] 	={id=1346,	q=5342 },	--White-Gold Tower
+    [2]		={id=294, 	q=3993},	--Fungal Grotto I
+    [18]	={id=1562,	q=4303},	--Fungal Grotto II
+    [3]		={id=301, 	q=4054},	--Spindleclutch I
+    [316]	={id=1571, 	q=4555},	--Spindleclutch II
+    [4]		={id=325, 	q=4107},	--Banished Cells I
+    [300]	={id=1555, 	q=4597},	--Banished Cells II
+    [5]		={id=78, 	q=4145},	--Darkshade Caverns I
+    [308]	={id=1587, 	q=4641},	--Darkshade Caverns II
+    [7]		={id=11, 	q=4336},	--Elden Hollow I
+    [303]	={id=1579, 	q=4675},	--Elden Hollow II
+    [6]		={id=79, 	q=4246},	--Wayrest Sewers I
+    [22]	={id=1595, 	q=4813},	--Wayrest Sewers II
+    [8]		={id=272, 	q=4202},	--Arx Corinium
+    [10]	={id=551, 	q=4778},	--City of Ash I
+    [322]	={id=1603, 	q=5120},	--City of Ash II
+    [9]		={id=80, 	q=4379},	--Crypt of Hearts I
+    [317]	={id=1616, 	q=5113},	--Crypt of Hearts II
+    [11]	={id=357, 	q=4346},	--Direfrost Keep
+    [13]	={id=81, 	q=4538},	--Tempest Island
+    [12]	={id=391, 	q=4432},	--Volenfell
+    [15]	={id=410, 	q=4589},	--Blackheart Haven
+    [14]	={id=393, 	q=4469},	--Blessed Crucible
+    [16]	={id=417, 	q=4733},	--Selene's Web
+    [17]	={id=570, 	q=4822},	--Vaults of Madness
+    [324]	={id=1690, 	q=5889},	--Bloodroot Forge
+    [509]   ={id=2704,  q=6507},	--Castle Thorn
+    [295]	={id=1522, 	q=5702},	--Cradle of Shadows
+    [435]	={id=2270, 	q=6251},	--Depths of Malatar
+    [368]	={id=1698, 	q=5891},	--Falkreath Hold
+    [420]	={id=1959, 	q=6064},	--Fang Lair
+    [433]	={id=2260, 	q=6249},	--Frostvault
+    [503]	={id=2539, 	q=6414},	--Icereach
+    [289]	={id=1345, 	q=5136},	--Imperial City Prison
+    [496]	={id=2425, 	q=6351},	--Lair of Maarselok
+    [428]	={id=2162, 	q=6188},	--March of Sacrifices
+    [426]	={id=2152, 	q=6186},	--Moon Hunter Keep
+    [494]	={id=2415, 	q=6349},	--Moongrave Fane
+    [293]	={id=1504, 	q=5403},	--Ruins of Mazzatun
+    [418]	={id=1975, 	q=6065},	--Scalecaller Peak
+    [507]	={id=2694,  q=6505},	--Stone Garden
+    [505]	={id=2549,	q=6416},	--Unhallowed Grave
+    [288] 	={id=1346,	q=5342},	--White-Gold Tower
     --Veteran
     [299]	={id=1556,	q=3993, 	hm=1561,	tt=1559,	nd=1560},	--Fungal Grotto I
     [312]	={id=343,	q=4303, 	hm=342,		tt=340,		nd=1563},	--Fungal Grotto II
@@ -126,7 +127,7 @@ local DungeonIndex={
     [313]	={id=1635,	q=4733, 	hm=1640,	tt=1638,	nd=1639},	--Selene's Web
     [314]	={id=1653,	q=4822, 	hm=1658,	tt=1656,	nd=1657},	--Vaults of Madness
     [325]	={id=1691,	q=5889, 	hm=1696,	tt=1694,	nd=1695},	--Bloodroot Forge
-	[510]	={id=2705,	hm=2706,	tt=2707,	nd=2708},	--Castle Thorn
+	[510]	={id=2705,	q=6507,     hm=2706,	tt=2707,	nd=2708},	--Castle Thorn
     [296]	={id=1523,	q=5702, 	hm=1524,	tt=1525,	nd=1526},	--Cradle of Shadows
     [436]	={id=2271,	q=6251, 	hm=2272,	tt=2273,	nd=2274},	--Depths of Malatar
     [369]	={id=1699,	q=5891, 	hm=1704,	tt=1702,	nd=1703},	--Falkreath Hold
@@ -140,7 +141,7 @@ local DungeonIndex={
     [495]	={id=2416,	q=6349, 	hm=2417,	tt=2418,	nd=2419},	--Moongrave Fane
     [294]	={id=1505,	q=5403, 	hm=1506,	tt=1507,	nd=1508},	--Ruins of Mazzatun
     [419]	={id=1976,	q=6065, 	hm=1981,	tt=1979,	nd=1980},	--Scalecaller Peak
-	[508]	={id=2695,	hm=2755,	tt=2697,	nd=2698},	--Stone Garden
+	[508]	={id=2695,	q=6505,     hm=2755,	tt=2697,	nd=2698},	--Stone Garden
     [506]	={id=2550,	q=6416, 	hm=2551,	tt=2552,	nd=2553},	--Unhallowed Grave
     [287]	={id=1120,	q=5342, 	hm=1279,	tt=1275,	nd=1276},	--White-Gold Tower
 }
@@ -243,17 +244,48 @@ local function DungeonFinder()
 							end
 							local pledge = GAFE.UI.Label("PDP_DungeonInfo_Pledge"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, text)
 
-							-- Achievement
-							local achivementText=(IsAchievementComplete(DungeonIndex[id].id) and "|t20:20:/esoui/art/cadwell/check.dds|t" or "")
-							achivementText=achivementText..((DungeonIndex[id].q and GetCompletedQuestInfo(DungeonIndex[id].q) ~= "" and true or false) and "|t20:20:/esoui/art/icons/achievements_indexicon_quests_up.dds|t" or "")
-							achivementText=achivementText..((DungeonIndex[id].hm and IsAchievementComplete(DungeonIndex[id].hm)) and "|t20:20:/esoui/art/unitframes/target_veteranrank_icon.dds|t" or "")
-							achivementText=achivementText..((DungeonIndex[id].tt and IsAchievementComplete(DungeonIndex[id].tt)) and "|t20:20:/esoui/art/ava/overview_icon_underdog_score.dds|t" or "")
-							achivementText=achivementText..((DungeonIndex[id].nd and IsAchievementComplete(DungeonIndex[id].nd)) and "|t20:20:/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds|t" or "")
+							-- Quest (skill point)
+							local achivementText=""
+							if DungeonIndex[id].q then
+								achivementText=achivementText..((GetCompletedQuestInfo(DungeonIndex[id].q) ~= "" and true or false) and "|t20:20:/esoui/art/icons/achievements_indexicon_quests_up.dds|t" or "")
+							elseif c~=2 then
+								achivementText=achivementText.."q"
+							end
+
+							-- General Vanquisher (normal) / Conqueror (veteran)
+							if DungeonIndex[id].id then
+								achivementText=achivementText..(IsAchievementComplete(DungeonIndex[id].id) and "|t20:20:/esoui/art/cadwell/check.dds|t" or "")
+							elseif c~=2 then
+								achivementText=achivementText.."i"
+							end
+							
+							-- Death challenge (hard mode)
+							if DungeonIndex[id].hm then
+								achivementText=achivementText..(IsAchievementComplete(DungeonIndex[id].hm) and "|t20:20:/esoui/art/unitframes/target_veteranrank_icon.dds|t" or "")
+							elseif c~=2 then
+								achivementText=achivementText.."h"
+							end
+
+							-- Speed challenge
+							if DungeonIndex[id].tt then
+								achivementText=achivementText..(IsAchievementComplete(DungeonIndex[id].tt) and "|t20:20:/esoui/art/ava/overview_icon_underdog_score.dds|t" or "")
+							elseif c~=2 then
+								achivementText=achivementText.."t"
+							end
+
+							-- Survivor challenge (no death)
+							if DungeonIndex[id].nd then
+								achivementText=achivementText..(IsAchievementComplete(DungeonIndex[id].nd) and "|t20:20:/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds|t" or "")
+							elseif c~=2 then
+								achivementText=achivementText.."n"
+							end
 							local achivements = GAFE.UI.Label("PDP_DungeonInfo_Achivements"..c..i, pledge, {105,20}, {RIGHT,pledge,RIGHT,0,0}, "ZoFontGameLarge", nil, {0,1}, achivementText)
 
 							-- Quest
 							obj.quest = GetCompletedQuestInfo(DungeonIndex[id].q) == "" and true or false
 							haveQuests = haveQuests or obj.quest
+						else
+							local todo = GAFE.UI.Label("PDP_DungeonInfo_Pledge"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, "TODO:"..id)
 						end
 					end
 				end

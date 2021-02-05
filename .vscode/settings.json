@@ -45,6 +45,7 @@
         "CT_BUTTON",
         "IsActiveWorldBattleground",
         "TOP",
-        "AcceptLFGReadyCheckNotification"
+        "AcceptLFGReadyCheckNotification",
+        "ZO_PreHook"
     ]
 }
