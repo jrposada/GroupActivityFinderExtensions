@@ -12,7 +12,8 @@ local function OnAddOnLoaded(eventCode, addonName)
     GAFE.SavedVars = ZO_SavedVars:NewAccountWide(GAFE.name.."_Vars", GAFE.varsVersion, nil, GAFE.DefaultVars)
 
     -- Initialize stuff
-    GAFE.DailyPledges.Init()
+    GAFE.DungeonFinder.Init()
+    GAFE.AutoConfirm.Init()
 end
 
 -- Finally, we'll register our event handler function to be called when the proper event occurs.
