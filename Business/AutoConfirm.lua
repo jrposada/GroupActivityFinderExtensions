@@ -38,7 +38,7 @@ local function AutoConfirm()
 	local parent=ZO_SearchingForGroupStatus
 	if parent then
 		local saveData = GAFE.SavedVars
-		autoConfirm=GAFE_AutoConfirmActivity or GAFE.UI.Checkbox("GAFE_AutoConfirmActivity", parent, {200,28}, {BOTTOM,parent,TOP,0,-5}, GAFE.Loc("AutoConfirm"), ToggleAutoConfirm, true, saveData.autoConfirm)
+		autoConfirm=GAFE_AutoConfirmActivity or GAFE.UI.Checkbox("GAFE_AutoConfirmActivity", parent, {200,28}, {BOTTOM,parent,TOP,0,0}, GAFE.Loc("AutoConfirm"), ToggleAutoConfirm, true, saveData.autoConfirm)
 	end
 	RefreshAutoConfirmEvents()
 end

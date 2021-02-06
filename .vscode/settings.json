@@ -46,6 +46,7 @@
         "IsActiveWorldBattleground",
         "TOP",
         "AcceptLFGReadyCheckNotification",
-        "ZO_PreHook"
+        "ZO_PreHook",
+        "GetDisplayName"
     ]
 }

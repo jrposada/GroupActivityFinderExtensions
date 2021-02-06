@@ -245,38 +245,39 @@ local function DungeonFinder()
 							local pledge = GAFE.UI.Label("PDP_DungeonInfo_Pledge"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, text)
 
 							-- Quest (skill point)
+							local debug = GetDisplayName() == "@Panicida"
 							local achivementText=""
 							if DungeonIndex[id].q then
 								achivementText=achivementText..((GetCompletedQuestInfo(DungeonIndex[id].q) ~= "" and true or false) and "|t20:20:/esoui/art/icons/achievements_indexicon_quests_up.dds|t" or "")
-							elseif c~=2 then
+							elseif c~=2 and debug then
 								achivementText=achivementText.."q"
 							end
 
 							-- General Vanquisher (normal) / Conqueror (veteran)
 							if DungeonIndex[id].id then
-								achivementText=achivementText..(IsAchievementComplete(DungeonIndex[id].id) and "|t20:20:/esoui/art/cadwell/check.dds|t" or "")
-							elseif c~=2 then
+								achivementText=achivementText..(IsAchievementComplete(DungeonIndex[id].id) and "|t20:20:/esoui/art/announcewindow/announcement_icon_up.dds|t" or "")
+							elseif c~=2 and debug then
 								achivementText=achivementText.."i"
 							end
 							
 							-- Death challenge (hard mode)
 							if DungeonIndex[id].hm then
 								achivementText=achivementText..(IsAchievementComplete(DungeonIndex[id].hm) and "|t20:20:/esoui/art/unitframes/target_veteranrank_icon.dds|t" or "")
-							elseif c~=2 then
+							elseif c~=2 and debug then
 								achivementText=achivementText.."h"
 							end
 
 							-- Speed challenge
 							if DungeonIndex[id].tt then
 								achivementText=achivementText..(IsAchievementComplete(DungeonIndex[id].tt) and "|t20:20:/esoui/art/ava/overview_icon_underdog_score.dds|t" or "")
-							elseif c~=2 then
+							elseif c~=2 and debug then
 								achivementText=achivementText.."t"
 							end
 
 							-- Survivor challenge (no death)
 							if DungeonIndex[id].nd then
 								achivementText=achivementText..(IsAchievementComplete(DungeonIndex[id].nd) and "|t20:20:/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds|t" or "")
-							elseif c~=2 then
+							elseif c~=2 and debug then
 								achivementText=achivementText.."n"
 							end
 							local achivements = GAFE.UI.Label("PDP_DungeonInfo_Achivements"..c..i, pledge, {105,20}, {RIGHT,pledge,RIGHT,0,0}, "ZoFontGameLarge", nil, {0,1}, achivementText)
