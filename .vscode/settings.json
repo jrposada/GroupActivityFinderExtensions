@@ -47,6 +47,8 @@
         "TOP",
         "AcceptLFGReadyCheckNotification",
         "ZO_PreHook",
-        "GetDisplayName"
+        "GetDisplayName",
+        "ZO_Tooltips_ShowTextTooltip",
+        "ZO_Tooltips_HideTextTooltip"
     ]
 }

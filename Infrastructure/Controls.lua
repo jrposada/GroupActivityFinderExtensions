@@ -3,7 +3,7 @@ local WM = WINDOW_MANAGER
 
 GAFE.UI = {}
 
-function GAFE.UI.Label(name, parent, dims, anchor, font, color, align, text, hidden)
+function GAFE.UI.Label(name, parent, dims, anchor, font, color, align, text, hidden, tooltip)
 	--Validate arguments
 --	if (name==nil or name=="") then return end
 	parent=(parent==nil) and GuiRoot or parent
@@ -26,10 +26,17 @@ function GAFE.UI.Label(name, parent, dims, anchor, font, color, align, text, hid
 	label:SetText(text)
 	label:SetHidden(hidden)
 
+	if tooltip ~=nil then
+		label:SetHandler("OnMouseEnter", function(ctrl) ZO_Tooltips_ShowTextTooltip(ctrl, TOP, tooltip) end)
+		label:SetHandler("OnMouseExit", function(ctrl) ZO_Tooltips_HideTextTooltip() end)
+	end
+
+	label:SetDrawTier(2)
+
 	return label
 end
 
-function GAFE.UI.Button(name, parent, dims, anchor, text, func, enabled)
+function GAFE.UI.Button(name, parent, dims, anchor, text, func, enabled, tooltip)
 	--Create button
 	local button=_G[name] or WM:CreateControlFromVirtual(name, parent, "ZO_DefaultButton")
 
@@ -41,6 +48,11 @@ function GAFE.UI.Button(name, parent, dims, anchor, text, func, enabled)
 	button:SetHandler("OnClicked", function()func()end)
 	button:SetState(enabled and BSTATE_NORMAL or BSTATE_DISABLED)
 	button:SetDrawTier(2)
+
+	if tooltip ~=nil then
+		button:SetHandler("OnMouseEnter", function(ctrl) ZO_Tooltips_ShowTextTooltip(ctrl, TOP, tooltip) end)
+		button:SetHandler("OnMouseExit", function(ctrl) ZO_Tooltips_HideTextTooltip() end)
+	end
 
 	return button
 end
