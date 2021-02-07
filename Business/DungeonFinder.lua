@@ -219,7 +219,7 @@ local function DungeonFinder()
 							for npc=1,3 do
 								local dpList=DailyPledgesList[npc]
 								local n=1+(day+dpList.shift)%#dpList
-								local dpName=dpList[n].en
+								local dpName=dpList[n].en -- TODO localization?
 								if dpName then
 									dpName=dpName:lower()
                                     number=string.match(dpName,"%sii$")
