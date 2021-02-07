@@ -4,60 +4,60 @@ GAFE.DungeonFinder = {}
 
 local DailyPledgesList = {
 	[1]={	--Maj
-		{en="Elden Hollow II",		ru="Элденская расщелина II",	de="Eldengrund II",	fr="Creuset des aînés II"},
-		{en="Wayrest Sewers I",		ru="Канализация Вэйреста I",	de="Kanalisation I",	fr="Égouts d'Haltevoie I"},
-		{en="Spindleclutch II",		ru="Логово Мертвой Хватки II",	de="Spindeltiefen II",	fr="Tressefuseau II"},
-		{en="Banished Cells I",		ru="Темницы изгнанников I",	de="Verbannungszellen I",	fr="Cachot interdit I"},
-		{en="Fungal Grotto II",		ru="Грибной грот II",		de="Pilzgrotte II",	fr="Champignonnière II"},
-		{en="Spindleclutch I",		ru="Логово Мертвой Хватки I",	de="Spindeltiefen I",	fr="Tressefuseau I"},
-		{en="Darkshade Caverns II",	ru="Пещеры Глубокой Тени II",	de="Kavernen II",		fr="Cavernes d'Ombre-noire II"},
-		{en="Elden Hollow I",		ru="Элденская расщелина I",	de="Eldengrund I",	fr="Creuset des aînés I"},
-		{en="Wayrest Sewers II",	ru="Канализация Вэйреста II",	de="Kanalisation II",	fr="Égouts d'Haltevoie II"},
-		{en="Fungal Grotto I",		ru="Грибной грот I",		de="Pilzgrotte I",	fr="Champignonnière I"},
+		{en="Elden Hollow II",		ru="Элденская расщелина II",	de="Eldengrund II",			fr="Creuset des aînés II"},
+		{en="Wayrest Sewers I",		ru="Канализация Вэйреста I",	de="Kanalisation I",		fr="Égouts d'Haltevoie I"},
+		{en="Spindleclutch II",		ru="Логово Мертвой Хватки II",	de="Spindeltiefen II",		fr="Tressefuseau II"},
+		{en="Banished Cells I",		ru="Темницы изгнанников I",		de="Verbannungszellen I",	fr="Cachot interdit I"},
+		{en="Fungal Grotto II",		ru="Грибной грот II",			de="Pilzgrotte II",			fr="Champignonnière II"},
+		{en="Spindleclutch I",		ru="Логово Мертвой Хватки I",	de="Spindeltiefen I",		fr="Tressefuseau I"},
+		{en="Darkshade Caverns II",	ru="Пещеры Глубокой Тени II",	de="Kavernen II",			fr="Cavernes d'Ombre-noire II"},
+		{en="Elden Hollow I",		ru="Элденская расщелина I",		de="Eldengrund I",			fr="Creuset des aînés I"},
+		{en="Wayrest Sewers II",	ru="Канализация Вэйреста II",	de="Kanalisation II",		fr="Égouts d'Haltevoie II"},
+		{en="Fungal Grotto I",		ru="Грибной грот I",			de="Pilzgrotte I",			fr="Champignonnière I"},
 		{en="Banished Cells II",	ru="Темницы изгнанников II",	de="Verbannungszellen II",	fr="Cachot interdit II"},
-		{en="Darkshade Caverns I",	ru="Пещеры Глубокой Тени I",	de="Kavernen I",		fr="Cavernes d'Ombre-noire I"},
+		{en="Darkshade Caverns I",	ru="Пещеры Глубокой Тени I",	de="Kavernen I",			fr="Cavernes d'Ombre-noire I"},
 		shift=0
 	},
 	[2]={	--Glirion
 		{en="Volenfell",			ru="Воленфелл"},
-		{en="Blessed Crucible I",	ru="Священное Горнило",		de="Gesegnete Feuerprobe",	fr="Creuset béni"},
-		{en="Direfrost Keep I",		ru="Крепость Лютых Морозов",	de="Burg Grauenfrost",		fr="Donjon d'Affregivre"},
-		{en="Vaults of Madness",	ru="Своды Безумия",		de="Kammern des Wahnsinns",	fr="Chambres de la folie"},
-		{en="Crypt of Hearts II",	ru="Крипта Сердец II",		de="Krypta der Herzen II",	fr="Crypte des cœurs II"},
-		{en="City of Ash I",		ru="Город Пепла I",		de="Stadt der Asche I",		fr="Cité des cendres I"},
-		{en="Tempest Island",		ru="Остров Бурь",			de="Orkaninsel",			fr="Île des Tempêtes"},
-		{en="Blackheart Haven",		ru="Гавань Черного Сердца",	de="Schwarzherz-Unterschlupf",fr="Havre de Cœurnoir"},
-		{en="Arx Corinium",		ru="Аркс-Кориниум"},
-		{en="Selene's Web",		ru="Паутина Селены",		de="Selenes Netz"},
-		{en="City of Ash II",		ru="Город Пепла II",		de="Stadt der Asche II",	fr="Cité des cendres II"},
-		{en="Crypt of Hearts I",	ru="Крипта Сердец I",		de="Krypta der Herzen I",	fr="Crypte des cœurs I"},
+		{en="Blessed Crucible I",	ru="Священное Горнило",			de="Gesegnete Feuerprobe",		fr="Creuset béni"},
+		{en="Direfrost Keep I",		ru="Крепость Лютых Морозов",	de="Burg Grauenfrost",			fr="Donjon d'Affregivre"},
+		{en="Vaults of Madness",	ru="Своды Безумия",				de="Kammern des Wahnsinns",		fr="Chambres de la folie"},
+		{en="Crypt of Hearts II",	ru="Крипта Сердец II",			de="Krypta der Herzen II",		fr="Crypte des cœurs II"},
+		{en="City of Ash I",		ru="Город Пепла I",				de="Stadt der Asche I",			fr="Cité des cendres I"},
+		{en="Tempest Island",		ru="Остров Бурь",				de="Orkaninsel",				fr="Île des Tempêtes"},
+		{en="Blackheart Haven",		ru="Гавань Черного Сердца",		de="Schwarzherz-Unterschlupf",	fr="Havre de Cœurnoir"},
+		{en="Arx Corinium",			ru="Аркс-Кориниум"},
+		{en="Selene's Web",			ru="Паутина Селены",			de="Selenes Netz"},
+		{en="City of Ash II",		ru="Город Пепла II",			de="Stadt der Asche II",		fr="Cité des cendres II"},
+		{en="Crypt of Hearts I",	ru="Крипта Сердец I",			de="Krypta der Herzen I",		fr="Crypte des cœurs I"},
 		shift=0
 	},
 	[3]={	--Urgarlag
-		{en="Lair of Maarselok",	ru="Логово Марселока",		de="Der Hort von Maarselok",	fr="Repaire de Maarselok"},
-		{en="Icereach",			ru="Ледяной Предел",		de="Eiskap",			fr="Crève-Nève"},
-		{en="Unhallowed Grave",		ru="Нечестивая Могила",		de="Unheiliges Grab",		fr="Sépulcre profane"},
-		{en="Stone Garden",		ru="Каменный Сад",		de="Steingarten",			fr="Jardin de pierre"},
-		{en="Castle Thorn",		ru="Замок Шипов",			de="Kastell Dorn",		fr="Bastion-les-Ronce"},
-		{en="Imperial City Prison",	ru="Тюрьма Имперского города",de="Gefängnis der Kaiserstadt",	fr="Tour d'Or Blanc"},
-		{en="Ruins of Mazzatun",	ru="Руины Маззатуна",		de="Ruinen von Mazzatun",	fr="Ruines de Mazzatun"},
-		{en="White-Gold Tower",		ru="Башня Белого Золота",	de="Weißgoldturm",		fr="Tour d'Or Blanc"},
-		{en="Cradle of Shadows",	ru="Колыбель Теней",		de="Wiege der Schatten",	fr="Berceau des ombres"},
-		{en="Bloodroot Forge",		ru="Кузница Кровавого корня",	de="Blutquellschmiede",		fr="Forge de Sangracine"},
-		{en="Falkreath Hold",		ru="Владение Фолкрит",		de="Falkenring",			fr="Forteresse d'Épervine"},
-		{en="Fang Lair",			ru="Логово Клыка",		de="Krallenhort",			fr="Repaire du croc"},
-		{en="Scalecaller Peak",		ru="Пик Воспевательницы Дракона",de="Gipfel der Schuppenruferin",	fr="Pic de la Mandécailles"},
-		{en="Moon Hunter Keep",		ru="Крепость Лунного Охотника",de="Mondjägerfeste",		fr="Fort du Chasseur lunaire"},
-		{en="March of Sacrifices",	ru="Путь Жертвоприношений",	de="Marsch der Aufopferung",	fr="Procession des Sacrifiés"},
-		{en="Depths of Malatar",	ru="Глубины Малатара",		de="Tiefen von Malatar",	fr="Profondeurs de Malatar"},
-		{en="Frostvault",			ru="Морозное хранилище",	de="Frostgewölbe",		fr="Arquegivre"},
-		{en="Moongrave Fane",		ru="Храм Погребенных Лун",	de="Mondgrab-Tempelstadt",	fr="le reliquaire des Lunes funèbres"},
+		{en="Lair of Maarselok",	ru="Логово Марселока",				de="Der Hort von Maarselok",		fr="Repaire de Maarselok"},
+		{en="Icereach",				ru="Ледяной Предел",				de="Eiskap",						fr="Crève-Nève"},
+		{en="Unhallowed Grave",		ru="Нечестивая Могила",				de="Unheiliges Grab",				fr="Sépulcre profane"},
+		{en="Stone Garden",			ru="Каменный Сад",					de="Steingarten",					fr="Jardin de pierre"},
+		{en="Castle Thorn",			ru="Замок Шипов",					de="Kastell Dorn",					fr="Bastion-les-Ronce"},
+		{en="Imperial City Prison",	ru="Тюрьма Имперского города",		de="Gefängnis der Kaiserstadt",		fr="Tour d'Or Blanc"},
+		{en="Ruins of Mazzatun",	ru="Руины Маззатуна",				de="Ruinen von Mazzatun",			fr="Ruines de Mazzatun"},
+		{en="White-Gold Tower",		ru="Башня Белого Золота",			de="Weißgoldturm",					fr="Tour d'Or Blanc"},
+		{en="Cradle of Shadows",	ru="Колыбель Теней",				de="Wiege der Schatten",			fr="Berceau des ombres"},
+		{en="Bloodroot Forge",		ru="Кузница Кровавого корня",		de="Blutquellschmiede",				fr="Forge de Sangracine"},
+		{en="Falkreath Hold",		ru="Владение Фолкрит",				de="Falkenring",					fr="Forteresse d'Épervine"},
+		{en="Fang Lair",			ru="Логово Клыка",					de="Krallenhort",					fr="Repaire du croc"},
+		{en="Scalecaller Peak",		ru="Пик Воспевательницы Дракона",	de="Gipfel der Schuppenruferin",	fr="Pic de la Mandécailles"},
+		{en="Moon Hunter Keep",		ru="Крепость Лунного Охотника",		de="Mondjägerfeste",				fr="Fort du Chasseur lunaire"},
+		{en="March of Sacrifices",	ru="Путь Жертвоприношений",			de="Marsch der Aufopferung",		fr="Procession des Sacrifiés"},
+		{en="Depths of Malatar",	ru="Глубины Малатара",				de="Tiefen von Malatar",			fr="Profondeurs de Malatar"},
+		{en="Frostvault",			ru="Морозное хранилище",			de="Frostgewölbe",					fr="Arquegivre"},
+		{en="Moongrave Fane",		ru="Храм Погребенных Лун",			de="Mondgrab-Tempelstadt",			fr="le reliquaire des Lunes funèbres"},
 		shift=0
 	},
 }
 
 -- https://esoitem.uesp.net/viewlog.php
-local DungeonIndex={
+local DungeonData={
     --Normal
     [2]		={id=294, 	q=3993},	--Fungal Grotto I
     [18]	={id=1562,	q=4303},	--Fungal Grotto II
@@ -157,7 +157,7 @@ local function GetGoalPledges()
             text=string.match(text,"[^%s]+")..(number or "")
             pledgeQuests[text]=stepType~=QUEST_STEP_TYPE_AND
             if stepType==QUEST_STEP_TYPE_AND then havePledge=true end
-        end
+		end
     end
     return pledgeQuests, havePledge
 end
@@ -195,8 +195,17 @@ local function DungeonFinder()
 	end
 
 	local function MarkPledges()
-		-- Mark pledges
+		-- Get player difficulty mode
 		local difficultyMode = ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and 3 or 2 -- Normal => 2, Veteran => 3
+
+		-- Get today pledges
+		local todayPledges = {}
+		for npc=1,3 do
+			local dpList=DailyPledgesList[npc]
+			local n=1+(day+dpList.shift)%#dpList
+			todayPledges[npc] = dpList[n]
+		end
+
 		for c=2,3 do
 			local parent=_G["ZO_DungeonFinder_KeyboardListSectionScrollChildContainer"..c]
 			if parent then
@@ -204,7 +213,7 @@ local function DungeonFinder()
 					local obj=parent:GetChild(i)
 					if obj then
 						local id=obj.node.data.id
-						if DungeonIndex[id] then
+						if DungeonData[id] then
 							local text=""
 							-- Get quest name from current control
 							local controlQuestName=obj.text:GetText():lower():gsub("the ",""):gsub(" "," ")
@@ -215,11 +224,9 @@ local function DungeonFinder()
                             local number=string.match(controlQuestName,"%sii$")
 							controlQuestName=string.match(controlQuestName,"[^%s]+")..(number or "")
 
-							-- Dialy pledges
+							-- Mark dialy pledges
 							for npc=1,3 do
-								local dpList=DailyPledgesList[npc]
-								local n=1+(day+dpList.shift)%#dpList
-								local dpName=dpList[n].en -- TODO localization?
+								local dpName = todayPledges[npc].en -- TODO Localization
 								if dpName then
 									dpName=dpName:lower()
                                     number=string.match(dpName,"%sii$")
@@ -239,51 +246,52 @@ local function DungeonFinder()
 											-- No in journal quest
 											text="|t20:20:/esoui/art/lfg/lfg_indexicon_dungeon_over.dds|t"
 										end
+										break
 									end
 								end
 							end
-							local pledge = GAFE.UI.Label("PDP_DungeonInfo_Pledge"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, text)
+							local pledgeLabel = GAFE.UI.Label("PDP_DungeonInfo_Pledge"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, text)
 
 							-- Quest (skill point)
 							local debug = GetDisplayName() == "@Panicida"
 							local achivementText=""
-							if DungeonIndex[id].q then
-								achivementText=achivementText..((GetCompletedQuestInfo(DungeonIndex[id].q) ~= "" and true or false) and "|t20:20:/esoui/art/icons/achievements_indexicon_quests_up.dds|t" or "")
+							if DungeonData[id].q then
+								achivementText=achivementText..((GetCompletedQuestInfo(DungeonData[id].q) ~= "" and true or false) and "|t20:20:/esoui/art/icons/achievements_indexicon_quests_up.dds|t" or "")
 							elseif c~=2 and debug then
 								achivementText=achivementText.."q"
 							end
 
 							-- General Vanquisher (normal) / Conqueror (veteran)
-							if DungeonIndex[id].id then
-								achivementText=achivementText..(IsAchievementComplete(DungeonIndex[id].id) and "|t20:20:/esoui/art/announcewindow/announcement_icon_up.dds|t" or "")
+							if DungeonData[id].id then
+								achivementText=achivementText..(IsAchievementComplete(DungeonData[id].id) and "|t20:20:/esoui/art/announcewindow/announcement_icon_up.dds|t" or "")
 							elseif c~=2 and debug then
 								achivementText=achivementText.."i"
 							end
 							
 							-- Death challenge (hard mode)
-							if DungeonIndex[id].hm then
-								achivementText=achivementText..(IsAchievementComplete(DungeonIndex[id].hm) and "|t20:20:/esoui/art/unitframes/target_veteranrank_icon.dds|t" or "")
+							if DungeonData[id].hm then
+								achivementText=achivementText..(IsAchievementComplete(DungeonData[id].hm) and "|t20:20:/esoui/art/unitframes/target_veteranrank_icon.dds|t" or "")
 							elseif c~=2 and debug then
 								achivementText=achivementText.."h"
 							end
 
 							-- Speed challenge
-							if DungeonIndex[id].tt then
-								achivementText=achivementText..(IsAchievementComplete(DungeonIndex[id].tt) and "|t20:20:/esoui/art/ava/overview_icon_underdog_score.dds|t" or "")
+							if DungeonData[id].tt then
+								achivementText=achivementText..(IsAchievementComplete(DungeonData[id].tt) and "|t20:20:/esoui/art/ava/overview_icon_underdog_score.dds|t" or "")
 							elseif c~=2 and debug then
 								achivementText=achivementText.."t"
 							end
 
 							-- Survivor challenge (no death)
-							if DungeonIndex[id].nd then
-								achivementText=achivementText..(IsAchievementComplete(DungeonIndex[id].nd) and "|t20:20:/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds|t" or "")
+							if DungeonData[id].nd then
+								achivementText=achivementText..(IsAchievementComplete(DungeonData[id].nd) and "|t20:20:/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds|t" or "")
 							elseif c~=2 and debug then
 								achivementText=achivementText.."n"
 							end
-							local achievements = GAFE.UI.Label("PDP_DungeonInfo_Achievements"..c..i, pledge, {105,20}, {RIGHT,pledge,RIGHT,0,0}, "ZoFontGameLarge", nil, {0,1}, achivementText)
+							local achievementsLabel = GAFE.UI.Label("PDP_DungeonInfo_Achievements"..c..i, pledgeLabel, {105,20}, {RIGHT,pledgeLabel,RIGHT,0,0}, "ZoFontGameLarge", nil, {0,1}, achivementText)
 
 							-- Quest
-							obj.quest = GetCompletedQuestInfo(DungeonIndex[id].q) == "" and true or false
+							obj.quest = GetCompletedQuestInfo(DungeonData[id].q) == "" and true or false
 							haveQuests = haveQuests or obj.quest
 						else
 							local todo = GAFE.UI.Label("PDP_DungeonInfo_Pledge"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, "TODO:"..id)
