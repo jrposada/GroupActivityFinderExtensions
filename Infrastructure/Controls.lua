@@ -36,7 +36,9 @@ function GAFE.UI.Label(name, parent, dims, anchor, font, color, align, text, hid
 	return label
 end
 
-function GAFE.UI.Button(name, parent, dims, anchor, text, func, enabled, tooltip)
+function GAFE.UI.Button(name, parent, dims, anchor, text, func, enabled, tooltip, hidden)
+	hidden=(hidden==nil) and false or hidden
+
 	--Create button
 	local button=_G[name] or WM:CreateControlFromVirtual(name, parent, "ZO_DefaultButton")
 
@@ -48,6 +50,7 @@ function GAFE.UI.Button(name, parent, dims, anchor, text, func, enabled, tooltip
 	button:SetHandler("OnClicked", function()func()end)
 	button:SetState(enabled and BSTATE_NORMAL or BSTATE_DISABLED)
 	button:SetDrawTier(2)
+	button:SetHidden(hidden)
 
 	if tooltip ~=nil then
 		button:SetHandler("OnMouseEnter", function(ctrl) ZO_Tooltips_ShowTextTooltip(ctrl, TOP, tooltip) end)
@@ -57,7 +60,7 @@ function GAFE.UI.Button(name, parent, dims, anchor, text, func, enabled, tooltip
 	return button
 end
 
-function GAFE.UI.Checkbox(name, parent, dims, anchor, text, func, enabled, checked)
+function GAFE.UI.Checkbox(name, parent, dims, anchor, text, func, enabled, checked, hidden)
 	local function SetChecked(check)
 		local labelText=check and "/esoui/art/cadwell/checkboxicon_checked.dds" or "/esoui/art/cadwell/checkboxicon_unchecked.dds"
 		labelText="|t"..dims[2]..":"..dims[2]..":"..labelText.."|t"
@@ -66,7 +69,7 @@ function GAFE.UI.Checkbox(name, parent, dims, anchor, text, func, enabled, check
 	end
 
 	-- Create checkbox
-	local checkboxContainer=GAFE.UI.Button(name, parent, dims, anchor, text, func, enabled)
+	local checkboxContainer=GAFE.UI.Button(name, parent, dims, anchor, text, func, enabled, nil, hidden)
 	checkboxContainer:SetNormalTexture("")
 	checkboxContainer.GAFE_SetChecked = SetChecked
 

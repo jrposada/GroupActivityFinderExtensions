@@ -3,6 +3,7 @@
 ## Author: Panicida
 ## APIVersion: 100033
 ## AddOnVersion: 020000
+## DependsOn: LibAddonMenu-2.0
 ## SavedVariables: GroupActivityFinderExtensions_Vars
 
 ; DISCLAIMER:
@@ -25,4 +26,5 @@ lang\$(language).lua
 Business/DungeonFinder.lua
 Business/AutoConfirm.lua
 
+SettingsMenu.lua
 Main.lua

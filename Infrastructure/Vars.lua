@@ -5,6 +5,18 @@ GroupActivityFinderExtensions = {
     Localization = {},
     Loc	= function(var) return GroupActivityFinderExtensions.Localization.en[var] or var end,
     DefaultVars = {
-        autoConfirm = false
+        autoConfirm = {
+            enabled = true,
+            value = false
+        },
+        pledges = {
+            enabled = true
+        },
+        quests = {
+            enabled = true
+        },
+        achievements = {
+            enabled = true
+        }
     }
 }

@@ -8,12 +8,17 @@ local function OnAddOnLoaded(eventCode, addonName)
     if addonName ~= GAFE.name then return end
 	EVENT_MANAGER:UnregisterForEvent(GAFE.name.."_Event", EVENT_ADD_ON_LOADED)
 
+    -- TODO saved vars migration?
+
     -- Load saved variables
-    GAFE.SavedVars = ZO_SavedVars:NewAccountWide(GAFE.name.."_Vars", GAFE.varsVersion, nil, GAFE.DefaultVars)
+    GAFE.SavedVars = ZO_SavedVars:NewAccountWide(GAFE.name.."_Vars", GAFE.varsVersion, nil, GAFE.DefaultVars, GetWorldName())
 
     -- Initialize stuff
     GAFE.DungeonFinder.Init()
     GAFE.AutoConfirm.Init()
+
+    -- Init settings menu
+    GAFE.SettingsMenu.Init()
 end
 
 -- Finally, we'll register our event handler function to be called when the proper event occurs.

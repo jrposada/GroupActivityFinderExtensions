@@ -280,7 +280,7 @@ local function DungeonFinder()
 							elseif c~=2 and debug then
 								achivementText=achivementText.."n"
 							end
-							local achivements = GAFE.UI.Label("PDP_DungeonInfo_Achivements"..c..i, pledge, {105,20}, {RIGHT,pledge,RIGHT,0,0}, "ZoFontGameLarge", nil, {0,1}, achivementText)
+							local achievements = GAFE.UI.Label("PDP_DungeonInfo_Achievements"..c..i, pledge, {105,20}, {RIGHT,pledge,RIGHT,0,0}, "ZoFontGameLarge", nil, {0,1}, achivementText)
 
 							-- Quest
 							obj.quest = GetCompletedQuestInfo(DungeonIndex[id].q) == "" and true or false

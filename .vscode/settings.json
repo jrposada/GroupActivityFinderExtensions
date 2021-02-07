@@ -49,6 +49,8 @@
         "ZO_PreHook",
         "GetDisplayName",
         "ZO_Tooltips_ShowTextTooltip",
-        "ZO_Tooltips_HideTextTooltip"
+        "ZO_Tooltips_HideTextTooltip",
+        "LibAddonMenu2",
+        "GetWorldName"
     ]
 }
