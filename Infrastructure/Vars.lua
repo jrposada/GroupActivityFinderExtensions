@@ -1,6 +1,6 @@
 GroupActivityFinderExtensions = {
     name = "GroupActivityFinderExtensions",
-    version = 3,
+    version = 2.1,
     varsVersion = 2,
     Localization = {},
     Loc	= function(var) return GroupActivityFinderExtensions.Localization[var] or var end,
