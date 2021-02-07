@@ -8,7 +8,8 @@ local function OnAddOnLoaded(eventCode, addonName)
     if addonName ~= GAFE.name then return end
 	EVENT_MANAGER:UnregisterForEvent(GAFE.name.."_Event", EVENT_ADD_ON_LOADED)
 
-    -- TODO saved vars migration?
+    -- Migrate old saved vars versions
+    pcall(GAFE.Vars.Migrate)
 
     -- Load saved variables
     GAFE.SavedVars = ZO_SavedVars:NewAccountWide(GAFE.name.."_Vars", GAFE.varsVersion, nil, GAFE.DefaultVars, GetWorldName())

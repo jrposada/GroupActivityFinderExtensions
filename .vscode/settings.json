@@ -51,6 +51,7 @@
         "ZO_Tooltips_ShowTextTooltip",
         "ZO_Tooltips_HideTextTooltip",
         "LibAddonMenu2",
-        "GetWorldName"
+        "GetWorldName",
+        "GroupActivityFinderExtensions_Vars"
     ]
 }
