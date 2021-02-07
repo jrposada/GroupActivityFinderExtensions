@@ -24,24 +24,6 @@ function GAFE.SettingsMenu.Init()
             name = GAFE.Loc("Settings_AutoConfirm"),
             getFunc = function() return saveData.autoConfirm.enabled end,
             setFunc = function(value) GAFE.AutoConfirm.Enable(value) end
-        },
-        {
-            type = "checkbox",
-            name = GAFE.Loc("Settings_Pledges"),
-            getFunc = function() return saveData.pledges.enabled end,
-            setFunc = function(value) saveData.pledges.enabled = value end
-        },
-        {
-            type = "checkbox",
-            name = GAFE.Loc("Settings_Quests"),
-            getFunc = function() return saveData.quests.enabled end,
-            setFunc = function(value) saveData.quests.enabled = value end
-        },
-        {
-            type = "checkbox",
-            name = GAFE.Loc("Settings_Achievements"),
-            getFunc = function() return saveData.achievements.enabled end,
-            setFunc = function(value) saveData.achievements.enabled = value end
         }
     }
 

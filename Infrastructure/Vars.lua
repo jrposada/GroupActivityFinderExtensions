@@ -8,15 +8,6 @@ GroupActivityFinderExtensions = {
         autoConfirm = {
             enabled = true,
             value = false
-        },
-        pledges = {
-            enabled = true
-        },
-        quests = {
-            enabled = true
-        },
-        achievements = {
-            enabled = true
         }
     }
 }
