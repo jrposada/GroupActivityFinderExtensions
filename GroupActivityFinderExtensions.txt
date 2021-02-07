@@ -23,6 +23,8 @@ Infrastructure/Controls.lua
 lang\en.lua
 lang\$(language).lua
 
+Business/DungeonFinderData.en.lua
+Business/DungeonFinderData.$(language).lua
 Business/DungeonFinder.lua
 Business/AutoConfirm.lua
 

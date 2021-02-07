@@ -22,7 +22,6 @@
         "BSTATE_PRESSED",
         "BSTATE_DISABLED",
         "WINDOW_MANAGER",
-        "PDP_PledgesCheck",
         "unpack",
         "CT_LABEL",
         "GuiRoot",

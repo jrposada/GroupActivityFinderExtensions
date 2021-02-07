@@ -1,60 +1,52 @@
 local GAFE = GroupActivityFinderExtensions
+local DFD = GAFE.DungeonFinderData
 
 GAFE.DungeonFinder = {}
 
-local DailyPledgesList = {
-	[1]={	--Maj
-		{en="Elden Hollow II",		ru="Элденская расщелина II",	de="Eldengrund II",			fr="Creuset des aînés II"},
-		{en="Wayrest Sewers I",		ru="Канализация Вэйреста I",	de="Kanalisation I",		fr="Égouts d'Haltevoie I"},
-		{en="Spindleclutch II",		ru="Логово Мертвой Хватки II",	de="Spindeltiefen II",		fr="Tressefuseau II"},
-		{en="Banished Cells I",		ru="Темницы изгнанников I",		de="Verbannungszellen I",	fr="Cachot interdit I"},
-		{en="Fungal Grotto II",		ru="Грибной грот II",			de="Pilzgrotte II",			fr="Champignonnière II"},
-		{en="Spindleclutch I",		ru="Логово Мертвой Хватки I",	de="Spindeltiefen I",		fr="Tressefuseau I"},
-		{en="Darkshade Caverns II",	ru="Пещеры Глубокой Тени II",	de="Kavernen II",			fr="Cavernes d'Ombre-noire II"},
-		{en="Elden Hollow I",		ru="Элденская расщелина I",		de="Eldengrund I",			fr="Creuset des aînés I"},
-		{en="Wayrest Sewers II",	ru="Канализация Вэйреста II",	de="Kanalisation II",		fr="Égouts d'Haltevoie II"},
-		{en="Fungal Grotto I",		ru="Грибной грот I",			de="Pilzgrotte I",			fr="Champignonnière I"},
-		{en="Banished Cells II",	ru="Темницы изгнанников II",	de="Verbannungszellen II",	fr="Cachot interdit II"},
-		{en="Darkshade Caverns I",	ru="Пещеры Глубокой Тени I",	de="Kavernen I",			fr="Cavernes d'Ombre-noire I"},
-		shift=0
-	},
-	[2]={	--Glirion
-		{en="Volenfell",			ru="Воленфелл"},
-		{en="Blessed Crucible I",	ru="Священное Горнило",			de="Gesegnete Feuerprobe",		fr="Creuset béni"},
-		{en="Direfrost Keep I",		ru="Крепость Лютых Морозов",	de="Burg Grauenfrost",			fr="Donjon d'Affregivre"},
-		{en="Vaults of Madness",	ru="Своды Безумия",				de="Kammern des Wahnsinns",		fr="Chambres de la folie"},
-		{en="Crypt of Hearts II",	ru="Крипта Сердец II",			de="Krypta der Herzen II",		fr="Crypte des cœurs II"},
-		{en="City of Ash I",		ru="Город Пепла I",				de="Stadt der Asche I",			fr="Cité des cendres I"},
-		{en="Tempest Island",		ru="Остров Бурь",				de="Orkaninsel",				fr="Île des Tempêtes"},
-		{en="Blackheart Haven",		ru="Гавань Черного Сердца",		de="Schwarzherz-Unterschlupf",	fr="Havre de Cœurnoir"},
-		{en="Arx Corinium",			ru="Аркс-Кориниум"},
-		{en="Selene's Web",			ru="Паутина Селены",			de="Selenes Netz"},
-		{en="City of Ash II",		ru="Город Пепла II",			de="Stadt der Asche II",		fr="Cité des cendres II"},
-		{en="Crypt of Hearts I",	ru="Крипта Сердец I",			de="Krypta der Herzen I",		fr="Crypte des cœurs I"},
-		shift=0
-	},
-	[3]={	--Urgarlag
-		{en="Lair of Maarselok",	ru="Логово Марселока",				de="Der Hort von Maarselok",		fr="Repaire de Maarselok"},
-		{en="Icereach",				ru="Ледяной Предел",				de="Eiskap",						fr="Crève-Nève"},
-		{en="Unhallowed Grave",		ru="Нечестивая Могила",				de="Unheiliges Grab",				fr="Sépulcre profane"},
-		{en="Stone Garden",			ru="Каменный Сад",					de="Steingarten",					fr="Jardin de pierre"},
-		{en="Castle Thorn",			ru="Замок Шипов",					de="Kastell Dorn",					fr="Bastion-les-Ronce"},
-		{en="Imperial City Prison",	ru="Тюрьма Имперского города",		de="Gefängnis der Kaiserstadt",		fr="Tour d'Or Blanc"},
-		{en="Ruins of Mazzatun",	ru="Руины Маззатуна",				de="Ruinen von Mazzatun",			fr="Ruines de Mazzatun"},
-		{en="White-Gold Tower",		ru="Башня Белого Золота",			de="Weißgoldturm",					fr="Tour d'Or Blanc"},
-		{en="Cradle of Shadows",	ru="Колыбель Теней",				de="Wiege der Schatten",			fr="Berceau des ombres"},
-		{en="Bloodroot Forge",		ru="Кузница Кровавого корня",		de="Blutquellschmiede",				fr="Forge de Sangracine"},
-		{en="Falkreath Hold",		ru="Владение Фолкрит",				de="Falkenring",					fr="Forteresse d'Épervine"},
-		{en="Fang Lair",			ru="Логово Клыка",					de="Krallenhort",					fr="Repaire du croc"},
-		{en="Scalecaller Peak",		ru="Пик Воспевательницы Дракона",	de="Gipfel der Schuppenruferin",	fr="Pic de la Mandécailles"},
-		{en="Moon Hunter Keep",		ru="Крепость Лунного Охотника",		de="Mondjägerfeste",				fr="Fort du Chasseur lunaire"},
-		{en="March of Sacrifices",	ru="Путь Жертвоприношений",			de="Marsch der Aufopferung",		fr="Procession des Sacrifiés"},
-		{en="Depths of Malatar",	ru="Глубины Малатара",				de="Tiefen von Malatar",			fr="Profondeurs de Malatar"},
-		{en="Frostvault",			ru="Морозное хранилище",			de="Frostgewölbe",					fr="Arquegivre"},
-		{en="Moongrave Fane",		ru="Храм Погребенных Лун",			de="Mondgrab-Tempelstadt",			fr="le reliquaire des Lunes funèbres"},
-		shift=0
-	},
-}
+-- local dungeonId = {
+-- 	["Fungal Grotto I"] 		= { normal = 2, 	veteran = 299 },
+-- 	["Fungal Grotto II"] 		= { normal = 18,	veteran = 312 },
+-- 	["Spindleclutch I"] 		= { normal = 3,		veteran = 315 },
+-- 	["Spindleclutch II"] 		= { normal = 316,	veteran = 19  },
+-- 	["Banished Cells I"] 		= { normal = 4,		veteran = 20  },
+-- 	["Banished Cells II"] 		= { normal = 300,	veteran = 301 },
+-- 	["Darkshade Caverns I"] 	= { normal = 5,		veteran = 309 },
+-- 	["Darkshade Caverns II"] 	= { normal = 308,	veteran = 21  },
+-- 	["Elden Hollow I"] 			= { normal = 7,		veteran = 23  },
+-- 	["Elden Hollow II"] 		= { normal = 303,	veteran = 302 },
+-- 	["Wayrest Sewers I"] 		= { normal = 6,		veteran = 306 },
+-- 	["Wayrest Sewers II"] 		= { normal = 22,	veteran = 307 },
+-- 	["Arx Corinium"] 			= { normal = 8,		veteran = 305 },
+-- 	["City of Ash I"] 			= { normal = 10,	veteran = 310 },
+-- 	["City of Ash II"] 			= { normal = 322,	veteran = 267 },
+-- 	["Crypt of Hearts I"] 		= { normal = 9,		veteran = 261 },
+-- 	["Crypt of Hearts II"] 		= { normal = 317,	veteran = 318 },
+-- 	["Direfrost Keep"] 			= { normal = 11,	veteran = 319 },
+-- 	["Tempest Island"] 			= { normal = 13,	veteran = 311 },
+-- 	["Volenfell"] 				= { normal = 12,	veteran = 304 },
+-- 	["Blackheart Haven"] 		= { normal = 15,	veteran = 321 },
+-- 	["Blessed Crucible"] 		= { normal = 14,	veteran = 320 },
+-- 	["Selene's Web"] 			= { normal = 16,	veteran = 313 },
+-- 	["Vaults of Madness"] 		= { normal = 17,	veteran = 314 },
+-- 	["Bloodroot Forge"] 		= { normal = 324,	veteran = 325 },
+-- 	["Castle Thorn"] 			= { normal = 509,	veteran = 510 },
+-- 	["Cradle of Shadows"] 		= { normal = 295,	veteran = 296 },
+-- 	["Depths of Malatar"] 		= { normal = 435,	veteran = 436 },
+-- 	["Falkreath Hold"] 			= { normal = 368,	veteran = 369 },
+-- 	["Fang Lair"] 				= { normal = 420,	veteran = 421 },
+-- 	["Frostvault"] 				= { normal = 433,	veteran = 434 },
+-- 	["Icereach"] 				= { normal = 503,	veteran = 504 },
+-- 	["Imperial City Prison"] 	= { normal = 289,	veteran = 268 },
+-- 	["Lair of Maarselok"] 		= { normal = 496,	veteran = 497 },
+-- 	["March of Sacrifices"] 	= { normal = 428,	veteran = 429 },
+-- 	["Moon Hunter Keep"] 		= { normal = 426,	veteran = 427 },
+-- 	["Moongrave Fane"] 			= { normal = 494,	veteran = 495 },
+-- 	["Ruins of Mazzatun"] 		= { normal = 293,	veteran = 294 },
+-- 	["Scalecaller Peak"] 		= { normal = 418,	veteran = 419 },
+-- 	["Stone Garden"] 			= { normal = 507,	veteran = 508 },
+-- 	["Unhallowed Grave"] 		= { normal = 505,	veteran = 506 },
+-- 	["White-Gold Tower"] 		= { normal = 288,	veteran = 287 }
+-- }
 
 -- https://esoitem.uesp.net/viewlog.php
 local DungeonData={
@@ -200,8 +192,9 @@ local function DungeonFinder()
 
 		-- Get today pledges
 		local todayPledges = {}
+		local dailyPledgesList = DFD
 		for npc=1,3 do
-			local dpList=DailyPledgesList[npc]
+			local dpList=dailyPledgesList[npc]
 			local n=1+(day+dpList.shift)%#dpList
 			todayPledges[npc] = dpList[n]
 		end
@@ -226,7 +219,7 @@ local function DungeonFinder()
 
 							-- Mark dialy pledges
 							for npc=1,3 do
-								local dpName = todayPledges[npc].en -- TODO Localization
+								local dpName = todayPledges[npc]
 								if dpName then
 									dpName=dpName:lower()
                                     number=string.match(dpName,"%sii$")
@@ -250,7 +243,7 @@ local function DungeonFinder()
 									end
 								end
 							end
-							local pledgeLabel = GAFE.UI.Label("PDP_DungeonInfo_Pledge"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, text)
+							local pledgeLabel = GAFE.UI.Label(GAFE.name.."_DungeonInfo_Pledge"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, text)
 
 							-- Quest (skill point)
 							local debug = GetDisplayName() == "@Panicida"
@@ -288,13 +281,13 @@ local function DungeonFinder()
 							elseif c~=2 and debug then
 								achivementText=achivementText.."n"
 							end
-							local achievementsLabel = GAFE.UI.Label("PDP_DungeonInfo_Achievements"..c..i, pledgeLabel, {105,20}, {RIGHT,pledgeLabel,RIGHT,0,0}, "ZoFontGameLarge", nil, {0,1}, achivementText)
+							local achievementsLabel = GAFE.UI.Label(GAFE.name.."_DungeonInfo_Achievements"..c..i, pledgeLabel, {105,20}, {RIGHT,pledgeLabel,RIGHT,0,0}, "ZoFontGameLarge", nil, {0,1}, achivementText)
 
 							-- Quest
 							obj.quest = GetCompletedQuestInfo(DungeonData[id].q) == "" and true or false
 							haveQuests = haveQuests or obj.quest
 						else
-							local todo = GAFE.UI.Label("PDP_DungeonInfo_Pledge"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, "TODO:"..id)
+							local todo = GAFE.UI.Label(GAFE.name.."_DungeonInfo_Pledge"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, "TODO:"..id)
 						end
 					end
 				end

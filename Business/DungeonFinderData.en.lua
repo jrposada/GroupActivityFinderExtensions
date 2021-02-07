@@ -1,0 +1,55 @@
+local GAFE = GroupActivityFinderExtensions
+
+GAFE.DungeonFinderData = {
+	[1]={	--Maj
+		"Elden Hollow II",
+		"Wayrest Sewers I",
+		"Spindleclutch II",
+		"Banished Cells I",
+		"Fungal Grotto II",
+		"Spindleclutch I",
+		"Darkshade Caverns II",
+		"Elden Hollow I",
+		"Wayrest Sewers II",
+		"Fungal Grotto I",
+		"Banished Cells II",
+		"Darkshade Caverns I",
+		shift=0
+	},
+	[2]={	--Glirion
+		"Volenfell",
+		"Blessed Crucible I",
+		"Direfrost Keep I",
+		"Vaults of Madness",
+		"Crypt of Hearts II",
+		"City of Ash I",
+		"Tempest Island",
+		"Blackheart Haven",
+		"Arx Corinium",
+		"Selene's Web",
+		"City of Ash II",
+		"Crypt of Hearts I",
+		shift=0
+	},
+	[3]={	--Urgarlag
+		"Lair of Maarselok",
+		"Icereach",
+		"Unhallowed Grave",
+		"Stone Garden",
+		"Castle Thorn",
+		"Imperial City Prison",
+		"Ruins of Mazzatun",
+		"White-Gold Tower",
+		"Cradle of Shadows",
+		"Bloodroot Forge",
+		"Falkreath Hold",
+		"Fang Lair",
+		"Scalecaller Peak",
+		"Moon Hunter Keep",
+		"March of Sacrifices",
+		"Depths of Malatar",
+		"Frostvault",
+		"Moongrave Fane",
+		shift=0
+	},
+}
