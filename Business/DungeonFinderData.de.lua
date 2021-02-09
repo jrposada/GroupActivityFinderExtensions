@@ -17,7 +17,7 @@ GAFE.DungeonFinderData = {
 		shift=0
 	},
 	[2]={	--Glirion
-		"",								--Volenfell
+		"Volenfell",					--Volenfell
 		"Gesegnete Feuerprobe",			--Blessed Crucible I
 		"Burg Grauenfrost",				--Direfrost Keep I
 		"Kammern des Wahnsinns",		--Vaults of Madness
@@ -25,7 +25,7 @@ GAFE.DungeonFinderData = {
 		"Stadt der Asche I",			--City of Ash I
 		"Orkaninsel",					--Tempest Island
 		"Schwarzherz-Unterschlupf",		--Blackheart Haven
-		"",								--Arx Corinium
+		"Arx Corinium",					--Arx Corinium
 		"Selenes Netz",					--Selene's Web
 		"Stadt der Asche II",			--City of Ash II
 		"Krypta der Herzen I",			--Crypt of Hearts I

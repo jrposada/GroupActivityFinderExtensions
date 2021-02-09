@@ -143,10 +143,8 @@ local function GetGoalPledges()
     local pledgeQuests, havePledge = {}, false
     for i=1, MAX_JOURNAL_QUESTS do
         local name,_,_,stepType,_,completed,_,_,_,questType,instanceType=GetJournalQuestInfo(i)
-        if name and name~="" and not completed and questType==QUEST_TYPE_UNDAUNTED_PLEDGE and instanceType==INSTANCE_TYPE_GROUP and name:match(".*:%s*(.*)") then
-            local text=string.format("%s",name:gsub(".*:%s*",""):gsub(" "," "):gsub("%s+"," "):lower())
-            local number=string.match(text,"%sii$")
-            text=string.match(text,"[^%s]+")..(number or "")
+        if name and name~="" and not completed and questType==QUEST_TYPE_UNDAUNTED_PLEDGE and instanceType==INSTANCE_TYPE_GROUP then
+            local text=string.format("%s",name:gsub(".*:%s*",""):gsub(" "," "):lower())
             pledgeQuests[text]=stepType~=QUEST_STEP_TYPE_AND
             if stepType==QUEST_STEP_TYPE_AND then havePledge=true end
 		end
@@ -209,21 +207,17 @@ local function DungeonFinder()
 						if DungeonData[id] then
 							local text=""
 							-- Get quest name from current control
-							local controlQuestName=obj.text:GetText():lower():gsub("the ",""):gsub(" "," ")
+							local controlQuestName=obj.text:GetText():lower():gsub(" "," ")
 							if c==3 then
 								local _start,_end=string.find(controlQuestName,"s|t")
 								if _start then controlQuestName=string.sub(controlQuestName,_end+2) end
 							end
-                            local number=string.match(controlQuestName,"%sii$")
-							controlQuestName=string.match(controlQuestName,"[^%s]+")..(number or "")
-
+							
 							-- Mark dialy pledges
 							for npc=1,3 do
 								local dpName = todayPledges[npc]
 								if dpName then
 									dpName=dpName:lower()
-                                    number=string.match(dpName,"%sii$")
-									dpName=string.match(dpName,"[^%s]+")..(number or "")
 									if controlQuestName==dpName then
 										local questCompleted=pledgeQuests[controlQuestName]
 										-- Save if it needs to be checked
@@ -307,8 +301,8 @@ local function DungeonFinder()
 			local w=parent:GetWidth()
 			local dims = {200,28}
 
-			local questsButton=GAFE_QuestsCheck or GAFE.UI.Button("GAFE_QuestsCheck", parent, dims, {BOTTOM,parent,BOTTOM,w/3,0}, GAFE.Loc("CheckMissingQuests"), CheckQuests, haveQuests)
-			local pledgesButton=GAFE_PledgesCheck or GAFE.UI.Button("GAFE_PledgesCheck", parent, dims, {BOTTOM,parent,BOTTOM,0,0}, GAFE.Loc("CheckActivePledges"), CheckPledges, havePledge)
+			local questsButton=GAFE.UI.Button("GAFE_QuestsCheck", parent, dims, {BOTTOM,parent,BOTTOM,w/3,0}, GAFE.Loc("CheckMissingQuests"), CheckQuests, haveQuests)
+			local pledgesButton=GAFE.UI.Button("GAFE_PledgesCheck", parent, dims, {BOTTOM,parent,BOTTOM,0,0}, GAFE.Loc("CheckActivePledges"), CheckPledges, havePledge)
 
 			if ZO_DungeonFinder_KeyboardQueueButton then
 				ZO_DungeonFinder_KeyboardQueueButton:ClearAnchors()

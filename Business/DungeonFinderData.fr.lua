@@ -1,5 +1,6 @@
 local GAFE = GroupActivityFinderExtensions
 
+-- "Serment : Volenfell"
 GAFE.DungeonFinderData = {
 	[1]={	--Maj
 		"Creuset des aînés II",			--Elden Hollow II
@@ -17,7 +18,7 @@ GAFE.DungeonFinderData = {
 		shift=0
 	},
 	[2]={	--Glirion
-		"",							--Volenfell
+		"Volenfell",				--Volenfell
 		"Creuset béni",				--Blessed Crucible I
 		"Donjon d'Affregivre",		--Direfrost Keep I
 		"Chambres de la folie",		--Vaults of Madness
@@ -25,8 +26,8 @@ GAFE.DungeonFinderData = {
 		"Cité des cendres I",		--City of Ash I
 		"Île des Tempêtes",			--Tempest Island
 		"Havre de Cœurnoir",		--Blackheart Haven
-		"",							--Arx Corinium
-		"",							--Selene's Web
+		"Arx Corinium",				--Arx Corinium
+		"Toile de Sélène",			--Selene's Web
 		"Cité des cendres II",		--City of Ash II
 		"Crypte des cœurs I",		--Crypt of Hearts I
 		shift=0
