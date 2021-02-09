@@ -5,5 +5,7 @@ GAFE.Localization = {
     Settings_AutoConfirm = "Bouton 'Auto confirmer'",
     CheckActivePledges = "Sélect serment activ",
     CheckMissingQuests = "Sélect quêtes incompl",
-    AutoConfirm = "Auto confirmer"
+    AutoConfirm = "Auto confirmer",
+    TrailsCategoryHeader = "Trails", -- TODO Transalate
+    TrialsSpecificFilterText = "Specific Trials" -- TODO Transalate
 }

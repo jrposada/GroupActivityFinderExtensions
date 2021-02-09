@@ -19,6 +19,7 @@
 Infrastructure/Vars.lua
 Infrastructure/Utils.lua
 Infrastructure/Controls.lua
+Infrastructure/Debug.lua
 
 lang\en.lua
 lang\$(language).lua
@@ -27,6 +28,8 @@ Business/DungeonFinderData.en.lua
 Business/DungeonFinderData.$(language).lua
 Business/DungeonFinder.lua
 Business/AutoConfirm.lua
+Business/Trials/SortedLocationsData.lua
+Business/Trials/TrialManager.lua
 
 SettingsMenu.lua
 Main.lua

@@ -51,6 +51,23 @@
         "ZO_Tooltips_HideTextTooltip",
         "LibAddonMenu2",
         "GetWorldName",
-        "GroupActivityFinderExtensions_Vars"
+        "GroupActivityFinderExtensions_Vars",
+        "ZO_ActivityFinderTemplate_Manager",
+        "LFG_COOLDOWN_DUNGEON_REWARD_GRANTED",
+        "LFG_ACTIVITY_TRIAL",
+        "ZO_ActivityFinderLocation_Specific",
+        "ZO_ActivityFinderLocation_Set",
+        "ZO_ActivityFinderLocation_Base",
+        "ZO_ActivityFinderFilterModeData",
+        "GetGroupSizeFromLFGGroupType",
+        "ZO_ACTIVITY_FINDER_LOCATION_ENTRY_TYPE",
+        "LFG_GROUP_TYPE_MEDIUM",
+        "LFG_ACTIVITY_MASTER_DUNGEON",
+        "zo_iconTextFormat",
+        "GetVeteranIcon",
+        "zo_strformat",
+        "GetString",
+        "SI_GAMEPAD_ACTIVITY_FINDER_VETERAN_LOCATION_FORMAT",
+        "ZO_COLLECTIBLE_DATA_MANAGER"
     ]
 }
