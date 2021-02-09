@@ -7,5 +7,14 @@ GAFE.Localization = {
     CheckMissingQuests = "Check missing quests",
     AutoConfirm = "Auto confirm",
     TrailsCategoryHeader = "Trails",
-    TrialsSpecificFilterText = "Specific Trials"
+    TrialsSpecificFilterText = "Specific Trials",
+    TrialAetherianArchive = "Aetherian Archive",
+    TrialHelRaCitadel = "Hel Ra Citadel",
+    TrialSanctumOphidia = "Sanctum Ophidia",
+    TrialMawOfLorkhaj = "Maw of Lorkhaj",
+    TrialHallsOfFabrication = "Halls of Fabrication",
+    TrialAsylumSanctorium = "Asylum Sanctorium",
+    TrialCloudrest = "Cloudrest",
+    TrialSunspire = "Sunspire",
+    TrialKynesAegis = "Kyne's Aegis",
 }

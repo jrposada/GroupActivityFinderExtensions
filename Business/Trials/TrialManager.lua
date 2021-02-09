@@ -6,9 +6,9 @@ local categoryData =
     keyboardData =
     {
         name = GAFE.Loc("TrailsCategoryHeader"),
-        normalIcon = "EsoUI/Art/LFG/LFG_indexIcon_battlegrounds_up.dds",
-        pressedIcon = "EsoUI/Art/LFG/LFG_indexIcon_battlegrounds_down.dds",
-        mouseoverIcon = "EsoUI/Art/LFG/LFG_indexIcon_battlegrounds_over.dds",
+        normalIcon = "/esoui/art/lfg/lfg_indexicon_trial_up.dds",
+        pressedIcon = "/esoui/art/lfg/lfg_indexicon_trial_down.dds",
+        mouseoverIcon = "/esoui/art/lfg/lfg_indexicon_trial_over.dds",
     },
 
     gamepadData = -- TODO: Understand
@@ -43,4 +43,4 @@ function TrialFinder_Manager:GetCategoryData()
     return categoryData
 end
 
--- TRIAL_FINDER_MANAGER = TrialFinder_Manager:New() -- TODO Uncomment to enable
+TRIAL_FINDER_MANAGER = TrialFinder_Manager:New()

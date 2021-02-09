@@ -6,6 +6,15 @@ GAFE.Localization = {
     CheckActivePledges = "Sélect serment activ",
     CheckMissingQuests = "Sélect quêtes incompl",
     AutoConfirm = "Auto confirmer",
-    TrailsCategoryHeader = "Trails", -- TODO Transalate
-    TrialsSpecificFilterText = "Specific Trials" -- TODO Transalate
+    TrailsCategoryHeader = "Épreuve",
+    TrialsSpecificFilterText = "Épreuve spécifique",
+    TrialAetherianArchive = "Archive æthérienne",
+    TrialHelRaCitadel = "Citadelle d'Hel Ra",
+    TrialSanctumOphidia = "Sanctum Ophidia",
+    TrialMawOfLorkhaj = "Gueule de Lorkhaj",
+    TrialHallsOfFabrication = "Salles de la fabrication",
+    TrialAsylumSanctorium = "Asile sanctuaire",
+    TrialCloudrest = "Pas-des-Nuées",
+    TrialSunspire = "Sollance",
+    TrialKynesAegis = "l'Égide de Kyne",
 }
