@@ -43,4 +43,4 @@ function TrialFinder_Manager:GetCategoryData()
     return categoryData
 end
 
-TRIAL_FINDER_MANAGER = TrialFinder_Manager:New()
+-- TRIAL_FINDER_MANAGER = TrialFinder_Manager:New()
