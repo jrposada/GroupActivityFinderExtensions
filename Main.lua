@@ -16,6 +16,7 @@ local function OnAddOnLoaded(eventCode, addonName)
 
     -- Initialize stuff
     GAFE.DungeonFinder.Init()
+    GAFE.TrialFinder.Init()
     GAFE.AutoConfirm.Init()
 
     -- Init settings menu

@@ -4,7 +4,7 @@ local GAFE = GroupActivityFinderExtensions
 -- Utility functions --
 -----------------------
 
-local ACTIVITY_ID = {
+GAFE_TRIAL_ACTIVITY_ID = {
     -- For safety start from 1000
     NormalAetherianArchive      = 1001,
     VeteranAetherianArchive     = 1002,
@@ -25,6 +25,7 @@ local ACTIVITY_ID = {
     NormalKynesAegis            = 1017,
     VeteranKynesAegis           = 1018
 }
+local ACTIVITY_ID = GAFE_TRIAL_ACTIVITY_ID
 
 local function GAFE_GetNumActivitiesByType(activityType)
     if activityType == GAFE_LFG_ACTIVITY_TRIAL then

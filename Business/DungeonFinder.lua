@@ -3,7 +3,7 @@ local DFD = GAFE.DungeonFinderData
 
 GAFE.DungeonFinder = {}
 
--- local dungeonId = {
+-- local activityId = {
 -- 	["Fungal Grotto I"] 		= { normal = 2, 	veteran = 299 },
 -- 	["Fungal Grotto II"] 		= { normal = 18,	veteran = 312 },
 -- 	["Spindleclutch I"] 		= { normal = 3,		veteran = 315 },
