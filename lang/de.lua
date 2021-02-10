@@ -1,5 +1,8 @@
 local GAFE = GroupActivityFinderExtensions
 
+SafeAddString(_G["SI_LFGACTIVITY"..GAFE_LFG_ACTIVITY_TRIAL], "Normal", 1)
+SafeAddString(_G["SI_LFGACTIVITY"..GAFE_LFG_ACTIVITY_MASTER_TRIAL], "Veteranen", 1)
+
 GAFE.Localization = {
     Settings_Description = "Fügt der Benutzeroberfläche von Group & Activity Finder zusätzliche Funktionen und UI",
     Settings_AutoConfirm = "'Autom. bestätigen' Knopf",

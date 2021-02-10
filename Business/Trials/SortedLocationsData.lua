@@ -1,25 +1,35 @@
 local GAFE = GroupActivityFinderExtensions
 
-
 -----------------------
 -- Utility functions --
 -----------------------
 
 local ACTIVITY_ID = {
     -- For safety start from 1000
-    AetherianArchive    = 1001,
-    HelRaCitadel        = 1002,
-    SanctumOphidia      = 1003,
-    MawOfLorkhaj        = 1004,
-    HallsOfFabrication  = 1005,
-    AsylumSanctorium    = 1006,
-    Cloudrest           = 1007,
-    Sunspire            = 1008,
-    KynesAegis          = 1009
+    NormalAetherianArchive      = 1001,
+    VeteranAetherianArchive     = 1002,
+    NormalHelRaCitadel          = 1003,
+    VeteranHelRaCitadel         = 1004,
+    NormalSanctumOphidia        = 1005,
+    VeteranSanctumOphidia       = 1006,
+    NormalMawOfLorkhaj          = 1007,
+    VeteranMawOfLorkhaj         = 1008,
+    NormalHallsOfFabrication    = 1009,
+    VeteranHallsOfFabrication   = 1010,
+    NormalAsylumSanctorium      = 1011,
+    VeteranAsylumSanctorium     = 1012,
+    NormalCloudrest             = 1013,
+    VeteranCloudrest            = 1014,
+    NormalSunspire              = 1015,
+    VeteranSunspire             = 1016,
+    NormalKynesAegis            = 1017,
+    VeteranKynesAegis           = 1018
 }
 
 local function GAFE_GetNumActivitiesByType(activityType)
-    if activityType == LFG_ACTIVITY_TRIAL then
+    if activityType == GAFE_LFG_ACTIVITY_TRIAL then
+        return 9
+    elseif activityType == GAFE_LFG_ACTIVITY_MASTER_TRIAL then
         return 9
     end
 
@@ -27,8 +37,10 @@ local function GAFE_GetNumActivitiesByType(activityType)
 end
 
 local function GAFE_GetNumActivitySetsByType(activityType)
-    if activityType == LFG_ACTIVITY_TRIAL then
+    if activityType == GAFE_LFG_ACTIVITY_TRIAL then
         return 0 -- Check num of trails sets. Maybe we can put 2, one for normals and one for veterans
+    elseif activityType == GAFE_LFG_ACTIVITY_MASTER_TRIAL then
+        return 0
     end
 
     return 0
@@ -36,16 +48,27 @@ end
 
 local function GAFE_GetActivityIdByTypeAndIndex(activityType, index)
     local activityId = {
-        [LFG_ACTIVITY_TRIAL] = {
-            [1] = ACTIVITY_ID.AetherianArchive,
-            [2] = ACTIVITY_ID.HelRaCitadel,
-            [3] = ACTIVITY_ID.SanctumOphidia,
-            [4] = ACTIVITY_ID.MawOfLorkhaj,
-            [5] = ACTIVITY_ID.HallsOfFabrication,
-            [6] = ACTIVITY_ID.AsylumSanctorium,
-            [7] = ACTIVITY_ID.Cloudrest,
-            [8] = ACTIVITY_ID.Sunspire,
-            [9] = ACTIVITY_ID.KynesAegis,
+        [GAFE_LFG_ACTIVITY_TRIAL] = {
+            [1] = ACTIVITY_ID.NormalAetherianArchive,
+            [2] = ACTIVITY_ID.NormalHelRaCitadel,
+            [3] = ACTIVITY_ID.NormalSanctumOphidia,
+            [4] = ACTIVITY_ID.NormalMawOfLorkhaj,
+            [5] = ACTIVITY_ID.NormalHallsOfFabrication,
+            [6] = ACTIVITY_ID.NormalAsylumSanctorium,
+            [7] = ACTIVITY_ID.NormalCloudrest,
+            [8] = ACTIVITY_ID.NormalSunspire,
+            [9] = ACTIVITY_ID.NormalKynesAegis
+        },
+        [GAFE_LFG_ACTIVITY_MASTER_TRIAL] = {
+            [1] = ACTIVITY_ID.VeteranAetherianArchive,
+            [2] = ACTIVITY_ID.VeteranHelRaCitadel,
+            [3] = ACTIVITY_ID.VeteranSanctumOphidia,
+            [4] = ACTIVITY_ID.VeteranMawOfLorkhaj,
+            [5] = ACTIVITY_ID.VeteranHallsOfFabrication,
+            [6] = ACTIVITY_ID.VeteranAsylumSanctorium,
+            [7] = ACTIVITY_ID.VeteranCloudrest,
+            [8] = ACTIVITY_ID.VeteranSunspire,
+            [9] = ACTIVITY_ID.VeteranKynesAegis
         }
     }
 
@@ -57,15 +80,25 @@ end
 
 local function GAFE_GetActivityInfo(activityId)
     local activityInfo = {
-        [ACTIVITY_ID.AetherianArchive] = { name = GAFE.Loc("TrialAetherianArchive"), levelMin = 50, levelMax = 99, championPointsMin = 0, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
-        [ACTIVITY_ID.HelRaCitadel] = { name = GAFE.Loc("TrialHelRaCitadel"), levelMin = 50, levelMax = 99, championPointsMin = 0, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
-        [ACTIVITY_ID.SanctumOphidia] = { name = GAFE.Loc("TrialSanctumOphidia"), levelMin = 50, levelMax = 99, championPointsMin = 0, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
-        [ACTIVITY_ID.MawOfLorkhaj] = { name = GAFE.Loc("TrialMawOfLorkhaj"), levelMin = 50, levelMax = 99, championPointsMin = 0, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
-        [ACTIVITY_ID.HallsOfFabrication] = { name = GAFE.Loc("TrialHallsOfFabrication"), levelMin = 50, levelMax = 99, championPointsMin = 0, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
-        [ACTIVITY_ID.AsylumSanctorium] = { name = GAFE.Loc("TrialAsylumSanctorium"), levelMin = 50, levelMax = 99, championPointsMin = 0, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
-        [ACTIVITY_ID.Cloudrest] = { name = GAFE.Loc("TrialCloudrest"), levelMin = 50, levelMax = 99, championPointsMin = 0, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
-        [ACTIVITY_ID.Sunspire] = { name = GAFE.Loc("TrialSunspire"), levelMin = 50, levelMax = 99, championPointsMin = 0, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
-        [ACTIVITY_ID.KynesAegis] = { name = GAFE.Loc("TrialKynesAegis"), levelMin = 50, levelMax = 99, championPointsMin = 0, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
+        [ACTIVITY_ID.NormalAetherianArchive] = { name = GAFE.Loc("TrialAetherianArchive"), levelMin = 50, levelMax = 99, championPointsMin = 0, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
+        [ACTIVITY_ID.NormalHelRaCitadel] = { name = GAFE.Loc("TrialHelRaCitadel"), levelMin = 50, levelMax = 99, championPointsMin = 0, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
+        [ACTIVITY_ID.NormalSanctumOphidia] = { name = GAFE.Loc("TrialSanctumOphidia"), levelMin = 50, levelMax = 99, championPointsMin = 0, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
+        [ACTIVITY_ID.NormalMawOfLorkhaj] = { name = GAFE.Loc("TrialMawOfLorkhaj"), levelMin = 50, levelMax = 99, championPointsMin = 0, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
+        [ACTIVITY_ID.NormalHallsOfFabrication] = { name = GAFE.Loc("TrialHallsOfFabrication"), levelMin = 50, levelMax = 99, championPointsMin = 0, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
+        [ACTIVITY_ID.NormalAsylumSanctorium] = { name = GAFE.Loc("TrialAsylumSanctorium"), levelMin = 50, levelMax = 99, championPointsMin = 0, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
+        [ACTIVITY_ID.NormalCloudrest] = { name = GAFE.Loc("TrialCloudrest"), levelMin = 50, levelMax = 99, championPointsMin = 0, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
+        [ACTIVITY_ID.NormalSunspire] = { name = GAFE.Loc("TrialSunspire"), levelMin = 50, levelMax = 99, championPointsMin = 0, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
+        [ACTIVITY_ID.NormalKynesAegis] = { name = GAFE.Loc("TrialKynesAegis"), levelMin = 50, levelMax = 99, championPointsMin = 0, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
+
+        [ACTIVITY_ID.VeteranAetherianArchive] = { name = GAFE.Loc("TrialAetherianArchive"), levelMin = 50, levelMax = 99, championPointsMin = 300, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
+        [ACTIVITY_ID.VeteranHelRaCitadel] = { name = GAFE.Loc("TrialHelRaCitadel"), levelMin = 50, levelMax = 99, championPointsMin = 300, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
+        [ACTIVITY_ID.VeteranSanctumOphidia] = { name = GAFE.Loc("TrialSanctumOphidia"), levelMin = 50, levelMax = 99, championPointsMin = 300, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
+        [ACTIVITY_ID.VeteranMawOfLorkhaj] = { name = GAFE.Loc("TrialMawOfLorkhaj"), levelMin = 50, levelMax = 99, championPointsMin = 300, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
+        [ACTIVITY_ID.VeteranHallsOfFabrication] = { name = GAFE.Loc("TrialHallsOfFabrication"), levelMin = 50, levelMax = 99, championPointsMin = 300, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
+        [ACTIVITY_ID.VeteranAsylumSanctorium] = { name = GAFE.Loc("TrialAsylumSanctorium"), levelMin = 50, levelMax = 99, championPointsMin = 300, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
+        [ACTIVITY_ID.VeteranCloudrest] = { name = GAFE.Loc("TrialCloudrest"), levelMin = 50, levelMax = 99, championPointsMin = 300, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
+        [ACTIVITY_ID.VeteranSunspire] = { name = GAFE.Loc("TrialSunspire"), levelMin = 50, levelMax = 99, championPointsMin = 300, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
+        [ACTIVITY_ID.VeteranKynesAegis] = { name = GAFE.Loc("TrialKynesAegis"), levelMin = 50, levelMax = 99, championPointsMin = 300, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 }
     }
 
     if activityInfo[activityId] then
@@ -89,15 +122,25 @@ end
 
 local function GAFE_GetActivityKeyboardDescriptionTextures(activityId)
     local texture = {
-        [ACTIVITY_ID.AetherianArchive] = { small = "/esoui/art/lfg/lfg_bgsaetherianarchive_tooltip.dds", large = "/esoui/art/lfg/lfg_bgsaetherianarchive_tooltip.dds" },
-        [ACTIVITY_ID.HelRaCitadel] = { small = "/esoui/art/lfg/lfg_bgshelracitadel_tooltip.dds", large = "/esoui/art/lfg/lfg_bgshelracitadel_tooltip.dds" },
-        [ACTIVITY_ID.SanctumOphidia] = { small = "/esoui/art/lfg/lfg_bgssanctum-ophidia_tooltip.dds", large = "/esoui/art/lfg/lfg_bgssanctum-ophidia_tooltip.dds" },
-        [ACTIVITY_ID.MawOfLorkhaj] = { small = "/esoui/art/loadingscreens/loadscreen_den_of_lorkhaj_01.dds", large = "/esoui/art/loadingscreens/loadscreen_den_of_lorkhaj_01.dds" },
-        [ACTIVITY_ID.HallsOfFabrication] = { small = "/esoui/art/loadingscreens/loadscreen_hallsoffabrication_01.dds", large = "/esoui/art/loadingscreens/loadscreen_hallsoffabrication_01.dds" },
-        [ACTIVITY_ID.AsylumSanctorium] = { small = "/esoui/art/loadingscreens/loadscreen_asylumsanctorium_01.dds", large = "/esoui/art/loadingscreens/loadscreen_asylumsanctorium_01.dds" },
-        [ACTIVITY_ID.Cloudrest] = { small = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds", large = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds" },
-        [ACTIVITY_ID.Sunspire] = { small = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds", large = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds" },
-        [ACTIVITY_ID.KynesAegis] = { small = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds", large = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds" }
+        [ACTIVITY_ID.NormalAetherianArchive] = { small = "/esoui/art/lfg/lfg_bgsaetherianarchive_tooltip.dds", large = "/esoui/art/lfg/lfg_bgsaetherianarchive_tooltip.dds" },
+        [ACTIVITY_ID.NormalHelRaCitadel] = { small = "/esoui/art/lfg/lfg_bgshelracitadel_tooltip.dds", large = "/esoui/art/lfg/lfg_bgshelracitadel_tooltip.dds" },
+        [ACTIVITY_ID.NormalSanctumOphidia] = { small = "/esoui/art/lfg/lfg_bgssanctum-ophidia_tooltip.dds", large = "/esoui/art/lfg/lfg_bgssanctum-ophidia_tooltip.dds" },
+        [ACTIVITY_ID.NormalMawOfLorkhaj] = { small = "/esoui/art/loadingscreens/loadscreen_den_of_lorkhaj_01.dds", large = "/esoui/art/loadingscreens/loadscreen_den_of_lorkhaj_01.dds" },
+        [ACTIVITY_ID.NormalHallsOfFabrication] = { small = "/esoui/art/loadingscreens/loadscreen_hallsoffabrication_01.dds", large = "/esoui/art/loadingscreens/loadscreen_hallsoffabrication_01.dds" },
+        [ACTIVITY_ID.NormalAsylumSanctorium] = { small = "/esoui/art/loadingscreens/loadscreen_asylumsanctorium_01.dds", large = "/esoui/art/loadingscreens/loadscreen_asylumsanctorium_01.dds" },
+        [ACTIVITY_ID.NormalCloudrest] = { small = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds", large = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds" },
+        [ACTIVITY_ID.NormalSunspire] = { small = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds", large = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds" },
+        [ACTIVITY_ID.NormalKynesAegis] = { small = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds", large = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds" },
+
+        [ACTIVITY_ID.VeteranAetherianArchive] = { small = "/esoui/art/lfg/lfg_bgsaetherianarchive_tooltip.dds", large = "/esoui/art/lfg/lfg_bgsaetherianarchive_tooltip.dds" },
+        [ACTIVITY_ID.VeteranHelRaCitadel] = { small = "/esoui/art/lfg/lfg_bgshelracitadel_tooltip.dds", large = "/esoui/art/lfg/lfg_bgshelracitadel_tooltip.dds" },
+        [ACTIVITY_ID.VeteranSanctumOphidia] = { small = "/esoui/art/lfg/lfg_bgssanctum-ophidia_tooltip.dds", large = "/esoui/art/lfg/lfg_bgssanctum-ophidia_tooltip.dds" },
+        [ACTIVITY_ID.VeteranMawOfLorkhaj] = { small = "/esoui/art/loadingscreens/loadscreen_den_of_lorkhaj_01.dds", large = "/esoui/art/loadingscreens/loadscreen_den_of_lorkhaj_01.dds" },
+        [ACTIVITY_ID.VeteranHallsOfFabrication] = { small = "/esoui/art/loadingscreens/loadscreen_hallsoffabrication_01.dds", large = "/esoui/art/loadingscreens/loadscreen_hallsoffabrication_01.dds" },
+        [ACTIVITY_ID.VeteranAsylumSanctorium] = { small = "/esoui/art/loadingscreens/loadscreen_asylumsanctorium_01.dds", large = "/esoui/art/loadingscreens/loadscreen_asylumsanctorium_01.dds" },
+        [ACTIVITY_ID.VeteranCloudrest] = { small = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds", large = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds" },
+        [ACTIVITY_ID.VeteranSunspire] = { small = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds", large = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds" },
+        [ACTIVITY_ID.VeteranKynesAegis] = { small = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds", large = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds" }
     }
 
     if texture[activityId] then
@@ -109,15 +152,25 @@ end
 
 local function GAFE_GetActivityGamepadDescriptionTexture(activityId)
     local texture = {
-        [ACTIVITY_ID.AetherianArchive] = { small = "/esoui/art/lfg/lfg_bgsaetherianarchive_tooltip.dds", large = "/esoui/art/lfg/lfg_bgsaetherianarchive_tooltip.dds" },
-        [ACTIVITY_ID.HelRaCitadel] = { small = "/esoui/art/lfg/lfg_bgshelracitadel_tooltip.dds", large = "/esoui/art/lfg/lfg_bgshelracitadel_tooltip.dds" },
-        [ACTIVITY_ID.SanctumOphidia] = { small = "/esoui/art/lfg/lfg_bgssanctum-ophidia_tooltip.dds", large = "/esoui/art/lfg/lfg_bgssanctum-ophidia_tooltip.dds" },
-        [ACTIVITY_ID.MawOfLorkhaj] = { small = "/esoui/art/loadingscreens/loadscreen_den_of_lorkhaj_01.dds", large = "/esoui/art/loadingscreens/loadscreen_den_of_lorkhaj_01.dds" },
-        [ACTIVITY_ID.HallsOfFabrication] = { small = "/esoui/art/loadingscreens/loadscreen_hallsoffabrication_01.dds", large = "/esoui/art/loadingscreens/loadscreen_hallsoffabrication_01.dds" },
-        [ACTIVITY_ID.AsylumSanctorium] = { small = "/esoui/art/loadingscreens/loadscreen_asylumsanctorium_01.dds", large = "/esoui/art/loadingscreens/loadscreen_asylumsanctorium_01.dds" },
-        [ACTIVITY_ID.Cloudrest] = { small = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds", large = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds" },
-        [ACTIVITY_ID.Sunspire] = { small = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds", large = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds" },
-        [ACTIVITY_ID.KynesAegis] = { small = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds", large = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds" }
+        [ACTIVITY_ID.NormalAetherianArchive] = { small = "/esoui/art/lfg/lfg_bgsaetherianarchive_tooltip.dds", large = "/esoui/art/lfg/lfg_bgsaetherianarchive_tooltip.dds" },
+        [ACTIVITY_ID.NormalHelRaCitadel] = { small = "/esoui/art/lfg/lfg_bgshelracitadel_tooltip.dds", large = "/esoui/art/lfg/lfg_bgshelracitadel_tooltip.dds" },
+        [ACTIVITY_ID.NormalSanctumOphidia] = { small = "/esoui/art/lfg/lfg_bgssanctum-ophidia_tooltip.dds", large = "/esoui/art/lfg/lfg_bgssanctum-ophidia_tooltip.dds" },
+        [ACTIVITY_ID.NormalMawOfLorkhaj] = { small = "/esoui/art/loadingscreens/loadscreen_den_of_lorkhaj_01.dds", large = "/esoui/art/loadingscreens/loadscreen_den_of_lorkhaj_01.dds" },
+        [ACTIVITY_ID.NormalHallsOfFabrication] = { small = "/esoui/art/loadingscreens/loadscreen_hallsoffabrication_01.dds", large = "/esoui/art/loadingscreens/loadscreen_hallsoffabrication_01.dds" },
+        [ACTIVITY_ID.NormalAsylumSanctorium] = { small = "/esoui/art/loadingscreens/loadscreen_asylumsanctorium_01.dds", large = "/esoui/art/loadingscreens/loadscreen_asylumsanctorium_01.dds" },
+        [ACTIVITY_ID.NormalCloudrest] = { small = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds", large = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds" },
+        [ACTIVITY_ID.NormalSunspire] = { small = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds", large = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds" },
+        [ACTIVITY_ID.NormalKynesAegis] = { small = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds", large = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds" },
+
+        [ACTIVITY_ID.VeteranAetherianArchive] = { small = "/esoui/art/lfg/lfg_bgsaetherianarchive_tooltip.dds", large = "/esoui/art/lfg/lfg_bgsaetherianarchive_tooltip.dds" },
+        [ACTIVITY_ID.VeteranHelRaCitadel] = { small = "/esoui/art/lfg/lfg_bgshelracitadel_tooltip.dds", large = "/esoui/art/lfg/lfg_bgshelracitadel_tooltip.dds" },
+        [ACTIVITY_ID.VeteranSanctumOphidia] = { small = "/esoui/art/lfg/lfg_bgssanctum-ophidia_tooltip.dds", large = "/esoui/art/lfg/lfg_bgssanctum-ophidia_tooltip.dds" },
+        [ACTIVITY_ID.VeteranMawOfLorkhaj] = { small = "/esoui/art/loadingscreens/loadscreen_den_of_lorkhaj_01.dds", large = "/esoui/art/loadingscreens/loadscreen_den_of_lorkhaj_01.dds" },
+        [ACTIVITY_ID.VeteranHallsOfFabrication] = { small = "/esoui/art/loadingscreens/loadscreen_hallsoffabrication_01.dds", large = "/esoui/art/loadingscreens/loadscreen_hallsoffabrication_01.dds" },
+        [ACTIVITY_ID.VeteranAsylumSanctorium] = { small = "/esoui/art/loadingscreens/loadscreen_asylumsanctorium_01.dds", large = "/esoui/art/loadingscreens/loadscreen_asylumsanctorium_01.dds" },
+        [ACTIVITY_ID.VeteranCloudrest] = { small = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds", large = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds" },
+        [ACTIVITY_ID.VeteranSunspire] = { small = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds", large = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds" },
+        [ACTIVITY_ID.VeteranKynesAegis] = { small = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds", large = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds" }
     }
 
     if texture[activityId] then
@@ -137,9 +190,24 @@ end
 
 local function GAFE_GetActivityZoneId(activityId)
     local zoneId = {
-        [ACTIVITY_ID.AetherianArchive] = 638,
-        [ACTIVITY_ID.HelRaCitadel] = 636,
-        [ACTIVITY_ID.SanctumOphidia] = 639
+        [ACTIVITY_ID.NormalAetherianArchive] = 638,
+        [ACTIVITY_ID.VeteranAetherianArchive] = 638,
+        [ACTIVITY_ID.NormalHelRaCitadel] = 636,
+        [ACTIVITY_ID.VeteranHelRaCitadel] = 636,
+        [ACTIVITY_ID.NormalSanctumOphidia] = 639,
+        [ACTIVITY_ID.VeteranSanctumOphidia] = 639,
+        [ACTIVITY_ID.NormalMawOfLorkhaj] = 725,
+        [ACTIVITY_ID.VeteranMawOfLorkhaj] = 725,
+        [ACTIVITY_ID.NormalHallsOfFabrication] = 975,
+        [ACTIVITY_ID.VeteranHallsOfFabrication] = 975,
+        [ACTIVITY_ID.NormalAsylumSanctorium] = 1000,
+        [ACTIVITY_ID.VeteranAsylumSanctorium] = 1000,
+        [ACTIVITY_ID.NormalCloudrest] = 1051,
+        [ACTIVITY_ID.VeteranCloudrest] = 1051,
+        [ACTIVITY_ID.NormalSunspire] = 1121,
+        [ACTIVITY_ID.VeteranSunspire] = 1121,
+        [ACTIVITY_ID.NormalKynesAegis] = 1160,
+        [ACTIVITY_ID.VeteranKynesAegis] = 1160,
     }
 
     if zoneId[activityId] then
@@ -200,7 +268,8 @@ function GAFE_ActivityFinderLocation_Specific:Initialize(activityType, index)
 end
 
 function GAFE_ActivityFinderLocation_Specific:InitializeFormattedNames()
-    if self:GetActivityType() == LFG_ACTIVITY_MASTER_DUNGEON then
+    local activityType = self:GetActivityType()
+    if activityType == LFG_ACTIVITY_MASTER_DUNGEON or activityType == GAFE_LFG_ACTIVITY_MASTER_TRIAL then
         self:SetNameKeyboard(zo_iconTextFormat(GetVeteranIcon(), "100%", "100%", self:GetRawName()))
         self:SetNameGamepad(zo_strformat(GetString(SI_GAMEPAD_ACTIVITY_FINDER_VETERAN_LOCATION_FORMAT), self:GetRawName()))
     else
@@ -311,4 +380,5 @@ local function CreateSortedLocationsData(activityType)
     ZO_ACTIVITY_FINDER_ROOT_MANAGER.sortedLocationsData[activityType] = sortedActivityData
 end
 
-CreateSortedLocationsData(LFG_ACTIVITY_TRIAL)
+CreateSortedLocationsData(GAFE_LFG_ACTIVITY_TRIAL)
+CreateSortedLocationsData(GAFE_LFG_ACTIVITY_MASTER_TRIAL)

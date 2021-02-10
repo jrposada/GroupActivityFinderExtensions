@@ -28,8 +28,7 @@ function TrialFinder_Manager:New(...)
 end
 
 function TrialFinder_Manager:Initialize()
-    local filterModeData = ZO_ActivityFinderFilterModeData:New(LFG_ACTIVITY_TRIAL)
-    filterModeData:SetSubmenuFilterNames(GAFE.Loc("TrialsSpecificFilterText"))
+    local filterModeData = ZO_ActivityFinderFilterModeData:New(GAFE_LFG_ACTIVITY_TRIAL, GAFE_LFG_ACTIVITY_MASTER_TRIAL)
     ZO_ActivityFinderTemplate_Manager.Initialize(self, "GAFE_TrialFinder", categoryData, filterModeData)
 
     self:SetLockingCooldownTypes(LFG_COOLDOWN_DUNGEON_REWARD_GRANTED)
@@ -43,4 +42,4 @@ function TrialFinder_Manager:GetCategoryData()
     return categoryData
 end
 
--- TRIAL_FINDER_MANAGER = TrialFinder_Manager:New()
+TRIAL_FINDER_MANAGER = TrialFinder_Manager:New()
