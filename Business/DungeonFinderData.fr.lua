@@ -1,6 +1,5 @@
 local GAFE = GroupActivityFinderExtensions
 
--- "Serment : Volenfell"
 GAFE.DungeonFinderData = {
 	[1]={	--Maj
 		"Creuset des aînés II",			--Elden Hollow II
@@ -11,9 +10,9 @@ GAFE.DungeonFinderData = {
 		"Tressefuseau I",				--Spindleclutch I
 		"Cavernes d'Ombre-noire II",	--Darkshade Caverns II
 		"Creuset des aînés I",			--Elden Hollow I
-		"Égouts d'Haltevoie II",		--Wayrest Sewers 
+		"Égouts d'Haltevoie II",		--Wayrest Sewers
 		"Champignonnière I",			--Fungal Grotto I
-		"Cachot interdit II",			--Banished Cells 
+		"Cachot interdit II",			--Banished Cells II
 		"Cavernes d'Ombre-noire I",		--Darkshade Caverns I
 		shift=0
 	},
@@ -33,24 +32,24 @@ GAFE.DungeonFinderData = {
 		shift=0
 	},
 	[3]={	--Urgarlag
-		"Repaire de Maarselok",					--Lair of Maarselok",
-		"Crève-Nève",							--Icereach",
-		"Sépulcre profane",						--Unhallowed Grave",
-		"Jardin de pierre",						--Stone Garden",
-		"Bastion-les-Ronce",					--Castle Thorn",
-		"Tour d'Or Blanc",						--Imperial City Prison
-		"Ruines de Mazzatun",					--Ruins of Mazzatun",
-		"Tour d'Or Blanc",						--White-Gold Tower",
-		"Berceau des ombres",					--Cradle of Shadows",
-		"Forge de Sangracine",					--Bloodroot Forge",
-		"Forteresse d'Épervine",				--Falkreath Hold",
-		"Repaire du croc",						--Fang Lair",
-		"Pic de la Mandécailles",				--Scalecaller Peak",
-		"Fort du Chasseur lunaire",				--Moon Hunter Keep",
+		"Repaire de Maarselok",					--Lair of Maarselok"
+		"Crève-Nève",							--Icereach"
+		"Sépulcre profane",						--Unhallowed Grave"
+		"Jardin de pierre",						--Stone Garden"
+		"Bastion-les-Ronce",					--Castle Thorn"
+		"Prison de le cité impériale",			--Imperial City Prison
+		"Ruines de Mazzatun",					--Ruins of Mazzatun"
+		"Tour d'Or Blanc",						--White-Gold Tower"
+		"Berceau des ombres",					--Cradle of Shadows"
+		"Forge de Sangracine",					--Bloodroot Forge"
+		"Forteresse d'Épervine",				--Falkreath Hold"
+		"Repaire du croc",						--Fang Lair"
+		"Pic de la Mandécailles",				--Scalecaller Peak"
+		"Fort du Chasseur lunaire",				--Moon Hunter Keep"
 		"Procession des Sacrifiés",				--March of Sacrifices"
-		"Profondeurs de Malatar",				--Depths of Malatar",
-		"Arquegivre",							--Frostvault",
-		"le reliquaire des Lunes funèbres",		--Moongrave Fane",
+		"Profondeurs de Malatar",				--Depths of Malatar"
+		"Arquegivre",							--Frostvault"
+		"reliquaire des Lunes funèbres",		--Moongrave Fane"
 		shift=0
 	},
 }
