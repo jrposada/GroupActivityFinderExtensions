@@ -18,8 +18,8 @@ GAFE.DungeonFinderData = {
 	},
 	[2]={	--Glirion
 		"Volenfell",					--Volenfell
-		"Gesegnete Feuerprobe",			--Blessed Crucible I
-		"Burg Grauenfrost",				--Direfrost Keep I
+		"Gesegnete Feuerprobe",			--Blessed Crucible
+		"Burg Grauenfrost",				--Direfrost Keep
 		"Kammern des Wahnsinns",		--Vaults of Madness
 		"Krypta der Herzen II",			--Crypt of Hearts II
 		"Stadt der Asche I",			--City of Ash I

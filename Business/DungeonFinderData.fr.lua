@@ -19,7 +19,7 @@ GAFE.DungeonFinderData = {
 	[2]={	--Glirion
 		"Volenfell",				--Volenfell
 		"Creuset béni",				--Blessed Crucible I
-		"Donjon d'Affregivre",		--Direfrost Keep I
+		"Donjon d'Affregivre",		--Direfrost Keep
 		"Chambres de la folie",		--Vaults of Madness
 		"Crypte des cœurs II",		--Crypt of Hearts II
 		"Cité des cendres I",		--City of Ash I

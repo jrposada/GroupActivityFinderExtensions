@@ -18,8 +18,8 @@ GAFE.DungeonFinderData = {
 	},
 	[2]={	--Glirion
 		"Volenfell",
-		"Blessed Crucible I",
-		"Direfrost Keep I",
+		"Blessed Crucible",
+		"Direfrost Keep",
 		"Vaults of Madness",
 		"Crypt of Hearts II",
 		"City of Ash I",
