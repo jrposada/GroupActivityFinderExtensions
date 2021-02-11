@@ -2,18 +2,18 @@ local GAFE = GroupActivityFinderExtensions
 
 GAFE.DungeonFinderData = {
 	[1]={	--Maj
-		"Eldengrund II",			--Elden Hollow II
-		"Kanalisation I",			--Wayrest Sewers I
-		"Spindeltiefen II",			--Spindleclutch II
-		"Verbannungszellen I",		--Banished Cells I
-		"Pilzgrotte II",			--Fungal Grotto II
-		"Spindeltiefen I",			--Spindleclutch I
-		"Kavernen II",				--Darkshade Caverns I
-		"Eldengrund I",				--Elden Hollow I
-		"Kanalisation II",			--Wayrest Sewers 
-		"Pilzgrotte I",				--Fungal Grotto I
-		"Verbannungszellen II",		--Banished Cells 
-		"Kavernen I",				--Darkshade Caverns I
+		"Eldengrund II",				--Elden Hollow II
+		"Kanalisation von Wegesruh I",	--Wayrest Sewers I
+		"Spindeltiefen II",				--Spindleclutch II
+		"Verbannungszellen I",			--Banished Cells I
+		"Pilzgrotte II",				--Fungal Grotto II
+		"Spindeltiefen I",				--Spindleclutch I
+		"Dunkelschattenkavernen II",	--Darkshade Caverns I
+		"Eldengrund I",					--Elden Hollow I
+		"Kanalisation von Wegesruh II",	--Wayrest Sewers II
+		"Pilzgrotte I",					--Fungal Grotto I
+		"Verbannungszellen II",			--Banished Cells
+		"Dunkelschattenkavernen I",		--Darkshade Caverns I
 		shift=0
 	},
 	[2]={	--Glirion
@@ -32,7 +32,7 @@ GAFE.DungeonFinderData = {
 		shift=0
 	},
 	[3]={	--Urgarlag
-		"Der Hort von Maarselok",		--Lair of Maarselok
+		"Hort von Maarselok",			--Lair of Maarselok
 		"Eiskap",						--Icereach
 		"Unheiliges Grab",				--Unhallowed Grave
 		"Steingarten",					--Stone Garden
