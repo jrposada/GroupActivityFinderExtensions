@@ -73,6 +73,17 @@
         "SafeAddString",
         "GAFE_TrialFinder_KeyboardListSection",
         "GAFE_TrialFinder_KeyboardQueueButton",
-        "GAFE_TrialFinder_Keyboard"
+        "GAFE_TrialFinder_Keyboard",
+        "GetGroupSize",
+        "GetGroupUnitTagByIndex",
+        "GetGroupMemberSelectedRole",
+        "LFG_ROLE_DPS",
+        "LFG_ROLE_HEAL",
+        "LFG_ROLE_TANK",
+        "GetSelectedLFGRole",
+        "IsUnitGroupLeader",
+        "EVENT_GROUP_MEMBER_JOINED",
+        "EVENT_GROUP_MEMBER_LEFT",
+        "EVENT_LEADER_UPDATE"
     ]
 }

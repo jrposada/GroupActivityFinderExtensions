@@ -1,30 +1,31 @@
 local GAFE = GroupActivityFinderExtensions
 local TFD = GAFE.TrialFinderData
+local EM = EVENT_MANAGER
 
 GAFE.TrialFinder = {}
 
 -- https://esoitem.uesp.net/viewlog.php
 local TrialData={
     --Normal
-    [GAFE_TRIAL_ACTIVITY_ID.NormalAetherianArchive]     = { id=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.NormalHelRaCitadel]         = { id=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.NormalSanctumOphidia]       = { id=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.NormalMawOfLorkhaj]         = { id=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.NormalHallsOfFabrication]   = { id=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.NormalAsylumSanctorium]     = { id=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.NormalCloudrest]            = { id=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.NormalSunspire]             = { id=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.NormalKynesAegis]           = { id=nil },
+    [GAFE_TRIAL_ACTIVITY_ID.NormalAetherianArchive]     = {  lf="nAA",	id=nil },
+    [GAFE_TRIAL_ACTIVITY_ID.NormalHelRaCitadel]         = {  lf="nHRC",	id=nil },
+    [GAFE_TRIAL_ACTIVITY_ID.NormalSanctumOphidia]       = {  lf="nSO",	id=nil },
+    [GAFE_TRIAL_ACTIVITY_ID.NormalMawOfLorkhaj]         = {  lf="nMOL",	id=nil },
+    [GAFE_TRIAL_ACTIVITY_ID.NormalHallsOfFabrication]   = {  lf="nHOF",	id=nil },
+    [GAFE_TRIAL_ACTIVITY_ID.NormalAsylumSanctorium]     = {  lf="nAS",	id=nil },
+    [GAFE_TRIAL_ACTIVITY_ID.NormalCloudrest]            = {  lf="nCR",	id=nil },
+    [GAFE_TRIAL_ACTIVITY_ID.NormalSunspire]             = {  lf="nSS",	id=nil },
+    [GAFE_TRIAL_ACTIVITY_ID.NormalKynesAegis]           = {  lf="nKA",	id=nil },
     --Veteran
-    [GAFE_TRIAL_ACTIVITY_ID.VeteranAetherianArchive]     = { id=nil,    hm=nil,    tt=nil,    nd=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.VeteranHelRaCitadel]         = { id=nil,    hm=nil,    tt=nil,    nd=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.VeteranSanctumOphidia]       = { id=nil,    hm=nil,    tt=nil,    nd=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.VeteranMawOfLorkhaj]         = { id=nil,    hm=nil,    tt=nil,    nd=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.VeteranHallsOfFabrication]   = { id=nil,    hm=nil,    tt=nil,    nd=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.VeteranAsylumSanctorium]     = { id=nil,    hm=nil,    tt=nil,    nd=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.VeteranCloudrest]            = { id=nil,    hm=nil,    tt=nil,    nd=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.VeteranSunspire]             = { id=nil,    hm=nil,    tt=nil,    nd=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.VeteranKynesAegis]           = { id=nil,    hm=nil,    tt=nil,    nd=nil }
+    [GAFE_TRIAL_ACTIVITY_ID.VeteranAetherianArchive]     = { lf="vAA",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
+    [GAFE_TRIAL_ACTIVITY_ID.VeteranHelRaCitadel]         = { lf="vHRC",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
+    [GAFE_TRIAL_ACTIVITY_ID.VeteranSanctumOphidia]       = { lf="vSO",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
+    [GAFE_TRIAL_ACTIVITY_ID.VeteranMawOfLorkhaj]         = { lf="vMOL",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
+    [GAFE_TRIAL_ACTIVITY_ID.VeteranHallsOfFabrication]   = { lf="vHOF",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
+    [GAFE_TRIAL_ACTIVITY_ID.VeteranAsylumSanctorium]     = { lf="vAS",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
+    [GAFE_TRIAL_ACTIVITY_ID.VeteranCloudrest]            = { lf="vCR",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
+    [GAFE_TRIAL_ACTIVITY_ID.VeteranSunspire]             = { lf="vSS",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
+    [GAFE_TRIAL_ACTIVITY_ID.VeteranKynesAegis]           = { lf="vKA",	 id=nil,    hm=nil,    tt=nil,    nd=nil }
 }
 
 
@@ -45,34 +46,118 @@ local function TrialFinder()
     -- local pledgeQuests, havePledge, haveQuests={}, false, false
 	-- local day=math.floor(GetDiffBetweenTimeStamps(GetTimeStamp(),1517464800)/86400)
 
-    local function Lfg()
-        GAFE.LogLater("lfg")
-		-- local c = ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and 2 or 3 -- Normal => 2, Veteran => 3
-		-- local parent=_G["ZO_DungeonFinder_KeyboardListSectionScrollChildContainer"..c]
-		-- if parent then
-		-- 	for i=1,parent:GetNumChildren() do
-		-- 		local obj=parent:GetChild(i)
-		-- 		if obj and obj.pledge and obj.check:GetState()==0 then
-		-- 			obj.check:SetState(BSTATE_PRESSED, true)
-		-- 			ZO_ACTIVITY_FINDER_ROOT_MANAGER:ToggleLocationSelected(obj.node.data)
-		-- 		end
-		-- 	end
-		-- end
+	local roleText = {
+		[LFG_ROLE_DPS] = "DD",
+		[LFG_ROLE_HEAL] = "H",
+		[LFG_ROLE_TANK] = "T"
+	}
+
+	local function Lfg()
+		local message = roleText[GetSelectedLFGRole()]
+
+		message = message.." LFG"
+		for c=2,3 do
+			local parent=_G["GAFE_TrialFinder_KeyboardListSectionScrollChildContainer"..c]
+			if parent then
+				for i=1,parent:GetNumChildren() do
+					local obj=parent:GetChild(i)
+					if obj and obj.check:GetState()==BSTATE_PRESSED then
+						local activityId = obj.node.data.id
+						message = message.." "..TrialData[activityId].lf
+					end
+				end
+			end
+		end
+
+		GAFE.LogLater(message)
 	end
 
     local function Lfm()
-        GAFE.LogLater("lfm")
-		-- local c = ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and 2 or 3 -- Normal => 2, Veteran => 3
-		-- local parent=_G["ZO_DungeonFinder_KeyboardListSectionScrollChildContainer"..c]
-		-- if parent then
-		-- 	for i=1,parent:GetNumChildren() do
-		-- 		local obj=parent:GetChild(i)
-		-- 		if obj and obj.quest and obj.check:GetState()==0 then
-		-- 			obj.check:SetState(BSTATE_PRESSED, true)
-		-- 			ZO_ACTIVITY_FINDER_ROOT_MANAGER:ToggleLocationSelected(obj.node.data)
-		-- 		end
-		-- 	end
-		-- end
+		local message = "LFM"
+		for c=2,3 do
+			local parent=_G["GAFE_TrialFinder_KeyboardListSectionScrollChildContainer"..c]
+			if parent then
+				for i=1,parent:GetNumChildren() do
+					local obj=parent:GetChild(i)
+					if obj and obj.check:GetState()==BSTATE_PRESSED then
+						local activityId = obj.node.data.id
+						message = message.." "..TrialData[activityId].lf
+					end
+				end
+			end
+		end
+
+		-- Group composition
+		local targetDd, targetT, targetH = 8, 2, 2
+		local dd, t, h = 0, 0, 0
+		local groupSize = GetGroupSize()
+		if groupSize ~= 0 then
+			for unitIndex=1, groupSize do
+				local unitTag = GetGroupUnitTagByIndex(unitIndex)
+				local role = GetGroupMemberSelectedRole(unitTag)
+
+				if role == LFG_ROLE_DPS then
+					dd = dd + 1
+				elseif role == LFG_ROLE_HEAL then
+					h = h + 1
+				elseif role == LFG_ROLE_TANK then
+					t = t + 1
+				end
+			end
+		else
+			local role = GetSelectedLFGRole()
+
+			if role == LFG_ROLE_DPS then
+				dd = dd + 1
+			elseif role == LFG_ROLE_HEAL then
+				h = h + 1
+			elseif role == LFG_ROLE_TANK then
+				t = t + 1
+			end
+		end
+
+		if t ~= targetT then
+			message = message.." "..(targetT - t)..roleText[LFG_ROLE_TANK]
+		end
+		if h ~= targetH then
+			message = message.." "..(targetH - h)..roleText[LFG_ROLE_HEAL]
+		end
+		if dd ~= targetDd then
+			message = message.." "..(targetDd - dd)..roleText[LFG_ROLE_DPS]
+		end
+
+		-- * IsUnitGrouped(*string* _unitTag_)
+		-- ** _Returns:_ *bool* _isGrouped_
+
+		-- * IsUnitGroupLeader(*string* _unitTag_)
+		-- ** _Returns:_ *bool* _isGroupLeader_
+
+		-- * IsGroupUsingVeteranDifficulty()
+		-- ** _Returns:_ *bool* _isVeteran_
+
+
+		GAFE.LogLater(message)
+	end
+
+	local function CanLfg()
+		return GetGroupSize() == 0
+	end
+
+	local function CanLfm()
+		return GetGroupSize() == 0 or IsUnitGroupLeader("player")
+	end
+
+	local function RefreshLfButtons(event)
+		local controls = GAFE.UI.Controls
+		local lfgButton = controls.LfgButton
+		if lfgButton then
+			lfgButton:SetState(CanLfg() and BSTATE_NORMAL or BSTATE_DISABLED)
+		end
+
+		local lfmButton = controls.LfmButton
+		if lfmButton then
+			lfmButton:SetState(CanLfm() and BSTATE_NORMAL or BSTATE_DISABLED)
+		end
 	end
 
 	local function AddTrialElements()
@@ -89,7 +174,6 @@ local function TrialFinder()
                         if TrialData[id] then
                             local debug = GetDisplayName() == "@Panicida"
 
-                            
 							local weeklyLabel = GAFE.UI.Label(GAFE.name.."_TrialInfo_Weekly"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, "")
 
 							local achivementText=""
@@ -142,15 +226,18 @@ local function TrialFinder()
 			end
         end
 
-        -- Add buttons
-        local parent=GAFE_TrialFinder_Keyboard
-        if parent then
-            local w=parent:GetWidth()
-            local dims = {200,28}
+		RefreshLfButtons()
+	end
 
-            local lfgButton=GAFE.UI.Button("GAFE_LookForGroup", parent, dims, {BOTTOM,parent,BOTTOM,w/3,0}, GAFE.Loc("LookForGroup"), Lfg, true, GAFE.Loc("LookForGroupTooltip"))
-            local lfmButton=GAFE.UI.Button("GAFE_LookForMore", parent, dims, {BOTTOM,parent,BOTTOM,0,0}, GAFE.Loc("LookForMore"), Lfm, true, GAFE.Loc("LookForMoreTooltip"))
-        end
+	-- Create buttons lf
+	local parent=GAFE_TrialFinder_Keyboard
+	if parent then
+		local w=parent:GetWidth()
+		local dims = {200,28}
+
+		local controls = GAFE.UI.Controls
+		controls.LfgButton=GAFE.UI.Button("GAFE_LookForGroup", parent, dims, {BOTTOM,parent,BOTTOM,w/3,0}, GAFE.Loc("LookForGroup"), Lfg, CanLfg(), GAFE.Loc("LookForGroupTooltip"))
+		controls.LfmButton=GAFE.UI.Button("GAFE_LookForMore", parent, dims, {BOTTOM,parent,BOTTOM,0,0}, GAFE.Loc("LookForMore"), Lfm, CanLfm(), GAFE.Loc("LookForMoreTooltip"))
 	end
 
     -- Hide queue button.
@@ -161,6 +248,10 @@ local function TrialFinder()
 
     ZO_PreHookHandler(GAFE_TrialFinder_KeyboardListSection, 'OnEffectivelyShown', function() GAFE.CallLater("AddTrialElements",200,AddTrialElements) end)
 	-- ZO_PreHookHandler(ZO_TrialFinder_KeyboardListSection, 'OnEffectivelyHidden', function()  end)
+
+	EM:RegisterForEvent(GAFE.name.."_GroupMemberJoined", EVENT_GROUP_MEMBER_JOINED, RefreshLfButtons)
+	EM:RegisterForEvent(GAFE.name.."_GroupMemberLeft", EVENT_GROUP_MEMBER_LEFT, RefreshLfButtons)
+	EM:RegisterForEvent(GAFE.name.."_LeaderUpdated", EVENT_LEADER_UPDATE, RefreshLfButtons)
 end
 
 function GAFE.TrialFinder.Init()

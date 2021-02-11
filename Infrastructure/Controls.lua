@@ -1,7 +1,9 @@
 local GAFE = GroupActivityFinderExtensions
 local WM = WINDOW_MANAGER
 
-GAFE.UI = {}
+GAFE.UI = {
+	Controls = {}
+}
 
 function GAFE.UI.Label(name, parent, dims, anchor, font, color, align, text, hidden, tooltip)
 	--Validate arguments
