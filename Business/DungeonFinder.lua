@@ -383,7 +383,7 @@ local function DungeonFinder()
 							elseif c~=2 and debug then
 								achivementText=achivementText.."i"
 							end
-							
+
 							-- Death challenge (hard mode)
 							if DungeonData[actrivityId].hm then
 								achivementText=achivementText..(IsAchievementComplete(DungeonData[actrivityId].hm) and "|t20:20:/esoui/art/unitframes/target_veteranrank_icon.dds|t" or "")
@@ -406,7 +406,7 @@ local function DungeonFinder()
 							end
 							local achievementsLabel = GAFE.UI.Label(GAFE.name.."_DungeonInfo_Achievements"..c..i, pledgeLabel, {105,20}, {RIGHT,pledgeLabel,RIGHT,0,0}, "ZoFontGameLarge", nil, {0,1}, achivementText)
 
-							-- Quest -- FIX?
+							-- Quest
 							obj.quest = GetCompletedQuestInfo(DungeonData[actrivityId].q) == "" and true or false
 							haveQuests = haveQuests or obj.quest
 						else
