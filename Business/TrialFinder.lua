@@ -140,24 +140,43 @@ local function TrialFinder()
 		GAFE.LogLater(message)
 	end
 
-	local function CanLfg()
-		return GetGroupSize() == 0
+	local function IsAnythingSelected()
+		local isAnythingSelected = false
+		for c=2,3 do
+			local parent=_G["GAFE_TrialFinder_KeyboardListSectionScrollChildContainer"..c]
+			if parent then
+				for i=1,parent:GetNumChildren() do
+					local obj=parent:GetChild(i)
+					if obj then
+						isAnythingSelected = isAnythingSelected or obj.check:GetState()==BSTATE_PRESSED
+					end
+				end
+			end
+		end
+		return isAnythingSelected
 	end
 
-	local function CanLfm()
-		return GetGroupSize() == 0 or IsUnitGroupLeader("player")
+	local function CanLfg(isAnythingSelected)
+		return isAnythingSelected and GetGroupSize() == 0
+	end
+
+	local function CanLfm(isAnythingSelected)
+		return isAnythingSelected and (GetGroupSize() == 0 or IsUnitGroupLeader("player"))
 	end
 
 	local function RefreshLfButtons(event)
 		local controls = GAFE.UI.Controls
 		local lfgButton = controls.LfgButton
+
+		local isAnythingSelected = IsAnythingSelected()
+
 		if lfgButton then
-			lfgButton:SetState(CanLfg() and BSTATE_NORMAL or BSTATE_DISABLED)
+			lfgButton:SetState(CanLfg(isAnythingSelected) and BSTATE_NORMAL or BSTATE_DISABLED)
 		end
 
 		local lfmButton = controls.LfmButton
 		if lfmButton then
-			lfmButton:SetState(CanLfm() and BSTATE_NORMAL or BSTATE_DISABLED)
+			lfmButton:SetState(CanLfm(isAnythingSelected) and BSTATE_NORMAL or BSTATE_DISABLED)
 		end
 	end
 
@@ -215,6 +234,8 @@ local function TrialFinder()
 						else
 							local todo = GAFE.UI.Label(GAFE.name.."_TrialInfo"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, "TODO:"..id)
 						end
+
+						obj:SetHandler("OnMouseUp", function() RefreshLfButtons() end, GAFE.name)
 					end
 				end
 			end
