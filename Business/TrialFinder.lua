@@ -1,31 +1,32 @@
 local GAFE = GroupActivityFinderExtensions
 local TFD = GAFE.TrialFinderData
 local EM = EVENT_MANAGER
+local ActivityId = GAFE.Constants.ActivityId
 
 GAFE.TrialFinder = {}
 
 -- https://esoitem.uesp.net/viewlog.php
 local TrialData={
     --Normal
-    [GAFE_TRIAL_ACTIVITY_ID.NormalAetherianArchive]     = {  lf="nAA",	id=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.NormalHelRaCitadel]         = {  lf="nHRC",	id=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.NormalSanctumOphidia]       = {  lf="nSO",	id=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.NormalMawOfLorkhaj]         = {  lf="nMOL",	id=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.NormalHallsOfFabrication]   = {  lf="nHOF",	id=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.NormalAsylumSanctorium]     = {  lf="nAS",	id=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.NormalCloudrest]            = {  lf="nCR",	id=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.NormalSunspire]             = {  lf="nSS",	id=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.NormalKynesAegis]           = {  lf="nKA",	id=nil },
+    [ActivityId.NormalAetherianArchive]     = {  lf="nAA",	id=nil },
+    [ActivityId.NormalHelRaCitadel]         = {  lf="nHRC",	id=nil },
+    [ActivityId.NormalSanctumOphidia]       = {  lf="nSO",	id=nil },
+    [ActivityId.NormalMawOfLorkhaj]         = {  lf="nMOL",	id=nil },
+    [ActivityId.NormalHallsOfFabrication]   = {  lf="nHOF",	id=nil },
+    [ActivityId.NormalAsylumSanctorium]     = {  lf="nAS",	id=nil },
+    [ActivityId.NormalCloudrest]            = {  lf="nCR",	id=nil },
+    [ActivityId.NormalSunspire]             = {  lf="nSS",	id=nil },
+    [ActivityId.NormalKynesAegis]           = {  lf="nKA",	id=nil },
     --Veteran
-    [GAFE_TRIAL_ACTIVITY_ID.VeteranAetherianArchive]     = { lf="vAA",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.VeteranHelRaCitadel]         = { lf="vHRC",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.VeteranSanctumOphidia]       = { lf="vSO",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.VeteranMawOfLorkhaj]         = { lf="vMOL",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.VeteranHallsOfFabrication]   = { lf="vHOF",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.VeteranAsylumSanctorium]     = { lf="vAS",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.VeteranCloudrest]            = { lf="vCR",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.VeteranSunspire]             = { lf="vSS",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
-    [GAFE_TRIAL_ACTIVITY_ID.VeteranKynesAegis]           = { lf="vKA",	 id=nil,    hm=nil,    tt=nil,    nd=nil }
+    [ActivityId.VeteranAetherianArchive]     = { lf="vAA",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
+    [ActivityId.VeteranHelRaCitadel]         = { lf="vHRC",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
+    [ActivityId.VeteranSanctumOphidia]       = { lf="vSO",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
+    [ActivityId.VeteranMawOfLorkhaj]         = { lf="vMOL",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
+    [ActivityId.VeteranHallsOfFabrication]   = { lf="vHOF",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
+    [ActivityId.VeteranAsylumSanctorium]     = { lf="vAS",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
+    [ActivityId.VeteranCloudrest]            = { lf="vCR",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
+    [ActivityId.VeteranSunspire]             = { lf="vSS",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
+    [ActivityId.VeteranKynesAegis]           = { lf="vKA",	 id=nil,    hm=nil,    tt=nil,    nd=nil }
 }
 
 
