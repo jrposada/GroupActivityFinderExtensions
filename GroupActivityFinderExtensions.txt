@@ -20,6 +20,7 @@ Infrastructure/Vars.lua
 Infrastructure/Utils.lua
 Infrastructure/Controls.lua
 Infrastructure/Debug.lua
+Infrastructure/Constants.lua
 
 lang\en.lua
 lang\$(language).lua

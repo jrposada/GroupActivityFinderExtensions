@@ -1,55 +1,47 @@
 local GAFE = GroupActivityFinderExtensions
+local PledgeId = GAFE.Constants.PledgeId
 
-GAFE.DungeonFinderData = {
-	[1]={	--Maj
-		"Creuset des aînés II",			--Elden Hollow II
-		"Égouts d'Haltevoie I",			--Wayrest Sewers I
-		"Tressefuseau II",				--Spindleclutch II
-		"Cachot interdit I",			--Banished Cells I
-		"Champignonnière II",			--Fungal Grotto II
-		"Tressefuseau I",				--Spindleclutch I
-		"Cavernes d'Ombre-noire II",	--Darkshade Caverns II
-		"Creuset des aînés I",			--Elden Hollow I
-		"Égouts d'Haltevoie II",		--Wayrest Sewers
-		"Champignonnière I",			--Fungal Grotto I
-		"Cachot interdit II",			--Banished Cells II
-		"Cavernes d'Ombre-noire I",		--Darkshade Caverns I
-		shift=0
-	},
-	[2]={	--Glirion
-		"Volenfell",				--Volenfell
-		"Creuset béni",				--Blessed Crucible I
-		"Donjon d'Affregivre",		--Direfrost Keep
-		"Chambres de la folie",		--Vaults of Madness
-		"Crypte des cœurs II",		--Crypt of Hearts II
-		"Cité des cendres I",		--City of Ash I
-		"Île des Tempêtes",			--Tempest Island
-		"Havre de Cœurnoir",		--Blackheart Haven
-		"Arx Corinium",				--Arx Corinium
-		"Toile de Sélène",			--Selene's Web
-		"Cité des cendres II",		--City of Ash II
-		"Crypte des cœurs I",		--Crypt of Hearts I
-		shift=0
-	},
-	[3]={	--Urgarlag
-		"Repaire de Maarselok",					--Lair of Maarselok"
-		"Crève-Nève",							--Icereach"
-		"Sépulcre profane",						--Unhallowed Grave"
-		"Jardin de pierre",						--Stone Garden"
-		"Bastion-les-Ronce",					--Castle Thorn"
-		"Prison de le cité impériale",			--Imperial City Prison
-		"Ruines de Mazzatun",					--Ruins of Mazzatun"
-		"Tour d'Or Blanc",						--White-Gold Tower"
-		"Berceau des ombres",					--Cradle of Shadows"
-		"Forge de Sangracine",					--Bloodroot Forge"
-		"Forteresse d'Épervine",				--Falkreath Hold"
-		"Repaire du croc",						--Fang Lair"
-		"Pic de la Mandécailles",				--Scalecaller Peak"
-		"Fort du Chasseur lunaire",				--Moon Hunter Keep"
-		"Procession des Sacrifiés",				--March of Sacrifices"
-		"Profondeurs de Malatar",				--Depths of Malatar"
-		"Arquegivre",							--Frostvault"
-		"reliquaire des Lunes funèbres",		--Moongrave Fane"
-		shift=0
-	},
+GAFE.PledgeQuestName = {
+	[PledgeId.FungalGrottoI] = "Champignonnière I",
+	[PledgeId.FungalGrottoII] = "Champignonnière II",
+	[PledgeId.SpindleclutchI] = "Tressefuseau I",
+	[PledgeId.SpindleclutchII] = "Tressefuseau II",
+	[PledgeId.BanishedCellsI] = "Cachot interdit I",
+	[PledgeId.BanishedCellsII] = "Cachot interdit II",
+	[PledgeId.DarkshadeCavernsI] = "Cavernes d'Ombre-noire I",
+	[PledgeId.DarkshadeCavernsII] = "Cavernes d'Ombre-noire II",
+	[PledgeId.EldenHollowI] = "Creuset des aînés I",
+	[PledgeId.EldenHollowII] = "Creuset des aînés II",
+	[PledgeId.WayrestSewersI] = "Égouts d'Haltevoie I",
+	[PledgeId.WayrestSewersII] = "Égouts d'Haltevoie II",
+	[PledgeId.ArxCorinium] = "Arx Corinium",
+	[PledgeId.CityOfAshI] = "Cité des cendres I",
+	[PledgeId.CityOfAshII] = "Cité des cendres II",
+	[PledgeId.CryptOfHeartsI] = "Crypte des cœurs I",
+	[PledgeId.CryptOfHeartsII] = "Crypte des cœurs II",
+	[PledgeId.DirefrostKeep] = "Donjon d'Affregivre",
+	[PledgeId.TempestIsland] = "Île des Tempêtes",
+	[PledgeId.Volenfell] = "Volenfell",
+	[PledgeId.BlackheartHaven] = "Havre de Cœurnoir",
+	[PledgeId.BlessedCrucible] = "Creuset béni",
+	[PledgeId.SelenesWeb] = "Toile de Sélène",
+	[PledgeId.VaultsOfMadness] = "Chambres de la folie",
+	[PledgeId.BloodrootForge] = "Forge de Sangracine",
+	[PledgeId.CastleThorn] = "Bastion-les-Ronce", 
+	[PledgeId.CradleOfShadows] = "Berceau des ombres",
+	[PledgeId.DepthsOfMalatar] = "Profondeurs de Malatar",
+	[PledgeId.FalkreathHold] = "Forteresse d'Épervine",
+	[PledgeId.FangLair] = "Repaire du croc",
+	[PledgeId.Frostvault] = "Arquegivre",
+	[PledgeId.Icereach] = "Crève-Nève",
+	[PledgeId.ImperialCityPrison] = "Prison de le cité impériale",
+	[PledgeId.LairOfMaarselok] = "Repaire de Maarselok",
+	[PledgeId.MarchOfSacrifices] = "Procession des Sacrifiés",
+	[PledgeId.MoonHunterKeep] = "Fort du Chasseur lunaire",
+	[PledgeId.MoongraveFane] = "reliquaire des Lunes funèbres",
+	[PledgeId.RuinsOfMazzatun] = "Ruines de Mazzatun",
+	[PledgeId.ScalecallerPeak] = "Pic de la Mandécailles",
+	[PledgeId.StoneGarden] = "Jardin de pierre",
+	[PledgeId.UnhallowedGrave] = "Sépulcre profane",
+	[PledgeId.WhiteGoldTower] = "Tour d'Or Blanc"
 }

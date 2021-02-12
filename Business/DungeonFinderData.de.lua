@@ -1,55 +1,47 @@
 local GAFE = GroupActivityFinderExtensions
+local PledgeId = GAFE.Constants.PledgeId
 
-GAFE.DungeonFinderData = {
-	[1]={	--Maj
-		"Eldengrund II",				--Elden Hollow II
-		"Kanalisation von Wegesruh I",	--Wayrest Sewers I
-		"Spindeltiefen II",				--Spindleclutch II
-		"Verbannungszellen I",			--Banished Cells I
-		"Pilzgrotte II",				--Fungal Grotto II
-		"Spindeltiefen I",				--Spindleclutch I
-		"Dunkelschattenkavernen II",	--Darkshade Caverns I
-		"Eldengrund I",					--Elden Hollow I
-		"Kanalisation von Wegesruh II",	--Wayrest Sewers II
-		"Pilzgrotte I",					--Fungal Grotto I
-		"Verbannungszellen II",			--Banished Cells
-		"Dunkelschattenkavernen I",		--Darkshade Caverns I
-		shift=0
-	},
-	[2]={	--Glirion
-		"Volenfell",					--Volenfell
-		"Gesegnete Feuerprobe",			--Blessed Crucible
-		"Burg Grauenfrost",				--Direfrost Keep
-		"Kammern des Wahnsinns",		--Vaults of Madness
-		"Krypta der Herzen II",			--Crypt of Hearts II
-		"Stadt der Asche I",			--City of Ash I
-		"Orkaninsel",					--Tempest Island
-		"Schwarzherz-Unterschlupf",		--Blackheart Haven
-		"Arx Corinium",					--Arx Corinium
-		"Selenes Netz",					--Selene's Web
-		"Stadt der Asche II",			--City of Ash II
-		"Krypta der Herzen I",			--Crypt of Hearts I
-		shift=0
-	},
-	[3]={	--Urgarlag
-		"Hort von Maarselok",			--Lair of Maarselok
-		"Eiskap",						--Icereach
-		"Unheiliges Grab",				--Unhallowed Grave
-		"Steingarten",					--Stone Garden
-		"Kastell Dorn",					--Castle Thorn
-		"Gefängnis der Kaiserstadt",	--Imperial City Prison
-		"Ruinen von Mazzatun",			--Ruins of Mazzatun
-		"Weißgoldturm",					--White-Gold Tower
-		"Wiege der Schatten",			--Cradle of Shadows
-		"Blutquellschmiede",			--Bloodroot Forge
-		"Falkenring",					--Falkreath Hold
-		"Krallenhort",					--Fang Lair
-		"Gipfel der Schuppenruferin",	--Scalecaller Peak
-		"Mondjägerfeste",				--Moon Hunter Keep
-		"Marsch der Aufopferung",		--March of Sacrifices
-		"Tiefen von Malatar",			--Depths of Malatar
-		"Frostgewölbe",					--Frostvault
-		"Mondgrab-Tempelstadt",			--Moongrave Fane
-		shift=0
-	},
+GAFE.PledgeQuestName = {
+	[PledgeId.FungalGrottoI] = "Pilzgrotte I",
+	[PledgeId.FungalGrottoII] = "Pilzgrotte II",
+	[PledgeId.SpindleclutchI] = "Spindeltiefen I",
+	[PledgeId.SpindleclutchII] = "Spindeltiefen II",
+	[PledgeId.BanishedCellsI] = "Verbannungszellen I",
+	[PledgeId.BanishedCellsII] = "Verbannungszellen II",
+	[PledgeId.DarkshadeCavernsI] = "Dunkelschattenkavernen I",
+	[PledgeId.DarkshadeCavernsII] = "Dunkelschattenkavernen II",
+	[PledgeId.EldenHollowI] = "Eldengrund I",
+	[PledgeId.EldenHollowII] = "Eldengrund II",
+	[PledgeId.WayrestSewersI] = "Kanalisation von Wegesruh I",
+	[PledgeId.WayrestSewersII] = "Kanalisation von Wegesruh II",
+	[PledgeId.ArxCorinium] = "Arx Corinium",
+	[PledgeId.CityOfAshI] = "Stadt der Asche I",
+	[PledgeId.CityOfAshII] = "Stadt der Asche II",
+	[PledgeId.CryptOfHeartsI] = "Krypta der Herzen I",
+	[PledgeId.CryptOfHeartsII] = "Krypta der Herzen II",
+	[PledgeId.DirefrostKeep] = "Burg Grauenfrost",
+	[PledgeId.TempestIsland] = "Orkaninsel",
+	[PledgeId.Volenfell] = "Volenfell",
+	[PledgeId.BlackheartHaven] = "Schwarzherz-Unterschlupf",
+	[PledgeId.BlessedCrucible] = "Gesegnete Feuerprobe",
+	[PledgeId.SelenesWeb] = "Selenes Netz",
+	[PledgeId.VaultsOfMadness] = "Kammern des Wahnsinns",
+	[PledgeId.BloodrootForge] = "Blutquellschmiede",
+	[PledgeId.CastleThorn] = "Kastell Dorn",
+	[PledgeId.CradleOfShadows] = "Wiege der Schatten",
+	[PledgeId.DepthsOfMalatar] = "Tiefen von Malatar",
+	[PledgeId.FalkreathHold] = "Falkenring",
+	[PledgeId.FangLair] = "Krallenhort",
+	[PledgeId.Frostvault] = "Frostgewölbe",
+	[PledgeId.Icereach] = "Eiskap",
+	[PledgeId.ImperialCityPrison] = "Gefängnis der Kaiserstadt",
+	[PledgeId.LairOfMaarselok] = "Hort von Maarselok",
+	[PledgeId.MarchOfSacrifices] = "Marsch der Aufopferung",
+	[PledgeId.MoonHunterKeep] = "Mondjägerfeste",
+	[PledgeId.MoongraveFane] = "Mondgrab-Tempelstadt",
+	[PledgeId.RuinsOfMazzatun] = "Ruinen von Mazzatun",
+	[PledgeId.ScalecallerPeak] = "Gipfel der Schuppenruferin",
+	[PledgeId.StoneGarden] = "Steingarten",
+	[PledgeId.UnhallowedGrave] = "Unheiliges Grab",
+	[PledgeId.WhiteGoldTower] = "Weißgoldturm"
 }
