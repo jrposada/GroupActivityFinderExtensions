@@ -22,6 +22,6 @@ GAFE.Localization = {
     TrialKynesAegis = "Kynes Ägis",
     LookForGroup = "LFM",
     LookForMore = "LFG",
-    LookForGroupTooltip = "Look for group",
-    LookForMoreTooltip = "Look for more"
+    LookForGroupDisabled = "Sie sind bereits gruppiert",
+    LookForMoreDisabled = "Sie müssen Parteiführer sein"
 }

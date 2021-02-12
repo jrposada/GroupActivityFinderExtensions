@@ -5,6 +5,16 @@ GAFE.UI = {
 	Controls = {}
 }
 
+function GAFE.UI.SetTooltip(control, tooltip)
+	if tooltip ~=nil then
+		control:SetHandler("OnMouseEnter", function(ctrl) ZO_Tooltips_ShowTextTooltip(ctrl, TOP, tooltip) end)
+		control:SetHandler("OnMouseExit", function(ctrl) ZO_Tooltips_HideTextTooltip() end)
+	else
+		control:SetHandler("OnMouseEnter", nil)
+		control:SetHandler("OnMouseExit", nil)
+	end
+end
+
 function GAFE.UI.Label(name, parent, dims, anchor, font, color, align, text, hidden, tooltip)
 	--Validate arguments
 --	if (name==nil or name=="") then return end
@@ -28,10 +38,7 @@ function GAFE.UI.Label(name, parent, dims, anchor, font, color, align, text, hid
 	label:SetText(text)
 	label:SetHidden(hidden)
 
-	if tooltip ~=nil then
-		label:SetHandler("OnMouseEnter", function(ctrl) ZO_Tooltips_ShowTextTooltip(ctrl, TOP, tooltip) end)
-		label:SetHandler("OnMouseExit", function(ctrl) ZO_Tooltips_HideTextTooltip() end)
-	end
+	GAFE.UI.SetTooltip(label, tooltip)
 
 	label:SetDrawTier(2)
 
@@ -54,10 +61,7 @@ function GAFE.UI.Button(name, parent, dims, anchor, text, func, enabled, tooltip
 	button:SetDrawTier(2)
 	button:SetHidden(hidden)
 
-	if tooltip ~=nil then
-		button:SetHandler("OnMouseEnter", function(ctrl) ZO_Tooltips_ShowTextTooltip(ctrl, TOP, tooltip) end)
-		button:SetHandler("OnMouseExit", function(ctrl) ZO_Tooltips_HideTextTooltip() end)
-	end
+	GAFE.UI.SetTooltip(button, tooltip)
 
 	return button
 end

@@ -48,9 +48,9 @@ local function TrialFinder()
 	-- local day=math.floor(GetDiffBetweenTimeStamps(GetTimeStamp(),1517464800)/86400)
 
 	local roleText = {
-		[LFG_ROLE_DPS] = "DD",
-		[LFG_ROLE_HEAL] = "H",
-		[LFG_ROLE_TANK] = "T"
+		[LFG_ROLE_DPS] = "dd",
+		[LFG_ROLE_HEAL] = "h",
+		[LFG_ROLE_TANK] = "t"
 	}
 
 	local function Lfg()
@@ -127,16 +127,6 @@ local function TrialFinder()
 			message = message.." "..(targetDd - dd)..roleText[LFG_ROLE_DPS]
 		end
 
-		-- * IsUnitGrouped(*string* _unitTag_)
-		-- ** _Returns:_ *bool* _isGrouped_
-
-		-- * IsUnitGroupLeader(*string* _unitTag_)
-		-- ** _Returns:_ *bool* _isGroupLeader_
-
-		-- * IsGroupUsingVeteranDifficulty()
-		-- ** _Returns:_ *bool* _isVeteran_
-
-
 		GAFE.LogLater(message)
 	end
 
@@ -164,19 +154,31 @@ local function TrialFinder()
 		return isAnythingSelected and (GetGroupSize() == 0 or IsUnitGroupLeader("player"))
 	end
 
-	local function RefreshLfButtons(event)
+	local function RefreshLfButtons()
 		local controls = GAFE.UI.Controls
 		local lfgButton = controls.LfgButton
 
 		local isAnythingSelected = IsAnythingSelected()
 
 		if lfgButton then
-			lfgButton:SetState(CanLfg(isAnythingSelected) and BSTATE_NORMAL or BSTATE_DISABLED)
+			local tooltipText = nil
+			local canLfg = CanLfg(isAnythingSelected)
+			if not canLfg then
+				tooltipText = GAFE.Loc("LookForGroupDisabled")
+			end
+			lfgButton:SetState(canLfg and BSTATE_NORMAL or BSTATE_DISABLED)
+			GAFE.UI.SetTooltip(lfgButton, tooltipText)
 		end
 
 		local lfmButton = controls.LfmButton
 		if lfmButton then
-			lfmButton:SetState(CanLfm(isAnythingSelected) and BSTATE_NORMAL or BSTATE_DISABLED)
+			local tooltipText = nil
+			local canLfm = CanLfm(isAnythingSelected)
+			if isAnythingSelected and (not canLfm) then
+				tooltipText = GAFE.Loc("LookForMoreDisabled")
+			end
+			lfmButton:SetState(canLfm and BSTATE_NORMAL or BSTATE_DISABLED)
+			GAFE.UI.SetTooltip(lfgButton, tooltipText)
 		end
 	end
 
@@ -258,8 +260,8 @@ local function TrialFinder()
 		local dims = {200,28}
 
 		local controls = GAFE.UI.Controls
-		controls.LfgButton=GAFE.UI.Button("GAFE_LookForGroup", parent, dims, {BOTTOM,parent,BOTTOM,w/3,0}, GAFE.Loc("LookForGroup"), Lfg, CanLfg(), GAFE.Loc("LookForGroupTooltip"))
-		controls.LfmButton=GAFE.UI.Button("GAFE_LookForMore", parent, dims, {BOTTOM,parent,BOTTOM,0,0}, GAFE.Loc("LookForMore"), Lfm, CanLfm(), GAFE.Loc("LookForMoreTooltip"))
+		controls.LfgButton=GAFE.UI.Button("GAFE_LookForGroup", parent, dims, {BOTTOM,parent,BOTTOM,w/3,0}, GAFE.Loc("LookForGroup"), Lfg, CanLfg())
+		controls.LfmButton=GAFE.UI.Button("GAFE_LookForMore", parent, dims, {BOTTOM,parent,BOTTOM,0,0}, GAFE.Loc("LookForMore"), Lfm, CanLfm())
 	end
 
     -- Hide queue button.
