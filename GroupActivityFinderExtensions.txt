@@ -21,6 +21,7 @@ Infrastructure/Utils.lua
 Infrastructure/Controls.lua
 Infrastructure/Debug.lua
 Infrastructure/Constants.lua
+Infrastructure/Chat.lua
 
 lang\en.lua
 lang\$(language).lua

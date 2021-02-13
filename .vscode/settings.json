@@ -84,6 +84,9 @@
         "IsUnitGroupLeader",
         "EVENT_GROUP_MEMBER_JOINED",
         "EVENT_GROUP_MEMBER_LEFT",
-        "EVENT_LEADER_UPDATE"
+        "EVENT_LEADER_UPDATE",
+        "CHAT_SYSTEM",
+        "StartChatInput",
+        "ZO_ChatWindowTextEntryEditBox"
     ]
 }

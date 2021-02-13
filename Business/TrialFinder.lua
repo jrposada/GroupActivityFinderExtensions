@@ -70,7 +70,7 @@ local function TrialFinder()
 			end
 		end
 
-		GAFE.LogLater(message)
+		GAFE.Chat.SendMessage(message)
 	end
 
     local function Lfm()
@@ -127,7 +127,7 @@ local function TrialFinder()
 			message = message.." "..(targetDd - dd)..roleText[LFG_ROLE_DPS]
 		end
 
-		GAFE.LogLater(message)
+		GAFE.Chat.SendMessage(message)
 	end
 
 	local function IsAnythingSelected()
