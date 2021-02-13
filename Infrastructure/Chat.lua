@@ -1,5 +1,4 @@
 local GAFE = GroupActivityFinderExtensions
-local CS = CHAT_SYSTEM
 
 GAFE.Chat = {}
 
