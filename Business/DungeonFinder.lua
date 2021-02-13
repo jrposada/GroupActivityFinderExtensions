@@ -257,7 +257,7 @@ local function DungeonFinder()
 							elseif c~=2 and debug then
 								idText="i"
 							end
-							GAFE.UI.Label(GAFE.name.."_DungeonInfo_Achievements_id"..c..i, obj, {20,20}, {LEFT,obj,LEFT,460,0}, "ZoFontGameLarge", nil, {0,1}, idText)
+							GAFE.UI.Button(GAFE.name.."_DungeonInfo_Achievements_id"..c..i, obj, {20,20}, {LEFT,obj,LEFT,460,0}, idText, nil)
 
 							-- Death challenge (hard mode)
 							local hardModeText
