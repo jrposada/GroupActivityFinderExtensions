@@ -257,7 +257,7 @@ local function DungeonFinder()
 							elseif c~=2 and debug then
 								idText="i"
 							end
-							GAFE.UI.Button(GAFE.name.."_DungeonInfo_Achievements_id"..c..i, obj, {20,20}, {LEFT,obj,LEFT,460,0}, idText, nil)
+							GAFE.UI.ZOButton(GAFE.name.."_DungeonInfo_Achievements_id"..c..i, obj, {20,20}, {LEFT,obj,LEFT,460,0}, idText, nil)
 
 							-- Death challenge (hard mode)
 							local hardModeText
@@ -310,8 +310,8 @@ local function DungeonFinder()
 			local w=parent:GetWidth()
 			local dims = {200,28}
 
-			local questsButton=GAFE.UI.Button("GAFE_QuestsCheck", parent, dims, {BOTTOM,parent,BOTTOM,w/3,0}, GAFE.Loc("CheckMissingQuests"), CheckQuests, haveQuests)
-			local pledgesButton=GAFE.UI.Button("GAFE_PledgesCheck", parent, dims, {BOTTOM,parent,BOTTOM,0,0}, GAFE.Loc("CheckActivePledges"), CheckPledges, havePledge)
+			local questsButton=GAFE.UI.ZOButton("GAFE_QuestsCheck", parent, dims, {BOTTOM,parent,BOTTOM,w/3,0}, GAFE.Loc("CheckMissingQuests"), CheckQuests, haveQuests)
+			local pledgesButton=GAFE.UI.ZOButton("GAFE_PledgesCheck", parent, dims, {BOTTOM,parent,BOTTOM,0,0}, GAFE.Loc("CheckActivePledges"), CheckPledges, havePledge)
 
 			if ZO_DungeonFinder_KeyboardQueueButton then
 				ZO_DungeonFinder_KeyboardQueueButton:ClearAnchors()
