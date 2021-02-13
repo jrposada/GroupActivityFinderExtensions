@@ -14,7 +14,7 @@ local TrialData={
     [ActivityId.NormalMawOfLorkhaj]         = {  lf="nMOL",	id=1343 },
     [ActivityId.NormalHallsOfFabrication]   = {  lf="nHOF",	id=1808 },
     [ActivityId.NormalAsylumSanctorium]     = {  lf="nAS",	id=2076 },
-    [ActivityId.NormalCloudrest]            = {  lf="nCR",	id=	2131 },
+    [ActivityId.NormalCloudrest]            = {  lf="nCR",	id=2131 },
     [ActivityId.NormalSunspire]             = {  lf="nSS",	id=nil },
     [ActivityId.NormalKynesAegis]           = {  lf="nKA",	id=nil },
     --Veteran
@@ -192,50 +192,54 @@ local function TrialFinder()
 				for i=1,parent:GetNumChildren() do
 					local obj=parent:GetChild(i)
 					if obj then
-						local id=obj.node.data.id
-                        if TrialData[id] then
-                            local debug = GetDisplayName() == "@Panicida"
+						-- local activityId=obj.node.data.id
+                        -- if TrialData[activityId] then
+                        --     local debug = GetDisplayName() == "@Panicida"
 
-							local weeklyLabel = GAFE.UI.Label(GAFE.name.."_TrialInfo_Weekly"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, "")
+						-- 	-- local weeklyLabel = GAFE.UI.Label(GAFE.name.."_TrialInfo_Weekly"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, "")
 
-							local achivementText=""
+						-- 	-- General Vanquisher (normal) / Conqueror (veteran)
+						-- 	local idText
+						-- 	if TrialData[activityId].id then
+						-- 		idText=IsAchievementComplete(TrialData[activityId].id) and "|t20:20:/esoui/art/announcewindow/announcement_icon_up.dds|t" or ""
+						-- 	elseif c~=2 and debug then
+						-- 		idText="i"
+						-- 	end
+						-- 	GAFE.UI.Label(GAFE.name.."_TrialInfo_Achievements_id"..c..i, obj, {20,20}, {LEFT,obj,LEFT,460,0}, "ZoFontGameLarge", nil, {0,1}, idText)
 
-							-- General Vanquisher (normal) / Conqueror (veteran)
-							if TrialData[id].id then
-								achivementText=achivementText..(IsAchievementComplete(TrialData[id].id) and "|t20:20:/esoui/art/announcewindow/announcement_icon_up.dds|t" or "")
-							elseif c~=2 and TrialData[id].id == nil and debug then
-								achivementText=achivementText.."i"
-							end
+						-- 	-- Death challenge (hard mode)
+						-- 	local hardModeText
+						-- 	if TrialData[activityId].hm then
+						-- 		hardModeText=IsAchievementComplete(TrialData[activityId].hm) and "|t20:20:/esoui/art/unitframes/target_veteranrank_icon.dds|t" or ""
+						-- 	elseif c~=2 and debug then
+						-- 		hardModeText="h"
+						-- 	end
+						-- 	GAFE.UI.Label(GAFE.name.."_TrialInfo_Achievements_hm"..c..i, obj, {20,20}, {LEFT,obj,LEFT,480,0}, "ZoFontGameLarge", nil, {0,1}, hardModeText)
 
-							-- Death challenge (hard mode)
-							if TrialData[id].hm then
-								achivementText=achivementText..(IsAchievementComplete(TrialData[id].hm) and "|t20:20:/esoui/art/unitframes/target_veteranrank_icon.dds|t" or "")
-							elseif c~=2 and TrialData[id].hm == nil and debug then
-								achivementText=achivementText.."h"
-							end
+						-- 	-- Speed challenge
+						-- 	local speedText
+						-- 	if TrialData[activityId].tt then
+						-- 		speedText=IsAchievementComplete(TrialData[activityId].tt) and "|t20:20:/esoui/art/ava/overview_icon_underdog_score.dds|t" or ""
+						-- 	elseif c~=2 and debug then
+						-- 		speedText="t"
+						-- 	end
+						-- 	GAFE.UI.Label(GAFE.name.."_TrialInfo_Achievements_tt"..c..i, obj, {20,20}, {LEFT,obj,LEFT,500,0}, "ZoFontGameLarge", nil, {0,1}, speedText)
 
-							-- Speed challenge
-							if TrialData[id].tt then
-								achivementText=achivementText..(IsAchievementComplete(TrialData[id].tt) and "|t20:20:/esoui/art/ava/overview_icon_underdog_score.dds|t" or "")
-							elseif c~=2 and TrialData[id].tt == nil and debug then
-								achivementText=achivementText.."t"
-							end
+						-- 	-- Survivor challenge (no death)
+						-- 	local noDeathText
+						-- 	if TrialData[activityId].nd then
+						-- 		noDeathText=IsAchievementComplete(TrialData[activityId].nd) and "|t20:20:/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds|t" or ""
+						-- 	elseif c~=2 and debug then
+						-- 		noDeathText="n"
+						-- 	end
+						-- 	GAFE.UI.Label(GAFE.name.."_TrialInfo_Achievements_nd"..c..i, obj, {20,20}, {LEFT,obj,LEFT,520,0}, "ZoFontGameLarge", nil, {0,1}, noDeathText)
 
-							-- Survivor challenge (no death)
-							if TrialData[id].nd then
-								achivementText=achivementText..(IsAchievementComplete(TrialData[id].nd) and "|t20:20:/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds|t" or "")
-							elseif c~=2 and TrialData[id].nd == nil and debug then
-								achivementText=achivementText.."n"
-                            end
-
-							local achievementsLabel = GAFE.UI.Label(GAFE.name.."_TrialInfo_Achievements"..c..i, weeklyLabel, {105,20}, {RIGHT,weeklyLabel,RIGHT,0,0}, "ZoFontGameLarge", nil, {0,1}, achivementText)
-
-							-- Quest
-							-- obj.quest = GetCompletedQuestInfo(TrialData[id].q) == "" and true or false
-							-- haveQuests = haveQuests or obj.quest
-						else
-							local todo = GAFE.UI.Label(GAFE.name.."_TrialInfo"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, "TODO:"..id)
-						end
+						-- 	-- Quest
+						-- 	-- obj.quest = GetCompletedQuestInfo(TrialData[id].q) == "" and true or false
+						-- 	-- haveQuests = haveQuests or obj.quest
+						-- else
+						-- 	local todo = GAFE.UI.Label(GAFE.name.."_TrialInfo_Todo"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, "TODO:"..activityId)
+						-- end
 
 						obj:SetHandler("OnMouseUp", function() RefreshLfButtons() end, GAFE.name)
 					end
@@ -260,8 +264,8 @@ local function TrialFinder()
 		local dims = {200,28}
 
 		local controls = GAFE.UI.Controls
-		controls.LfgButton=GAFE.UI.Button("GAFE_LookForGroup", parent, dims, {BOTTOM,parent,BOTTOM,w/3,0}, GAFE.Loc("LookForGroup"), Lfg, CanLfg())
-		controls.LfmButton=GAFE.UI.Button("GAFE_LookForMore", parent, dims, {BOTTOM,parent,BOTTOM,0,0}, GAFE.Loc("LookForMore"), Lfm, CanLfm())
+		controls.LfgButton=GAFE.UI.ZOButton("GAFE_LookForGroup", parent, dims, {BOTTOM,parent,BOTTOM,w/3,0}, GAFE.Loc("LookForGroup"), Lfg, CanLfg())
+		controls.LfmButton=GAFE.UI.ZOButton("GAFE_LookForMore", parent, dims, {BOTTOM,parent,BOTTOM,0,0}, GAFE.Loc("LookForMore"), Lfm, CanLfm())
 	end
 
     -- Hide queue button.

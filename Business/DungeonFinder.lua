@@ -212,13 +212,13 @@ local function DungeonFinder()
 				for i=1,parent:GetNumChildren() do
 					local obj=parent:GetChild(i)
 					if obj then
-						local actrivityId=obj.node.data.id
-						if DungeonData[actrivityId] then
+						local activityId=obj.node.data.id
+						if DungeonData[activityId] then
 							local pledgeText=""
 							-- Mark dialy pledges
 							for npc=1,3 do
 								local pledgeId = todayPledges[npc]
-								if pledgeId and DungeonData[actrivityId].p==pledgeId then
+								if pledgeId and DungeonData[activityId].p==pledgeId then
 									local pledgeName = PledgeQuestName[pledgeId]:lower()
 									local questCompleted=pledgeQuests[pledgeName]
 									-- Save if it needs to be checked
@@ -243,8 +243,8 @@ local function DungeonFinder()
 
 							-- Quest (skill point)
 							local skillText
-							if DungeonData[actrivityId].q then
-								skillText=(GetCompletedQuestInfo(DungeonData[actrivityId].q) ~= "" and true or false) and "|t20:20:/esoui/art/icons/achievements_indexicon_quests_up.dds|t" or ""
+							if DungeonData[activityId].q then
+								skillText=(GetCompletedQuestInfo(DungeonData[activityId].q) ~= "" and true or false) and "|t20:20:/esoui/art/icons/achievements_indexicon_quests_up.dds|t" or ""
 							elseif c~=2 and debug then
 								skillText="q"
 							end
@@ -252,17 +252,17 @@ local function DungeonFinder()
 
 							-- General Vanquisher (normal) / Conqueror (veteran)
 							local idText
-							if DungeonData[actrivityId].id then
-								idText=IsAchievementComplete(DungeonData[actrivityId].id) and "|t20:20:/esoui/art/announcewindow/announcement_icon_up.dds|t" or ""
+							if DungeonData[activityId].id then
+								idText=IsAchievementComplete(DungeonData[activityId].id) and "|t20:20:/esoui/art/announcewindow/announcement_icon_up.dds|t" or ""
 							elseif c~=2 and debug then
 								idText="i"
 							end
-							GAFE.UI.ZOButton(GAFE.name.."_DungeonInfo_Achievements_id"..c..i, obj, {20,20}, {LEFT,obj,LEFT,460,0}, idText, nil)
+							GAFE.UI.Label(GAFE.name.."_DungeonInfo_Achievements_id"..c..i, obj, {20,20}, {LEFT,obj,LEFT,460,0}, "ZoFontGameLarge", nil, {0,1}, idText)
 
 							-- Death challenge (hard mode)
 							local hardModeText
-							if DungeonData[actrivityId].hm then
-								hardModeText=IsAchievementComplete(DungeonData[actrivityId].hm) and "|t20:20:/esoui/art/unitframes/target_veteranrank_icon.dds|t" or ""
+							if DungeonData[activityId].hm then
+								hardModeText=IsAchievementComplete(DungeonData[activityId].hm) and "|t20:20:/esoui/art/unitframes/target_veteranrank_icon.dds|t" or ""
 							elseif c~=2 and debug then
 								hardModeText="h"
 							end
@@ -270,8 +270,8 @@ local function DungeonFinder()
 
 							-- Speed challenge
 							local speedText
-							if DungeonData[actrivityId].tt then
-								speedText=IsAchievementComplete(DungeonData[actrivityId].tt) and "|t20:20:/esoui/art/ava/overview_icon_underdog_score.dds|t" or ""
+							if DungeonData[activityId].tt then
+								speedText=IsAchievementComplete(DungeonData[activityId].tt) and "|t20:20:/esoui/art/ava/overview_icon_underdog_score.dds|t" or ""
 							elseif c~=2 and debug then
 								speedText="t"
 							end
@@ -279,18 +279,18 @@ local function DungeonFinder()
 
 							-- Survivor challenge (no death)
 							local noDeathText
-							if DungeonData[actrivityId].nd then
-								noDeathText=IsAchievementComplete(DungeonData[actrivityId].nd) and "|t20:20:/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds|t" or ""
+							if DungeonData[activityId].nd then
+								noDeathText=IsAchievementComplete(DungeonData[activityId].nd) and "|t20:20:/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds|t" or ""
 							elseif c~=2 and debug then
 								noDeathText="n"
 							end
 							GAFE.UI.Label(GAFE.name.."_DungeonInfo_Achievements_nd"..c..i, obj, {20,20}, {LEFT,obj,LEFT,520,0}, "ZoFontGameLarge", nil, {0,1}, noDeathText)
 
 							-- Quest
-							obj.quest = GetCompletedQuestInfo(DungeonData[actrivityId].q) == "" and true or false
+							obj.quest = GetCompletedQuestInfo(DungeonData[activityId].q) == "" and true or false
 							haveQuests = haveQuests or obj.quest
 						else
-							local todo = GAFE.UI.Label(GAFE.name.."_DungeonInfo_Todo"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, "TODO:"..actrivityId)
+							local todo = GAFE.UI.Label(GAFE.name.."_DungeonInfo_Todo"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, "TODO:"..activityId)
 						end
 					end
 				end

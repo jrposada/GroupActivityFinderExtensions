@@ -53,7 +53,7 @@ function GAFE.UI.ZOButton(name, parent, dims, anchor, text, func, enabled, toolt
 	--Create button
 	local button=_G[name] or WM:CreateControlFromVirtual(name, parent, "ZO_DefaultButton")
 
-	if dims then button:SetWidth(dims[1], dims[2]) end
+	if dims then button:SetDimensions(dims[1], dims[2]) end
 	button:SetText(text)
 	button:ClearAnchors()
 	button:SetAnchor(anchor[1], anchor[2], anchor[3], anchor[4], anchor[5])
@@ -72,9 +72,9 @@ function GAFE.UI.Button(name, parent, dims, anchor, text, func, enabled, tooltip
 	hidden=(hidden==nil) and false or hidden
 
 	--Create button
-	local button=_G[name] or WM:CreateControl(name, CT_BUTTON)
+	local button=_G[name] or WM:CreateControlFromVirtual(name, parent, "GAFE_Button")
 
-	if dims then button:SetWidth(dims[1], dims[2]) end
+	if dims then button:SetDimensions(dims[1], dims[2]) end
 	button:SetText(text)
 	button:ClearAnchors()
 	button:SetAnchor(anchor[1], anchor[2], anchor[3], anchor[4], anchor[5])

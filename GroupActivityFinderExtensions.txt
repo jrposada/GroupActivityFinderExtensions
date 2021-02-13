@@ -26,6 +26,8 @@ Infrastructure/Chat.lua
 lang\en.lua
 lang\$(language).lua
 
+Ui/Button.xml
+
 Business/DungeonFinderData.en.lua
 Business/DungeonFinderData.$(language).lua
 Business/DungeonFinder.lua
