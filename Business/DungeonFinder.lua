@@ -239,8 +239,10 @@ local function DungeonFinder()
 							end
 							local pledgeLabel = GAFE.UI.Label(GAFE.name.."_DungeonInfo_Pledge"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, pledgeText)
 
-							-- Quest (skill point)
 							local debug = GetDisplayName() == "@Panicida"
+							local text
+
+							-- Quest (skill point)
 							local achivementText=""
 							if DungeonData[actrivityId].q then
 								achivementText=achivementText..((GetCompletedQuestInfo(DungeonData[actrivityId].q) ~= "" and true or false) and "|t20:20:/esoui/art/icons/achievements_indexicon_quests_up.dds|t" or "")
@@ -250,38 +252,41 @@ local function DungeonFinder()
 
 							-- General Vanquisher (normal) / Conqueror (veteran)
 							if DungeonData[actrivityId].id then
-								achivementText=achivementText..(IsAchievementComplete(DungeonData[actrivityId].id) and "|t20:20:/esoui/art/announcewindow/announcement_icon_up.dds|t" or "")
+								text=IsAchievementComplete(DungeonData[actrivityId].id) and "|t20:20:/esoui/art/announcewindow/announcement_icon_up.dds|t" or ""
 							elseif c~=2 and debug then
-								achivementText=achivementText.."i"
+								text="i"
 							end
+							GAFE.UI.Label(GAFE.name.."_DungeonInfo_Achievements_id"..c..i, pledgeLabel, {20,20}, {LEFT,pledgeLabel,LEFT,20,0}, "ZoFontGameLarge", nil, {0,1}, text)
 
 							-- Death challenge (hard mode)
 							if DungeonData[actrivityId].hm then
-								achivementText=achivementText..(IsAchievementComplete(DungeonData[actrivityId].hm) and "|t20:20:/esoui/art/unitframes/target_veteranrank_icon.dds|t" or "")
+								text=IsAchievementComplete(DungeonData[actrivityId].hm) and "|t20:20:/esoui/art/unitframes/target_veteranrank_icon.dds|t" or ""
 							elseif c~=2 and debug then
-								achivementText=achivementText.."h"
+								text="h"
 							end
+							GAFE.UI.Label(GAFE.name.."_DungeonInfo_Achievements_hm"..c..i, pledgeLabel, {20,20}, {LEFT,pledgeLabel,LEFT,40,0}, "ZoFontGameLarge", nil, {0,1}, text)
 
 							-- Speed challenge
 							if DungeonData[actrivityId].tt then
-								achivementText=achivementText..(IsAchievementComplete(DungeonData[actrivityId].tt) and "|t20:20:/esoui/art/ava/overview_icon_underdog_score.dds|t" or "")
+								text=IsAchievementComplete(DungeonData[actrivityId].tt) and "|t20:20:/esoui/art/ava/overview_icon_underdog_score.dds|t" or ""
 							elseif c~=2 and debug then
-								achivementText=achivementText.."t"
+								text=achivementText.."t"
 							end
+							GAFE.UI.Label(GAFE.name.."_DungeonInfo_Achievements_tt"..c..i, pledgeLabel, {20,20}, {LEFT,pledgeLabel,LEFT,60,0}, "ZoFontGameLarge", nil, {0,1}, text)
 
 							-- Survivor challenge (no death)
 							if DungeonData[actrivityId].nd then
-								achivementText=achivementText..(IsAchievementComplete(DungeonData[actrivityId].nd) and "|t20:20:/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds|t" or "")
+								text=IsAchievementComplete(DungeonData[actrivityId].nd) and "|t20:20:/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds|t" or ""
 							elseif c~=2 and debug then
-								achivementText=achivementText.."n"
+								text="n"
 							end
-							local achievementsLabel = GAFE.UI.Label(GAFE.name.."_DungeonInfo_Achievements"..c..i, pledgeLabel, {105,20}, {RIGHT,pledgeLabel,RIGHT,0,0}, "ZoFontGameLarge", nil, {0,1}, achivementText)
+							GAFE.UI.Label(GAFE.name.."_DungeonInfo_Achievements_nd"..c..i, pledgeLabel, {20,20}, {LEFT,pledgeLabel,LEFT,80,0}, "ZoFontGameLarge", nil, {0,1}, text)
 
 							-- Quest
 							obj.quest = GetCompletedQuestInfo(DungeonData[actrivityId].q) == "" and true or false
 							haveQuests = haveQuests or obj.quest
 						else
-							local todo = GAFE.UI.Label(GAFE.name.."_DungeonInfo_Pledge"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, "TODO:"..actrivityId)
+							local todo = GAFE.UI.Label(GAFE.name.."_DungeonInfo_Todo"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, "TODO:"..actrivityId)
 						end
 					end
 				end

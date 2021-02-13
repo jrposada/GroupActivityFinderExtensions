@@ -8,25 +8,25 @@ GAFE.TrialFinder = {}
 -- https://esoitem.uesp.net/viewlog.php
 local TrialData={
     --Normal
-    [ActivityId.NormalAetherianArchive]     = {  lf="nAA",	id=nil },
-    [ActivityId.NormalHelRaCitadel]         = {  lf="nHRC",	id=nil },
-    [ActivityId.NormalSanctumOphidia]       = {  lf="nSO",	id=nil },
-    [ActivityId.NormalMawOfLorkhaj]         = {  lf="nMOL",	id=nil },
-    [ActivityId.NormalHallsOfFabrication]   = {  lf="nHOF",	id=nil },
-    [ActivityId.NormalAsylumSanctorium]     = {  lf="nAS",	id=nil },
-    [ActivityId.NormalCloudrest]            = {  lf="nCR",	id=nil },
+    [ActivityId.NormalAetherianArchive]     = {  lf="nAA",	id=990 },
+    [ActivityId.NormalHelRaCitadel]         = {  lf="nHRC",	id=991 },
+    [ActivityId.NormalSanctumOphidia]       = {  lf="nSO",	id=1123 },
+    [ActivityId.NormalMawOfLorkhaj]         = {  lf="nMOL",	id=1343 },
+    [ActivityId.NormalHallsOfFabrication]   = {  lf="nHOF",	id=1808 },
+    [ActivityId.NormalAsylumSanctorium]     = {  lf="nAS",	id=2076 },
+    [ActivityId.NormalCloudrest]            = {  lf="nCR",	id=	2131 },
     [ActivityId.NormalSunspire]             = {  lf="nSS",	id=nil },
     [ActivityId.NormalKynesAegis]           = {  lf="nKA",	id=nil },
     --Veteran
-    [ActivityId.VeteranAetherianArchive]     = { lf="vAA",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
-    [ActivityId.VeteranHelRaCitadel]         = { lf="vHRC",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
-    [ActivityId.VeteranSanctumOphidia]       = { lf="vSO",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
-    [ActivityId.VeteranMawOfLorkhaj]         = { lf="vMOL",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
-    [ActivityId.VeteranHallsOfFabrication]   = { lf="vHOF",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
-    [ActivityId.VeteranAsylumSanctorium]     = { lf="vAS",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
-    [ActivityId.VeteranCloudrest]            = { lf="vCR",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
-    [ActivityId.VeteranSunspire]             = { lf="vSS",	 id=nil,    hm=nil,    tt=nil,    nd=nil },
-    [ActivityId.VeteranKynesAegis]           = { lf="vKA",	 id=nil,    hm=nil,    tt=nil,    nd=nil }
+    [ActivityId.VeteranAetherianArchive]     = { lf="vAA",	 id=1503,	hm=1137,	tt=1081,	nd=false },
+    [ActivityId.VeteranHelRaCitadel]         = { lf="vHRC",	 id=1474,	hm=1136,	tt=1080,	nd=false },
+    [ActivityId.VeteranSanctumOphidia]       = { lf="vSO",	 id=1462,	hm=1138,	tt=1124,	nd=false },
+    [ActivityId.VeteranMawOfLorkhaj]         = { lf="vMOL",	 id=1368,	hm=1344,	tt=1367,	nd=1392 },
+    [ActivityId.VeteranHallsOfFabrication]   = { lf="vHOF",	 id=1810,	hm=1829,	tt=1809,	nd=1811 },
+    [ActivityId.VeteranAsylumSanctorium]     = { lf="vAS",	 id=2077,	hm=2079,	tt=2081,	nd=2080 },
+    [ActivityId.VeteranCloudrest]            = { lf="vCR",	 id=	2133,	hm=	2136,	tt=nil,	nd=nil },
+    [ActivityId.VeteranSunspire]             = { lf="vSS",	 id=nil,	hm=nil,	tt=nil,	nd=nil },
+    [ActivityId.VeteranKynesAegis]           = { lf="vKA",	 id=nil,	hm=nil,	tt=nil,	nd=nil }
 }
 
 
@@ -203,28 +203,28 @@ local function TrialFinder()
 							-- General Vanquisher (normal) / Conqueror (veteran)
 							if TrialData[id].id then
 								achivementText=achivementText..(IsAchievementComplete(TrialData[id].id) and "|t20:20:/esoui/art/announcewindow/announcement_icon_up.dds|t" or "")
-							elseif c~=2 and debug then
+							elseif c~=2 and TrialData[id].id == nil and debug then
 								achivementText=achivementText.."i"
 							end
 
 							-- Death challenge (hard mode)
 							if TrialData[id].hm then
 								achivementText=achivementText..(IsAchievementComplete(TrialData[id].hm) and "|t20:20:/esoui/art/unitframes/target_veteranrank_icon.dds|t" or "")
-							elseif c~=2 and debug then
+							elseif c~=2 and TrialData[id].hm == nil and debug then
 								achivementText=achivementText.."h"
 							end
 
 							-- Speed challenge
 							if TrialData[id].tt then
 								achivementText=achivementText..(IsAchievementComplete(TrialData[id].tt) and "|t20:20:/esoui/art/ava/overview_icon_underdog_score.dds|t" or "")
-							elseif c~=2 and debug then
+							elseif c~=2 and TrialData[id].tt == nil and debug then
 								achivementText=achivementText.."t"
 							end
 
 							-- Survivor challenge (no death)
 							if TrialData[id].nd then
 								achivementText=achivementText..(IsAchievementComplete(TrialData[id].nd) and "|t20:20:/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds|t" or "")
-							elseif c~=2 and debug then
+							elseif c~=2 and TrialData[id].nd == nil and debug then
 								achivementText=achivementText.."n"
                             end
 

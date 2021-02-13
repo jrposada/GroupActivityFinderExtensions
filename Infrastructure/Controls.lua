@@ -40,6 +40,8 @@ function GAFE.UI.Label(name, parent, dims, anchor, font, color, align, text, hid
 
 	GAFE.UI.SetTooltip(label, tooltip)
 
+	label:SetHandler("OnMouseUp", function() GAFE.LogLater("paco") end)
+
 	label:SetDrawTier(2)
 
 	return label
