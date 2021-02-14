@@ -91,6 +91,7 @@
         "FastTravelToNode",
         "GetFastTravelnodeIndexInfo",
         "GetRecallCost",
-        "GetFastTravelNodeInfo"
+        "GetFastTravelNodeInfo",
+        "ZO_Dialogs_ShowPlatformDialog"
     ]
 }

@@ -181,6 +181,11 @@ local function TrialFinder()
 		end
 	end
 
+	local function FastTravel(nodeIndex)
+		local _, name = GetFastTravelNodeInfo(nodeIndex)
+		ZO_Dialogs_ShowPlatformDialog("RECALL_CONFIRM", {nodeIndex = nodeIndex}, {mainTextParams = {name}})
+	end
+
 	local function AddTrialElements()
 		-- Get player difficulty mode
 		local difficultyMode = ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and 3 or 2 -- Normal => 2, Veteran => 3
@@ -199,7 +204,7 @@ local function TrialFinder()
 							local nodeIndex = TrialData[activityId].node
 							if nodeIndex then
 								local knownNode = GetFastTravelNodeInfo(nodeIndex)
-								local teleportButton = GAFE.UI.Button(GAFE.name.."TrialInfo_Tp"..c..i, obj, {20,20}, {RIGHT,obj,LEFT,-5,0}, nil, function() FastTravelToNode(nodeIndex) end, knownNode)
+								local teleportButton = GAFE.UI.Button(GAFE.name.."TrialInfo_Tp"..c..i, obj, {20,20}, {RIGHT,obj,LEFT,-5,0}, nil, function() FastTravel(nodeIndex) end, knownNode)
 								if knownNode then
 									teleportButton:SetNormalTexture("/esoui/art/icons/poi/poi_wayshrine_complete.dds")
 								else
