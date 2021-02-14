@@ -86,3 +86,10 @@ function GAFE.Debug.ExtractActivitiesInfo()
 
     GAFE.SavedVars.ActivitiesInfo = info
 end
+
+function GAFE.Debug.LogNodeIds()
+    for id=1, GetNumFastTravelNodes() do
+        local _, name = GetFastTravelNodeInfo(id)
+        GAFE.LogLater(id.."-"..name)
+    end
+end

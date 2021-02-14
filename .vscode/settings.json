@@ -87,6 +87,10 @@
         "EVENT_LEADER_UPDATE",
         "CHAT_SYSTEM",
         "StartChatInput",
-        "ZO_ChatWindowTextEntryEditBox"
+        "ZO_ChatWindowTextEntryEditBox",
+        "FastTravelToNode",
+        "GetFastTravelnodeIndexInfo",
+        "GetRecallCost",
+        "GetFastTravelNodeInfo"
     ]
 }

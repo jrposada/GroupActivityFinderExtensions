@@ -1,5 +1,4 @@
 local GAFE = GroupActivityFinderExtensions
-local TFD = GAFE.TrialFinderData
 local EM = EVENT_MANAGER
 local ActivityId = GAFE.Constants.ActivityId
 
@@ -8,25 +7,25 @@ GAFE.TrialFinder = {}
 -- https://esoitem.uesp.net/viewlog.php
 local TrialData={
     --Normal
-    [ActivityId.NormalAetherianArchive]     = {  lf="nAA",	id=990 },
-    [ActivityId.NormalHelRaCitadel]         = {  lf="nHRC",	id=991 },
-    [ActivityId.NormalSanctumOphidia]       = {  lf="nSO",	id=1123 },
-    [ActivityId.NormalMawOfLorkhaj]         = {  lf="nMOL",	id=1343 },
-    [ActivityId.NormalHallsOfFabrication]   = {  lf="nHOF",	id=1808 },
-    [ActivityId.NormalAsylumSanctorium]     = {  lf="nAS",	id=2076 },
-    [ActivityId.NormalCloudrest]            = {  lf="nCR",	id=2131 },
-    [ActivityId.NormalSunspire]             = {  lf="nSS",	id=nil },
-    [ActivityId.NormalKynesAegis]           = {  lf="nKA",	id=nil },
+    [ActivityId.NormalAetherianArchive]     = {  lf="nAA",	node=231,	id=990,		hm=1137,	tt=1081,	nd=false },
+    [ActivityId.NormalHelRaCitadel]         = {  lf="nHRC",	node=230,	id=991,		hm=1136,	tt=1080,	nd=false },
+    [ActivityId.NormalSanctumOphidia]       = {  lf="nSO",	node=232,	id=1123,	hm=1138,	tt=1124,	nd=false	},
+    [ActivityId.NormalMawOfLorkhaj]         = {  lf="nMOL",	node=258,	id=nil },
+    [ActivityId.NormalHallsOfFabrication]   = {  lf="nHOF",	node=331,	id=nil },
+    [ActivityId.NormalAsylumSanctorium]     = {  lf="nAS",	node=346,	id=nil },
+    [ActivityId.NormalCloudrest]            = {  lf="nCR",	node=364,	id=nil },
+    [ActivityId.NormalSunspire]             = {  lf="nSS",	node=399,	id=nil },
+    [ActivityId.NormalKynesAegis]           = {  lf="nKA",	node=434,	id=nil },
     --Veteran
-    [ActivityId.VeteranAetherianArchive]     = { lf="vAA",	 id=1503,	hm=1137,	tt=1081,	nd=false },
-    [ActivityId.VeteranHelRaCitadel]         = { lf="vHRC",	 id=1474,	hm=1136,	tt=1080,	nd=false },
-    [ActivityId.VeteranSanctumOphidia]       = { lf="vSO",	 id=1462,	hm=1138,	tt=1124,	nd=false },
-    [ActivityId.VeteranMawOfLorkhaj]         = { lf="vMOL",	 id=1368,	hm=1344,	tt=1367,	nd=1392 },
-    [ActivityId.VeteranHallsOfFabrication]   = { lf="vHOF",	 id=1810,	hm=1829,	tt=1809,	nd=1811 },
-    [ActivityId.VeteranAsylumSanctorium]     = { lf="vAS",	 id=2077,	hm=2079,	tt=2081,	nd=2080 },
-    [ActivityId.VeteranCloudrest]            = { lf="vCR",	 id=	2133,	hm=	2136,	tt=nil,	nd=nil },
-    [ActivityId.VeteranSunspire]             = { lf="vSS",	 id=nil,	hm=nil,	tt=nil,	nd=nil },
-    [ActivityId.VeteranKynesAegis]           = { lf="vKA",	 id=nil,	hm=nil,	tt=nil,	nd=nil }
+    [ActivityId.VeteranAetherianArchive]     = { lf="vAA",	node=231,	id=1503,	hm=false,	tt=false,	nd=false },
+    [ActivityId.VeteranHelRaCitadel]         = { lf="vHRC",	node=230,	id=1474,	hm=870,		tt=false,	nd=false },
+    [ActivityId.VeteranSanctumOphidia]       = { lf="vSO",	node=232,	id=1462,	hm=false,	tt=false,	nd=false },
+    [ActivityId.VeteranMawOfLorkhaj]         = { lf="vMOL",	node=258,	id=nil,	hm=nil,	tt=nil,	nd=nil },
+    [ActivityId.VeteranHallsOfFabrication]   = { lf="vHOF",	node=331,	id=nil,	hm=nil,	tt=nil,	nd=nil },
+    [ActivityId.VeteranAsylumSanctorium]     = { lf="vAS",	node=346,	id=nil,	hm=nil,	tt=nil,	nd=nil },
+    [ActivityId.VeteranCloudrest]            = { lf="vCR",	node=364,	id=nil,	hm=nil,	tt=nil,	nd=nil },
+    [ActivityId.VeteranSunspire]             = { lf="vSS",	node=399,	id=nil,	hm=nil,	tt=nil,	nd=nil },
+    [ActivityId.VeteranKynesAegis]           = { lf="vKA",	node=434,	id=nil,	hm=nil,	tt=nil,	nd=nil }
 }
 
 
@@ -192,54 +191,66 @@ local function TrialFinder()
 				for i=1,parent:GetNumChildren() do
 					local obj=parent:GetChild(i)
 					if obj then
-						-- local activityId=obj.node.data.id
-                        -- if TrialData[activityId] then
-                        --     local debug = GetDisplayName() == "@Panicida"
+						local activityId=obj.node.data.id
+                        if TrialData[activityId] then
+                            local debug = GetDisplayName() == "@Panicida"
 
-						-- 	-- local weeklyLabel = GAFE.UI.Label(GAFE.name.."_TrialInfo_Weekly"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, "")
+							-- Teleport button
+							local nodeIndex = TrialData[activityId].node
+							if nodeIndex then
+								local knownNode = GetFastTravelNodeInfo(nodeIndex)
+								local teleportButton = GAFE.UI.Button(GAFE.name.."TrialInfo_Tp"..c..i, obj, {20,20}, {RIGHT,obj,LEFT,-5,0}, nil, function() FastTravelToNode(nodeIndex) end, knownNode)
+								if knownNode then
+									teleportButton:SetNormalTexture("/esoui/art/icons/poi/poi_wayshrine_complete.dds")
+								else
+									teleportButton:SetNormalTexture("/esoui/art/icons/poi/poi_wayshrine_incomplete.dds")
+								end
+							end
 
-						-- 	-- General Vanquisher (normal) / Conqueror (veteran)
-						-- 	local idText
-						-- 	if TrialData[activityId].id then
-						-- 		idText=IsAchievementComplete(TrialData[activityId].id) and "|t20:20:/esoui/art/announcewindow/announcement_icon_up.dds|t" or ""
-						-- 	elseif c~=2 and debug then
-						-- 		idText="i"
-						-- 	end
-						-- 	GAFE.UI.Label(GAFE.name.."_TrialInfo_Achievements_id"..c..i, obj, {20,20}, {LEFT,obj,LEFT,460,0}, "ZoFontGameLarge", nil, {0,1}, idText)
+							-- local weeklyLabel = GAFE.UI.Label(GAFE.name.."_TrialInfo_Weekly"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, "")
 
-						-- 	-- Death challenge (hard mode)
-						-- 	local hardModeText
-						-- 	if TrialData[activityId].hm then
-						-- 		hardModeText=IsAchievementComplete(TrialData[activityId].hm) and "|t20:20:/esoui/art/unitframes/target_veteranrank_icon.dds|t" or ""
-						-- 	elseif c~=2 and debug then
-						-- 		hardModeText="h"
-						-- 	end
-						-- 	GAFE.UI.Label(GAFE.name.."_TrialInfo_Achievements_hm"..c..i, obj, {20,20}, {LEFT,obj,LEFT,480,0}, "ZoFontGameLarge", nil, {0,1}, hardModeText)
+							-- General Vanquisher (normal) / Conqueror (veteran)
+							local idText
+							if TrialData[activityId].id then
+								idText=IsAchievementComplete(TrialData[activityId].id) and "|t20:20:/esoui/art/announcewindow/announcement_icon_up.dds|t" or ""
+							elseif debug and TrialData[activityId].id == nil then
+								idText="i"
+							end
+							GAFE.UI.Label(GAFE.name.."_TrialInfo_Achievements_id"..c..i, obj, {20,20}, {LEFT,obj,LEFT,460,0}, "ZoFontGameLarge", nil, {0,1}, idText)
 
-						-- 	-- Speed challenge
-						-- 	local speedText
-						-- 	if TrialData[activityId].tt then
-						-- 		speedText=IsAchievementComplete(TrialData[activityId].tt) and "|t20:20:/esoui/art/ava/overview_icon_underdog_score.dds|t" or ""
-						-- 	elseif c~=2 and debug then
-						-- 		speedText="t"
-						-- 	end
-						-- 	GAFE.UI.Label(GAFE.name.."_TrialInfo_Achievements_tt"..c..i, obj, {20,20}, {LEFT,obj,LEFT,500,0}, "ZoFontGameLarge", nil, {0,1}, speedText)
+							-- Death challenge (hard mode)
+							local hardModeText
+							if TrialData[activityId].hm then
+								hardModeText=IsAchievementComplete(TrialData[activityId].hm) and "|t20:20:/esoui/art/unitframes/target_veteranrank_icon.dds|t" or ""
+							elseif debug and TrialData[activityId].hm == nil then
+								hardModeText="h"
+							end
+							GAFE.UI.Label(GAFE.name.."_TrialInfo_Achievements_hm"..c..i, obj, {20,20}, {LEFT,obj,LEFT,480,0}, "ZoFontGameLarge", nil, {0,1}, hardModeText)
 
-						-- 	-- Survivor challenge (no death)
-						-- 	local noDeathText
-						-- 	if TrialData[activityId].nd then
-						-- 		noDeathText=IsAchievementComplete(TrialData[activityId].nd) and "|t20:20:/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds|t" or ""
-						-- 	elseif c~=2 and debug then
-						-- 		noDeathText="n"
-						-- 	end
-						-- 	GAFE.UI.Label(GAFE.name.."_TrialInfo_Achievements_nd"..c..i, obj, {20,20}, {LEFT,obj,LEFT,520,0}, "ZoFontGameLarge", nil, {0,1}, noDeathText)
+							-- Speed challenge
+							local speedText
+							if TrialData[activityId].tt then
+								speedText=IsAchievementComplete(TrialData[activityId].tt) and "|t20:20:/esoui/art/ava/overview_icon_underdog_score.dds|t" or ""
+							elseif debug and TrialData[activityId].tt == nil then
+								speedText="t"
+							end
+							GAFE.UI.Label(GAFE.name.."_TrialInfo_Achievements_tt"..c..i, obj, {20,20}, {LEFT,obj,LEFT,500,0}, "ZoFontGameLarge", nil, {0,1}, speedText)
+
+							-- Survivor challenge (no death)
+							local noDeathText
+							if TrialData[activityId].nd then
+								noDeathText=IsAchievementComplete(TrialData[activityId].nd) and "|t20:20:/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds|t" or ""
+							elseif debug and TrialData[activityId].nd == nil then
+								noDeathText="n"
+							end
+							GAFE.UI.Label(GAFE.name.."_TrialInfo_Achievements_nd"..c..i, obj, {20,20}, {LEFT,obj,LEFT,520,0}, "ZoFontGameLarge", nil, {0,1}, noDeathText)
 
 						-- 	-- Quest
 						-- 	-- obj.quest = GetCompletedQuestInfo(TrialData[id].q) == "" and true or false
 						-- 	-- haveQuests = haveQuests or obj.quest
-						-- else
-						-- 	local todo = GAFE.UI.Label(GAFE.name.."_TrialInfo_Todo"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, "TODO:"..activityId)
-						-- end
+						else
+							local todo = GAFE.UI.Label(GAFE.name.."_TrialInfo_Todo"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, "TODO:"..activityId)
+						end
 
 						obj:SetHandler("OnMouseUp", function() RefreshLfButtons() end, GAFE.name)
 					end
