@@ -27,6 +27,7 @@ lang\en.lua
 lang\$(language).lua
 
 Ui/Button.xml
+Ui/Counter.xml
 
 Business/DungeonFinderData.en.lua
 Business/DungeonFinderData.$(language).lua

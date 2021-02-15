@@ -47,10 +47,24 @@ local function TrialFinder()
 	-- local day=math.floor(GetDiffBetweenTimeStamps(GetTimeStamp(),1517464800)/86400)
 
 	local roleText = {
-		[LFG_ROLE_DPS] = "dd",
-		[LFG_ROLE_HEAL] = "h",
-		[LFG_ROLE_TANK] = "t"
+		[LFG_ROLE_DPS] = "DD",
+		[LFG_ROLE_HEAL] = "H",
+		[LFG_ROLE_TANK] = "T"
 	}
+
+	local targetDd, targetT, targetH = 8, 2, 2
+
+	local function UpdateTargetTank(value)
+		targetT = value
+	end
+
+	local function UpdateTargetHeal(value)
+		targetH = value
+	end
+
+	local function UpdateTargetDd(value)
+		targetDd = value
+	end
 
 	local function Lfg()
 		local message = roleText[GetSelectedLFGRole()]
@@ -88,7 +102,6 @@ local function TrialFinder()
 		end
 
 		-- Group composition
-		local targetDd, targetT, targetH = 8, 2, 2
 		local dd, t, h = 0, 0, 0
 		local groupSize = GetGroupSize()
 		if groupSize ~= 0 then
@@ -273,15 +286,21 @@ local function TrialFinder()
 		RefreshLfButtons()
 	end
 
-	-- Create buttons lf
 	local parent=GAFE_TrialFinder_Keyboard
 	if parent then
+		-- Create buttons lf
 		local w=parent:GetWidth()
 		local dims = {200,28}
 
 		local controls = GAFE.UI.Controls
 		controls.LfgButton=GAFE.UI.ZOButton("GAFE_LookForGroup", parent, dims, {BOTTOM,parent,BOTTOM,w/3,0}, GAFE.Loc("LookForGroup"), Lfg, CanLfg())
 		controls.LfmButton=GAFE.UI.ZOButton("GAFE_LookForMore", parent, dims, {BOTTOM,parent,BOTTOM,0,0}, GAFE.Loc("LookForMore"), Lfm, CanLfm())
+
+		-- Create party composition controls
+		dims = {65,40}
+		GAFE.UI.Counter(GAFE.name.."_Group_ts", parent, dims, {BOTTOM,parent,BOTTOM,-w/3,-35}, nil, roleText[LFG_ROLE_TANK], targetT, UpdateTargetTank)
+		GAFE.UI.Counter(GAFE.name.."_Group_hl", parent, dims, {BOTTOM,parent,BOTTOM,0,-35}, nil, roleText[LFG_ROLE_HEAL], targetH, UpdateTargetHeal)
+		GAFE.UI.Counter(GAFE.name.."_Group_dds", parent, dims, {BOTTOM,parent,BOTTOM,w/3,-35}, nil, roleText[LFG_ROLE_DPS], targetDd, UpdateTargetDd)
 	end
 
     -- Hide queue button.

@@ -109,3 +109,51 @@ function GAFE.UI.Checkbox(name, parent, dims, anchor, text, func, enabled, check
 
 	return checkboxContainer
 end
+
+function GAFE.UI.Counter(name, parent, dims, anchor, font, text, value, func)
+	font	=(font==nil) and "ZoFontGameLargeBoldShadow" or font
+
+	--Create counter
+	local counter=_G[name] or WM:CreateControlFromVirtual(name, parent, "GAFE_Counter")
+	local label = counter:GetNamedChild("Label")
+	local actions = counter:GetNamedChild("Actions")
+    local addButton = actions:GetNamedChild("Add")
+    local countLabel = actions:GetNamedChild("Count")
+    local substractButton = actions:GetNamedChild("Substract")
+
+	counter.GAFE_Value = value
+
+	local function Add()
+		local newValue = counter.GAFE_Value + 1
+		counter.GAFE_Value = newValue
+		countLabel:SetText(newValue)
+		func(newValue)
+	end
+
+	local function Substract()
+		local newValue = counter.GAFE_Value - 1
+		counter.GAFE_Value = newValue
+		countLabel:SetText(newValue)
+		func(newValue)
+	end
+
+	if dims then
+		counter:SetDimensions(dims[1], dims[2])
+		label:SetDimensions(dims[1], dims[2]/2)
+		actions:SetDimensions(dims[1], dims[2]/2)
+		addButton:SetDimensions(dims[2]/2, dims[2]/2)
+		countLabel:SetDimensions(dims[1] - dims[2], dims[2]/2)
+		substractButton:SetDimensions(dims[2]/2, dims[2]/2)
+	end
+	label:SetFont(font)
+	label:SetText(text)
+	countLabel:SetText(value)
+
+	addButton:SetHandler("OnMouseUp", Add)
+	substractButton:SetHandler("OnMouseUp", Substract)
+
+	counter:ClearAnchors()
+	counter:SetAnchor(anchor[1], anchor[2], anchor[3], anchor[4], anchor[5])
+
+	counter:SetHidden(false)
+end
