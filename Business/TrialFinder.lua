@@ -166,7 +166,7 @@ local function TrialFinder()
 		return isAnythingSelected and (GetGroupSize() == 0 or IsUnitGroupLeader("player"))
 	end
 
-	local function RefreshLfButtons()
+	local function RefreshControls()
 		local controls = GAFE.UI.Controls
 		local lfgButton = controls.LfgButton
 
@@ -182,15 +182,31 @@ local function TrialFinder()
 			GAFE.UI.SetTooltip(lfgButton, tooltipText)
 		end
 
+		local canLfm = CanLfm(isAnythingSelected)
 		local lfmButton = controls.LfmButton
 		if lfmButton then
 			local tooltipText = nil
-			local canLfm = CanLfm(isAnythingSelected)
 			if isAnythingSelected and (not canLfm) then
 				tooltipText = GAFE.Loc("LookForMoreDisabled")
 			end
 			lfmButton:SetState(canLfm and BSTATE_NORMAL or BSTATE_DISABLED)
 			GAFE.UI.SetTooltip(lfgButton, tooltipText)
+		end
+
+		GAFE.LogLater("Paco")
+		local counterTs = controls.CounterTs
+		if counterTs then
+			counterTs:SetHidden(not canLfm)
+		end
+
+		local counterHs = controls.CounterHs
+		if counterHs then
+			counterHs:SetHidden(not canLfm)
+		end
+
+		local counterDds = controls.CounterDds
+		if counterDds then
+			counterDds:SetHidden(not canLfm)
 		end
 	end
 
@@ -270,7 +286,7 @@ local function TrialFinder()
 							local todo = GAFE.UI.Label(GAFE.name.."_TrialInfo_Todo"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, "TODO:"..activityId)
 						end
 
-						obj:SetHandler("OnMouseUp", function() RefreshLfButtons() end, GAFE.name)
+						obj:SetHandler("OnMouseUp", function() RefreshControls() end, GAFE.name)
 					end
 				end
 			end
@@ -283,7 +299,7 @@ local function TrialFinder()
 			end
         end
 
-		RefreshLfButtons()
+		RefreshControls()
 	end
 
 	local parent=GAFE_TrialFinder_Keyboard
@@ -291,16 +307,18 @@ local function TrialFinder()
 		-- Create buttons lf
 		local w=parent:GetWidth()
 		local dims = {200,28}
+		local canLfg = CanLfg()
+		local canLfm = CanLfm()
 
 		local controls = GAFE.UI.Controls
-		controls.LfgButton=GAFE.UI.ZOButton("GAFE_LookForGroup", parent, dims, {BOTTOM,parent,BOTTOM,w/3,0}, GAFE.Loc("LookForGroup"), Lfg, CanLfg())
-		controls.LfmButton=GAFE.UI.ZOButton("GAFE_LookForMore", parent, dims, {BOTTOM,parent,BOTTOM,0,0}, GAFE.Loc("LookForMore"), Lfm, CanLfm())
+		controls.LfgButton=GAFE.UI.ZOButton("GAFE_LookForGroup", parent, dims, {BOTTOM,parent,BOTTOM,w/3,0}, GAFE.Loc("LookForGroup"), Lfg, canLfg)
+		controls.LfmButton=GAFE.UI.ZOButton("GAFE_LookForMore", parent, dims, {BOTTOM,parent,BOTTOM,0,0}, GAFE.Loc("LookForMore"), Lfm, canLfm)
 
 		-- Create party composition controls
 		dims = {65,40}
-		GAFE.UI.Counter(GAFE.name.."_Group_ts", parent, dims, {BOTTOM,parent,BOTTOM,-w/3,-35}, nil, roleText[LFG_ROLE_TANK], targetT, UpdateTargetTank)
-		GAFE.UI.Counter(GAFE.name.."_Group_hl", parent, dims, {BOTTOM,parent,BOTTOM,0,-35}, nil, roleText[LFG_ROLE_HEAL], targetH, UpdateTargetHeal)
-		GAFE.UI.Counter(GAFE.name.."_Group_dds", parent, dims, {BOTTOM,parent,BOTTOM,w/3,-35}, nil, roleText[LFG_ROLE_DPS], targetDd, UpdateTargetDd)
+		controls.CounterTs = GAFE.UI.Counter(GAFE.name.."_Group_ts", parent, dims, {BOTTOM,parent,BOTTOM,-w/3,-35}, nil, roleText[LFG_ROLE_TANK], targetT, UpdateTargetTank, not canLfm)
+		controls.CounterHs = GAFE.UI.Counter(GAFE.name.."_Group_hl", parent, dims, {BOTTOM,parent,BOTTOM,0,-35}, nil, roleText[LFG_ROLE_HEAL], targetH, UpdateTargetHeal, not canLfm)
+		controls.CounterDds = GAFE.UI.Counter(GAFE.name.."_Group_dds", parent, dims, {BOTTOM,parent,BOTTOM,w/3,-35}, nil, roleText[LFG_ROLE_DPS], targetDd, UpdateTargetDd, not canLfm)
 	end
 
     -- Hide queue button.
@@ -312,9 +330,9 @@ local function TrialFinder()
     ZO_PreHookHandler(GAFE_TrialFinder_KeyboardListSection, 'OnEffectivelyShown', function() GAFE.CallLater("AddTrialElements",200,AddTrialElements) end)
 	-- ZO_PreHookHandler(ZO_TrialFinder_KeyboardListSection, 'OnEffectivelyHidden', function()  end)
 
-	EM:RegisterForEvent(GAFE.name.."_GroupMemberJoined", EVENT_GROUP_MEMBER_JOINED, RefreshLfButtons)
-	EM:RegisterForEvent(GAFE.name.."_GroupMemberLeft", EVENT_GROUP_MEMBER_LEFT, RefreshLfButtons)
-	EM:RegisterForEvent(GAFE.name.."_LeaderUpdated", EVENT_LEADER_UPDATE, RefreshLfButtons)
+	EM:RegisterForEvent(GAFE.name.."_GroupMemberJoined", EVENT_GROUP_MEMBER_JOINED, RefreshControls)
+	EM:RegisterForEvent(GAFE.name.."_GroupMemberLeft", EVENT_GROUP_MEMBER_LEFT, RefreshControls)
+	EM:RegisterForEvent(GAFE.name.."_LeaderUpdated", EVENT_LEADER_UPDATE, RefreshControls)
 end
 
 function GAFE.TrialFinder.Init()

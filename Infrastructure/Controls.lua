@@ -110,7 +110,7 @@ function GAFE.UI.Checkbox(name, parent, dims, anchor, text, func, enabled, check
 	return checkboxContainer
 end
 
-function GAFE.UI.Counter(name, parent, dims, anchor, font, text, value, func)
+function GAFE.UI.Counter(name, parent, dims, anchor, font, text, value, func, hidden)
 	font	=(font==nil) and "ZoFontGameLargeBoldShadow" or font
 
 	--Create counter
@@ -154,6 +154,7 @@ function GAFE.UI.Counter(name, parent, dims, anchor, font, text, value, func)
 
 	counter:ClearAnchors()
 	counter:SetAnchor(anchor[1], anchor[2], anchor[3], anchor[4], anchor[5])
+	counter:SetHidden(hidden)
 
-	counter:SetHidden(false)
+	return counter
 end
