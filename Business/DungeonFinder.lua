@@ -164,7 +164,7 @@ end
 
 local function DungeonFinder()
     local pledgeQuests, havePledge, haveQuests={}, false, false
-	local day=math.floor(GetDiffBetweenTimeStamps(GetTimeStamp(),1517464800)/86400)
+	local day=math.floor(GetDiffBetweenTimeStamps(GetTimeStamp(),1517464800)/86400) -- 86400 = 1 day
 
 	local function CheckPledges()
 		local c = ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and 2 or 3 -- Normal => 2, Veteran => 3

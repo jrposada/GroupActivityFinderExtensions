@@ -1,31 +1,32 @@
 local GAFE = GroupActivityFinderExtensions
 local EM = EVENT_MANAGER
 local ActivityId = GAFE.Constants.ActivityId
+local TrialQuest = GAFE.TrialChestTimer.TrialQuest
 
 GAFE.TrialFinder = {}
 
 -- https://esoitem.uesp.net/viewlog.php
 local TrialData={
     --Normal
-    [ActivityId.NormalAetherianArchive]     = {  lf="nAA",	node=231,	id=990,		hm=1137,	tt=1081,	nd=false },
-    [ActivityId.NormalHelRaCitadel]         = {  lf="nHRC",	node=230,	id=991,		hm=1136,	tt=1080,	nd=false },
-    [ActivityId.NormalSanctumOphidia]       = {  lf="nSO",	node=232,	id=1123,	hm=1138,	tt=1124,	nd=false	},
-    [ActivityId.NormalMawOfLorkhaj]         = {  lf="nMOL",	node=258,	id=nil },
-    [ActivityId.NormalHallsOfFabrication]   = {  lf="nHOF",	node=331,	id=nil },
-    [ActivityId.NormalAsylumSanctorium]     = {  lf="nAS",	node=346,	id=nil },
-    [ActivityId.NormalCloudrest]            = {  lf="nCR",	node=364,	id=nil },
-    [ActivityId.NormalSunspire]             = {  lf="nSS",	node=399,	id=nil },
-    [ActivityId.NormalKynesAegis]           = {  lf="nKA",	node=434,	id=nil },
+    [ActivityId.NormalAetherianArchive]     = {  lf="nAA",	node=231,	q=TrialQuest.AetherianArchive,		id=990,		hm=1137,	tt=1081,	nd=false },
+    [ActivityId.NormalHelRaCitadel]         = {  lf="nHRC",	node=230,	q=TrialQuest.HelRaCitadel,			id=991,		hm=1136,	tt=1080,	nd=false },
+    [ActivityId.NormalSanctumOphidia]       = {  lf="nSO",	node=232,	q=TrialQuest.SanctumOphidia,		id=1123,	hm=1138,	tt=1124,	nd=false },
+    [ActivityId.NormalMawOfLorkhaj]         = {  lf="nMOL",	node=258,	q=TrialQuest.MawOfLorkhaj,			id=nil },
+    [ActivityId.NormalHallsOfFabrication]   = {  lf="nHOF",	node=331,	q=TrialQuest.HallsOfFabrication,	id=nil },
+    [ActivityId.NormalAsylumSanctorium]     = {  lf="nAS",	node=346,	q=TrialQuest.AsylumSanctorium,		id=nil },
+    [ActivityId.NormalCloudrest]            = {  lf="nCR",	node=364,	q=TrialQuest.Cloudrest,				id=nil },
+    [ActivityId.NormalSunspire]             = {  lf="nSS",	node=399,	q=TrialQuest.Sunspire,				id=nil },
+    [ActivityId.NormalKynesAegis]           = {  lf="nKA",	node=434,	q=TrialQuest.KynesAegis,			id=nil },
     --Veteran
-    [ActivityId.VeteranAetherianArchive]     = { lf="vAA",	node=231,	id=1503,	hm=false,	tt=false,	nd=false },
-    [ActivityId.VeteranHelRaCitadel]         = { lf="vHRC",	node=230,	id=1474,	hm=870,		tt=false,	nd=false },
-    [ActivityId.VeteranSanctumOphidia]       = { lf="vSO",	node=232,	id=1462,	hm=false,	tt=false,	nd=false },
-    [ActivityId.VeteranMawOfLorkhaj]         = { lf="vMOL",	node=258,	id=nil,	hm=nil,	tt=nil,	nd=nil },
-    [ActivityId.VeteranHallsOfFabrication]   = { lf="vHOF",	node=331,	id=nil,	hm=nil,	tt=nil,	nd=nil },
-    [ActivityId.VeteranAsylumSanctorium]     = { lf="vAS",	node=346,	id=nil,	hm=nil,	tt=nil,	nd=nil },
-    [ActivityId.VeteranCloudrest]            = { lf="vCR",	node=364,	id=nil,	hm=nil,	tt=nil,	nd=nil },
-    [ActivityId.VeteranSunspire]             = { lf="vSS",	node=399,	id=nil,	hm=nil,	tt=nil,	nd=nil },
-    [ActivityId.VeteranKynesAegis]           = { lf="vKA",	node=434,	id=nil,	hm=nil,	tt=nil,	nd=nil }
+    [ActivityId.VeteranAetherianArchive]     = { lf="vAA",	node=231,	q=TrialQuest.AetherianArchive,		id=1503,	hm=false,	tt=false,	nd=false },
+    [ActivityId.VeteranHelRaCitadel]         = { lf="vHRC",	node=230,	q=TrialQuest.HelRaCitadel,			id=1474,	hm=870,		tt=false,	nd=false },
+    [ActivityId.VeteranSanctumOphidia]       = { lf="vSO",	node=232,	q=TrialQuest.SanctumOphidia,		id=1462,	hm=false,	tt=false,	nd=false },
+    [ActivityId.VeteranMawOfLorkhaj]         = { lf="vMOL",	node=258,	q=TrialQuest.MawOfLorkhaj,			id=nil,	hm=nil,	tt=nil,	nd=nil },
+    [ActivityId.VeteranHallsOfFabrication]   = { lf="vHOF",	node=331,	q=TrialQuest.HallsOfFabrication,	id=nil,	hm=nil,	tt=nil,	nd=nil },
+    [ActivityId.VeteranAsylumSanctorium]     = { lf="vAS",	node=346,	q=TrialQuest.AsylumSanctorium,		id=nil,	hm=nil,	tt=nil,	nd=nil },
+    [ActivityId.VeteranCloudrest]            = { lf="vCR",	node=364,	q=TrialQuest.Cloudrest,				id=nil,	hm=nil,	tt=nil,	nd=nil },
+    [ActivityId.VeteranSunspire]             = { lf="vSS",	node=399,	q=TrialQuest.Sunspire,				id=nil,	hm=nil,	tt=nil,	nd=nil },
+    [ActivityId.VeteranKynesAegis]           = { lf="vKA",	node=434,	q=TrialQuest.KynesAegis,			id=nil,	hm=nil,	tt=nil,	nd=nil }
 }
 
 
@@ -193,7 +194,6 @@ local function TrialFinder()
 			GAFE.UI.SetTooltip(lfgButton, tooltipText)
 		end
 
-		GAFE.LogLater("Paco")
 		local counterTs = controls.CounterTs
 		if counterTs then
 			counterTs:SetHidden(not canLfm)
@@ -215,9 +215,36 @@ local function TrialFinder()
 		ZO_Dialogs_ShowPlatformDialog("RECALL_CONFIRM", {nodeIndex = nodeIndex}, {mainTextParams = {name}})
 	end
 
+	local function ParseTimeStamp(timeStamp)
+		local seconds = timeStamp
+
+		local days = math.floor(seconds / 86400) -- 1 day
+		seconds = seconds - (days * 86400)
+
+		local hours = math.floor(seconds / 3600) -- 1 hour
+		seconds = seconds - (hours * 3600)
+
+		local mins = math.floor(seconds / 60) -- 1 min
+		seconds = seconds - (mins * 60)
+
+		return string.format("%01.f %01.f:%01.f:%01.f", days, hours, mins, seconds)
+	end
+
+	local function UpdateChestLabel(label, characterId, questId)
+		local chestText
+		local timeUntilNextChest = GAFE.TrialChestTimer.GetTimeUntilNextChest(characterId, questId)
+		if timeUntilNextChest > 0 then
+			chestText = ParseTimeStamp(timeUntilNextChest)
+		else
+			chestText = "|t20:20:/esoui/art/icons/mail_armor_container.dds|t"
+		end
+		label:SetText(chestText)
+	end
+
 	local function AddTrialElements()
 		-- Get player difficulty mode
 		local difficultyMode = ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and 3 or 2 -- Normal => 2, Veteran => 3
+		local characterId = GetCurrentCharacterId()
 
 		for c=2,3 do
 			local parent=_G["GAFE_TrialFinder_KeyboardListSectionScrollChildContainer"..c]
@@ -227,7 +254,7 @@ local function TrialFinder()
 					if obj then
 						local activityId=obj.node.data.id
                         if TrialData[activityId] then
-                            local debug = GetDisplayName() == "@Panicida"
+							local debug = GetDisplayName() == "@Panicida"
 
 							-- Teleport button
 							local nodeIndex = TrialData[activityId].node
@@ -240,6 +267,11 @@ local function TrialFinder()
 									teleportButton:SetNormalTexture("/esoui/art/icons/poi/poi_wayshrine_incomplete.dds")
 								end
 							end
+
+							-- Chest label
+							local chestLabel = GAFE.UI.Label(GAFE.name.."_TrialInfo_Chest"..c..i, obj, {60,20}, {LEFT,obj,LEFT,400,3}, "ZoFontGameSmall", nil, {0,1}, "")
+							UpdateChestLabel(chestLabel, characterId, TrialData[activityId].q)
+							chestLabel:SetHandler("OnUpdate", function() UpdateChestLabel(chestLabel, characterId, TrialData[activityId].q) end)
 
 							-- local weeklyLabel = GAFE.UI.Label(GAFE.name.."_TrialInfo_Weekly"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, "")
 

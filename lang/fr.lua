@@ -23,5 +23,7 @@ GAFE.Localization = {
     LookForGroup = "LFM",
     LookForMore = "LFG",
     LookForGroupDisabled = "Vous êtes déjà groupé",
-    LookForMoreDisabled = "Vous devez être chef du parti"
+    LookForMoreDisabled = "Vous devez être chef du parti",
+    Settings_Trials = "Reset chest timers",
+    Settings_ResetChestWarning = "This will reset the timer to 1 week!"
 }

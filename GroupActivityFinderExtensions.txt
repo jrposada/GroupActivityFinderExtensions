@@ -35,6 +35,7 @@ Business/DungeonFinder.lua
 Business/AutoConfirm.lua
 Business/Trials/SortedLocationsData.lua
 Business/Trials/TrialManager.lua
+Business/TrialChestTimer.lua
 Business/TrialFinder.lua
 
 SettingsMenu.lua

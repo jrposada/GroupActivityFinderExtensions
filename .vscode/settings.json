@@ -92,6 +92,10 @@
         "GetFastTravelnodeIndexInfo",
         "GetRecallCost",
         "GetFastTravelNodeInfo",
-        "ZO_Dialogs_ShowPlatformDialog"
+        "ZO_Dialogs_ShowPlatformDialog",
+        "GetCurrentCharacterId",
+        "GetNumCharacters",
+        "GetCharacterInfo",
+        "EVENT_QUEST_REMOVED"
     ]
 }

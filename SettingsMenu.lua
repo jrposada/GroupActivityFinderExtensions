@@ -4,6 +4,8 @@ local LAM = LibAddonMenu2
 GAFE.SettingsMenu = {}
 
 
+local ResetChest = GAFE.TrialChestTimer.ResetChest
+
 function GAFE.SettingsMenu.Init()
     local saveData = GAFE.SavedVars -- This should be a reference to your actual saved variables table
     local panelName = GAFE.name.."_SettingsPanel" -- The name will be used to create a global variable, pick something unique or you may overwrite an existing variable!
@@ -24,7 +26,80 @@ function GAFE.SettingsMenu.Init()
             name = GAFE.Loc("Settings_AutoConfirm"),
             getFunc = function() return saveData.autoConfirm.enabled end,
             setFunc = function(value) GAFE.AutoConfirm.Enable(value) end
-        }
+        },
+        {
+            type = "divider"
+        },
+        {
+            type = "submenu",
+            name = GAFE.Loc("Settings_Trials"),
+            controls = {
+                {
+                    type = "button",
+                    name = GAFE.Loc("TrialAetherianArchive"),
+                    func = function() return ResetChest(GAFE.TrialChestTimer.TrialQuest.AetherianArchive) end,
+                    width = "full",
+                    warning = GAFE.Loc("Settings_ResetChestWarning"),
+                    isDangerous = true
+                },
+                {
+                    type = "button",
+                    name = GAFE.Loc("TrialHelRaCitadel"),
+                    func = function() return ResetChest(GAFE.TrialChestTimer.TrialQuest.HelRaCitadel) end,
+                    warning = GAFE.Loc("Settings_ResetChestWarning"),
+                    isDangerous = true
+                },
+                {
+                    type = "button",
+                    name = GAFE.Loc("TrialSanctumOphidia"),
+                    func = function() return ResetChest(GAFE.TrialChestTimer.TrialQuest.SanctumOphidia) end,
+                    warning = GAFE.Loc("Settings_ResetChestWarning"),
+                    isDangerous = true
+                },
+                {
+                    type = "button",
+                    name = GAFE.Loc("TrialMawOfLorkhaj"),
+                    func = function() return ResetChest(GAFE.TrialChestTimer.TrialQuest.MawOfLorkhaj) end,
+                    warning = GAFE.Loc("Settings_ResetChestWarning"),
+                    isDangerous = true
+                },
+                {
+                    type = "button",
+                    name = GAFE.Loc("TrialHallsOfFabrication"),
+                    func = function() return ResetChest(GAFE.TrialChestTimer.TrialQuest.HallsOfFabrication) end,
+                    warning = GAFE.Loc("Settings_ResetChestWarning"),
+                    isDangerous = true
+                },
+                {
+                    type = "button",
+                    name = GAFE.Loc("TrialAsylumSanctorium"),
+                    func = function() return ResetChest(GAFE.TrialChestTimer.TrialQuest.AsylumSanctorium) end,
+                    warning = GAFE.Loc("Settings_ResetChestWarning"),
+                    isDangerous = true
+                },
+                {
+                    type = "button",
+                    name = GAFE.Loc("TrialCloudrest"),
+                    func = function() return ResetChest(GAFE.TrialChestTimer.TrialQuest.Cloudrest) end,
+                    warning = GAFE.Loc("Settings_ResetChestWarning"),
+                    isDangerous = true
+                },
+                {
+                    type = "button",
+                    name = GAFE.Loc("TrialSunspire"),
+                    func = function() return ResetChest(GAFE.TrialChestTimer.TrialQuest.Sunspire) end,
+                    warning = GAFE.Loc("Settings_ResetChestWarning"),
+                    isDangerous = true
+                },
+                {
+                    type = "button",
+                    name = GAFE.Loc("TrialKynesAegis"),
+                    func = function() return ResetChest(GAFE.TrialChestTimer.TrialQuest.KynesAegis) end,
+                    warning = GAFE.Loc("Settings_ResetChestWarning"),
+                    isDangerous = true
+                },
+            },
+        },
     }
 
     LAM:RegisterAddonPanel(panelName, panelData)
