@@ -311,11 +311,11 @@ local function DungeonFinder()
 			local dims = {200,28}
 
 			local questsButton=GAFE.UI.ZOButton("GAFE_QuestsCheck", parent, dims, {BOTTOM,parent,BOTTOM,w/3,0}, GAFE.Loc("CheckMissingQuests"), CheckQuests, haveQuests)
-			local pledgesButton=GAFE.UI.ZOButton("GAFE_PledgesCheck", parent, dims, {BOTTOM,parent,BOTTOM,0,0}, GAFE.Loc("CheckActivePledges"), CheckPledges, havePledge)
+			local pledgesButton=GAFE.UI.ZOButton("GAFE_PledgesCheck", parent, dims, {BOTTOM,parent,BOTTOM,-w/3,0}, GAFE.Loc("CheckActivePledges"), CheckPledges, havePledge)
 
 			if ZO_DungeonFinder_KeyboardQueueButton then
 				ZO_DungeonFinder_KeyboardQueueButton:ClearAnchors()
-				ZO_DungeonFinder_KeyboardQueueButton:SetAnchor(BOTTOM,parent,BOTTOM,-w/3,0)
+				ZO_DungeonFinder_KeyboardQueueButton:SetAnchor(BOTTOM,parent,BOTTOM,0,0)
 				ZO_DungeonFinder_KeyboardQueueButton:SetDrawTier(2)
 			end
 		end
