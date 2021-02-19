@@ -40,7 +40,7 @@ Business/DungeonFinder/DungeonFinder.lua
 Business/Trials/SortedLocationsData.lua
 Business/Trials/TrialManager.lua
 
-Business/TrialChestTimer.lua
+Business/TrialFinder/TrialChestTimer.lua
 Business/TrialFinder/TrialActivityData.lua
 Business/TrialFinder/TrialFinder.lua
 
