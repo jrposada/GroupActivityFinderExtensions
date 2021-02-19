@@ -22,6 +22,15 @@ function GAFE.SettingsMenu.Init()
             text = GAFE.Loc("Settings_Description")
         },
         {
+            type = "slider",
+            name = GAFE.Loc("Settings_TextureSize"),
+            getFunc = function() return saveData.textureSize end,
+            setFunc = function(value) saveData.textureSize = value end,
+            max = 30,
+            min = 20,
+            step = 1,
+        },
+        {
             type = "checkbox",
             name = GAFE.Loc("Settings_AutoConfirm"),
             getFunc = function() return saveData.autoConfirm.enabled end,

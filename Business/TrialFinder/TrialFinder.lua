@@ -101,21 +101,21 @@ local function ExtendTrialActivity(obj, c, i, characterId)
 		end
 
 		-- Chest label
-		local chestLabel = finderActivityExtender:AddLabel(nil, "Chest"..c..i, obj, 390, 70)
+		local chestLabel = finderActivityExtender:AddLabel(nil, "Chest"..c..i, obj, 370, 70)
 		UpdateChestLabel(chestLabel, characterId, TrialActivityData[activityId].q)
 		chestLabel:SetHandler("OnUpdate", function() UpdateChestLabel(chestLabel, characterId, TrialActivityData[activityId].q) end)
 
 		-- General Vanquisher (normal) / Conqueror (veteran)
-		finderActivityExtender:AddAchievement(TrialActivityData[activityId].id, "id"..c..i, obj, "/esoui/art/announcewindow/announcement_icon_up.dds", 460, debug)
+		finderActivityExtender:AddAchievement(TrialActivityData[activityId].id, "id"..c..i, obj, "/esoui/art/announcewindow/announcement_icon_up.dds", 440, debug)
 
 		-- Death challenge (hard mode)
-		finderActivityExtender:AddAchievement(TrialActivityData[activityId].hm, "hm"..c..i, obj, "/esoui/art/unitframes/target_veteranrank_icon.dds", 480, debug)
+		finderActivityExtender:AddAchievement(TrialActivityData[activityId].hm, "hm"..c..i, obj, "/esoui/art/unitframes/target_veteranrank_icon.dds", 460, debug)
 
 		-- Speed challenge
-		finderActivityExtender:AddAchievement(TrialActivityData[activityId].tt, "tt"..c..i, obj, "/esoui/art/ava/overview_icon_underdog_score.dds", 500, debug)
+		finderActivityExtender:AddAchievement(TrialActivityData[activityId].tt, "tt"..c..i, obj, "/esoui/art/ava/overview_icon_underdog_score.dds", 480, debug)
 
 		-- Survivor challenge (no death)
-		finderActivityExtender:AddAchievement(TrialActivityData[activityId].nd, "nd"..c..i, obj, "/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds", 520, debug)
+		finderActivityExtender:AddAchievement(TrialActivityData[activityId].nd, "nd"..c..i, obj, "/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds", 500, debug)
 	else
 		GAFE.UI.Label(GAFE.name.."_TrialInfo_Todo"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, "TODO:"..activityId)
 	end

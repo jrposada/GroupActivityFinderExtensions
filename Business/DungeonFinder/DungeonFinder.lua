@@ -82,24 +82,24 @@ local function ExtendDungeonActivity(obj, c, i)
 				break
 			end
 		end
-		finderActivityExtender:AddLabel(pledgeText, "Pledge"..c..i, obj, 420)
+		finderActivityExtender:AddLabel(pledgeText, "Pledge"..c..i, obj, 400)
 
 		local debug = GetDisplayName() == "@Panicida"
 
 		-- Quest (skill point)
-		finderActivityExtender:AddQuest(DungeonActivityData[activityId].q, "q"..c..i, obj, "/esoui/art/icons/achievements_indexicon_quests_up.dds", 440, debug)
+		finderActivityExtender:AddQuest(DungeonActivityData[activityId].q, "q"..c..i, obj, "/esoui/art/icons/achievements_indexicon_quests_up.dds", 420, debug)
 
 		-- General Vanquisher (normal) / Conqueror (veteran)
-		finderActivityExtender:AddAchievement(DungeonActivityData[activityId].id, "id"..c..i, obj, "/esoui/art/announcewindow/announcement_icon_up.dds", 460, debug)
+		finderActivityExtender:AddAchievement(DungeonActivityData[activityId].id, "id"..c..i, obj, "/esoui/art/announcewindow/announcement_icon_up.dds", 440, debug)
 
 		-- Death challenge (hard mode)
-		finderActivityExtender:AddAchievement(DungeonActivityData[activityId].hm, "hm"..c..i, obj, "/esoui/art/unitframes/target_veteranrank_icon.dds", 480, debug)
+		finderActivityExtender:AddAchievement(DungeonActivityData[activityId].hm, "hm"..c..i, obj, "/esoui/art/unitframes/target_veteranrank_icon.dds", 460, debug)
 
 		-- Speed challenge
-		finderActivityExtender:AddAchievement(DungeonActivityData[activityId].tt, "tt"..c..i, obj, "/esoui/art/ava/overview_icon_underdog_score.dds", 500, debug)
+		finderActivityExtender:AddAchievement(DungeonActivityData[activityId].tt, "tt"..c..i, obj, "/esoui/art/ava/overview_icon_underdog_score.dds", 480, debug)
 
 		-- Survivor challenge (no death)
-		finderActivityExtender:AddAchievement(DungeonActivityData[activityId].nd, "nd"..c..i, obj, "/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds", 520, debug)
+		finderActivityExtender:AddAchievement(DungeonActivityData[activityId].nd, "nd"..c..i, obj, "/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds", 500, debug)
 
 		-- Quest
 		obj.quest = GetCompletedQuestInfo(DungeonActivityData[activityId].q) == "" and true or false

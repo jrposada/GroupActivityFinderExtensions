@@ -4,10 +4,11 @@ GAFE_LFG_ACTIVITY_MASTER_TRIAL = LFG_ACTIVITY_ITERATION_END + 2
 GroupActivityFinderExtensions = {
     name = "GroupActivityFinderExtensions",
     version = 3.0,
-    varsVersion = 3,
+    varsVersion = 4,
     Localization = {},
     Loc	= function(var) return GroupActivityFinderExtensions.Localization[var] or var end,
     DefaultVars = {
+        textureSize = 25,
         autoConfirm = {
             enabled = true,
             value = false
@@ -62,9 +63,25 @@ local function migration3()
         }
 end
 
+local function migration4()
+    -- Default saved vars for migration version target
+    local newVersion = 3
+    local newDefault = {
+        textureSize = 20,
+        autoConfirm = {
+            enabled = true,
+            value = false
+        },
+        trials = {
+            chests = {}
+        }
+    }
+end
+
 local migrations = {
     [2] = migration2,
     [3] = migration3,
+    [4] = migration4,
 }
 
 function GAFE.Vars.Migrate()
