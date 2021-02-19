@@ -69,19 +69,20 @@ local function ExtendDungeonActivity(obj, c, i)
 				obj.pledge=questCompleted==false
 				if questCompleted==true then
 					-- In Journal and completed
-					pledgeText="|t20:20:/esoui/art/lfg/lfg_indexicon_dungeon_up.dds|t"
+					pledgeText="/esoui/art/lfg/lfg_indexicon_dungeon_up.dds"
 				elseif questCompleted==false then
 					-- In Journal and no completed
-					pledgeText="|t20:20:/esoui/art/lfg/lfg_indexicon_dungeon_down.dds|t" -- Ok
+					pledgeText="/esoui/art/lfg/lfg_indexicon_dungeon_down.dds" -- Ok
 				else
 					-- TODO: Differentiate between done and no in journal and not done and not in journal
 					-- No in journal quest
-					pledgeText="|t20:20:/esoui/art/lfg/lfg_indexicon_dungeon_over.dds|t"
+					pledgeText="/esoui/art/lfg/lfg_indexicon_dungeon_over.dds"
 				end
+				pledgeText = finderActivityExtender:FormatTexture(pledgeText)
 				break
 			end
 		end
-		local pledgeLabel = GAFE.UI.Label(GAFE.name.."_DungeonInfo_Pledge"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, pledgeText)
+		finderActivityExtender:AddLabel(pledgeText, "Pledge"..c..i, obj, 420)
 
 		local debug = GetDisplayName() == "@Panicida"
 

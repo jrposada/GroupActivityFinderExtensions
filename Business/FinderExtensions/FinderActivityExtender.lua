@@ -63,21 +63,26 @@ end
 function FinderActivityExtender:AddAchievement(achievementId, suffix, parent, texture, xOffset, debug)
     local text
     if achievementId then
-        text=IsAchievementComplete(achievementId) and "|t20:20:"..texture.."|t" or ""
+        text=IsAchievementComplete(achievementId) and self:FormatTexture(texture) or ""
     elseif debug and achievementId == nil then
         text=suffix[1]
     end
-    GAFE.UI.Label(GAFE.name.."_"..self.finderName.."Info_Achievements_"..suffix, parent, {20,20}, {LEFT,parent,LEFT,xOffset,0}, "ZoFontGameLarge", nil, {0,1}, text)
+    return GAFE.UI.Label(GAFE.name.."_"..self.finderName.."Info_Achievements_"..suffix, parent, {20,20}, {LEFT,parent,LEFT,xOffset,0}, "ZoFontGameLarge", nil, {0,1}, text)
 end
 
 function FinderActivityExtender:AddQuest(questId, suffix, parent, texture, xOffset, debug)
     local text
     if questId then
-        text=(GetCompletedQuestInfo(questId) ~= "" and true or false) and "|t20:20:"..texture.."|t" or ""
+        text=(GetCompletedQuestInfo(questId) ~= "" and true or false) and self:FormatTexture(texture) or ""
     elseif debug and questId == nil then
         text=suffix[1]
     end
-    GAFE.UI.Label(GAFE.name.."_"..self.finderName.."Info_Quest_"..suffix, parent, {20,20}, {LEFT,parent,LEFT,xOffset,0}, "ZoFontGameLarge", nil, {0,1}, text)
+    return GAFE.UI.Label(GAFE.name.."_"..self.finderName.."Info_Quest_"..suffix, parent, {20,20}, {LEFT,parent,LEFT,xOffset,0}, "ZoFontGameLarge", nil, {0,1}, text)
+end
+
+function FinderActivityExtender:AddLabel(text, suffix, parent, xOffset, width)
+    if width == nil then width = 20 end
+    return GAFE.UI.Label(GAFE.name.."_"..self.finderName.."Info_"..suffix, parent, {width,20}, {LEFT,parent,LEFT,xOffset,0}, "ZoFontGameLarge", nil, {0,1}, text)
 end
 
 function FinderActivityExtender:IsAnythingSelected()
@@ -113,4 +118,8 @@ function FinderActivityExtender:GetSelecteds()
 		end
 	end
     return selected, count
+end
+
+function FinderActivityExtender:FormatTexture(texture)
+    return "|t20:20:"..texture.."|t"
 end

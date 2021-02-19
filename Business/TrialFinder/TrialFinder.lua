@@ -78,7 +78,7 @@ local function UpdateChestLabel(label, characterId, questId)
 	if timeUntilNextChest > 0 then
 		chestText = GAFE.ParseTimeStamp(timeUntilNextChest)
 	else
-		chestText = "|t20:20:/esoui/art/icons/mail_armor_container.dds|t"
+		chestText =  finderActivityExtender:FormatTexture("/esoui/art/icons/mail_armor_container.dds")
 	end
 	label:SetText(chestText)
 end
@@ -101,7 +101,7 @@ local function ExtendTrialActivity(obj, c, i, characterId)
 		end
 
 		-- Chest label
-		local chestLabel = GAFE.UI.Label(GAFE.name.."_TrialInfo_Chest"..c..i, obj, {60,20}, {LEFT,obj,LEFT,400,3}, "ZoFontGameSmall", nil, {0,1}, "")
+		local chestLabel = finderActivityExtender:AddLabel(nil, "Chest"..c..i, obj, 390, 70)
 		UpdateChestLabel(chestLabel, characterId, TrialActivityData[activityId].q)
 		chestLabel:SetHandler("OnUpdate", function() UpdateChestLabel(chestLabel, characterId, TrialActivityData[activityId].q) end)
 

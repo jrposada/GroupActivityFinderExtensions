@@ -28,7 +28,7 @@ function GAFE.ParseTimeStamp(timeStamp)
 	local mins = math.floor(seconds / 60) -- 1 min
 	seconds = seconds - (mins * 60)
 
-	return string.format("%01.f %01.f:%01.f:%01.f", days, hours, mins, seconds)
+	return string.format("%01d %02d:%02d:%02d", days, hours, mins, seconds)
 end
 
 function GAFE.Split(text, delimiter)
