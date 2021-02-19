@@ -6,7 +6,7 @@ local DungeonActivityData = GAFE.DungeonActivityData
 
 GAFE.DungeonFinder = {}
 
-local finderActivityExtender = FinderActivityExtender:New("Dungeon")
+local finderActivityExtender = FinderActivityExtender:New("Dungeon", "ZO")
 local todayPledges = {}
 local pledgeQuests = {}
 local havePledge = false

@@ -37,12 +37,15 @@ Business/DungeonFinder/DungeonPledgeQuestName.en.lua
 Business/DungeonFinder/DungeonPledgeQuestName.$(language).lua
 Business/DungeonFinder/DungeonFinder.lua
 
-Business/AutoConfirm.lua
-
 Business/Trials/SortedLocationsData.lua
 Business/Trials/TrialManager.lua
+
 Business/TrialChestTimer.lua
-Business/TrialFinder.lua
+Business/TrialFinder/TrialActivityData.lua
+Business/TrialFinder/TrialFinder.lua
+
+Business/AutoConfirm.lua
+
 
 SettingsMenu.lua
 Main.lua

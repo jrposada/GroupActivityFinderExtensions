@@ -3,10 +3,11 @@ local GAFE = GroupActivityFinderExtensions
 FinderActivityExtender = {}
 FinderActivityExtender.__index = FinderActivityExtender
 
-function FinderActivityExtender:New(finderName)
+function FinderActivityExtender:New(finderName, prefix)
     local result = {}
     setmetatable(result, FinderActivityExtender)
     result.finderName = finderName
+    result.prefix = prefix
     return result
 end
 
@@ -14,20 +15,21 @@ function FinderActivityExtender:ExtendFunc(extendFunc, refreshFunc)
     local function result()
         -- Get player difficulty mode
         local difficultyMode = ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and 3 or 2 -- Normal => 2, Veteran => 3
+        local characterId = GetCurrentCharacterId()
 
         for c = 2, 3 do
-            local parent = _G["ZO_"..self.finderName.."Finder_KeyboardListSectionScrollChildContainer"..c]
+            local parent = _G[self.prefix.."_"..self.finderName.."Finder_KeyboardListSectionScrollChildContainer"..c]
             if parent then
                 for i=1,parent:GetNumChildren() do
                     local obj=parent:GetChild(i)
                     if obj then
-                        extendFunc(obj, c, i)
+                        extendFunc(obj, c, i, characterId)
                     end
                 end
             end
 
             -- Collapse corresponding panel depending on dungeon mode
-            local header=_G["ZO_"..self.finderName.."Finder_KeyboardListSectionScrollChildZO_ActivityFinderTemplateNavigationHeader_Keyboard"..c-1]
+            local header=_G[self.prefix.."_"..self.finderName.."Finder_KeyboardListSectionScrollChildZO_ActivityFinderTemplateNavigationHeader_Keyboard"..c-1]
             if header then
                 local state=header.text:GetColor()
                 if ((difficultyMode==c)==(state==1)) then header:OnMouseUp(true) end
@@ -44,7 +46,7 @@ end
 function FinderActivityExtender:CheckFunc(checkFunc)
     local function func()
         local c = ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and 2 or 3 -- Normal => 2, Veteran => 3
-        local parent = _G["ZO_"..self.finderName.."Finder_KeyboardListSectionScrollChildContainer"..c]
+        local parent = _G[self.prefix.."_"..self.finderName.."Finder_KeyboardListSectionScrollChildContainer"..c]
         if parent then
             for i = 1, parent:GetNumChildren() do
                 local obj = parent:GetChild(i)
@@ -76,4 +78,39 @@ function FinderActivityExtender:AddQuest(questId, suffix, parent, texture, xOffs
         text=suffix[1]
     end
     GAFE.UI.Label(GAFE.name.."_"..self.finderName.."Info_Quest_"..suffix, parent, {20,20}, {LEFT,parent,LEFT,xOffset,0}, "ZoFontGameLarge", nil, {0,1}, text)
+end
+
+function FinderActivityExtender:IsAnythingSelected()
+	local isAnythingSelected = false
+	for c=2,3 do
+		local parent=_G[self.prefix.."_"..self.finderName.."Finder_KeyboardListSectionScrollChildContainer"..c]
+		if parent then
+			for i=1,parent:GetNumChildren() do
+				local obj=parent:GetChild(i)
+				if obj then
+					isAnythingSelected = isAnythingSelected or obj.check:GetState()==BSTATE_PRESSED
+				end
+			end
+		end
+	end
+	return isAnythingSelected
+end
+
+function FinderActivityExtender:GetSelecteds()
+    local selected = {}
+    local count = 0
+    for c=2,3 do
+		local parent=_G[self.prefix.."_"..self.finderName.."Finder_KeyboardListSectionScrollChildContainer"..c]
+		if parent then
+			for i=1,parent:GetNumChildren() do
+				local obj=parent:GetChild(i)
+				if obj and obj.check:GetState()==BSTATE_PRESSED then
+					local activityId = obj.node.data.id
+                    count = count + 1
+                    selected[count] = activityId
+				end
+			end
+		end
+	end
+    return selected, count
 end
