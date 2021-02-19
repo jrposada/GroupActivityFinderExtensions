@@ -1,7 +1,7 @@
 local GAFE = GroupActivityFinderExtensions
 local PledgeId = GAFE.Constants.PledgeId
 
-GAFE.PledgeQuestName = {
+GAFE.DungeonPledgeQuestName = {
 	[PledgeId.FungalGrottoI] = "Champignonnière I",
 	[PledgeId.FungalGrottoII] = "Champignonnière II",
 	[PledgeId.SpindleclutchI] = "Tressefuseau I",

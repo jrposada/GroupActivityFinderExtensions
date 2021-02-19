@@ -96,6 +96,7 @@
         "GetCurrentCharacterId",
         "GetNumCharacters",
         "GetCharacterInfo",
-        "EVENT_QUEST_REMOVED"
+        "EVENT_QUEST_REMOVED",
+        "EVENT_CHAT_MESSAGE_CHANNEL"
     ]
 }

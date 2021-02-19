@@ -15,3 +15,11 @@ end
 function GAFE.LogLater(obj)
 	zo_callLater(function() d(obj) end, 200)
 end
+
+function GAFE.Split(text, delimiter)
+	local result = {};
+	for match in (text..delimiter):gmatch("(.-)"..delimiter) do
+		table.insert(result, match);
+	end
+	return result;
+end
