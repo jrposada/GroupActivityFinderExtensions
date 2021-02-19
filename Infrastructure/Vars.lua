@@ -4,7 +4,7 @@ GAFE_LFG_ACTIVITY_MASTER_TRIAL = LFG_ACTIVITY_ITERATION_END + 2
 GroupActivityFinderExtensions = {
     name = "GroupActivityFinderExtensions",
     version = 3.0,
-    varsVersion = 4,
+    varsVersion = 3,
     Localization = {},
     Loc	= function(var) return GroupActivityFinderExtensions.Localization[var] or var end,
     DefaultVars = {
@@ -50,24 +50,9 @@ local function migration2()
 end
 
 local function migration3()
-        -- Default saved vars for migration version target
-        local newVersion = 3
-        local newDefault = {
-            autoConfirm = {
-                enabled = true,
-                value = false
-            },
-            trials = {
-                chests = {}
-            }
-        }
-end
-
-local function migration4()
     -- Default saved vars for migration version target
     local newVersion = 3
     local newDefault = {
-        textureSize = 20,
         autoConfirm = {
             enabled = true,
             value = false
@@ -76,12 +61,23 @@ local function migration4()
             chests = {}
         }
     }
+
+    -- Set up locals
+    local savedVars = GroupActivityFinderExtensions_Vars
+    local oldSavedVars = savedVars[GetWorldName()][GetDisplayName()]["$AccountWide"]
+    local newSavedVars = ZO_SavedVars:NewAccountWide(GAFE.name.."_Vars", newVersion, nil, newDefault, GetWorldName())
+
+    -- Migrate values
+    local autoConfirmEnabled = oldSavedVars.autoConfirm.enabled
+    newSavedVars.autoConfirm.enabled = autoConfirmEnabled
+
+    local autoConfirmValue = oldSavedVars.autoConfirm.value
+    newSavedVars.autoConfirm.value = autoConfirmValue
 end
 
 local migrations = {
     [2] = migration2,
     [3] = migration3,
-    [4] = migration4,
 }
 
 function GAFE.Vars.Migrate()
@@ -91,6 +87,13 @@ function GAFE.Vars.Migrate()
            savedVars["Default"][GetDisplayName()]["$AccountWide"] and
            savedVars["Default"][GetDisplayName()]["$AccountWide"]["version"] == 1 then
             return savedVars["Default"][GetDisplayName()]["$AccountWide"]["version"]
+        end
+
+        if savedVars[GetWorldName()] and
+           savedVars[GetWorldName()][GetDisplayName()] and
+           savedVars[GetWorldName()][GetDisplayName()]["$AccountWide"] and
+           savedVars[GetWorldName()][GetDisplayName()]["$AccountWide"]["version"] then
+            return savedVars[GetWorldName()][GetDisplayName()]["$AccountWide"]["version"]
         end
 
         return GAFE.varsVersion

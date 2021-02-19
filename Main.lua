@@ -9,7 +9,9 @@ local function OnAddOnLoaded(eventCode, addonName)
 	EVENT_MANAGER:UnregisterForEvent(GAFE.name.."_Event", EVENT_ADD_ON_LOADED)
 
     -- Migrate old saved vars versions
-    pcall(GAFE.Vars.Migrate)
+    if not pcall(GAFE.Vars.Migrate) then
+        GAFE.LogLater("Could not migrate Group & Activity Finder Extensions settings. Reset to default.")
+    end
 
     -- Load saved variables
     GAFE.SavedVars = ZO_SavedVars:NewAccountWide(GAFE.name.."_Vars", GAFE.varsVersion, nil, GAFE.DefaultVars, GetWorldName())

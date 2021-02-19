@@ -74,7 +74,7 @@ local function ExtendDungeonActivity(obj, c, i)
 					-- In Journal and no completed
 					pledgeText="/esoui/art/lfg/lfg_indexicon_dungeon_down.dds" -- Ok
 				else
-					-- TODO: Differentiate between done and no in journal and not done and not in journal
+					-- TODO: Differentiate between done and not in journal, and not done and not in journal
 					-- No in journal quest
 					pledgeText="/esoui/art/lfg/lfg_indexicon_dungeon_over.dds"
 				end
