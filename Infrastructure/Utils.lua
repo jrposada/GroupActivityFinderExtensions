@@ -33,8 +33,13 @@ end
 
 function GAFE.Split(text, delimiter)
 	local result = {};
+	local numWords = 0
 	for match in (text..delimiter):gmatch("(.-)"..delimiter) do
-		table.insert(result, match);
+		-- TODO: We are still getting empty strings
+		if match ~= " " then
+			table.insert(result, match);
+			numWords = numWords + 1
+		end
 	end
-	return result;
+	return result, numWords;
 end

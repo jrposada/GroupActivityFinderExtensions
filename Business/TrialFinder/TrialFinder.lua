@@ -28,7 +28,11 @@ local function CanLfg(isAnythingSelected)
 end
 
 local function CanLfm(isAnythingSelected)
-	return isAnythingSelected and (GetGroupSize() == 0 or IsUnitGroupLeader("player"))
+	if isAnythingSelected then
+		local _, count = finderActivityExtender:GetSelecteds()
+		return count == 1 and (GetGroupSize() == 0 or IsUnitGroupLeader("player"))
+	end
+	return false
 end
 
 local function RefreshControls()
@@ -194,6 +198,19 @@ local function UpdateTargetDd(value)
 	roleTarget[LFG_ROLE_DPS] = value
 end
 
+local function ParseMessage(event, channelType, fromName, messageText, isCustomerService, fromDisplayName)
+	-- TODO: Remove true, its only for debugging
+	if true or fromDisplayName ~= GetDisplayName() then
+		local words, numWords = GAFE.Split(messageText, " ")
+
+		-- Only parse message shorter than X words. We don't want to parse hole conversations...
+		if numWords <= 10 then
+
+			GAFE.LogLater(words)
+		end
+	end
+end
+
 function GAFE.TrialFinder.Init()
 	-- Panel buttons
 	local parent=GAFE_TrialFinder_Keyboard
@@ -227,4 +244,6 @@ function GAFE.TrialFinder.Init()
 	EM:RegisterForEvent(GAFE.name.."_GroupMemberJoined", EVENT_GROUP_MEMBER_JOINED, RefreshControls)
 	EM:RegisterForEvent(GAFE.name.."_GroupMemberLeft", EVENT_GROUP_MEMBER_LEFT, RefreshControls)
 	EM:RegisterForEvent(GAFE.name.."_LeaderUpdated", EVENT_LEADER_UPDATE, RefreshControls)
+
+	-- EM:RegisterForEvent(GAFE.name.."_ChatMessage", EVENT_CHAT_MESSAGE_CHANNEL, ParseMessage)
 end
