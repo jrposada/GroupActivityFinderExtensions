@@ -100,6 +100,7 @@ function GAFE.UI.Checkbox(name, parent, dims, anchor, text, func, enabled, check
 	-- Create checkbox
 	local checkboxContainer=GAFE.UI.ZOButton(name, parent, dims, anchor, text, func, enabled, nil, hidden)
 	checkboxContainer:SetNormalTexture("")
+	checkboxContainer:SetDisabledTexture("")
 	checkboxContainer.GAFE_SetChecked = SetChecked
 
 	-- Create label

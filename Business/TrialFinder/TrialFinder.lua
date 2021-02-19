@@ -21,7 +21,20 @@ local lfmButton
 local counterTs
 local counterHs
 local counterDds
+local autoInviteCheckbox
+local queuedInfo = {
+	isQueued = false,
+	type = nil,
+	roles = nil,
+	activities = nil
 
+}
+local isAutoInvite = false
+
+local function CanAutoInvite()
+	-- TODO: Implement
+	return false
+end
 
 local function CanLfg(isAnythingSelected)
 	return isAnythingSelected and GetGroupSize() == 0
@@ -127,6 +140,46 @@ local function ExtendTrialActivity(obj, c, i, characterId)
 	obj:SetHandler("OnMouseUp", function() RefreshControls() end, GAFE.name)
 end
 
+local function ParseMessage(event, channelType, fromName, messageText, isCustomerService, fromDisplayName)
+	-- TODO: Remove true, its only for debugging
+	local displayName = GetDisplayName()
+	if isAutoInvite and queuedInfo.isQueued and (true or fromDisplayName ~= displayName) then
+		local words, numWords = GAFE.Split(messageText, " ")
+
+		-- Only parse message shorter than X words. We don't want to parse hole conversations...
+		if numWords <= 10 then
+			-- TODO: Implement
+			-- If is lf message for queued params send invite / wishper
+			GAFE.LogLater(words)
+		end
+	elseif fromDisplayName == displayName then
+		local words, numWords = GAFE.Split(messageText, " ")
+
+		-- Only parse message shorter than X words. We don't want to parse hole conversations...
+		if numWords <= 10 then
+			-- TODO: Implement
+			-- If is lf message set up isQueued and needed params
+			GAFE.LogLater(words)
+		end
+	end
+end
+
+local function ToggleAutoInvite()
+	isAutoInvite = not isAutoInvite
+	autoInviteCheckbox.GAFE_SetChecked(isAutoInvite)
+	autoInviteCheckbox:SetState(CanAutoInvite() and BSTATE_NORMAL or BSTATE_DISABLED)
+end
+
+local function DisableAutoInvite()
+	isAutoInvite = false
+	autoInviteCheckbox.GAFE_SetChecked(isAutoInvite)
+	autoInviteCheckbox:SetState(CanAutoInvite() and BSTATE_NORMAL or BSTATE_DISABLED)
+
+	queuedInfo.type = nil
+	queuedInfo.roles = nil
+	queuedInfo.activities = nil
+end
+
 local function Lfg()
 	local message = roleText[GetSelectedLFGRole()].." LFG"
 
@@ -136,6 +189,7 @@ local function Lfg()
 	end
 
 	GAFE.Chat.SendMessage(message)
+	DisableAutoInvite()
 end
 
 local function Lfm()
@@ -184,6 +238,7 @@ local function Lfm()
 	end
 
 	GAFE.Chat.SendMessage(message)
+	DisableAutoInvite()
 end
 
 local function UpdateTargetTank(value)
@@ -196,19 +251,6 @@ end
 
 local function UpdateTargetDd(value)
 	roleTarget[LFG_ROLE_DPS] = value
-end
-
-local function ParseMessage(event, channelType, fromName, messageText, isCustomerService, fromDisplayName)
-	-- TODO: Remove true, its only for debugging
-	if true or fromDisplayName ~= GetDisplayName() then
-		local words, numWords = GAFE.Split(messageText, " ")
-
-		-- Only parse message shorter than X words. We don't want to parse hole conversations...
-		if numWords <= 10 then
-
-			GAFE.LogLater(words)
-		end
-	end
 end
 
 function GAFE.TrialFinder.Init()
@@ -237,6 +279,13 @@ function GAFE.TrialFinder.Init()
 		end
 	end
 
+	-- Create Auto Invite checkbox
+	local parent=ZO_SearchingForGroupStatus
+	if parent then
+		local canAutoInvite = CanAutoInvite()
+		autoInviteCheckbox=GAFE.UI.Checkbox(GAFE.name.."_AutoInvite", parent, {200,28}, {BOTTOM,parent,TOP,0,-25}, GAFE.Loc("AutoInvite"), ToggleAutoInvite, canAutoInvite, isAutoInvite, false)
+	end
+
 	ZO_PreHookHandler(GAFE_TrialFinder_KeyboardListSection, 'OnEffectivelyShown', function()
 		GAFE.CallLater("ExtendTrialActivity", 200, finderActivityExtender:ExtendFunc(ExtendTrialActivity, RefreshControls))
 	end)
@@ -245,5 +294,5 @@ function GAFE.TrialFinder.Init()
 	EM:RegisterForEvent(GAFE.name.."_GroupMemberLeft", EVENT_GROUP_MEMBER_LEFT, RefreshControls)
 	EM:RegisterForEvent(GAFE.name.."_LeaderUpdated", EVENT_LEADER_UPDATE, RefreshControls)
 
-	-- EM:RegisterForEvent(GAFE.name.."_ChatMessage", EVENT_CHAT_MESSAGE_CHANNEL, ParseMessage)
+	EM:RegisterForEvent(GAFE.name.."_ChatMessage", EVENT_CHAT_MESSAGE_CHANNEL, ParseMessage)
 end
