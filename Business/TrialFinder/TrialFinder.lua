@@ -253,6 +253,16 @@ local function UpdateTargetDd(value)
 	roleTarget[LFG_ROLE_DPS] = value
 end
 
+local function RefreshAutoConfirmEvents()
+	local saveData = GAFE.SavedVars
+	local eventName = GAFE.name.."_ChatMessage"
+	if saveData.autoInvite.enabled then
+		EM:RegisterForEvent(eventName, EVENT_CHAT_MESSAGE_CHANNEL, ParseMessage)
+	else
+		EM:UnregisterForEvent(eventName, EVENT_CHAT_MESSAGE_CHANNEL)
+	end
+end
+
 function GAFE.TrialFinder.Init()
 	-- Panel buttons
 	local parent=GAFE_TrialFinder_Keyboard
@@ -282,8 +292,9 @@ function GAFE.TrialFinder.Init()
 	-- Create Auto Invite checkbox
 	local parent=ZO_SearchingForGroupStatus
 	if parent then
+		local saveData = GAFE.SavedVars
 		local canAutoInvite = CanAutoInvite()
-		autoInviteCheckbox=GAFE.UI.Checkbox(GAFE.name.."_AutoInvite", parent, {200,28}, {BOTTOM,parent,TOP,0,-25}, GAFE.Loc("AutoInvite"), ToggleAutoInvite, canAutoInvite, isAutoInvite, false)
+		autoInviteCheckbox=GAFE.UI.Checkbox(GAFE.name.."_AutoInvite", parent, {200,28}, {BOTTOM,parent,TOP,0,-25}, GAFE.Loc("AutoInvite"), ToggleAutoInvite, canAutoInvite, isAutoInvite, not saveData.autoInvite.enabled)
 	end
 
 	ZO_PreHookHandler(GAFE_TrialFinder_KeyboardListSection, 'OnEffectivelyShown', function()
@@ -294,5 +305,12 @@ function GAFE.TrialFinder.Init()
 	EM:RegisterForEvent(GAFE.name.."_GroupMemberLeft", EVENT_GROUP_MEMBER_LEFT, RefreshControls)
 	EM:RegisterForEvent(GAFE.name.."_LeaderUpdated", EVENT_LEADER_UPDATE, RefreshControls)
 
-	EM:RegisterForEvent(GAFE.name.."_ChatMessage", EVENT_CHAT_MESSAGE_CHANNEL, ParseMessage)
+	RefreshAutoConfirmEvents()
+end
+
+function GAFE.TrialFinder.AutoInviteEnable(enabled)
+	local savedVars = GAFE.SavedVars
+	savedVars.autoInvite.enabled = enabled
+	autoInviteCheckbox:SetHidden(not enabled)
+	RefreshAutoConfirmEvents()
 end

@@ -9,6 +9,9 @@ GroupActivityFinderExtensions = {
     Loc	= function(var) return GroupActivityFinderExtensions.Localization[var] or var end,
     DefaultVars = {
         textureSize = 25,
+        autoInvite = {
+            enabled = false
+        },
         autoConfirm = {
             enabled = true,
             value = false
@@ -53,6 +56,10 @@ local function migration3()
     -- Default saved vars for migration version target
     local newVersion = 3
     local newDefault = {
+        textureSize = 25,
+        autoInvite = {
+            enabled = false
+        },
         autoConfirm = {
             enabled = true,
             value = false
