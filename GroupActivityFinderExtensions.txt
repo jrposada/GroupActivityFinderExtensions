@@ -42,6 +42,7 @@ Business/Trials/TrialManager.lua
 
 Business/TrialFinder/TrialChestTimer.lua
 Business/TrialFinder/TrialActivityData.lua
+Business/QueueManager/QueueManager.lua
 Business/TrialFinder/TrialFinder.lua
 
 Business/AutoConfirm.lua

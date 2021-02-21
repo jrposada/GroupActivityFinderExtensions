@@ -1,39 +1,27 @@
 local GAFE = GroupActivityFinderExtensions
 local EM = EVENT_MANAGER
-
 local TrialActivityData = GAFE.TrialActivityData
 
 GAFE.TrialFinder = {}
 
 local finderActivityExtender = FinderActivityExtender:New("Trial", "GAFE")
-local roleText = {
-	[LFG_ROLE_DPS] = "DD",
-	[LFG_ROLE_HEAL] = "H",
-	[LFG_ROLE_TANK] = "T"
-}
-local roleTarget = {
-	[LFG_ROLE_DPS] = 8,
-	[LFG_ROLE_HEAL] = 2,
-	[LFG_ROLE_TANK] = 2
-}
 local lfgButton
 local lfmButton
 local counterTs
 local counterHs
 local counterDds
-local autoInviteCheckbox
-local queuedInfo = {
-	isQueued = false,
-	type = nil,
-	roles = nil,
-	activities = nil
 
-}
-local isAutoInvite = false
+--------
+-- LF --
+--------
+local function Lfg()
+	local selected, count = finderActivityExtender:GetSelecteds()
+	GAFE.QueueManager.Lfg(selected, count)
+end
 
-local function CanAutoInvite()
-	-- TODO: Implement
-	return false
+local function Lfm()
+	local selected, count = finderActivityExtender:GetSelecteds()
+	GAFE.QueueManager.Lfg(selected, count)
 end
 
 local function CanLfg(isAnythingSelected)
@@ -48,6 +36,43 @@ local function CanLfm(isAnythingSelected)
 	return false
 end
 
+local function UpdateTargetTank(value)
+	GAFE.QueueManager.SetRoleTarget(LFG_ROLE_TANK, value)
+end
+
+local function UpdateTargetHeal(value)
+	GAFE.QueueManager.SetRoleTarget(LFG_ROLE_HEAL, value)
+end
+
+local function UpdateTargetDd(value)
+	GAFE.QueueManager.SetRoleTarget(LFG_ROLE_DPS, value)
+end
+
+-----------------
+-- Fast travel --
+-----------------
+local function FastTravel(nodeIndex)
+	local _, name = GetFastTravelNodeInfo(nodeIndex)
+	ZO_Dialogs_ShowPlatformDialog("RECALL_CONFIRM", {nodeIndex = nodeIndex}, {mainTextParams = {name}})
+end
+
+-----------------
+-- Chest timer --
+-----------------
+local function UpdateChestLabel(label, characterId, questId)
+	local chestText
+	local timeUntilNextChest = GAFE.TrialChestTimer.GetTimeUntilNextChest(characterId, questId)
+	if timeUntilNextChest > 0 then
+		chestText = GAFE.ParseTimeStamp(timeUntilNextChest)
+	else
+		chestText =  finderActivityExtender:FormatTexture("/esoui/art/icons/mail_armor_container.dds")
+	end
+	label:SetText(chestText)
+end
+
+-------------
+-- General --
+-------------
 local function RefreshControls()
 	local isAnythingSelected = finderActivityExtender:IsAnythingSelected()
 
@@ -82,22 +107,6 @@ local function RefreshControls()
 	if counterDds then
 		counterDds:SetHidden(not canLfm)
 	end
-end
-
-local function FastTravel(nodeIndex)
-	local _, name = GetFastTravelNodeInfo(nodeIndex)
-	ZO_Dialogs_ShowPlatformDialog("RECALL_CONFIRM", {nodeIndex = nodeIndex}, {mainTextParams = {name}})
-end
-
-local function UpdateChestLabel(label, characterId, questId)
-	local chestText
-	local timeUntilNextChest = GAFE.TrialChestTimer.GetTimeUntilNextChest(characterId, questId)
-	if timeUntilNextChest > 0 then
-		chestText = GAFE.ParseTimeStamp(timeUntilNextChest)
-	else
-		chestText =  finderActivityExtender:FormatTexture("/esoui/art/icons/mail_armor_container.dds")
-	end
-	label:SetText(chestText)
 end
 
 local function ExtendTrialActivity(obj, c, i, characterId)
@@ -140,129 +149,6 @@ local function ExtendTrialActivity(obj, c, i, characterId)
 	obj:SetHandler("OnMouseUp", function() RefreshControls() end, GAFE.name)
 end
 
-local function ParseMessage(event, channelType, fromName, messageText, isCustomerService, fromDisplayName)
-	-- TODO: Remove true, its only for debugging
-	local displayName = GetDisplayName()
-	if isAutoInvite and queuedInfo.isQueued and (true or fromDisplayName ~= displayName) then
-		local words, numWords = GAFE.Split(messageText, " ")
-
-		-- Only parse message shorter than X words. We don't want to parse hole conversations...
-		if numWords <= 10 then
-			-- TODO: Implement
-			-- If is lf message for queued params send invite / wishper
-			GAFE.LogLater(words)
-		end
-	elseif fromDisplayName == displayName then
-		local words, numWords = GAFE.Split(messageText, " ")
-
-		-- Only parse message shorter than X words. We don't want to parse hole conversations...
-		if numWords <= 10 then
-			-- TODO: Implement
-			-- If is lf message set up isQueued and needed params
-			GAFE.LogLater(words)
-		end
-	end
-end
-
-local function ToggleAutoInvite()
-	isAutoInvite = not isAutoInvite
-	autoInviteCheckbox.GAFE_SetChecked(isAutoInvite)
-	autoInviteCheckbox:SetState(CanAutoInvite() and BSTATE_NORMAL or BSTATE_DISABLED)
-end
-
-local function DisableAutoInvite()
-	isAutoInvite = false
-	autoInviteCheckbox.GAFE_SetChecked(isAutoInvite)
-	autoInviteCheckbox:SetState(CanAutoInvite() and BSTATE_NORMAL or BSTATE_DISABLED)
-
-	queuedInfo.type = nil
-	queuedInfo.roles = nil
-	queuedInfo.activities = nil
-end
-
-local function Lfg()
-	local message = roleText[GetSelectedLFGRole()].." LFG"
-
-	local selected, count = finderActivityExtender:GetSelecteds()
-	for i = 1, count do
-		message = message.." "..TrialActivityData[selected[i]].lf
-	end
-
-	GAFE.Chat.SendMessage(message)
-	DisableAutoInvite()
-end
-
-local function Lfm()
-	local message = "LFM"
-	local selected, count = finderActivityExtender:GetSelecteds()
-	for i = 1, count do
-		message = message.." "..TrialActivityData[selected[i]].lf
-	end
-
-	-- Group composition
-	local dd, t, h = 0, 0, 0
-	local groupSize = GetGroupSize()
-	if groupSize ~= 0 then
-		for unitIndex=1, groupSize do
-			local unitTag = GetGroupUnitTagByIndex(unitIndex)
-			local role = GetGroupMemberSelectedRole(unitTag)
-
-			if role == LFG_ROLE_DPS then
-				dd = dd + 1
-			elseif role == LFG_ROLE_HEAL then
-				h = h + 1
-			elseif role == LFG_ROLE_TANK then
-				t = t + 1
-			end
-		end
-	else
-		local role = GetSelectedLFGRole()
-
-		if role == LFG_ROLE_DPS then
-			dd = dd + 1
-		elseif role == LFG_ROLE_HEAL then
-			h = h + 1
-		elseif role == LFG_ROLE_TANK then
-			t = t + 1
-		end
-	end
-
-	if t ~= roleTarget[LFG_ROLE_TANK] then
-		message = message.." "..(roleTarget[LFG_ROLE_TANK] - t)..roleText[LFG_ROLE_TANK]
-	end
-	if h ~= roleTarget[LFG_ROLE_HEAL] then
-		message = message.." "..(roleTarget[LFG_ROLE_HEAL] - h)..roleText[LFG_ROLE_HEAL]
-	end
-	if dd ~= roleTarget[LFG_ROLE_DPS] then
-		message = message.." "..(roleTarget[LFG_ROLE_DPS] - dd)..roleText[LFG_ROLE_DPS]
-	end
-
-	GAFE.Chat.SendMessage(message)
-	DisableAutoInvite()
-end
-
-local function UpdateTargetTank(value)
-	roleTarget[LFG_ROLE_TANK] = value
-end
-
-local function UpdateTargetHeal(value)
-	roleTarget[LFG_ROLE_HEAL] = value
-end
-
-local function UpdateTargetDd(value)
-	roleTarget[LFG_ROLE_DPS] = value
-end
-
-local function RefreshAutoConfirmEvents()
-	local saveData = GAFE.SavedVars
-	local eventName = GAFE.name.."_ChatMessage"
-	if saveData.autoInvite.enabled then
-		EM:RegisterForEvent(eventName, EVENT_CHAT_MESSAGE_CHANNEL, ParseMessage)
-	else
-		EM:UnregisterForEvent(eventName, EVENT_CHAT_MESSAGE_CHANNEL)
-	end
-end
-
 function GAFE.TrialFinder.Init()
 	-- Panel buttons
 	local parent=GAFE_TrialFinder_Keyboard
@@ -278,23 +164,15 @@ function GAFE.TrialFinder.Init()
 
 		-- Create party composition controls
 		dims = {65,40}
-		counterTs = GAFE.UI.Counter(GAFE.name.."_Group_ts", parent, dims, {BOTTOM,parent,BOTTOM,-w/3,-35}, nil, roleText[LFG_ROLE_TANK], roleTarget[LFG_ROLE_TANK], UpdateTargetTank, not canLfm)
-		counterHs = GAFE.UI.Counter(GAFE.name.."_Group_hl", parent, dims, {BOTTOM,parent,BOTTOM,0,-35}, nil, roleText[LFG_ROLE_HEAL], roleTarget[LFG_ROLE_HEAL], UpdateTargetHeal, not canLfm)
-		counterDds = GAFE.UI.Counter(GAFE.name.."_Group_dds", parent, dims, {BOTTOM,parent,BOTTOM,w/3,-35}, nil, roleText[LFG_ROLE_DPS], roleTarget[LFG_ROLE_DPS], UpdateTargetDd, not canLfm)
+		counterTs = GAFE.UI.Counter(GAFE.name.."_Group_ts", parent, dims, {BOTTOM,parent,BOTTOM,-w/3,-35}, nil, GAFE.QueueManager.GetRoleText(LFG_ROLE_TANK), GAFE.QueueManager.GetRoleTarget(LFG_ROLE_TANK), UpdateTargetTank, not canLfm)
+		counterHs = GAFE.UI.Counter(GAFE.name.."_Group_hl", parent, dims, {BOTTOM,parent,BOTTOM,0,-35}, nil, GAFE.QueueManager.GetRoleText(LFG_ROLE_HEAL), GAFE.QueueManager.GetRoleTarget(LFG_ROLE_HEAL), UpdateTargetHeal, not canLfm)
+		counterDds = GAFE.UI.Counter(GAFE.name.."_Group_dds", parent, dims, {BOTTOM,parent,BOTTOM,w/3,-35}, nil, GAFE.QueueManager.GetRoleText(LFG_ROLE_DPS), GAFE.QueueManager.GetRoleTarget(LFG_ROLE_DPS), UpdateTargetDd, not canLfm)
 
 		-- Hide queue button.
 		local queueButton = GAFE_TrialFinder_KeyboardQueueButton
 		if queueButton then
 			queueButton:SetHidden(true)
 		end
-	end
-
-	-- Create Auto Invite checkbox
-	local parent=ZO_SearchingForGroupStatus
-	if parent then
-		local saveData = GAFE.SavedVars
-		local canAutoInvite = CanAutoInvite()
-		autoInviteCheckbox=GAFE.UI.Checkbox(GAFE.name.."_AutoInvite", parent, {200,28}, {BOTTOM,parent,TOP,0,-25}, GAFE.Loc("AutoInvite"), ToggleAutoInvite, canAutoInvite, isAutoInvite, not saveData.autoInvite.enabled)
 	end
 
 	ZO_PreHookHandler(GAFE_TrialFinder_KeyboardListSection, 'OnEffectivelyShown', function()
@@ -304,13 +182,4 @@ function GAFE.TrialFinder.Init()
 	EM:RegisterForEvent(GAFE.name.."_GroupMemberJoined", EVENT_GROUP_MEMBER_JOINED, RefreshControls)
 	EM:RegisterForEvent(GAFE.name.."_GroupMemberLeft", EVENT_GROUP_MEMBER_LEFT, RefreshControls)
 	EM:RegisterForEvent(GAFE.name.."_LeaderUpdated", EVENT_LEADER_UPDATE, RefreshControls)
-
-	RefreshAutoConfirmEvents()
-end
-
-function GAFE.TrialFinder.AutoInviteEnable(enabled)
-	local savedVars = GAFE.SavedVars
-	savedVars.autoInvite.enabled = enabled
-	autoInviteCheckbox:SetHidden(not enabled)
-	RefreshAutoConfirmEvents()
 end

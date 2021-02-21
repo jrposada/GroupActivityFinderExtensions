@@ -17,6 +17,7 @@ local function OnAddOnLoaded(eventCode, addonName)
     GAFE.SavedVars = ZO_SavedVars:NewAccountWide(GAFE.name.."_Vars", GAFE.varsVersion, nil, GAFE.DefaultVars, GetWorldName())
 
     -- Initialize stuff
+    GAFE.QueueManager.Init()
     GAFE.DungeonFinder.Init()
     GAFE.TrialChestTimer.Init()
     GAFE.TrialFinder.Init()
