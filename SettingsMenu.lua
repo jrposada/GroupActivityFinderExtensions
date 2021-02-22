@@ -37,6 +37,12 @@ function GAFE.SettingsMenu.Init()
             setFunc = function(value) GAFE.AutoConfirm.Enable(value) end
         },
         {
+            type = "checkbox",
+            name = GAFE.Loc("Settings_AutoMarkPledges"),
+            getFunc = function() return saveData.dungeons.autoMarkPledges end,
+            setFunc = function(value) saveData.dungeons.autoMarkPledges = value end
+        },
+        {
             type = "divider"
         },
         {

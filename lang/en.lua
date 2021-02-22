@@ -9,6 +9,9 @@ ZO_CreateStringId("SI_LFGACTIVITY"..GAFE_LFG_ACTIVITY_MASTER_TRIAL, "Veteran")
 GAFE.Localization = {
     Settings_Description = "Adds a bit of extra functionality and information to the Group & Activity Finder UI",
     Settings_AutoConfirm = "'Auto confirm' button",
+    Settings_Trials = "Reset chest timers",
+    Settings_ResetChestWarning = "This will reset the timer to 1 week!",
+    Settings_AutoMarkPledges = "Automatically mark available pledges",
     CheckActivePledges = "Check active pledges",
     CheckMissingQuests = "Check missing quests",
     AutoConfirm = "Auto confirm",
@@ -27,7 +30,5 @@ GAFE.Localization = {
     LookForMore = "Look for more",
     LookForGroupDisabled = "You are already grouped",
     LookForMoreDisabled = "You must be party leader",
-    Settings_Trials = "Reset chest timers",
-    Settings_ResetChestWarning = "This will reset the timer to 1 week!",
-    AutoInvite = "Auto invite"
+    AutoInvite = "Auto invite",
 }

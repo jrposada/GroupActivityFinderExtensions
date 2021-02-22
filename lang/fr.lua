@@ -1,11 +1,17 @@
 local GAFE = GroupActivityFinderExtensions
 
+
+
+
 SafeAddString(_G["SI_LFGACTIVITY"..GAFE_LFG_ACTIVITY_TRIAL], "Normal", 1)
 SafeAddString(_G["SI_LFGACTIVITY"..GAFE_LFG_ACTIVITY_MASTER_TRIAL], "Vétéran", 1)
 
 GAFE.Localization = {
     Settings_Description = "Ajoute un peu de fonctionnalité et d'information a IU de Groupe et Recherche d'activités",
     Settings_AutoConfirm = "Bouton 'Auto confirmer'",
+    Settings_Trials = "Réinitialiser la minuterie des coffres",
+    Settings_ResetChestWarning = "Cela réinitialisera la minuterie à 1 semaine!",
+    Settings_AutoMarkPledges = "Marquer automatiquement les serment actifs",
     CheckActivePledges = "Sélect serment activ",
     CheckMissingQuests = "Sélect quêtes incompl",
     AutoConfirm = "Auto confirmer",
@@ -24,6 +30,5 @@ GAFE.Localization = {
     LookForMore = "LFM",
     LookForGroupDisabled = "Vous êtes déjà groupé",
     LookForMoreDisabled = "Vous devez être chef du parti",
-    Settings_Trials = "Réinitialiser la minuterie des coffres",
-    Settings_ResetChestWarning = "Cela réinitialisera la minuterie à 1 semaine!"
+    AutoInvite = "Auto invite",-- translate
 }

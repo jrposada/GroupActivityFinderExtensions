@@ -55,9 +55,14 @@ function FinderActivityExtender:CheckFunc(checkFunc)
         if parent then
             for i = 1, parent:GetNumChildren() do
                 local obj = parent:GetChild(i)
-                if obj and checkFunc(obj) and obj.check:GetState() == 0 then
-                    obj.check:SetState(BSTATE_PRESSED, true)
-                    ZO_ACTIVITY_FINDER_ROOT_MANAGER:ToggleLocationSelected(obj.node.data)
+                if obj then
+                    if checkFunc(obj) and obj.check:GetState() == 0 then
+                        obj.check:SetState(BSTATE_PRESSED, true)
+                        ZO_ACTIVITY_FINDER_ROOT_MANAGER:ToggleLocationSelected(obj.node.data)
+                    elseif (not checkFunc(obj)) and obj.check:GetState() ~= 0 then
+                        obj.check:SetState(BSTATE_NORMAL, true)
+                        ZO_ACTIVITY_FINDER_ROOT_MANAGER:ToggleLocationSelected(obj.node.data)
+                    end
                 end
             end
         end

@@ -3,9 +3,15 @@ local GAFE = GroupActivityFinderExtensions
 SafeAddString(_G["SI_LFGACTIVITY"..GAFE_LFG_ACTIVITY_TRIAL], "Normal", 1)
 SafeAddString(_G["SI_LFGACTIVITY"..GAFE_LFG_ACTIVITY_MASTER_TRIAL], "Veteranen", 1)
 
+
+
+
 GAFE.Localization = {
     Settings_Description = "Fügt der Benutzeroberfläche von Group & Activity Finder zusätzliche Funktionen und UI",
     Settings_AutoConfirm = "'Autom. bestätigen' Knopf",
+    Settings_Trials = "Setzen Sie den Timer für Truhen zurück",
+    Settings_ResetChestWarning = "Dadurch wird der Timer auf 1 Woche zurückgesetzt!",
+    Settings_AutoMarkPledges = "Wähle Gelöbnisse automatisch",
     CheckActivePledges = "Wähle Gelöbnisse",
     CheckMissingQuests = "Wähle fehl. Quests",
     AutoConfirm = "Autom. bestätigen",
@@ -24,6 +30,5 @@ GAFE.Localization = {
     LookForMore = "LFM",
     LookForGroupDisabled = "Sie sind bereits gruppiert",
     LookForMoreDisabled = "Sie müssen Parteiführer sein",
-    Settings_Trials = "Setzen Sie den Timer für Truhen zurück",
-    Settings_ResetChestWarning = "Dadurch wird der Timer auf 1 Woche zurückgesetzt!"
+    AutoInvite = "AutoInvite",--translate
 }

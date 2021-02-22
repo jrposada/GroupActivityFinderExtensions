@@ -110,13 +110,27 @@ local function ExtendDungeonActivity(obj, c, i)
 end
 
 local function RefreshControls()
+	local autoMarkPledges = GAFE.SavedVars.dungeons.autoMarkPledges
+
 	checkQuestsButton:SetState(haveQuests and BSTATE_NORMAL or BSTATE_DISABLED)
 	checkPledgesButton:SetState(havePledge and BSTATE_NORMAL or BSTATE_DISABLED)
+	checkPledgesButton:SetHidden(autoMarkPledges)
 end
 
 local function DisableControls()
 	checkQuestsButton:SetState(BSTATE_DISABLED)
 	checkPledgesButton:SetState(BSTATE_DISABLED)
+end
+
+local function OnShown()
+	UpdateLocals()
+	GAFE.CallLater("ExtendDungeonActivity", 200, function()
+		finderActivityExtender:ExtendFunc(ExtendDungeonActivity, RefreshControls)()
+		local autoMarkPledges = GAFE.SavedVars.dungeons.autoMarkPledges
+		if autoMarkPledges then
+			finderActivityExtender:CheckFunc(CheckPledges)()
+		end
+	end)
 end
 
 function GAFE.DungeonFinder.Init()
@@ -125,9 +139,10 @@ function GAFE.DungeonFinder.Init()
 	if parent then
 		local w = parent:GetWidth()
 		local dims = {200,28}
+		local autoMarkPledges = GAFE.SavedVars.dungeons.autoMarkPledges
 
 		checkQuestsButton = GAFE.UI.ZOButton("GAFE_QuestsCheck", parent, dims, {BOTTOM,parent,BOTTOM,w/3,0}, GAFE.Loc("CheckMissingQuests"), finderActivityExtender:CheckFunc(CheckQuests), haveQuests)
-		checkPledgesButton = GAFE.UI.ZOButton("GAFE_PledgesCheck", parent, dims, {BOTTOM,parent,BOTTOM,-w/3,0}, GAFE.Loc("CheckActivePledges"), finderActivityExtender:CheckFunc(CheckPledges), havePledge)
+		checkPledgesButton = GAFE.UI.ZOButton("GAFE_PledgesCheck", parent, dims, {BOTTOM,parent,BOTTOM,-w/3,0}, GAFE.Loc("CheckActivePledges"), finderActivityExtender:CheckFunc(CheckPledges), havePledge, nil, autoMarkPledges)
 
 		if ZO_DungeonFinder_KeyboardQueueButton then
 			ZO_DungeonFinder_KeyboardQueueButton:ClearAnchors()
@@ -137,10 +152,7 @@ function GAFE.DungeonFinder.Init()
 	end
 
 
-	ZO_PreHookHandler(ZO_DungeonFinder_KeyboardListSection, 'OnEffectivelyShown', function()
-		UpdateLocals()
-		GAFE.CallLater("ExtendDungeonActivity", 200, finderActivityExtender:ExtendFunc(ExtendDungeonActivity, RefreshControls))
-	end)
+	ZO_PreHookHandler(ZO_DungeonFinder_KeyboardListSection, 'OnEffectivelyShown', OnShown)
 	ZO_PreHookHandler(ZO_DungeonFinder_KeyboardListSection, 'OnEffectivelyHidden', function()
 		DisableControls()
 	end)

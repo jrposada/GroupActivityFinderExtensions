@@ -12,6 +12,9 @@ GroupActivityFinderExtensions = {
         autoInvite = {
             enabled = false
         },
+        dungeons = {
+            autoMarkPledges = false
+        },
         autoConfirm = {
             enabled = true,
             value = false
@@ -59,6 +62,9 @@ local function migration3()
         textureSize = 25,
         autoInvite = {
             enabled = false
+        },
+        dungeons = {
+            autoMarkPledges = false
         },
         autoConfirm = {
             enabled = true,
