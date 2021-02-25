@@ -13,7 +13,10 @@ GroupActivityFinderExtensions = {
             enabled = false
         },
         dungeons = {
-            autoMarkPledges = false
+            autoMarkPledges = false,
+            dailyPledgeMarker = {
+                isIcon = true
+            }
         },
         autoConfirm = {
             enabled = true,
@@ -64,7 +67,10 @@ local function migration3()
             enabled = false
         },
         dungeons = {
-            autoMarkPledges = false
+            autoMarkPledges = false,
+            dailyPledgeMarker = {
+                isIcon = true
+            }
         },
         autoConfirm = {
             enabled = true,

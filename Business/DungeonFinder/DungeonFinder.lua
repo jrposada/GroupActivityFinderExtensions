@@ -42,9 +42,9 @@ local function UpdateLocals()
 		day=math.floor(GetDiffBetweenTimeStamps(GetTimeStamp(), 1517464800) / 86400) -- 86400 = 1 day
 	end
 
+	Day()
 	TodayPledges()
 	GoalPledges()
-	Day()
 end
 
 local function CheckPledges(obj)
