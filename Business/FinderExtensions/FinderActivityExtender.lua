@@ -1,4 +1,6 @@
 local GAFE = GroupActivityFinderExtensions
+local SM = SCENE_MANAGER
+local ACHIEVEMENTS = ACHIEVEMENTS
 
 FinderActivityExtender = {}
 FinderActivityExtender.__index = FinderActivityExtender
@@ -34,14 +36,26 @@ function FinderActivityExtender:CheckFunc(checkFunc)
 end
 
 function FinderActivityExtender:AddAchievement(achievementId, name, parent, texture, xOffset, debug)
+    local function OpenAchievement()
+        if select(1,GetCategoryInfoFromAchievementId(achievementId)) ~= nil then
+            SM:ShowBaseScene()
+            ACHIEVEMENTS:ShowAchievement(achievementId)
+        end
+    end
+
     local textureSize = self:GetTextureSize()
-    local text
+    local text, hidden, tooltip = nil, true, nil
     if achievementId then
-        text=IsAchievementComplete(achievementId) and self:FormatTexture(texture) or ""
+        local achievementName, _,  _,  icon, isCompleted,  _, _ = GetAchievementInfo(achievementId)
+        text= isCompleted and self:FormatTexture(texture) or ""
+        hidden = not isCompleted
+        tooltip = self:FormatTexture(icon)..achievementName
     elseif debug and achievementId == nil then
         text="-"
+        hidden = false
     end
-    return GAFE.UI.Label(name, parent, {textureSize,textureSize}, {LEFT,parent,LEFT,xOffset,0}, "ZoFontGameLarge", nil, {0,1}, text)
+    return GAFE.UI.Button(name, parent, {textureSize,textureSize}, {LEFT,parent,LEFT,xOffset,0}, text, OpenAchievement, true, tooltip, hidden)
+    -- return GAFE.UI.Label(name, parent, {textureSize,textureSize}, {LEFT,parent,LEFT,xOffset,0}, "ZoFontGameLarge", nil, {0,1}, text)
 end
 
 function FinderActivityExtender:AddQuest(questId, name, parent, texture, xOffset, debug)
