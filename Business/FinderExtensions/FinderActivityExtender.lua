@@ -55,7 +55,6 @@ function FinderActivityExtender:AddAchievement(achievementId, name, parent, text
         hidden = false
     end
     return GAFE.UI.Button(name, parent, {textureSize,textureSize}, {LEFT,parent,LEFT,xOffset,0}, text, OpenAchievement, true, tooltip, hidden)
-    -- return GAFE.UI.Label(name, parent, {textureSize,textureSize}, {LEFT,parent,LEFT,xOffset,0}, "ZoFontGameLarge", nil, {0,1}, text)
 end
 
 function FinderActivityExtender:AddQuest(questId, name, parent, texture, xOffset, debug)
