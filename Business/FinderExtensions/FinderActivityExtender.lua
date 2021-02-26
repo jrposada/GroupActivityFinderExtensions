@@ -3,99 +3,73 @@ local GAFE = GroupActivityFinderExtensions
 FinderActivityExtender = {}
 FinderActivityExtender.__index = FinderActivityExtender
 
-local function GetTextureSize()
-    local savedVars = GAFE.SavedVars
-    return savedVars.textureSize
-end
-
 function FinderActivityExtender:New(finderName, prefix)
     local result = {}
     setmetatable(result, FinderActivityExtender)
     result.finderName = finderName
     result.prefix = prefix
+    result.pool = DUNGEON_FINDER_KEYBOARD.navigationTree.templateInfo.ZO_ActivityFinderTemplateNavigationEntry_Keyboard.objectPool
     return result
 end
 
-function FinderActivityExtender:ExtendFunc(extendFunc, refreshFunc)
-    local function result()
-        -- Get player difficulty mode
-        local difficultyMode = ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and 3 or 2 -- Normal => 2, Veteran => 3
-        local characterId = GetCurrentCharacterId()
-
-        for c = 2, 3 do
-            local parent = _G[self.prefix.."_"..self.finderName.."Finder_KeyboardListSectionScrollChildContainer"..c]
-            if parent then
-                for i=1,parent:GetNumChildren() do
-                    local obj=parent:GetChild(i)
-                    if obj then
-                        extendFunc(obj, c, i, characterId)
-                    end
-                end
-            end
-
-            -- Collapse corresponding panel depending on dungeon mode
-            local header=_G[self.prefix.."_"..self.finderName.."Finder_KeyboardListSectionScrollChildZO_ActivityFinderTemplateNavigationHeader_Keyboard"..c-1]
-            if header then
-                local state=header.text:GetColor()
-                if ((difficultyMode==c)==(state==1)) then header:OnMouseUp(true) end
-            end
-        end
-
-        if refreshFunc then
-            refreshFunc()
-        end
-    end
-    return result
+function FinderActivityExtender:GetTextureSize()
+    local savedVars = GAFE.SavedVars
+    return savedVars.textureSize
 end
 
 function FinderActivityExtender:CheckFunc(checkFunc)
     local function func()
-        local c = ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and 2 or 3 -- Normal => 2, Veteran => 3
-        local parent = _G[self.prefix.."_"..self.finderName.."Finder_KeyboardListSectionScrollChildContainer"..c]
-        if parent then
-            for i = 1, parent:GetNumChildren() do
-                local obj = parent:GetChild(i)
-                if obj then
-                    if checkFunc(obj) and obj.check:GetState() == 0 then
-                        obj.check:SetState(BSTATE_PRESSED, true)
-                        ZO_ACTIVITY_FINDER_ROOT_MANAGER:ToggleLocationSelected(obj.node.data)
-                    elseif (not checkFunc(obj)) and obj.check:GetState() ~= 0 then
-                        obj.check:SetState(BSTATE_NORMAL, true)
-                        ZO_ACTIVITY_FINDER_ROOT_MANAGER:ToggleLocationSelected(obj.node.data)
-                    end
-                end
+        local m_active = self.pool.m_Active
+        for k,obj in pairs(m_active) do
+            if checkFunc(obj) and obj.check:GetState() == 0 then
+                ZO_CheckButton_OnClicked(obj.check)
+                ZO_ACTIVITY_FINDER_ROOT_MANAGER:ToggleLocationSelected(obj.node.data)
+            elseif (not checkFunc(obj)) and obj.check:GetState() ~= 0 then
+                ZO_CheckButton_OnClicked(obj.check)
+                ZO_ACTIVITY_FINDER_ROOT_MANAGER:ToggleLocationSelected(obj.node.data)
             end
         end
     end
     return func
 end
 
-function FinderActivityExtender:AddAchievement(achievementId, suffix, parent, texture, xOffset, debug)
-    local textureSize = GetTextureSize()
+function FinderActivityExtender:AddAchievement(achievementId, name, parent, texture, xOffset, debug)
+    local textureSize = self:GetTextureSize()
     local text
     if achievementId then
         text=IsAchievementComplete(achievementId) and self:FormatTexture(texture) or ""
     elseif debug and achievementId == nil then
-        text=suffix[1]
+        text="-"
     end
-    return GAFE.UI.Label(GAFE.name.."_"..self.finderName.."Info_Achievements_"..suffix, parent, {textureSize,textureSize}, {LEFT,parent,LEFT,xOffset,0}, "ZoFontGameLarge", nil, {0,1}, text)
+    return GAFE.UI.Label(name, parent, {textureSize,textureSize}, {LEFT,parent,LEFT,xOffset,0}, "ZoFontGameLarge", nil, {0,1}, text)
 end
 
-function FinderActivityExtender:AddQuest(questId, suffix, parent, texture, xOffset, debug)
-    local textureSize = GetTextureSize()
+function FinderActivityExtender:AddQuest(questId, name, parent, texture, xOffset, debug)
+    local textureSize = self:GetTextureSize()
     local text
     if questId then
         text=(GetCompletedQuestInfo(questId) ~= "" and true or false) and self:FormatTexture(texture) or ""
     elseif debug and questId == nil then
-        text=suffix[1]
+        text="-"
     end
-    return GAFE.UI.Label(GAFE.name.."_"..self.finderName.."Info_Quest_"..suffix, parent, {textureSize,textureSize}, {LEFT,parent,LEFT,xOffset,0}, "ZoFontGameLarge", nil, {0,1}, text)
+    return GAFE.UI.Label(name, parent, {textureSize,textureSize}, {LEFT,parent,LEFT,xOffset,0}, "ZoFontGameLarge", nil, {0,1}, text)
 end
 
-function FinderActivityExtender:AddLabel(text, suffix, parent, xOffset, width)
-    local textureSize = GetTextureSize()
+function FinderActivityExtender:AddLabel(text, name, parent, xOffset, width)
+    local textureSize = self:GetTextureSize()
     if width == nil then width = textureSize end
-    return GAFE.UI.Label(GAFE.name.."_"..self.finderName.."Info_"..suffix, parent, {width,textureSize}, {LEFT,parent,LEFT,xOffset,0}, "ZoFontGameLarge", nil, {0,1}, text)
+    return GAFE.UI.Label(name, parent, {width,textureSize}, {LEFT,parent,LEFT,xOffset,0}, "ZoFontGameLarge", nil, {0,1}, text)
+end
+
+function FinderActivityExtender:AutoCollapse()
+    local difficultyMode = ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and 3 or 2 -- Normal => 2, Veteran => 3
+    for c = 2, 3 do
+        local header=_G[self.prefix.."_"..self.finderName.."Finder_KeyboardListSectionScrollChildZO_ActivityFinderTemplateNavigationHeader_Keyboard"..c-1]
+        if header then
+            local state=header.text:GetColor()
+            if ((difficultyMode==c)==(state==1)) then header:OnMouseUp(true) end
+        end
+    end
 end
 
 function FinderActivityExtender:IsAnythingSelected()
@@ -134,6 +108,17 @@ function FinderActivityExtender:GetSelecteds()
 end
 
 function FinderActivityExtender:FormatTexture(texture)
-    local size = GetTextureSize()
+    local size = self:GetTextureSize()
     return "|t"..size..":"..size..":"..texture.."|t"
 end
+
+
+-- DUNGEON_FINDER_KEYBOARD.listSection
+-- 	--Check if the achievement is still active
+-- 	local aid = GetAchievementIdFromLink(link)
+-- 	if select(1,GetCategoryInfoFromAchievementId(aid)) ~= nil then
+-- 		SCENE_MANAGER:ShowBaseScene()
+-- 		ACHIEVEMENTS:ShowAchievement(aid)
+-- 	else
+-- 		CHAT_SYSTEM:AddMessage("|cA00000This achievement is not visible in the achievements tab of the quest journal.|r")
+-- 	end

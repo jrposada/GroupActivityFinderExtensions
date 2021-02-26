@@ -11,7 +11,7 @@ local todayPledges = {}
 local pledgeQuests = {}
 local havePledge = false
 local haveQuests = false
-local day=1
+local day
 local checkQuestsButton
 local checkPledgesButton
 
@@ -48,25 +48,27 @@ local function UpdateLocals()
 end
 
 local function CheckPledges(obj)
-	return obj.pledge
+	local activityType = ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and LFG_ACTIVITY_DUNGEON or LFG_ACTIVITY_MASTER_DUNGEON
+	return obj.pledge and obj.node.data:GetActivityType() == activityType
 end
 
 local function CheckQuests(obj)
-	return obj.quest
+	local activityType = ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and LFG_ACTIVITY_DUNGEON or LFG_ACTIVITY_MASTER_DUNGEON
+	return obj.quest and obj.node.data:GetActivityType() == activityType
 end
 
-local function ExtendDungeonActivity(obj, c, i)
-	local activityId=obj.node.data.id
-	if DungeonActivityData[activityId] then
+local function AddPledge(control, data)
+	local function AddIcon()
+		local activityId=data.id
 		local pledgeText=""
-		-- Mark dialy pledges
+
 		for npc=1,3 do
 			local pledgeId = todayPledges[npc]
 			if pledgeId and DungeonActivityData[activityId].p==pledgeId then
 				local pledgeName = PledgeQuestName[pledgeId]:lower()
 				local questCompleted=pledgeQuests[pledgeName]
 				-- Save if it needs to be checked
-				obj.pledge=questCompleted==false
+				control.pledge=questCompleted==false
 				if questCompleted==true then
 					-- In Journal and completed
 					pledgeText="/esoui/art/lfg/lfg_indexicon_dungeon_up.dds"
@@ -82,30 +84,41 @@ local function ExtendDungeonActivity(obj, c, i)
 				break
 			end
 		end
-		finderActivityExtender:AddLabel(pledgeText, "Pledge"..c..i, obj, 400)
+		finderActivityExtender:AddLabel(pledgeText, control:GetName().."p", control, 400)
+	end
 
-		local debug = GetDisplayName() == "@Panicida"
+	local function ChangeColor()
+		local activityId=data.id
+		local text = control.text:GetText()
+		for npc=1,3 do
+			local pledgeId = todayPledges[npc]
+			if pledgeId and DungeonActivityData[activityId].p==pledgeId then
+				local pledgeName = PledgeQuestName[pledgeId]:lower()
+				local questCompleted=pledgeQuests[pledgeName]
+				-- Save if it needs to be checked
+				control.pledge=questCompleted==false
+				if questCompleted==true then
+					-- In Journal and completed
+					text="|c32CD32"..text.."|r"
+				elseif questCompleted==false then
+					-- In Journal and no completed
+					text="|cFFD700"..text.."|r"
+				else
+					-- TODO: Differentiate between done and not in journal, and not done and not in journal
+					-- No in journal quest
+					text="|c00CED1"..text.."|r"
+				end
+				break
+			end
+		end
+		control.text:SetText(text)
+	end
 
-		-- Quest (skill point)
-		finderActivityExtender:AddQuest(DungeonActivityData[activityId].q, "q"..c..i, obj, "/esoui/art/icons/achievements_indexicon_quests_up.dds", 420, debug)
-
-		-- General Vanquisher (normal) / Conqueror (veteran)
-		finderActivityExtender:AddAchievement(DungeonActivityData[activityId].id, "id"..c..i, obj, "/esoui/art/announcewindow/announcement_icon_up.dds", 440, debug)
-
-		-- Death challenge (hard mode)
-		finderActivityExtender:AddAchievement(DungeonActivityData[activityId].hm, "hm"..c..i, obj, "/esoui/art/unitframes/target_veteranrank_icon.dds", 460, debug)
-
-		-- Speed challenge
-		finderActivityExtender:AddAchievement(DungeonActivityData[activityId].tt, "tt"..c..i, obj, "/esoui/art/ava/overview_icon_underdog_score.dds", 480, debug)
-
-		-- Survivor challenge (no death)
-		finderActivityExtender:AddAchievement(DungeonActivityData[activityId].nd, "nd"..c..i, obj, "/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds", 500, debug)
-
-		-- Quest
-		obj.quest = GetCompletedQuestInfo(DungeonActivityData[activityId].q) == "" and true or false
-		haveQuests = haveQuests or obj.quest
+	local savedVars = GAFE.SavedVars
+	if savedVars.dungeons.dailyPledgeMarker.isIcon then
+		AddIcon()
 	else
-		GAFE.UI.Label(GAFE.name.."_DungeonInfo_Todo"..c..i, obj, {125,20}, {LEFT,obj,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, "TODO:"..activityId)
+		ChangeColor()
 	end
 end
 
@@ -117,19 +130,11 @@ local function RefreshControls()
 	checkPledgesButton:SetHidden(autoMarkPledges)
 end
 
-local function DisableControls()
-	checkQuestsButton:SetState(BSTATE_DISABLED)
-	checkPledgesButton:SetState(BSTATE_DISABLED)
-end
-
 local function OnShown()
 	UpdateLocals()
-	GAFE.CallLater("ExtendDungeonActivity", 200, function()
-		finderActivityExtender:ExtendFunc(ExtendDungeonActivity, RefreshControls)()
-		local autoMarkPledges = GAFE.SavedVars.dungeons.autoMarkPledges
-		if autoMarkPledges then
-			finderActivityExtender:CheckFunc(CheckPledges)()
-		end
+	GAFE.CallLater(GAFE.name.."_ExtendDungeonActivity", 200, function()
+		RefreshControls()
+		finderActivityExtender:AutoCollapse()
 	end)
 end
 
@@ -151,9 +156,39 @@ function GAFE.DungeonFinder.Init()
 		end
 	end
 
+	-- Entry extensions
+	local treeEntry	= DUNGEON_FINDER_KEYBOARD.navigationTree.templateInfo.ZO_ActivityFinderTemplateNavigationEntry_Keyboard
+	local baseEntrySetupFunction = treeEntry.setupFunction
+	treeEntry.setupFunction = function(node, control, data, open)
+		baseEntrySetupFunction(node, control, data, open)
+
+		local activityId=data.id
+		if DungeonActivityData[activityId] then
+			local debug = GetDisplayName() == "@Panicida"
+
+			-- Pledge
+			AddPledge(control, data)
+
+			-- Quest (skill point)
+			finderActivityExtender:AddQuest(DungeonActivityData[activityId].q, control:GetName().."q", control, "/esoui/art/icons/achievements_indexicon_quests_up.dds", 420, debug)
+			control.quest = GetCompletedQuestInfo(DungeonActivityData[activityId].q) == "" and true or false
+			haveQuests = haveQuests or control.quest
+
+			-- General Vanquisher (normal) / Conqueror (veteran)
+			finderActivityExtender:AddAchievement(DungeonActivityData[activityId].id, control:GetName().."id", control, "/esoui/art/announcewindow/announcement_icon_up.dds", 440, debug)
+
+			-- Death challenge (hard mode)
+			finderActivityExtender:AddAchievement(DungeonActivityData[activityId].hm, control:GetName().."hm", control, "/esoui/art/unitframes/target_veteranrank_icon.dds", 460, debug)
+
+			-- Speed challenge
+			finderActivityExtender:AddAchievement(DungeonActivityData[activityId].tt, control:GetName().."tt", control, "/esoui/art/ava/overview_icon_underdog_score.dds", 480, debug)
+
+			-- Survivor challenge (no death)
+			finderActivityExtender:AddAchievement(DungeonActivityData[activityId].nd, control:GetName().."nd", control, "/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds", 500, debug)
+		else
+			GAFE.UI.Label(control:GetName().."TODO", control, {125,20}, {LEFT,control,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, "TODO:"..activityId)
+		end
+	end
 
 	ZO_PreHookHandler(ZO_DungeonFinder_KeyboardListSection, 'OnEffectivelyShown', OnShown)
-	ZO_PreHookHandler(ZO_DungeonFinder_KeyboardListSection, 'OnEffectivelyHidden', function()
-		DisableControls()
-	end)
 end

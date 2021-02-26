@@ -12,6 +12,7 @@ GAFE.Localization = {
     Settings_Trials = "Reset chest timers",
     Settings_ResetChestWarning = "This will reset the timer to 1 week!",
     Settings_AutoMarkPledges = "Automatically mark available pledges",
+    Settings_MarkPledgesWithIcon = "Use icon for pledges",
     CheckActivePledges = "Check active pledges",
     CheckMissingQuests = "Check missing quests",
     AutoConfirm = "Auto confirm",

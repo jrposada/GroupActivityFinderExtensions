@@ -97,6 +97,9 @@
         "GetNumCharacters",
         "GetCharacterInfo",
         "EVENT_QUEST_REMOVED",
-        "EVENT_CHAT_MESSAGE_CHANNEL"
+        "EVENT_CHAT_MESSAGE_CHANNEL",
+        "DUNGEON_FINDER_KEYBOARD",
+        "ZO_CheckButton_OnClicked",
+        "LFG_ACTIVITY_DUNGEON"
     ]
 }

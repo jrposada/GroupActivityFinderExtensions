@@ -15,7 +15,7 @@ GroupActivityFinderExtensions = {
         dungeons = {
             autoMarkPledges = false,
             dailyPledgeMarker = {
-                isIcon = true
+                isIcon = false
             }
         },
         autoConfirm = {

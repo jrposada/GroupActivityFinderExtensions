@@ -43,6 +43,12 @@ function GAFE.SettingsMenu.Init()
             setFunc = function(value) saveData.dungeons.autoMarkPledges = value end
         },
         {
+            type = "checkbox",
+            name = GAFE.Loc("Settings_MarkPledgesWithIcon"),
+            getFunc = function() return saveData.dungeons.dailyPledgeMarker.isIcon end,
+            setFunc = function(value) saveData.dungeons.dailyPledgeMarker.isIcon = value end
+        },
+        {
             type = "divider"
         },
         {

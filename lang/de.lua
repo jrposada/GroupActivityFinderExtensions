@@ -12,6 +12,7 @@ GAFE.Localization = {
     Settings_Trials = "Setzen Sie den Timer für Truhen zurück",
     Settings_ResetChestWarning = "Dadurch wird der Timer auf 1 Woche zurückgesetzt!",
     Settings_AutoMarkPledges = "Wähle Gelöbnisse automatisch",
+    Settings_MarkPledgesWithIcon = "Verwenden Sie das Symbol für Gelöbnisse",
     CheckActivePledges = "Wähle Gelöbnisse",
     CheckMissingQuests = "Wähle fehl. Quests",
     AutoConfirm = "Autom. bestätigen",
