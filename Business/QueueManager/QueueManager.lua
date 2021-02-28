@@ -44,7 +44,9 @@ local queueInfo = {
 }
 
 local function CanQueue()
-    return queueInfo[QueueInfoType.Type] ~= nil and queueInfo[QueueInfoType.Role] ~= nil and queueInfo[QueueInfoType.Activity] ~= nil
+    return queueInfo[QueueInfoType.Type] ~= nil and queueInfo[QueueInfoType.Type] == TypeText[Type.Lfm]:lower() and
+		   queueInfo[QueueInfoType.Role] ~= nil and
+		   queueInfo[QueueInfoType.Activity] ~= nil
 end
 
 local function SetIsQueued(value)
@@ -53,17 +55,53 @@ local function SetIsQueued(value)
 	joinQueueCheckbox:SetState(CanQueue() and BSTATE_NORMAL or BSTATE_DISABLED)
 end
 
+local function LeaveQueue()
+	queueInfo = {
+		[QueueInfoType.Type] = nil,
+		[QueueInfoType.Role] = nil,
+		[QueueInfoType.Activity] = nil
+	}
+	SetIsQueued(false)
+end
+
 local function ToggleIsQueued()
     SetIsQueued((not isQueued) and CanQueue())
 end
 
 local function HandleMessage(event, channelType, fromName, messageText, isCustomerService, fromDisplayName)
     local function ParseQueueInfo(words, numWords)
-        local parsedInfo = {}
+		local parsedInfo = {}
+
+		local function ParseRoleWord(word)
+			local roleInfo = {
+				{ role = LFG_ROLE_TANK, pattern = "^%d*"..RoleText[LFG_ROLE_TANK]:lower().."$" },
+				{ role = LFG_ROLE_HEAL, pattern = "^%d*"..RoleText[LFG_ROLE_HEAL]:lower().."$" },
+				{ role = LFG_ROLE_DPS, pattern = "^%d*"..RoleText[LFG_ROLE_DPS]:lower().."$" },
+			}
+
+			for _, info in pairs(roleInfo) do
+				if word:match(info.pattern) then
+					local number = word:match("^%d+") or 1
+					if parsedInfo[QueueInfoType.Role] == nil then
+						parsedInfo[QueueInfoType.Role] = {}
+					end
+
+					parsedInfo[QueueInfoType.Role][info.role] = number
+					break
+				end
+			end
+		end
+
         for w = 1, numWords do
             local word = words[w]:lower()
             local wordInfo = queueWordList[word]
+			if word and wordInfo == nil then
+				ParseRoleWord(word)
+			end
             if wordInfo ~= nil then
+				if parsedInfo[wordInfo] == nil then
+					parsedInfo[wordInfo] = {}
+				end
                 table.insert(parsedInfo[wordInfo], word)
             end
         end
@@ -79,7 +117,7 @@ local function HandleMessage(event, channelType, fromName, messageText, isCustom
     local function QueueInfoIsMatch(parsedQueueInfo)
         local isMatch = false
 
-        GAFE.LogLater("TODO")
+		-- asdf1
 
         return isMatch
     end
@@ -88,31 +126,31 @@ local function HandleMessage(event, channelType, fromName, messageText, isCustom
         GAFE.LogLater("TODO: Send invite/wishper to "..toDisplayName)
     end
 
-    if isQueued then
-        local words, numWords = GAFE.Split(messageText, " ")
-        -- Only parse message shorter than X words. We don't want to parse hole conversations...
-        if numWords <= 10 then
-            local parsedQueueInfo = ParseQueueInfo(words, numWords)
-            if parsedQueueInfo ~= nil then
-                local displayName = GetDisplayName()
-                if fromDisplayName ~= displayName then
-                    -- Os other player's message
-                    if QueueInfoIsMatch(parsedQueueInfo) then
-                        SendJoin(fromDisplayName)
-                    end
-                else
-                    -- Is our message
-                    queueInfo = parsedQueueInfo
-                end
-            end
-        end
-    end
+	local words, numWords = GAFE.Split(messageText, " ")
+	-- Only parse message shorter than X words. We don't want to parse hole conversations...
+	if numWords <= 10 then
+		local displayName = GetDisplayName()
+		if isQueued and fromDisplayName ~= displayName then
+			-- Is other player's message
+			local parsedQueueInfo = ParseQueueInfo(words, numWords)
+			if QueueInfoIsMatch(parsedQueueInfo) then
+				SendJoin(fromDisplayName)
+			end
+		elseif fromDisplayName == displayName then
+			-- Is our message
+			local parsedQueueInfo = ParseQueueInfo(words, numWords)
+			if parsedQueueInfo ~= nil then
+				queueInfo = parsedQueueInfo
+				SetIsQueued(false)
+			end
+		end
+	end
 end
 
 local function RefreshEvents()
     local savedVars = GAFE.SavedVars
 	local eventName = GAFE.name.."_QueueChatMessage"
-	if savedVars.autoInvite.enabled and isQueued then
+	if savedVars.autoInvite.enabled then
 		EM:RegisterForEvent(eventName, EVENT_CHAT_MESSAGE_CHANNEL, HandleMessage)
 	else
 		EM:UnregisterForEvent(eventName, EVENT_CHAT_MESSAGE_CHANNEL)
@@ -123,9 +161,7 @@ function GAFE.QueueManager.Init()
 	queueWordList = {
 		[TypeText[Type.Lfg]:lower()] = QueueInfoType.Type,
 		[TypeText[Type.Lfm]:lower()] = QueueInfoType.Type,
-		[RoleText[LFG_ROLE_TANK]:lower()] = QueueInfoType.Role,
-		[RoleText[LFG_ROLE_HEAL]:lower()] = QueueInfoType.Role,
-		[RoleText[LFG_ROLE_DPS]:lower()] = QueueInfoType.Role,
+		-- Do not add role words. They need special algorithm to account for the number
 	}
 	for _, data in pairs(TrialActivityData) do
 		queueWordList[data.lf:lower()] = QueueInfoType.Activity
@@ -156,7 +192,7 @@ function GAFE.QueueManager.Lfg(activities, numActivities)
 	end
 
 	GAFE.Chat.SendMessage(message)
-	SetIsQueued(false)
+	LeaveQueue()
 end
 
 function GAFE.QueueManager.Lfm(activities, numActivities)
@@ -204,7 +240,7 @@ function GAFE.QueueManager.Lfm(activities, numActivities)
 	end
 
 	GAFE.Chat.SendMessage(message)
-	SetIsQueued(false)
+	LeaveQueue()
 end
 
 function GAFE.QueueManager.GetRoleText(role)

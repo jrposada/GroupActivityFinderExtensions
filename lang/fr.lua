@@ -13,6 +13,7 @@ GAFE.Localization = {
     Settings_ResetChestWarning = "Cela réinitialisera la minuterie à 1 semaine!",
     Settings_AutoMarkPledges = "Marquer automatiquement les serment actifs",
     Settings_MarkPledgesWithIcon = "Utiliser l'icône pour les serment",
+    Settings_TextureSize = "Taille de l'icône",
     CheckActivePledges = "Sélect serment activ",
     CheckMissingQuests = "Sélect quêtes incompl",
     AutoConfirm = "Auto confirmer",
