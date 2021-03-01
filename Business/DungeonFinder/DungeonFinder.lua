@@ -84,7 +84,7 @@ local function AddPledge(control, data)
 				break
 			end
 		end
-		finderActivityExtender:AddLabel(pledgeText, control:GetName().."p", control, 400)
+		return finderActivityExtender:AddLabel(pledgeText, control:GetName().."p", control, 400)
 	end
 
 	local function ChangeColor()
@@ -115,9 +115,11 @@ local function AddPledge(control, data)
 	end
 
 	local savedVars = GAFE.SavedVars
-	if savedVars.dungeons.dailyPledgeMarker.isIcon then
-		AddIcon()
-	else
+
+	local icon = AddIcon()
+	icon:SetHidden(not savedVars.dungeons.dailyPledgeMarker.isIcon)
+
+	if not savedVars.dungeons.dailyPledgeMarker.isIcon then
 		ChangeColor()
 	end
 end
@@ -133,8 +135,12 @@ end
 local function OnShown()
 	UpdateLocals()
 	GAFE.CallLater(GAFE.name.."_ExtendDungeonActivity", 200, function()
+		local savedVars = GAFE.SavedVars
 		RefreshControls()
 		finderActivityExtender:AutoCollapse()
+		if savedVars.dungeons.autoMarkPledges then
+			finderActivityExtender:CheckFunc(CheckPledges)()
+		end
 	end)
 end
 
