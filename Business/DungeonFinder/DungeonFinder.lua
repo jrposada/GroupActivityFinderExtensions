@@ -166,6 +166,9 @@ function GAFE.DungeonFinder.Init()
 		if DungeonActivityData[activityId] then
 			local debug = GetDisplayName() == "@Panicida"
 
+			-- Teleport
+			finderActivityExtender:AddTeleport(DungeonActivityData[activityId].node, control)
+
 			-- Pledge
 			AddPledge(control, data)
 

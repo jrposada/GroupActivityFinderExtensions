@@ -49,14 +49,6 @@ local function UpdateTargetDd(value)
 end
 
 -----------------
--- Fast travel --
------------------
-local function FastTravel(nodeIndex)
-	local _, name = GetFastTravelNodeInfo(nodeIndex)
-	ZO_Dialogs_ShowPlatformDialog("RECALL_CONFIRM", {nodeIndex = nodeIndex}, {mainTextParams = {name}})
-end
-
------------------
 -- Chest timer --
 -----------------
 local function UpdateChestLabel(label, characterId, questId)
@@ -147,17 +139,7 @@ function GAFE.TrialFinder.Init()
 			local debug = GetDisplayName() == "@Panicida"
 
 			-- Teleport
-			local nodeIndex = TrialActivityData[activityId].node
-			if nodeIndex then
-				local knownNode = GetFastTravelNodeInfo(nodeIndex)
-				local size = finderActivityExtender:GetTextureSize()
-				local teleportButton = GAFE.UI.Button(control:GetName().."t", control, {size,size}, {RIGHT,control,LEFT,-5,0}, nil, function() FastTravel(nodeIndex) end, knownNode)
-				if knownNode then
-					teleportButton:SetNormalTexture("/esoui/art/icons/poi/poi_wayshrine_complete.dds")
-				else
-					teleportButton:SetNormalTexture("/esoui/art/icons/poi/poi_wayshrine_incomplete.dds")
-				end
-			end
+			finderActivityExtender:AddTeleport(TrialActivityData[activityId].node, control)
 
 			-- Chest label
 			local chestLabel = finderActivityExtender:AddLabel(nil, control:GetName().."c", control, 370, 70)

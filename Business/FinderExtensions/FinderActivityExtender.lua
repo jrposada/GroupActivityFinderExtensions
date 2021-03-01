@@ -5,6 +5,11 @@ local ACHIEVEMENTS = ACHIEVEMENTS
 FinderActivityExtender = {}
 FinderActivityExtender.__index = FinderActivityExtender
 
+local function FastTravel(nodeIndex, name)
+	ZO_Dialogs_ShowPlatformDialog("RECALL_CONFIRM", {nodeIndex = nodeIndex}, {mainTextParams = {name}})
+end
+
+
 function FinderActivityExtender:New(finderName, prefix)
     local result = {}
     setmetatable(result, FinderActivityExtender)
@@ -72,6 +77,19 @@ function FinderActivityExtender:AddLabel(text, name, parent, xOffset, width)
     local textureSize = self:GetTextureSize()
     if width == nil then width = textureSize end
     return GAFE.UI.Label(name, parent, {width,textureSize}, {LEFT,parent,LEFT,xOffset,0}, "ZoFontGameLarge", nil, {0,1}, text)
+end
+
+function FinderActivityExtender:AddTeleport(nodeIndex, parent)
+    if nodeIndex then
+        local knownNode, name = GetFastTravelNodeInfo(nodeIndex)
+        local size = self:GetTextureSize()
+        local teleportButton = GAFE.UI.Button(parent:GetName().."t", parent, {size,size}, {RIGHT,parent,LEFT,-5,0}, nil, function() FastTravel(nodeIndex, name) end, knownNode)
+        if knownNode then
+            teleportButton:SetNormalTexture("/esoui/art/icons/poi/poi_wayshrine_complete.dds")
+        else
+            teleportButton:SetNormalTexture("/esoui/art/icons/poi/poi_wayshrine_incomplete.dds")
+        end
+    end
 end
 
 function FinderActivityExtender:AutoCollapse()
