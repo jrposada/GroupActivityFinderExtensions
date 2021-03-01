@@ -4,6 +4,12 @@ local PledgeQuestName = GAFE.DungeonPledgeQuestName
 local PledgeList = GAFE.DungeonPledgeList
 local DungeonActivityData = GAFE.DungeonActivityData
 
+local AllianceId = {
+	Aldmeri = 1,
+	Daggerfall = 2,
+	Ebonheart = 3
+}
+
 GAFE.DungeonFinder = {}
 
 local finderActivityExtender = FinderActivityExtender:New("Dungeon", "ZO")
@@ -144,6 +150,32 @@ local function OnShown()
 	end)
 end
 
+local function FastTravelToAllianceCity(nodeIndex, allianceId, parent)
+	if nodeIndex then
+        local knownNode, name = GetFastTravelNodeInfo(nodeIndex)
+        local size = 30
+		local texture, position
+		if allianceId == AllianceId.Aldmeri then
+			texture = "/esoui/art/ava/ava_allianceflag_aldmeri.dds"
+			position = 0
+		elseif allianceId == AllianceId.Daggerfall then
+			texture = "/esoui/art/ava/ava_allianceflag_daggerfall.dds"
+			position = size * 2
+		elseif allianceId == AllianceId.Ebonheart then
+			texture = "/esoui/art/ava/ava_allianceflag_ebonheart.dds"
+			position = size * 4
+		end
+
+		GAFE.UI.Texture(parent:GetName().."Label"..allianceId, parent, {size,size*2}, {TOPLEFT,parent,TOPLEFT,position, -40}, texture)
+        local button = GAFE.UI.Button(parent:GetName().."Button"..allianceId, parent, {size*1.2,size*1.2}, {TOPLEFT,parent,TOPLEFT,position+size-10, -40}, nil, function() finderActivityExtender:FastTravel(nodeIndex, name) end, knownNode)
+        if knownNode then
+            button:SetNormalTexture("/esoui/art/icons/poi/poi_wayshrine_complete.dds")
+        else
+            button:SetNormalTexture("/esoui/art/icons/poi/poi_wayshrine_incomplete.dds")
+        end
+    end
+end
+
 function GAFE.DungeonFinder.Init()
 	-- Panel buttons
 	local parent = ZO_DungeonFinder_Keyboard
@@ -151,6 +183,10 @@ function GAFE.DungeonFinder.Init()
 		local w = parent:GetWidth()
 		local dims = {200,28}
 		local autoMarkPledges = GAFE.SavedVars.dungeons.autoMarkPledges
+
+		FastTravelToAllianceCity(214, AllianceId.Aldmeri, parent)
+		FastTravelToAllianceCity(56, AllianceId.Daggerfall, parent)
+		FastTravelToAllianceCity(28, AllianceId.Ebonheart, parent)
 
 		checkQuestsButton = GAFE.UI.ZOButton("GAFE_QuestsCheck", parent, dims, {BOTTOM,parent,BOTTOM,w/3,0}, GAFE.Loc("CheckMissingQuests"), finderActivityExtender:CheckFunc(CheckQuests), haveQuests)
 		checkPledgesButton = GAFE.UI.ZOButton("GAFE_PledgesCheck", parent, dims, {BOTTOM,parent,BOTTOM,-w/3,0}, GAFE.Loc("CheckActivePledges"), finderActivityExtender:CheckFunc(CheckPledges), havePledge, nil, autoMarkPledges)

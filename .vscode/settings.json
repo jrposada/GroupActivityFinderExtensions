@@ -104,6 +104,8 @@
         "SCENE_MANAGER",
         "ACHIEVEMENTS",
         "GetCategoryInfoFromAchievementId",
-        "GetAchievementInfo"
+        "GetAchievementInfo",
+        "TOPLEFT",
+        "CT_TEXTURE"
     ]
 }

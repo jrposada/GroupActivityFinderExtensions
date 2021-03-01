@@ -87,6 +87,17 @@ function GAFE.UI.Button(name, parent, dims, anchor, text, func, enabled, tooltip
 	return button
 end
 
+function GAFE.UI.Texture(name, parent, dims, anchor, texture)
+	local control=_G[name] or WM:CreateControl(name,parent, CT_TEXTURE)
+
+	if dims then control:SetDimensions(dims[1], dims[2]) end
+	control:ClearAnchors()
+	control:SetAnchor(anchor[1], anchor[2], anchor[3], anchor[4], anchor[5])
+	control:SetTexture(texture)
+
+	return control
+end
+
 function GAFE.UI.Checkbox(name, parent, dims, anchor, text, func, enabled, checked, hidden)
 	local function SetChecked(check)
 		local labelText=check and "/esoui/art/cadwell/checkboxicon_checked.dds" or "/esoui/art/cadwell/checkboxicon_unchecked.dds"

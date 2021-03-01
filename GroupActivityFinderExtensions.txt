@@ -28,6 +28,7 @@ lang\$(language).lua
 
 Ui/Button.xml
 Ui/Counter.xml
+Ui/Texture.xml
 
 Business/FinderExtensions/FinderActivityExtender.lua
 

@@ -5,9 +5,7 @@ local ACHIEVEMENTS = ACHIEVEMENTS
 FinderActivityExtender = {}
 FinderActivityExtender.__index = FinderActivityExtender
 
-local function FastTravel(nodeIndex, name)
-	ZO_Dialogs_ShowPlatformDialog("RECALL_CONFIRM", {nodeIndex = nodeIndex}, {mainTextParams = {name}})
-end
+
 
 
 function FinderActivityExtender:New(finderName, prefix)
@@ -83,7 +81,7 @@ function FinderActivityExtender:AddTeleport(nodeIndex, parent)
     if nodeIndex then
         local knownNode, name = GetFastTravelNodeInfo(nodeIndex)
         local size = self:GetTextureSize()
-        local teleportButton = GAFE.UI.Button(parent:GetName().."t", parent, {size,size}, {RIGHT,parent,LEFT,-5,0}, nil, function() FastTravel(nodeIndex, name) end, knownNode)
+        local teleportButton = GAFE.UI.Button(parent:GetName().."t", parent, {size,size}, {RIGHT,parent,LEFT,-5,0}, nil, function() self:FastTravel(nodeIndex, name) end, knownNode)
         if knownNode then
             teleportButton:SetNormalTexture("/esoui/art/icons/poi/poi_wayshrine_complete.dds")
         else
@@ -138,18 +136,11 @@ function FinderActivityExtender:GetSelecteds()
     return selected, count
 end
 
-function FinderActivityExtender:FormatTexture(texture)
-    local size = self:GetTextureSize()
+function FinderActivityExtender:FormatTexture(texture, size)
+    if size == nil then size = self:GetTextureSize() end
     return "|t"..size..":"..size..":"..texture.."|t"
 end
 
-
--- DUNGEON_FINDER_KEYBOARD.listSection
--- 	--Check if the achievement is still active
--- 	local aid = GetAchievementIdFromLink(link)
--- 	if select(1,GetCategoryInfoFromAchievementId(aid)) ~= nil then
--- 		SCENE_MANAGER:ShowBaseScene()
--- 		ACHIEVEMENTS:ShowAchievement(aid)
--- 	else
--- 		CHAT_SYSTEM:AddMessage("|cA00000This achievement is not visible in the achievements tab of the quest journal.|r")
--- 	end
+function FinderActivityExtender:FastTravel(nodeIndex, name)
+	ZO_Dialogs_ShowPlatformDialog("RECALL_CONFIRM", {nodeIndex = nodeIndex}, {mainTextParams = {name}})
+end
