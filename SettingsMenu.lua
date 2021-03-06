@@ -44,6 +44,12 @@ function GAFE.SettingsMenu.Init()
         },
         {
             type = "checkbox",
+            name = GAFE.Loc("Settings_AutoInvite"),
+            getFunc = function() return saveData.autoInvite.enabled end,
+            setFunc = function(value) GAFE.QueueManager.Enable(value) end
+        },
+        {
+            type = "checkbox",
             name = GAFE.Loc("Settings_MarkPledgesWithIcon"),
             getFunc = function() return saveData.dungeons.dailyPledgeMarker.isIcon end,
             setFunc = function(value) saveData.dungeons.dailyPledgeMarker.isIcon = value end

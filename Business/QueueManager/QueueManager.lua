@@ -44,7 +44,7 @@ local queueInfo = {
 }
 
 local function CanQueue()
-    return queueInfo[QueueInfoType.Type] ~= nil and queueInfo[QueueInfoType.Type] == TypeText[Type.Lfm]:lower() and
+    return queueInfo[QueueInfoType.Type] ~= nil and queueInfo[QueueInfoType.Type][1] == TypeText[Type.Lfm]:lower() and
 		   queueInfo[QueueInfoType.Role] ~= nil and
 		   queueInfo[QueueInfoType.Activity] ~= nil
 end
@@ -114,16 +114,46 @@ local function HandleMessage(event, channelType, fromName, messageText, isCustom
         return parsedInfo
     end
 
-    local function QueueInfoIsMatch(parsedQueueInfo)
-        local isMatch = false
+    local function QueueInfoIsMatch(otherQueueInfo)
+		local function IsTypeMatch()
+			-- TODO support lists
+			return queueInfo[QueueInfoType.Type][1] == TypeText[Type.Lfm] and otherQueueInfo[QueueInfoType.Type][1] == TypeText[Type.Lfg]
+		end
 
-		-- asdf1
+		local function IsActivityMatch()
+			local isMatch = false
+			for _, activity in pairs(queueInfo[QueueInfoType.Activity]) do
+				for _, otherActivity in pairs(otherQueueInfo[QueueInfoType.Activity]) do
+					if activity == otherActivity then
+						isMatch = true
+						break
+					end
+				end
 
-        return isMatch
+				if isMatch then
+					break
+				end
+			end
+			return isMatch
+		end
+
+		local function IsRoleMatch()
+			local isMatch = false
+			for role, number in pairs(queueInfo[QueueInfoType.Role]) do
+				if otherQueueInfo[QueueInfoType.Role][role] ~= nil then
+					isMatch = true
+					break
+				end
+			end
+			return isMatch
+		end
+
+        return IsTypeMatch() and IsActivityMatch() and IsRoleMatch()
     end
 
     local function SendJoin(toDisplayName)
-        GAFE.LogLater("TODO: Send invite/wishper to "..toDisplayName)
+		GroupInviteByName(toDisplayName)
+        GAFE.LogLater("[GAFE] Invite sent to "..toDisplayName)
     end
 
 	local words, numWords = GAFE.Split(messageText, " ")
