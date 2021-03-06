@@ -14,6 +14,7 @@ GAFE.Localization = {
     Settings_AutoMarkPledges = "Marquer automatiquement les serment actifs",
     Settings_MarkPledgesWithIcon = "Utiliser l'icône pour les serment",
     Settings_TextureSize = "Taille de l'icône",
+    Settings_AutoInvite = "BETA Auto invite",
     CheckActivePledges = "Sélect serment activ",
     CheckMissingQuests = "Sélect quêtes incompl",
     AutoConfirm = "Auto confirmer",

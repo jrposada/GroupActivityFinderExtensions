@@ -14,6 +14,7 @@ GAFE.Localization = {
     Settings_AutoMarkPledges = "Wähle Gelöbnisse automatisch",
     Settings_MarkPledgesWithIcon = "Verwenden Sie das Symbol für Gelöbnisse",
     Settings_TextureSize = "Symbolgröße",
+    Settings_AutoInvite = "BETA Auto invite",
     CheckActivePledges = "Wähle Gelöbnisse",
     CheckMissingQuests = "Wähle fehl. Quests",
     AutoConfirm = "Autom. bestätigen",

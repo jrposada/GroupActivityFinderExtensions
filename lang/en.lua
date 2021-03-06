@@ -14,6 +14,7 @@ GAFE.Localization = {
     Settings_AutoMarkPledges = "Automatically mark available pledges",
     Settings_MarkPledgesWithIcon = "Use icon for pledges",
     Settings_TextureSize = "Icon size",
+    Settings_AutoInvite = "BETA Auto invite",
     CheckActivePledges = "Check active pledges",
     CheckMissingQuests = "Check missing quests",
     AutoConfirm = "Auto confirm",
