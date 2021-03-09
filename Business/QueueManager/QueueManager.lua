@@ -287,6 +287,6 @@ function GAFE.QueueManager.SetRoleTarget(role, value)
     roleTarget[role] = value
 end
 
-function GAFE.QueuManager.RefreshControls()
+function GAFE.QueueManager.RefreshControls()
 	SetIsQueued(isQueued)
 end
