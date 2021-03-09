@@ -44,7 +44,9 @@ local queueInfo = {
 }
 
 local function CanQueue()
-    return queueInfo[QueueInfoType.Type] ~= nil and queueInfo[QueueInfoType.Type][1] == TypeText[Type.Lfm]:lower() and
+	local isLeader = GetGroupSize() == 0 or IsUnitGroupLeader("player")
+    return isLeader and
+	       queueInfo[QueueInfoType.Type] ~= nil and queueInfo[QueueInfoType.Type][1] == TypeText[Type.Lfm]:lower() and
 		   queueInfo[QueueInfoType.Role] ~= nil and
 		   queueInfo[QueueInfoType.Activity] ~= nil
 end
@@ -283,4 +285,8 @@ end
 
 function GAFE.QueueManager.SetRoleTarget(role, value)
     roleTarget[role] = value
+end
+
+function GAFE.QueuManager.RefreshControls()
+	SetIsQueued(isQueued)
 end

@@ -99,6 +99,8 @@ local function RefreshControls()
 	if counterDds then
 		counterDds:SetHidden(not canLfm)
 	end
+
+	GAFE.QueueManager.RefreshControls()
 end
 
 function GAFE.TrialFinder.Init()
