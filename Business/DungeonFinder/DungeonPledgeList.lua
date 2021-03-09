@@ -39,6 +39,8 @@ GAFE.DungeonPledgeList = {
 		PledgeId.UnhallowedGrave,
 		PledgeId.StoneGarden,
 		PledgeId.CastleThorn,
+		PledgeId.BlackDrakeVilla,
+		PledgeId.Cauldron,
 		PledgeId.ImperialCityPrison,
 		PledgeId.RuinsOfMazzatun,
 		PledgeId.WhiteGoldTower,

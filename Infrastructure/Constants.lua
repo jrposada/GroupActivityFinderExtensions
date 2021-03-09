@@ -44,7 +44,9 @@ GAFE.Constants.PledgeId = {
     ScalecallerPeak 	= 39,
     StoneGarden 		= 40,
     UnhallowedGrave 	= 41,
-    WhiteGoldTower 		= 42
+    WhiteGoldTower 		= 42,
+	BlackDrakeVilla		= 43,
+	Cauldron			= 44
 }
 
 GAFE.Constants.ActivityId = {
@@ -121,6 +123,9 @@ GAFE.Constants.ActivityId = {
 	NormalVaultsOfMadness		= 17,
 	VeteranVaultsOfMadness		= 314,
 
+	NormalBlackDrakeVilla		= 591,
+	VeteranBlackDrakeVilla		= 592,
+
 	NormalBloodrootForge		= 324,
 	VeteranBloodrootForge		= 325,
 
@@ -168,6 +173,9 @@ GAFE.Constants.ActivityId = {
 
 	NormalStoneGarden			= 507,
 	VeteranStoneGarden			= 508,
+
+	NormalCauldron				= 593,
+	VeteranCauldron				= 594,
 
 	NormalUnhallowedGrave		= 505,
 	VeteranUnhallowedGrave		= 506,
