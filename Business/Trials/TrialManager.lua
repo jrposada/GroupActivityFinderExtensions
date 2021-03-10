@@ -5,7 +5,7 @@ local categoryData =
 {
     keyboardData =
     {
-        name = GAFE.Loc("TrailsCategoryHeader"),
+        name = GAFE.Loc("TrialsCategoryHeader"),
         normalIcon = "/esoui/art/lfg/lfg_indexicon_trial_up.dds",
         pressedIcon = "/esoui/art/lfg/lfg_indexicon_trial_down.dds",
         mouseoverIcon = "/esoui/art/lfg/lfg_indexicon_trial_over.dds",
@@ -13,10 +13,10 @@ local categoryData =
 
     gamepadData = -- TODO: Understand
     {
-        name =GAFE.Loc("TrailsCategoryHeader"),
+        name =GAFE.Loc("TrialsCategoryHeader"),
         menuIcon = "EsoUI/Art/LFG/Gamepad/LFG_menuIcon_battlegrounds.dds",
         sceneName = "gamepadBattlegroundFinder",
-        tooltipDescription = GAFE.Loc("TrailsCategoryHeader"),
+        tooltipDescription = GAFE.Loc("TrialsCategoryHeader"),
     },
     priority = 500 -- ZO_ACTIVITY_FINDER_SORT_PRIORITY
 }

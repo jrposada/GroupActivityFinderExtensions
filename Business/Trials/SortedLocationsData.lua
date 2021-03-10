@@ -16,7 +16,7 @@ end
 
 local function GAFE_GetNumActivitySetsByType(activityType)
     if activityType == GAFE_LFG_ACTIVITY_TRIAL then
-        return 0 -- Check num of trails sets. Maybe we can put 2, one for normals and one for veterans
+        return 0 -- Check num of trials sets. Maybe we can put 2, one for normals and one for veterans
     elseif activityType == GAFE_LFG_ACTIVITY_MASTER_TRIAL then
         return 0
     end
