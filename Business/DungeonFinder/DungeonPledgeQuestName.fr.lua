@@ -26,6 +26,7 @@ GAFE.DungeonPledgeQuestName = {
 	[PledgeId.BlessedCrucible] = "Creuset béni",
 	[PledgeId.SelenesWeb] = "Toile de Sélène",
 	[PledgeId.VaultsOfMadness] = "Chambres de la folie",
+	[PledgeId.BlackDrakeVilla] = "Villa du Dragon noir",
 	[PledgeId.BloodrootForge] = "Forge de Sangracine",
 	[PledgeId.CastleThorn] = "Bastion-les-Ronce", 
 	[PledgeId.CradleOfShadows] = "Berceau des ombres",
@@ -42,6 +43,7 @@ GAFE.DungeonPledgeQuestName = {
 	[PledgeId.RuinsOfMazzatun] = "Ruines de Mazzatun",
 	[PledgeId.ScalecallerPeak] = "Pic de la Mandécailles",
 	[PledgeId.StoneGarden] = "Jardin de pierre",
+	[PledgeId.Cauldron] = "The Cauldron",
 	[PledgeId.UnhallowedGrave] = "Sépulcre profane",
 	[PledgeId.WhiteGoldTower] = "Tour d'Or Blanc"
 }

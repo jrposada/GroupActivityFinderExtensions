@@ -165,7 +165,9 @@ local function HandleMessage(event, channelType, fromName, messageText, isCustom
 		if isQueued and fromDisplayName ~= displayName then
 			-- Is other player's message
 			local parsedQueueInfo = ParseQueueInfo(words, numWords)
-			if QueueInfoIsMatch(parsedQueueInfo) then
+			if QueueInfoIsMatch(parsedQueueInfo) or
+			   (channelType == CHAT_CHANNEL_WHISPER and words[0]:match("^%+[DdTtHh]*"))
+			then
 				SendJoin(fromDisplayName)
 			end
 		elseif fromDisplayName == displayName then

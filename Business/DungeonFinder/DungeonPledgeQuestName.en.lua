@@ -26,6 +26,7 @@ GAFE.DungeonPledgeQuestName = {
 	[PledgeId.BlessedCrucible] = "Blessed Crucible",
 	[PledgeId.SelenesWeb] = "Selene's Web",
 	[PledgeId.VaultsOfMadness] = "Vaults of Madness",
+	[PledgeId.BlackDrakeVilla] = "Black Drake Villa",
 	[PledgeId.BloodrootForge] = "Bloodroot Forge",
 	[PledgeId.CastleThorn] = "Castle Thorn",
 	[PledgeId.CradleOfShadows] = "Cradle of Shadows",
@@ -42,6 +43,7 @@ GAFE.DungeonPledgeQuestName = {
 	[PledgeId.RuinsOfMazzatun] = "Ruins of Mazzatun",
 	[PledgeId.ScalecallerPeak] = "Scalecaller Peak",
 	[PledgeId.StoneGarden] = "Stone Garden",
+	[PledgeId.Cauldron] = "The Cauldron",
 	[PledgeId.UnhallowedGrave] = "Unhallowed Grave",
 	[PledgeId.WhiteGoldTower] = "White-Gold Tower"
 }

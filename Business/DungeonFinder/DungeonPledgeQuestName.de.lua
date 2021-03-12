@@ -26,6 +26,7 @@ GAFE.DungeonPledgeQuestName = {
 	[PledgeId.BlessedCrucible] = "Gesegnete Feuerprobe",
 	[PledgeId.SelenesWeb] = "Selenes Netz",
 	[PledgeId.VaultsOfMadness] = "Kammern des Wahnsinns",
+	[PledgeId.BlackDrakeVilla] = "Schwarzdrachenvilla",
 	[PledgeId.BloodrootForge] = "Blutquellschmiede",
 	[PledgeId.CastleThorn] = "Kastell Dorn",
 	[PledgeId.CradleOfShadows] = "Wiege der Schatten",
@@ -42,6 +43,7 @@ GAFE.DungeonPledgeQuestName = {
 	[PledgeId.RuinsOfMazzatun] = "Ruinen von Mazzatun",
 	[PledgeId.ScalecallerPeak] = "Gipfel der Schuppenruferin",
 	[PledgeId.StoneGarden] = "Steingarten",
+	[PledgeId.Cauldron] = "The Cauldron",
 	[PledgeId.UnhallowedGrave] = "Unheiliges Grab",
 	[PledgeId.WhiteGoldTower] = "Weißgoldturm"
 }

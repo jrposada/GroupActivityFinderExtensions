@@ -106,6 +106,7 @@
         "GetCategoryInfoFromAchievementId",
         "GetAchievementInfo",
         "TOPLEFT",
-        "CT_TEXTURE"
+        "CT_TEXTURE",
+        "CHAT_CHANNEL_WHISPER"
     ]
 }

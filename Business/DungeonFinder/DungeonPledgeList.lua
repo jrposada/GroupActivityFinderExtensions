@@ -54,6 +54,6 @@ GAFE.DungeonPledgeList = {
 		PledgeId.DepthsOfMalatar,
 		PledgeId.Frostvault,
 		PledgeId.MoongraveFane,
-		shift=0
+		shift=10
 	},
 }
