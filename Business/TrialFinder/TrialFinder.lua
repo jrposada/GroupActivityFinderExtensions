@@ -113,6 +113,21 @@ function GAFE.TrialFinder.Init()
 		local canLfg = CanLfg()
 		local canLfm = CanLfm()
 
+		-- Fast travel to Craglorn
+		local nodeIndex = 220
+		local knownNode, name = GetFastTravelNodeInfo(nodeIndex)
+		local position, size = 0, 30
+		local texture = "/esoui/art/ava/ava_allianceflag_aldmeri.dds"
+
+		-- GAFE.UI.Texture(parent:GetName().."LabelCraglorn", parent, {size,size*2}, {TOPLEFT,parent,TOPLEFT,position, -40}, texture)
+		local button = GAFE.UI.Button(parent:GetName().."ButtonCraglorn", parent, {size*1.2,size*1.2}, {TOPLEFT,parent,TOPLEFT,position+size-10, -40}, nil, function() finderActivityExtender:FastTravel(nodeIndex, name) end, knownNode)
+		if knownNode then
+			button:SetNormalTexture("/esoui/art/icons/poi/poi_wayshrine_complete.dds")
+		else
+			button:SetNormalTexture("/esoui/art/icons/poi/poi_wayshrine_incomplete.dds")
+		end
+
+
 		lfgButton=GAFE.UI.ZOButton("GAFE_LookForGroup", parent, dims, {BOTTOM,parent,BOTTOM,w/3,0}, GAFE.Loc("LookForGroup"), Lfg, canLfg)
 		lfmButton=GAFE.UI.ZOButton("GAFE_LookForMore", parent, dims, {BOTTOM,parent,BOTTOM,-w/3,0}, GAFE.Loc("LookForMore"), Lfm, canLfm)
 

@@ -43,7 +43,7 @@ GAFE.DungeonPledgeQuestName = {
 	[PledgeId.RuinsOfMazzatun] = "Ruines de Mazzatun",
 	[PledgeId.ScalecallerPeak] = "Pic de la Mandécailles",
 	[PledgeId.StoneGarden] = "Jardin de pierre",
-	[PledgeId.Cauldron] = "The Cauldron",
+	[PledgeId.Cauldron] = "Le Chaudron",
 	[PledgeId.UnhallowedGrave] = "Sépulcre profane",
 	[PledgeId.WhiteGoldTower] = "Tour d'Or Blanc"
 }

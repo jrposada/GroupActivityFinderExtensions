@@ -43,7 +43,7 @@ GAFE.DungeonPledgeQuestName = {
 	[PledgeId.RuinsOfMazzatun] = "Ruinen von Mazzatun",
 	[PledgeId.ScalecallerPeak] = "Gipfel der Schuppenruferin",
 	[PledgeId.StoneGarden] = "Steingarten",
-	[PledgeId.Cauldron] = "The Cauldron",
+	[PledgeId.Cauldron] = "Der Kessel",
 	[PledgeId.UnhallowedGrave] = "Unheiliges Grab",
 	[PledgeId.WhiteGoldTower] = "Weißgoldturm"
 }
