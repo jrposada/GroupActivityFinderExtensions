@@ -38,6 +38,10 @@ Business/DungeonFinder/DungeonPledgeQuestName.en.lua
 Business/DungeonFinder/DungeonPledgeQuestName.$(language).lua
 Business/DungeonFinder/DungeonFinder.lua
 
+Business/Pledges/PledgeChatterOptions.en.lua
+Business/Pledges/PledgeChatterOptions.$(language).lua
+Business/Pledges/PledgeQuestHandler.lua
+
 Business/Trials/SortedLocationsData.lua
 Business/Trials/TrialManager.lua
 

@@ -107,6 +107,17 @@
         "GetAchievementInfo",
         "TOPLEFT",
         "CT_TEXTURE",
-        "CHAT_CHANNEL_WHISPER"
+        "CHAT_CHANNEL_WHISPER",
+        "GroupInviteByName",
+        "EVENT_CHATTER_BEGIN",
+        "GetChatterOption",
+        "CHATTER_START_NEW_QUEST_BESTOWAL",
+        "CHATTER_START_COMPLETE_QUEST",
+        "SelectChatterOption",
+        "EVENT_QUEST_OFFERED",
+        "AcceptOfferedQuest",
+        "CHATTER_GOODBYE",
+        "INTERACTION_CONVERSATION",
+        "EndInteraction"
     ]
 }
