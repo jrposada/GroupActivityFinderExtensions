@@ -13,6 +13,7 @@ GAFE.Localization = {
     Settings_ResetChestWarning = "Dadurch wird der Timer auf 1 Woche zurückgesetzt!",
     Settings_AutoMarkPledges = "Wähle Gelöbnisse automatisch",
     Settings_MarkPledgesWithIcon = "Verwenden Sie das Symbol für Gelöbnisse",
+    Settings_HandleQuest = "Versprechen-Quest automatisch annehmen",
     Settings_TextureSize = "Symbolgröße",
     Settings_AutoInvite = "BETA Auto invite",
     CheckActivePledges = "Wähle Gelöbnisse",
@@ -33,5 +34,5 @@ GAFE.Localization = {
     LookForMore = "LFM",
     LookForGroupDisabled = "Sie sind bereits gruppiert",
     LookForMoreDisabled = "Sie müssen Parteiführer sein",
-    AutoInvite = "AutoInvite",--translate
+    AutoInvite = "Automatisch einladen",
 }
