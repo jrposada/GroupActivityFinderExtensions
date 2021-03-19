@@ -7,7 +7,7 @@ GAFE.PledgeQuestHandler = {}
 local questOfferedEventName = GAFE.name.."QuestOffered"
 local questOffered = false
 
-local function HandleChatterBegin(eventCode, optionCount)
+local function HandleChatterBegin(_, optionCount)
 
 	local function HandleEventQuestOffered(_)
 		if questOffered then

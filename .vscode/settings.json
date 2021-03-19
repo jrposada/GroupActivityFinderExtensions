@@ -118,6 +118,11 @@
         "AcceptOfferedQuest",
         "CHATTER_GOODBYE",
         "INTERACTION_CONVERSATION",
-        "EndInteraction"
+        "EndInteraction",
+        "ZO_SearchingForGroup",
+        "ZO_SearchingForGroupLeaveQueueButton"
+    ],
+    "Lua.diagnostics.disable": [
+        "empty-block"
     ]
 }

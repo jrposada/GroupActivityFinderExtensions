@@ -61,11 +61,24 @@ function GAFE.SettingsMenu.Init()
             setFunc = function(value) GAFE.PledgeQuestHandler.Enable(value) end
         },
         {
+            type = "submenu",
+            name = GAFE.Loc("Settings_CompatibilityTitle"),
+            controls = {
+                {
+                    type = "checkbox",
+                    name = GAFE.Loc("Settings_PerfectPixelAddon"),
+                    getFunc = function() return saveData.compatibility.perfectPixel end,
+                    setFunc = function(value) saveData.compatibility.perfectPixel = value end,
+                    requiresReload = true
+                },
+            }
+        },
+        {
             type = "divider"
         },
         {
             type = "submenu",
-            name = GAFE.Loc("Settings_Trials"),
+            name = GAFE.Loc("Settings_TrialsChest"),
             controls = {
                 {
                     type = "button",

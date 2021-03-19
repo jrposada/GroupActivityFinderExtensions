@@ -65,6 +65,30 @@ end
 -------------
 -- General --
 -------------
+local function RefreshControlsVisibility(canLfm)
+	local tabHidden = GAFE_TrialFinder_KeyboardListSection:IsHidden()
+
+	if lfgButton then
+		lfgButton:SetHidden(tabHidden)
+	end
+
+	if lfmButton then
+		lfmButton:SetHidden(tabHidden)
+	end
+
+	if counterTs then
+		counterTs:SetHidden((not canLfm) or tabHidden)
+	end
+
+	if counterHs then
+		counterHs:SetHidden((not canLfm) or tabHidden)
+	end
+
+	if counterDds then
+		counterDds:SetHidden((not canLfm) or tabHidden)
+	end
+end
+
 local function RefreshControls()
 	local isAnythingSelected = finderActivityExtender:IsAnythingSelected()
 
@@ -88,19 +112,23 @@ local function RefreshControls()
 		GAFE.UI.SetTooltip(lfgButton, tooltipText)
 	end
 
-	if counterTs then
-		counterTs:SetHidden(not canLfm)
-	end
-
-	if counterHs then
-		counterHs:SetHidden(not canLfm)
-	end
-
-	if counterDds then
-		counterDds:SetHidden(not canLfm)
-	end
+	RefreshControlsVisibility(canLfm)
 
 	GAFE.QueueManager.RefreshControls()
+end
+
+local function OnShown()
+	local canLfg = CanLfg(false)
+	RefreshControlsVisibility(canLfg)
+	GAFE.CallLater("ExtendTrialActivity", 200, function()
+		RefreshControls()
+		finderActivityExtender:AutoCollapse()
+	end)
+end
+
+local function OnHidden()
+	local canLfg = CanLfg(false)
+	RefreshControlsVisibility(canLfg)
 end
 
 function GAFE.TrialFinder.Init()
@@ -108,7 +136,7 @@ function GAFE.TrialFinder.Init()
 	local parent=GAFE_TrialFinder_Keyboard
 	if parent then
 		-- Create lf buttons
-		local w=parent:GetWidth()
+		local perfectPixel = GAFE.SavedVars.compatibility.perfectPixel
 		local dims = {200,28}
 		local canLfg = CanLfg()
 		local canLfm = CanLfm()
@@ -127,21 +155,43 @@ function GAFE.TrialFinder.Init()
 			button:SetNormalTexture("/esoui/art/icons/poi/poi_wayshrine_incomplete.dds")
 		end
 
+		if perfectPixel then
+			parent = ZO_SearchingForGroup
+			local w=parent:GetWidth()
 
-		lfgButton=GAFE.UI.ZOButton("GAFE_LookForGroup", parent, dims, {BOTTOM,parent,BOTTOM,w/3,0}, GAFE.Loc("LookForGroup"), Lfg, canLfg)
-		lfmButton=GAFE.UI.ZOButton("GAFE_LookForMore", parent, dims, {BOTTOM,parent,BOTTOM,-w/3,0}, GAFE.Loc("LookForMore"), Lfm, canLfm)
+			lfgButton=GAFE.UI.ZOButton("GAFE_LookForGroup", parent, dims, {BOTTOM,parent,BOTTOM,0,-76}, GAFE.Loc("LookForGroup"), Lfg, canLfg)
+			lfmButton=GAFE.UI.ZOButton("GAFE_LookForMore", parent, dims, {BOTTOM,parent,BOTTOM,0,-112}, GAFE.Loc("LookForMore"), Lfm, canLfm)
 
-		-- Create party composition controls
-		dims = {65,40}
-		counterTs = GAFE.UI.Counter(GAFE.name.."_Group_ts", parent, dims, {BOTTOM,parent,BOTTOM,-w/3,-35}, nil, GAFE.QueueManager.GetRoleText(LFG_ROLE_TANK), GAFE.QueueManager.GetRoleTarget(LFG_ROLE_TANK), UpdateTargetTank, not canLfm)
-		counterHs = GAFE.UI.Counter(GAFE.name.."_Group_hl", parent, dims, {BOTTOM,parent,BOTTOM,0,-35}, nil, GAFE.QueueManager.GetRoleText(LFG_ROLE_HEAL), GAFE.QueueManager.GetRoleTarget(LFG_ROLE_HEAL), UpdateTargetHeal, not canLfm)
-		counterDds = GAFE.UI.Counter(GAFE.name.."_Group_dds", parent, dims, {BOTTOM,parent,BOTTOM,w/3,-35}, nil, GAFE.QueueManager.GetRoleText(LFG_ROLE_DPS), GAFE.QueueManager.GetRoleTarget(LFG_ROLE_DPS), UpdateTargetDd, not canLfm)
+			-- Create party composition controls
+			dims = {60,36}
+			counterTs = GAFE.UI.Counter(GAFE.name.."_Group_ts", parent, dims, {BOTTOM,parent,BOTTOM,-w/3,0}, nil, GAFE.QueueManager.GetRoleText(LFG_ROLE_TANK), GAFE.QueueManager.GetRoleTarget(LFG_ROLE_TANK), UpdateTargetTank, not canLfm)
+			counterHs = GAFE.UI.Counter(GAFE.name.."_Group_hl", parent, dims, {BOTTOM,parent,BOTTOM,0,0}, nil, GAFE.QueueManager.GetRoleText(LFG_ROLE_HEAL), GAFE.QueueManager.GetRoleTarget(LFG_ROLE_HEAL), UpdateTargetHeal, not canLfm)
+			counterDds = GAFE.UI.Counter(GAFE.name.."_Group_dds", parent, dims, {BOTTOM,parent,BOTTOM,w/3,0}, nil, GAFE.QueueManager.GetRoleText(LFG_ROLE_DPS), GAFE.QueueManager.GetRoleTarget(LFG_ROLE_DPS), UpdateTargetDd, not canLfm)
 
-		-- Hide queue button.
-		local queueButton = GAFE_TrialFinder_KeyboardQueueButton
-		if queueButton then
+			ZO_SearchingForGroupStatus:ClearAnchors()
+			ZO_SearchingForGroupStatus:SetAnchor(BOTTOM,parent,BOTTOM,0,-148)
+			ZO_SearchingForGroupStatus:SetDrawTier(2)
+
+			-- Hide queue button.
+			local queueButton = GAFE_TrialFinder_KeyboardQueueButton
+			queueButton:SetHidden(true)
+		else
+			local w=parent:GetWidth()
+			lfgButton=GAFE.UI.ZOButton("GAFE_LookForGroup", parent, dims, {BOTTOM,parent,BOTTOM,w/3,0}, GAFE.Loc("LookForGroup"), Lfg, canLfg)
+			lfmButton=GAFE.UI.ZOButton("GAFE_LookForMore", parent, dims, {BOTTOM,parent,BOTTOM,-w/3,0}, GAFE.Loc("LookForMore"), Lfm, canLfm)
+
+			-- Create party composition controls
+			dims = {65,40}
+			counterTs = GAFE.UI.Counter(GAFE.name.."_Group_ts", parent, dims, {BOTTOM,parent,BOTTOM,-w/3,-35}, nil, GAFE.QueueManager.GetRoleText(LFG_ROLE_TANK), GAFE.QueueManager.GetRoleTarget(LFG_ROLE_TANK), UpdateTargetTank, not canLfm)
+			counterHs = GAFE.UI.Counter(GAFE.name.."_Group_hl", parent, dims, {BOTTOM,parent,BOTTOM,0,-35}, nil, GAFE.QueueManager.GetRoleText(LFG_ROLE_HEAL), GAFE.QueueManager.GetRoleTarget(LFG_ROLE_HEAL), UpdateTargetHeal, not canLfm)
+			counterDds = GAFE.UI.Counter(GAFE.name.."_Group_dds", parent, dims, {BOTTOM,parent,BOTTOM,w/3,-35}, nil, GAFE.QueueManager.GetRoleText(LFG_ROLE_DPS), GAFE.QueueManager.GetRoleTarget(LFG_ROLE_DPS), UpdateTargetDd, not canLfm)
+
+			-- Hide queue button.
+			local queueButton = GAFE_TrialFinder_KeyboardQueueButton
 			queueButton:SetHidden(true)
 		end
+
+		RefreshControls()
 	end
 
 	-- Entry extensions
@@ -181,12 +231,8 @@ function GAFE.TrialFinder.Init()
 		control:SetHandler("OnMouseUp", function() RefreshControls() end, GAFE.name)
 	end
 
-	ZO_PreHookHandler(GAFE_TrialFinder_KeyboardListSection, 'OnEffectivelyShown', function()
-		GAFE.CallLater("ExtendTrialActivity", 200, function()
-			RefreshControls()
-			finderActivityExtender:AutoCollapse()
-		end)
-	end)
+	ZO_PreHookHandler(GAFE_TrialFinder_KeyboardListSection, 'OnEffectivelyShown', OnShown)
+	ZO_PreHookHandler(GAFE_TrialFinder_KeyboardListSection, 'OnEffectivelyHidden', OnHidden)
 
 	EM:RegisterForEvent(GAFE.name.."_GroupMemberJoined", EVENT_GROUP_MEMBER_JOINED, RefreshControls)
 	EM:RegisterForEvent(GAFE.name.."_GroupMemberLeft", EVENT_GROUP_MEMBER_LEFT, RefreshControls)

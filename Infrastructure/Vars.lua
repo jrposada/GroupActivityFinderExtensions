@@ -25,6 +25,9 @@ GroupActivityFinderExtensions = {
         },
         trials = {
             chests = {}
+        },
+        compatibility = {
+            perfectPixel = false
         }
     }
 }
@@ -80,6 +83,9 @@ local function migration3()
         },
         trials = {
             chests = {}
+        },
+        compatibility = {
+            perfectPixel = false
         }
     }
 
