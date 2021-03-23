@@ -43,3 +43,23 @@ function GAFE.Split(text, delimiter)
 	end
 	return result, numWords;
 end
+
+function GAFE.ContainsKey(table, key)
+	for tableKey, _ in pairs(table) do
+		if tableKey == key then
+			return true
+		end
+	end
+
+	return false
+end
+
+function GAFE.ContainsValue(table, value)
+	for _, tableValue in pairs(table) do
+		if tableValue == value then
+			return true
+		end
+	end
+
+	return false
+end

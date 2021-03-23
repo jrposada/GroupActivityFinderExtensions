@@ -162,11 +162,25 @@ local function AddPledge(control, data)
 end
 
 local function RefreshControlsVisibility()
+	local function IsAllPledgesDone()
+		local donePledges = GAFE.SavedVars.dungeons.donePledges;
+
+		for _, pledgeId in ipairs(todayPledges) do
+			if not GAFE.ContainsKey(donePledges, pledgeId) then
+				return false
+			end
+		end
+
+		return true
+	end
+
 	local autoMarkPledges = GAFE.SavedVars.dungeons.autoMarkPledges
 	local tabHidden = ZO_DungeonFinder_KeyboardListSection:IsHidden()
+	local allPledgesDone = IsAllPledgesDone()
+	local allQuestsDone = false
 
-	checkQuestsButton:SetHidden(tabHidden)
-	checkPledgesButton:SetHidden(autoMarkPledges or tabHidden)
+	checkQuestsButton:SetHidden(tabHidden or allQuestsDone)
+	checkPledgesButton:SetHidden(autoMarkPledges or tabHidden or allPledgesDone)
 end
 
 local function RefreshControls()
