@@ -17,7 +17,8 @@ GroupActivityFinderExtensions = {
             dailyPledgeMarker = {
                 isIcon = false
             },
-            handleQuest = true
+            handlePledgeQuest = true,
+            donePledges = {}
         },
         autoConfirm = {
             enabled = true,
@@ -75,7 +76,8 @@ local function migration3()
             dailyPledgeMarker = {
                 isIcon = true
             },
-            handlePledgeQuest = true
+            handlePledgeQuest = true,
+            donePledges = {}
         },
         autoConfirm = {
             enabled = true,

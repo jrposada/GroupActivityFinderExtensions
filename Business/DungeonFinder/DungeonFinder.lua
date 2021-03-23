@@ -1,4 +1,5 @@
 local GAFE = GroupActivityFinderExtensions
+local EM = EVENT_MANAGER
 
 local PledgeQuestName = GAFE.DungeonPledgeQuestName
 local PledgeList = GAFE.DungeonPledgeList
@@ -48,9 +49,18 @@ local function UpdateLocals()
 		day=math.floor(GetDiffBetweenTimeStamps(GetTimeStamp(), 1517464800) / 86400) -- 86400 = 1 day
 	end
 
+	local function DonePledges()
+		local savedVars = GAFE.SavedVars
+		if savedVars.dungeons.donePledges.day ~= day then
+			savedVars.dungeons.donePledges = {}
+			savedVars.dungeons.donePledges.day = day
+		end
+	end
+
 	Day()
 	TodayPledges()
 	GoalPledges()
+	DonePledges()
 end
 
 local function CheckPledges(obj)
@@ -63,27 +73,47 @@ local function CheckQuests(obj)
 	return obj.quest and obj.node.data:GetActivityType() == activityType
 end
 
+local function UpdateDonePledges(_, isCompleted, _, questName, _, _, questId)
+	questName = string.format("%s",questName:gsub(".*:%s*",""):gsub(" "," "):lower())
+
+	local function IsPledgeQuest()
+		for pledgeId, pledgeQuestName in ipairs(PledgeQuestName) do
+			if pledgeQuestName:lower() == questName then
+				return true, pledgeId
+			end
+		end
+	end
+
+	local donePledges = GAFE.SavedVars.dungeons.donePledges
+	local isPledgeQuest, pledgeId = IsPledgeQuest()
+
+	if isCompleted and isPledgeQuest then
+		donePledges[pledgeId] = true
+	end
+end
+
 local function AddPledge(control, data)
 	local function AddIcon()
 		local activityId=data.id
 		local pledgeText=""
+		local donePledges = GAFE.SavedVars.dungeons.donePledges
 
 		for npc=1,3 do
 			local pledgeId = todayPledges[npc]
 			if pledgeId and DungeonActivityData[activityId].p==pledgeId then
 				local pledgeName = PledgeQuestName[pledgeId]:lower()
 				local questCompleted=pledgeQuests[pledgeName]
+				local questGivedIn = donePledges[pledgeId]
 				-- Save if it needs to be checked
 				control.pledge=questCompleted==false
-				if questCompleted==true then
-					-- In Journal and completed
+				if questCompleted==true or questGivedIn then
+					-- In Journal and completed or done and not in journal
 					pledgeText="/esoui/art/lfg/lfg_indexicon_dungeon_up.dds"
 				elseif questCompleted==false then
 					-- In Journal and no completed
-					pledgeText="/esoui/art/lfg/lfg_indexicon_dungeon_down.dds" -- Ok
+					pledgeText="/esoui/art/lfg/lfg_indexicon_dungeon_down.dds"
 				else
-					-- TODO: Differentiate between done and not in journal, and not done and not in journal
-					-- No in journal quest
+					-- Not done and not in journal
 					pledgeText="/esoui/art/lfg/lfg_indexicon_dungeon_over.dds"
 				end
 				pledgeText = finderActivityExtender:FormatTexture(pledgeText)
@@ -96,22 +126,23 @@ local function AddPledge(control, data)
 	local function ChangeColor()
 		local activityId=data.id
 		local text = control.text:GetText()
+		local donePledges = GAFE.SavedVars.dungeons.donePledges
 		for npc=1,3 do
 			local pledgeId = todayPledges[npc]
 			if pledgeId and DungeonActivityData[activityId].p==pledgeId then
 				local pledgeName = PledgeQuestName[pledgeId]:lower()
 				local questCompleted=pledgeQuests[pledgeName]
+				local questGivedIn = donePledges[pledgeId]
 				-- Save if it needs to be checked
 				control.pledge=questCompleted==false
-				if questCompleted==true then
-					-- In Journal and completed
+				if questCompleted==true or questGivedIn then
+					-- In Journal and completed or done and not in journal
 					text="|c32CD32"..text.."|r"
 				elseif questCompleted==false then
 					-- In Journal and no completed
 					text="|cFFD700"..text.."|r"
 				else
-					-- TODO: Differentiate between done and not in journal, and not done and not in journal
-					-- No in journal quest
+					-- Not done and not in journal
 					text="|c00CED1"..text.."|r"
 				end
 				break
@@ -188,12 +219,13 @@ local function FastTravelToAllianceCity(nodeIndex, allianceId, parent)
 end
 
 function GAFE.DungeonFinder.Init()
+	local savedVars = GAFE.SavedVars
 	-- Panel buttons
 	local parent = ZO_DungeonFinder_Keyboard
 	if parent then
-		local perfectPixel = GAFE.SavedVars.compatibility.perfectPixel
+		local perfectPixel = savedVars.compatibility.perfectPixel
+		local autoMarkPledges = savedVars.dungeons.autoMarkPledges
 		local w = parent:GetWidth()
-		local autoMarkPledges = GAFE.SavedVars.dungeons.autoMarkPledges
 		local dims = {200,28}
 
 		FastTravelToAllianceCity(214, AllianceId.Aldmeri, parent)
@@ -261,4 +293,13 @@ function GAFE.DungeonFinder.Init()
 
 	ZO_PreHookHandler(ZO_DungeonFinder_KeyboardListSection, 'OnEffectivelyShown', OnShown)
 	ZO_PreHookHandler(ZO_DungeonFinder_KeyboardListSection, 'OnEffectivelyHidden', OnHidden)
+
+	EM:RegisterForEvent(GAFE.name.."_QuestRemoved_Pledge", EVENT_QUEST_REMOVED, UpdateDonePledges)
+
+	-- ZO_PreHookHandler(ZO_GroupList, 'OnEffectivelyShown', function()
+	-- 	local numChildren = ZO_GroupList:GetNumChildren()
+	-- 	for child = 1, numChildren do
+	-- 		GAFE.LogLater(ZO_GroupList:GetChild(child):GetName())
+	-- 	end
+	-- end)
 end
