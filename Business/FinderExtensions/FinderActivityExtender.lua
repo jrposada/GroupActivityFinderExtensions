@@ -22,7 +22,7 @@ function FinderActivityExtender:GetTextureSize()
     return savedVars.textureSize
 end
 
-function FinderActivityExtender:CheckFunc(checkFunc)
+function FinderActivityExtender:CheckAllWhere(checkFunc)
     local function func()
         local m_active = self.pool.m_Active
         for k,obj in pairs(m_active) do
@@ -36,6 +36,18 @@ function FinderActivityExtender:CheckFunc(checkFunc)
         end
     end
     return func
+end
+
+function FinderActivityExtender:All(func)
+    local result = true
+    local m_active = self.pool.m_Active
+    for k,obj in pairs(m_active) do
+        if not func(obj) then
+            result = false
+            break
+        end
+    end
+    return result
 end
 
 function FinderActivityExtender:AddAchievement(achievementId, name, parent, texture, xOffset, debug)
