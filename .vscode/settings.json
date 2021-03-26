@@ -120,7 +120,8 @@
         "INTERACTION_CONVERSATION",
         "EndInteraction",
         "ZO_SearchingForGroup",
-        "ZO_SearchingForGroupLeaveQueueButton"
+        "ZO_SearchingForGroupLeaveQueueButton",
+        "SLASH_COMMANDS"
     ],
     "Lua.diagnostics.disable": [
         "empty-block"

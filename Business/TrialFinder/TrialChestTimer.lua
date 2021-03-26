@@ -31,7 +31,7 @@ local function UpdateChestTimes(_, isCompleted, _, _, _, _, questId)
 
     local canGetChest = GAFE.TrialChestTimer.GetTimeUntilNextChest(GetCurrentCharacterId(), questId) <= 0
     if trialQuest[questId] and isCompleted and canGetChest then
-        GAFE.TrialChestTimer.ResetChest()
+        GAFE.TrialChestTimer.ResetChest(questId)
     end
 end
 

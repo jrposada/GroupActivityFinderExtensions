@@ -1,7 +1,7 @@
 -- Replicates esoui\ingame\lfg\zo_battlegroundfinder_manager.lua
 local GAFE = GroupActivityFinderExtensions
 
-local categoryData = 
+local categoryData =
 {
     keyboardData =
     {
