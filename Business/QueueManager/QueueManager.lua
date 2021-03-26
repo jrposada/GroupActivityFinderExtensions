@@ -158,12 +158,14 @@ local function HandleMessage(event, channelType, fromName, messageText, isCustom
         GAFE.LogLater("[GAFE] Invite sent to "..toDisplayName)
     end
 
-	local words, numWords = GAFE.Split(messageText, " ")
+	local words, numWords = GAFE.Split(messageText:gsub(" "," "), " ")
 	-- Only parse message shorter than X words. We don't want to parse hole conversations...
 	if numWords <= 10 then
 		local displayName = GetDisplayName()
 		if isQueued and fromDisplayName ~= displayName then
 			-- Is other player's message
+			GAFE.LogLater(messageText)
+			GAFE.LogLater(words[0])
 			local parsedQueueInfo = ParseQueueInfo(words, numWords)
 			if QueueInfoIsMatch(parsedQueueInfo) or
 			   (channelType == CHAT_CHANNEL_WHISPER and words[0]:match("^%+[DdTtHh]*"))
