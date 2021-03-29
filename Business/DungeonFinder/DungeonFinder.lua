@@ -174,22 +174,16 @@ local function RefreshControlsVisibility()
 		return true
 	end
 
-	local function IsQuestDone(obj)
-		return obj.quest
-	end
-
 	local autoMarkPledges = GAFE.SavedVars.dungeons.autoMarkPledges
 	local tabHidden = ZO_DungeonFinder_KeyboardListSection:IsHidden()
 	local allPledgesDone = IsAllPledgesDone()
-	local allQuestsDone = finderActivityExtender:All(IsQuestDone)
 
-	checkQuestsButton:SetHidden(tabHidden or allQuestsDone)
+	checkQuestsButton:SetHidden(not haveQuests)
 	checkPledgesButton:SetHidden(autoMarkPledges or tabHidden or allPledgesDone)
 end
 
 local function RefreshControls()
 	RefreshControlsVisibility()
-	checkQuestsButton:SetState(haveQuests and BSTATE_NORMAL or BSTATE_DISABLED)
 	checkPledgesButton:SetState(havePledge and BSTATE_NORMAL or BSTATE_DISABLED)
 end
 
@@ -253,13 +247,13 @@ function GAFE.DungeonFinder.Init()
 		if perfectPixel then
 			parent = ZO_SearchingForGroup
 			checkPledgesButton = GAFE.UI.ZOButton("GAFE_PledgesCheck", parent, dims, {BOTTOM,parent,BOTTOM,0,-76}, GAFE.Loc("CheckActivePledges"), finderActivityExtender:CheckAllWhere(CheckPledges), havePledge, nil, autoMarkPledges)
-			checkQuestsButton = GAFE.UI.ZOButton("GAFE_QuestsCheck", parent, dims, {BOTTOM,parent,BOTTOM,0,-112}, GAFE.Loc("CheckMissingQuests"), finderActivityExtender:CheckAllWhere(CheckQuests), haveQuests)
+			checkQuestsButton = GAFE.UI.ZOButton("GAFE_QuestsCheck", parent, dims, {BOTTOM,parent,BOTTOM,0,-112}, GAFE.Loc("CheckMissingQuests"), finderActivityExtender:CheckAllWhere(CheckQuests), true)
 
 			ZO_SearchingForGroupStatus:ClearAnchors()
 			ZO_SearchingForGroupStatus:SetAnchor(BOTTOM,parent,BOTTOM,0,-148)
 			ZO_SearchingForGroupStatus:SetDrawTier(2)
 		else
-			checkQuestsButton = GAFE.UI.ZOButton("GAFE_QuestsCheck", parent, dims, {BOTTOM,parent,BOTTOM,w/3,0}, GAFE.Loc("CheckMissingQuests"), finderActivityExtender:CheckAllWhere(CheckQuests), haveQuests)
+			checkQuestsButton = GAFE.UI.ZOButton("GAFE_QuestsCheck", parent, dims, {BOTTOM,parent,BOTTOM,w/3,0}, GAFE.Loc("CheckMissingQuests"), finderActivityExtender:CheckAllWhere(CheckQuests), true)
 			checkPledgesButton = GAFE.UI.ZOButton("GAFE_PledgesCheck", parent, dims, {BOTTOM,parent,BOTTOM,-w/3,0}, GAFE.Loc("CheckActivePledges"), finderActivityExtender:CheckAllWhere(CheckPledges), havePledge, nil, autoMarkPledges)
 
 			if ZO_DungeonFinder_KeyboardQueueButton then
