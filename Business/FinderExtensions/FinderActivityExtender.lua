@@ -63,8 +63,8 @@ function FinderActivityExtender:AddAchievement(achievementId, name, parent, text
     if achievementId then
         local achievementName, _,  _,  icon, isCompleted,  _, _ = GetAchievementInfo(achievementId)
         text= isCompleted and self:FormatTexture(texture) or ""
+        tooltip = self:FormatTexture(icon)..zo_strformat(achievementName)
         hidden = not isCompleted
-        tooltip = self:FormatTexture(icon)..achievementName
     elseif debug and achievementId == nil then
         text="-"
         hidden = false

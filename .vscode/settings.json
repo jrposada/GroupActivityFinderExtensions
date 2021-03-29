@@ -121,7 +121,8 @@
         "EndInteraction",
         "ZO_SearchingForGroup",
         "ZO_SearchingForGroupLeaveQueueButton",
-        "SLASH_COMMANDS"
+        "SLASH_COMMANDS",
+        "GENDER_MALE"
     ],
     "Lua.diagnostics.disable": [
         "empty-block"
