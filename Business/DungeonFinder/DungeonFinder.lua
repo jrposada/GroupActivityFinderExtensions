@@ -21,6 +21,7 @@ local haveQuests = false
 local day
 local checkQuestsButton
 local checkPledgesButton
+local characterId
 
 local function UpdateLocals()
 	local function TodayPledges()
@@ -55,8 +56,12 @@ local function UpdateLocals()
 			savedVars.dungeons.donePledges = {}
 			savedVars.dungeons.donePledges.day = day
 		end
+		if savedVars.dungeons.donePledges[characterId] == nil then
+			savedVars.dungeons.donePledges[characterId] = {}
+		end
 	end
 
+	characterId = GetCurrentCharacterId()
 	Day()
 	TodayPledges()
 	GoalPledges()
@@ -88,7 +93,7 @@ local function UpdateDonePledges(_, isCompleted, _, questName, _, _, questId)
 	local isPledgeQuest, pledgeId = IsPledgeQuest()
 
 	if isCompleted and isPledgeQuest then
-		donePledges[pledgeId] = true
+		donePledges[characterId][pledgeId] = true
 	end
 end
 
@@ -96,7 +101,7 @@ local function AddPledge(control, data)
 	local function AddIcon()
 		local activityId=data.id
 		local pledgeText=""
-		local donePledges = GAFE.SavedVars.dungeons.donePledges
+		local donePledges = GAFE.SavedVars.dungeons.donePledges[characterId]
 
 		for npc=1,3 do
 			local pledgeId = todayPledges[npc]
@@ -126,7 +131,7 @@ local function AddPledge(control, data)
 	local function ChangeColor()
 		local activityId=data.id
 		local text = control.text:GetText()
-		local donePledges = GAFE.SavedVars.dungeons.donePledges
+		local donePledges = GAFE.SavedVars.dungeons.donePledges[characterId]
 		for npc=1,3 do
 			local pledgeId = todayPledges[npc]
 			if pledgeId and DungeonActivityData[activityId].p==pledgeId then
@@ -163,7 +168,7 @@ end
 
 local function RefreshControlsVisibility()
 	local function IsAllPledgesDone()
-		local donePledges = GAFE.SavedVars.dungeons.donePledges;
+		local donePledges = GAFE.SavedVars.dungeons.donePledges[characterId];
 
 		for _, pledgeId in ipairs(todayPledges) do
 			if not GAFE.ContainsKey(donePledges, pledgeId) then
@@ -231,6 +236,7 @@ local function FastTravelToAllianceCity(nodeIndex, allianceId, parent)
 end
 
 function GAFE.DungeonFinder.Init()
+	UpdateLocals()
 	local savedVars = GAFE.SavedVars
 	-- Panel buttons
 	local parent = ZO_DungeonFinder_Keyboard
@@ -307,11 +313,4 @@ function GAFE.DungeonFinder.Init()
 	ZO_PreHookHandler(ZO_DungeonFinder_KeyboardListSection, 'OnEffectivelyHidden', OnHidden)
 
 	EM:RegisterForEvent(GAFE.name.."_QuestRemoved_Pledge", EVENT_QUEST_REMOVED, UpdateDonePledges)
-
-	-- ZO_PreHookHandler(ZO_GroupList, 'OnEffectivelyShown', function()
-	-- 	local numChildren = ZO_GroupList:GetNumChildren()
-	-- 	for child = 1, numChildren do
-	-- 		GAFE.LogLater(ZO_GroupList:GetChild(child):GetName())
-	-- 	end
-	-- end)
 end
