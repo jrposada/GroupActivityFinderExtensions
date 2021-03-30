@@ -122,7 +122,11 @@
         "ZO_SearchingForGroup",
         "ZO_SearchingForGroupLeaveQueueButton",
         "SLASH_COMMANDS",
-        "GENDER_MALE"
+        "GENDER_MALE",
+        "PlaySound",
+        "SOUNDS",
+        "GetActivityFinderStatus",
+        "HasAcceptedLFGReadyCheck"
     ],
     "Lua.diagnostics.disable": [
         "empty-block"

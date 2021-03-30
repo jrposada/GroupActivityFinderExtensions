@@ -9,6 +9,8 @@ SafeAddString(_G["SI_LFGACTIVITY"..GAFE_LFG_ACTIVITY_MASTER_TRIAL], "Vétéran",
 GAFE.Localization = {
     Settings_Description = "Ajoute un peu de fonctionnalité et d'information a IU de Groupe et Recherche d'activités",
     Settings_AutoConfirm = "Bouton 'Auto confirmer'",
+    Settings_AutoConfirmDelay = "Délai de 'Auto confirmer'",
+    Settings_LoopQueueCompletedNotification = "L'activité de la boucle a trouvé du son",
     Settings_TrialsChest = "Réinitialiser la minuterie des coffres",
     Settings_ResetChestWarning = "Cela réinitialisera la minuterie à 1 semaine!",
     Settings_AutoMarkPledges = "Marquer automatiquement les serment actifs",
@@ -36,5 +38,5 @@ GAFE.Localization = {
     LookForMore = "LFM",
     LookForGroupDisabled = "Vous êtes déjà groupé",
     LookForMoreDisabled = "Vous devez être chef du parti",
-    AutoInvite = "Auto invite",-- translate
+    AutoInvite = "Invitation automatique",
 }

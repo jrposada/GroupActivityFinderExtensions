@@ -9,6 +9,8 @@ SafeAddString(_G["SI_LFGACTIVITY"..GAFE_LFG_ACTIVITY_MASTER_TRIAL], "Veteranen",
 GAFE.Localization = {
     Settings_Description = "Fügt der Benutzeroberfläche von Group & Activity Finder zusätzliche Funktionen und UI",
     Settings_AutoConfirm = "'Autom. bestätigen' Knopf",
+    Settings_AutoConfirmDelay = "'Autom. bestätigen' verzögern",
+    Settings_LoopQueueCompletedNotification = "Loop-Aktivität hat Sound gefunden",
     Settings_TrialsChest = "Setzen Sie den Timer für Truhen zurück",
     Settings_ResetChestWarning = "Dadurch wird der Timer auf 1 Woche zurückgesetzt!",
     Settings_AutoMarkPledges = "Wähle Gelöbnisse automatisch",

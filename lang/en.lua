@@ -9,6 +9,8 @@ ZO_CreateStringId("SI_LFGACTIVITY"..GAFE_LFG_ACTIVITY_MASTER_TRIAL, "Veteran")
 GAFE.Localization = {
     Settings_Description = "Adds a bit of extra functionality and information to the Group & Activity Finder UI",
     Settings_AutoConfirm = "'Auto confirm' button",
+    Settings_AutoConfirmDelay = "'Auto confirm' delay",
+    Settings_LoopQueueCompletedNotification = "Loop activity found sound",
     Settings_TrialsChest = "Reset chest timers",
     Settings_ResetChestWarning = "This will reset the timer to 1 week!",
     Settings_AutoMarkPledges = "Automatically mark available pledges",

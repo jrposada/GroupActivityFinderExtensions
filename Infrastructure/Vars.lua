@@ -22,7 +22,9 @@ GroupActivityFinderExtensions = {
         },
         autoConfirm = {
             enabled = true,
-            value = false
+            value = false,
+            delay = 1000,
+            loopSound = true
         },
         trials = {
             chests = {}

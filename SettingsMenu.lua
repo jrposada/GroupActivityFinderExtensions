@@ -37,6 +37,21 @@ function GAFE.SettingsMenu.Init()
             setFunc = function(value) GAFE.AutoConfirm.Enable(value) end
         },
         {
+            type = "slider",
+            name = GAFE.Loc("Settings_AutoConfirmDelay"),
+            getFunc = function() return saveData.autoConfirm.delay / 1000 end,
+            setFunc = function(value) saveData.autoConfirm.delay = value * 1000 end,
+            max = 40,
+            min = 1,
+            step = 1,
+        },
+        {
+            type = "checkbox",
+            name = GAFE.Loc("Settings_LoopQueueCompletedNotification"),
+            getFunc = function() return saveData.autoConfirm.loopSound end,
+            setFunc = function(value) saveData.autoConfirm.loopSound = value end
+        },
+        {
             type = "checkbox",
             name = GAFE.Loc("Settings_AutoMarkPledges"),
             getFunc = function() return saveData.dungeons.autoMarkPledges end,
