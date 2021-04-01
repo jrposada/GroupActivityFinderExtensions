@@ -183,7 +183,7 @@ local function RefreshControlsVisibility()
 	local tabHidden = ZO_DungeonFinder_KeyboardListSection:IsHidden()
 	local allPledgesDone = IsAllPledgesDone()
 
-	checkQuestsButton:SetHidden(not haveQuests)
+	checkQuestsButton:SetHidden(not haveQuests or tabHidden)
 	checkPledgesButton:SetHidden(autoMarkPledges or tabHidden or allPledgesDone)
 end
 
