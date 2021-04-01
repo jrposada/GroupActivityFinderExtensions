@@ -3,7 +3,7 @@ GAFE_LFG_ACTIVITY_MASTER_TRIAL = LFG_ACTIVITY_ITERATION_END + 2
 
 GroupActivityFinderExtensions = {
     name = "GroupActivityFinderExtensions",
-    version = 4.5,
+    version = 4.6,
     varsVersion = 3,
     Localization = {},
     Loc	= function(var) return GroupActivityFinderExtensions.Localization[var] or var end,
