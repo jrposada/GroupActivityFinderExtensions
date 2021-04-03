@@ -39,4 +39,6 @@ GAFE.Localization = {
     LookForGroupDisabled = "Вы уже в группе",
     LookForMoreDisabled = "Вы должны быть лидером группы",
     AutoInvite = "Автоприглашение",
+    QueuedList = "Queued: ", -- Translate
+    NotQueuedList = "Not queued: ",
 }

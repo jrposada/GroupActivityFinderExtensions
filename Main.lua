@@ -19,6 +19,7 @@ local function OnAddOnLoaded(eventCode, addonName)
     -- Initialize stuff
     GAFE.QueueManager.Init()
     GAFE.DungeonFinder.Init()
+    GAFE.DungeonFinderCommands.Init()
     GAFE.TrialChestTimer.Init()
     GAFE.TrialFinder.Init()
     GAFE.AutoConfirm.Init()

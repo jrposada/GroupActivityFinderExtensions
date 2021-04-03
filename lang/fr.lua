@@ -39,4 +39,6 @@ GAFE.Localization = {
     LookForGroupDisabled = "Vous êtes déjà groupé",
     LookForMoreDisabled = "Vous devez être chef du parti",
     AutoInvite = "Invitation automatique",
+    QueuedList = "Queued: ", -- Translate
+    NotQueuedList = "Not queued: ",
 }

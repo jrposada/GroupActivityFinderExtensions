@@ -256,7 +256,7 @@ function GAFE_ActivityFinderLocation_Specific:InitializeFormattedNames()
 end
 
 function GAFE_ActivityFinderLocation_Specific:AddActivitySearchEntry()
-    -- Implement?
+    AddActivityFinderSetSearchEntry(self:GetId())
 end
 
 function GAFE_ActivityFinderLocation_Specific:DoesPlayerMeetLevelRequirements()
