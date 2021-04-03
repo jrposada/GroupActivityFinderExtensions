@@ -98,33 +98,42 @@ local function UpdateDonePledges(_, isCompleted, _, questName, _, _, questId)
 end
 
 local function AddPledge(control, data)
+	local function IsTodaysPledge(activityId)
+		for npc=1,3 do
+			if DungeonActivityData[activityId].p==todayPledges[npc] then
+				return true
+			end
+		end
+
+		return false
+	end
+
 	local function AddIcon()
 		local activityId=data.id
 		local pledgeText=""
 		local donePledges = GAFE.SavedVars.dungeons.donePledges[characterId]
 
-		for npc=1,3 do
-			local pledgeId = todayPledges[npc]
-			if pledgeId and DungeonActivityData[activityId].p==pledgeId then
-				local pledgeName = PledgeQuestName[pledgeId]:lower()
-				local questCompleted=pledgeQuests[pledgeName]
-				local questGivedIn = donePledges[pledgeId]
-				-- Save if it needs to be checked
-				control.pledge=questCompleted==false
-				if questCompleted==true or questGivedIn then
-					-- In Journal and completed or done and not in journal
-					pledgeText="/esoui/art/lfg/lfg_indexicon_dungeon_up.dds"
-				elseif questCompleted==false then
-					-- In Journal and no completed
-					pledgeText="/esoui/art/lfg/lfg_indexicon_dungeon_down.dds"
-				else
-					-- Not done and not in journal
-					pledgeText="/esoui/art/lfg/lfg_indexicon_dungeon_over.dds"
-				end
-				pledgeText = finderActivityExtender:FormatTexture(pledgeText)
-				break
-			end
+		local pledgeName = PledgeQuestName[DungeonActivityData[activityId].p]:lower()
+		local questCompleted=pledgeQuests[pledgeName]
+		local questGivedIn = donePledges[DungeonActivityData[activityId].p]
+		local isTodaysPledge = IsTodaysPledge(activityId)
+		-- Save if it needs to be checked
+		control.pledge=questCompleted==false
+		if questCompleted==true or questGivedIn then
+			-- In Journal and completed or done and not in journal
+			pledgeText="/esoui/art/lfg/lfg_indexicon_dungeon_up.dds"
+		elseif questCompleted==false then
+			-- In Journal and no completed
+			pledgeText="/esoui/art/lfg/lfg_indexicon_dungeon_down.dds"
+		elseif isTodaysPledge then
+			-- Not done and not in journal
+			pledgeText="/esoui/art/lfg/lfg_indexicon_dungeon_over.dds"
 		end
+
+		if pledgeText ~= "" then
+			pledgeText = finderActivityExtender:FormatTexture(pledgeText)
+		end
+
 		return finderActivityExtender:AddLabel(pledgeText, control:GetName().."p", control, 400)
 	end
 
@@ -132,26 +141,22 @@ local function AddPledge(control, data)
 		local activityId=data.id
 		local text = control.text:GetText()
 		local donePledges = GAFE.SavedVars.dungeons.donePledges[characterId]
-		for npc=1,3 do
-			local pledgeId = todayPledges[npc]
-			if pledgeId and DungeonActivityData[activityId].p==pledgeId then
-				local pledgeName = PledgeQuestName[pledgeId]:lower()
-				local questCompleted=pledgeQuests[pledgeName]
-				local questGivedIn = donePledges[pledgeId]
-				-- Save if it needs to be checked
-				control.pledge=questCompleted==false
-				if questCompleted==true or questGivedIn then
-					-- In Journal and completed or done and not in journal
-					text="|c32CD32"..text.."|r"
-				elseif questCompleted==false then
-					-- In Journal and no completed
-					text="|cFFD700"..text.."|r"
-				else
-					-- Not done and not in journal
-					text="|c00CED1"..text.."|r"
-				end
-				break
-			end
+
+		local pledgeName = PledgeQuestName[DungeonActivityData[activityId].p]:lower()
+		local questCompleted=pledgeQuests[pledgeName]
+		local questGivedIn = donePledges[DungeonActivityData[activityId].p]
+		local isTodaysPledge = IsTodaysPledge(activityId)
+		-- Save if it needs to be checked
+		control.pledge=questCompleted==false
+		if questCompleted==true or questGivedIn then
+			-- In Journal and completed or done and not in journal
+			text="|c32CD32"..text.."|r"
+		elseif questCompleted==false then
+			-- In Journal and no completed
+			text="|cFFD700"..text.."|r"
+		elseif isTodaysPledge then
+			-- Not done and not in journal
+			text="|c00CED1"..text.."|r"
 		end
 		control.text:SetText(text)
 	end
