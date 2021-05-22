@@ -41,7 +41,7 @@ GAFE.Localization = {
     AutoInvite = "Automatisch einladen",
     QueuedList = "Queued: ", -- Translate
     NotQueuedList = "Not queued: ",
-    CollapseMode_Group = "CollapseMode_Group",
-    CollapseMode_Normal = "CollapseMode_Normal",
-    CollapseMode_Veteran = "CollapseMode_Veteran",
+    CollapseMode_Group = "Gruppe",
+    CollapseMode_Normal = "Normal",
+    CollapseMode_Veteran = "Veteranen",
 }
