@@ -1,10 +1,20 @@
 local GAFE = GroupActivityFinderExtensions
 local LAM = LibAddonMenu2
 
+local ResetChest = GAFE.TrialChestTimer.ResetChest
+
 GAFE.SettingsMenu = {}
 
-
-local ResetChest = GAFE.TrialChestTimer.ResetChest
+local collapseModeToString = {
+    [GAFE.Constants.CollapseMode.Group] = GAFE.Loc("CollapseMode_Group"),
+    [GAFE.Constants.CollapseMode.Normal] = GAFE.Loc("CollapseMode_Normal"),
+    [GAFE.Constants.CollapseMode.Veteran] = GAFE.Loc("CollapseMode_Veteran")
+}
+local stringToCollapseMode = {
+    [GAFE.Loc("CollapseMode_Group")] = GAFE.Constants.CollapseMode.Group,
+    [GAFE.Loc("CollapseMode_Normal")] = GAFE.Constants.CollapseMode.Normal,
+    [GAFE.Loc("CollapseMode_Veteran")] = GAFE.Constants.CollapseMode.Veteran,
+}
 
 function GAFE.SettingsMenu.Init()
     local saveData = GAFE.SavedVars -- This should be a reference to your actual saved variables table
@@ -29,6 +39,13 @@ function GAFE.SettingsMenu.Init()
             max = 30,
             min = 20,
             step = 1,
+        },
+        {
+            type = "dropdown",
+            name = GAFE.Loc("Settings_Difficulty"),
+            choices = { collapseModeToString[GAFE.Constants.CollapseMode.Group], collapseModeToString[GAFE.Constants.CollapseMode.Normal], collapseModeToString[GAFE.Constants.CollapseMode.Veteran] },
+            getFunc = function() return collapseModeToString[saveData.collapse] end,
+            setFunc = function(value) saveData.collapse = stringToCollapseMode[value] end
         },
         {
             type = "checkbox",

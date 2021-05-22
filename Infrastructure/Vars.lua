@@ -9,6 +9,7 @@ GroupActivityFinderExtensions = {
     Loc	= function(var) return GroupActivityFinderExtensions.Localization[var] or var end,
     DefaultVars = {
         textureSize = 25,
+        collapse = 1,
         autoInvite = {
             enabled = false
         },
@@ -70,6 +71,7 @@ local function migration3()
     local newVersion = 3
     local newDefault = {
         textureSize = 25,
+        collapse = GAFE.Constants.CollapseMode.Group,
         autoInvite = {
             enabled = false
         },

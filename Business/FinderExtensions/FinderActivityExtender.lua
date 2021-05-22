@@ -103,7 +103,11 @@ function FinderActivityExtender:AddTeleport(nodeIndex, parent)
 end
 
 function FinderActivityExtender:AutoCollapse()
-    local difficultyMode = ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and 3 or 2 -- Normal => 2, Veteran => 3
+    local savedVars = GAFE.SavedVars
+    local collapseMode = GAFE.Constants.CollapseMode
+    local difficultyMode = savedVars.collapse == collapseMode.Group and
+      (ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and 3 or 2) -- Normal => 2, Veteran => 3
+      or (savedVars.collapse == collapseMode.Normal and 3 or 2)
     for c = 2, 3 do
         local header=_G[self.prefix.."_"..self.finderName.."Finder_KeyboardListSectionScrollChildZO_ActivityFinderTemplateNavigationHeader_Keyboard"..c-1]
         if header then

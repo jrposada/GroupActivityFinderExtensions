@@ -211,3 +211,9 @@ GAFE.Constants.ActivityId = {
     NormalKynesAegis            = 1017,
     VeteranKynesAegis           = 1018
 }
+
+GAFE.Constants.CollapseMode = {
+	Group = 1,
+	Normal = 2,
+	Veteran = 3
+}
