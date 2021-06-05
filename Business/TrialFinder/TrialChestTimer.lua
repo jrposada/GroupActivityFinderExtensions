@@ -11,7 +11,8 @@ GAFE.TrialChestTimer = {
         AsylumSanctorium = 6090,
         Cloudrest = 6192,
         Sunspire = 6353,
-        KynesAegis = 6503
+        KynesAegis = 6503,
+        Rockgrove = 6654,
     }
 }
 

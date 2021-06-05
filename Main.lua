@@ -27,6 +27,8 @@ local function OnAddOnLoaded(eventCode, addonName)
 
     -- Init settings menu
     GAFE.SettingsMenu.Init()
+
+    GAFE.Debug.LogNodeIds()
 end
 
 -- Finally, we'll register our event handler function to be called when the proper event occurs.

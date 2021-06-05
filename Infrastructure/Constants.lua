@@ -215,7 +215,10 @@ GAFE.Constants.ActivityId = {
     VeteranSunspire             = 1016,
 
     NormalKynesAegis            = 1017,
-    VeteranKynesAegis           = 1018
+    VeteranKynesAegis           = 1018,
+
+	NormalRockgrave             = 1019,
+	VeteranRockgrave            = 1020,
 }
 
 GAFE.Constants.CollapseMode = {
