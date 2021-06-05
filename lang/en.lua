@@ -34,6 +34,7 @@ GAFE.Localization = {
     TrialCloudrest = "Cloudrest",
     TrialSunspire = "Sunspire",
     TrialKynesAegis = "Kyne's Aegis",
+    TrialRockgrave = "Rockgrave",
     LookForGroup = "Look for group",
     LookForMore = "Look for more",
     LookForGroupDisabled = "You are already grouped",

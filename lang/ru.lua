@@ -34,6 +34,7 @@ GAFE.Localization = {
     TrialCloudrest = "Клаудрест",
     TrialSunspire = "Солнечный Шпиль",
     TrialKynesAegis = "Эгида Кин",
+    TrialRockgrave = "Rockgrave",
     LookForGroup = "Ищу группу(LFG)",
     LookForMore = "Ищу игроков (LFM)",
     LookForGroupDisabled = "Вы уже в группе",

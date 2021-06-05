@@ -6,9 +6,9 @@ local ActivityId = GAFE.Constants.ActivityId
 -----------------------
 local function GAFE_GetNumActivitiesByType(activityType)
     if activityType == GAFE_LFG_ACTIVITY_TRIAL then
-        return 9
+        return 10
     elseif activityType == GAFE_LFG_ACTIVITY_MASTER_TRIAL then
-        return 9
+        return 10
     end
 
     return 0
@@ -35,7 +35,8 @@ local function GAFE_GetActivityIdByTypeAndIndex(activityType, index)
             [6] = ActivityId.NormalAsylumSanctorium,
             [7] = ActivityId.NormalCloudrest,
             [8] = ActivityId.NormalSunspire,
-            [9] = ActivityId.NormalKynesAegis
+            [9] = ActivityId.NormalKynesAegis,
+            [10] = ActivityId.NormalRockgrave
         },
         [GAFE_LFG_ACTIVITY_MASTER_TRIAL] = {
             [1] = ActivityId.VeteranAetherianArchive,
@@ -46,7 +47,8 @@ local function GAFE_GetActivityIdByTypeAndIndex(activityType, index)
             [6] = ActivityId.VeteranAsylumSanctorium,
             [7] = ActivityId.VeteranCloudrest,
             [8] = ActivityId.VeteranSunspire,
-            [9] = ActivityId.VeteranKynesAegis
+            [9] = ActivityId.VeteranKynesAegis,
+            [10] = ActivityId.VeteranRockgrave
         }
     }
 
@@ -111,6 +113,7 @@ local function GAFE_GetActivityKeyboardDescriptionTextures(activityId)
         [ActivityId.NormalCloudrest] = { small = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds", large = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds" },
         [ActivityId.NormalSunspire] = { small = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds", large = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds" },
         [ActivityId.NormalKynesAegis] = { small = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds", large = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds" },
+        [ActivityId.NormalRockgrave] = { small = "/esoui/art/loadingscreens/loadscreen_rockgrave_01.dds", large = "/esoui/art/loadingscreens/loadscreen_rockgrave_01.dds" },
 
         [ActivityId.VeteranAetherianArchive] = { small = "/esoui/art/lfg/lfg_bgsaetherianarchive_tooltip.dds", large = "/esoui/art/lfg/lfg_bgsaetherianarchive_tooltip.dds" },
         [ActivityId.VeteranHelRaCitadel] = { small = "/esoui/art/lfg/lfg_bgshelracitadel_tooltip.dds", large = "/esoui/art/lfg/lfg_bgshelracitadel_tooltip.dds" },
@@ -120,7 +123,8 @@ local function GAFE_GetActivityKeyboardDescriptionTextures(activityId)
         [ActivityId.VeteranAsylumSanctorium] = { small = "/esoui/art/loadingscreens/loadscreen_asylumsanctorium_01.dds", large = "/esoui/art/loadingscreens/loadscreen_asylumsanctorium_01.dds" },
         [ActivityId.VeteranCloudrest] = { small = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds", large = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds" },
         [ActivityId.VeteranSunspire] = { small = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds", large = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds" },
-        [ActivityId.VeteranKynesAegis] = { small = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds", large = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds" }
+        [ActivityId.VeteranKynesAegis] = { small = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds", large = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds" },
+        [ActivityId.VeteranRockgrave] = { small = "/esoui/art/loadingscreens/loadscreen_rockgrave_01.dds", large = "/esoui/art/loadingscreens/loadscreen_rockgrave_01.dds" },
     }
 
     if texture[activityId] then
@@ -141,6 +145,7 @@ local function GAFE_GetActivityGamepadDescriptionTexture(activityId)
         [ActivityId.NormalCloudrest] = { small = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds", large = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds" },
         [ActivityId.NormalSunspire] = { small = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds", large = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds" },
         [ActivityId.NormalKynesAegis] = { small = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds", large = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds" },
+        [ActivityId.NormalRockgrave] = { small = "/esoui/art/loadingscreens/loadscreen_rockgrave_01.dds", large = "/esoui/art/loadingscreens/loadscreen_rockgrave_01.dds" },
 
         [ActivityId.VeteranAetherianArchive] = { small = "/esoui/art/lfg/lfg_bgsaetherianarchive_tooltip.dds", large = "/esoui/art/lfg/lfg_bgsaetherianarchive_tooltip.dds" },
         [ActivityId.VeteranHelRaCitadel] = { small = "/esoui/art/lfg/lfg_bgshelracitadel_tooltip.dds", large = "/esoui/art/lfg/lfg_bgshelracitadel_tooltip.dds" },
@@ -150,7 +155,8 @@ local function GAFE_GetActivityGamepadDescriptionTexture(activityId)
         [ActivityId.VeteranAsylumSanctorium] = { small = "/esoui/art/loadingscreens/loadscreen_asylumsanctorium_01.dds", large = "/esoui/art/loadingscreens/loadscreen_asylumsanctorium_01.dds" },
         [ActivityId.VeteranCloudrest] = { small = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds", large = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds" },
         [ActivityId.VeteranSunspire] = { small = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds", large = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds" },
-        [ActivityId.VeteranKynesAegis] = { small = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds", large = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds" }
+        [ActivityId.VeteranKynesAegis] = { small = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds", large = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds" },
+        [ActivityId.VeteranRockgrave] = { small = "/esoui/art/loadingscreens/loadscreen_rockgrave_01.dds", large = "/esoui/art/loadingscreens/loadscreen_rockgrave_01.dds" },
     }
 
     if texture[activityId] then
@@ -188,6 +194,8 @@ local function GAFE_GetActivityZoneId(activityId)
         [ActivityId.VeteranSunspire] = 1121,
         [ActivityId.NormalKynesAegis] = 1160,
         [ActivityId.VeteranKynesAegis] = 1160,
+        [ActivityId.NormalRockgrave] = 1160,
+        [ActivityId.VeteranRockgrave] = 1160,
     }
 
     if zoneId[activityId] then
