@@ -17,10 +17,10 @@
 ; https://account.elderscrollsonline.com/add-on-terms
 
 Infrastructure/Vars.lua
+Infrastructure/Constants.lua
 Infrastructure/Utils.lua
 Infrastructure/Controls.lua
 Infrastructure/Debug.lua
-Infrastructure/Constants.lua
 Infrastructure/Chat.lua
 
 lang\en.lua

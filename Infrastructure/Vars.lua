@@ -1,6 +1,3 @@
-GAFE_LFG_ACTIVITY_TRIAL = LFG_ACTIVITY_ITERATION_END + 1
-GAFE_LFG_ACTIVITY_MASTER_TRIAL = LFG_ACTIVITY_ITERATION_END + 2
-
 GroupActivityFinderExtensions = {
     name = "GroupActivityFinderExtensions",
     version = 4.8,

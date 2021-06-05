@@ -156,9 +156,7 @@
         "SI_LFG_LOCK_REASON_GROUP_LOCATION_LEVEL_REQUIREMENTS",
         "SI_LFG_LOCK_REASON_NOT_LEADER",
         "ZO_GenerateCommaSeparatedList",
-        "IsCurrentlySearchingForGroup"
-    ],
-    "Lua.diagnostics.disable": [
-        "empty-block"
+        "IsCurrentlySearchingForGroup",
+        "ZO_ACTIVITY_FINDER_SORT_PRIORITY"
     ]
 }
