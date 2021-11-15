@@ -157,6 +157,23 @@
         "SI_LFG_LOCK_REASON_NOT_LEADER",
         "ZO_GenerateCommaSeparatedList",
         "IsCurrentlySearchingForGroup",
-        "ZO_ACTIVITY_FINDER_SORT_PRIORITY"
+        "ZO_ACTIVITY_FINDER_SORT_PRIORITY",
+        "ZO_CallbackObject",
+        "ZO_FilteredNonContiguousTableIterator",
+        "ZO_ClearTable",
+        "ZO_ClearNumericallyIndexedTable",
+        "ZO_Object",
+        "ZO_Scene",
+        "FRAGMENT_GROUP",
+        "RIGHT_BG_FRAGMENT",
+        "TREE_UNDERLAY_FRAGMENT",
+        "TITLE_FRAGMENT",
+        "CODEX_WINDOW_SOUNDS",
+        "FRAME_EMOTE_FRAGMENT_JOURNAL",
+        "JOURNAL_TITLE_FRAGMENT",
+        "MENU_CATEGORY_JOURNAL",
+        "GAFE_QuestsTimers",
+        "ZO_FadeSceneFragment",
+        "MAIN_MENU_KEYBOARD"
     ]
 }

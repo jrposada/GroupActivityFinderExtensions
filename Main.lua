@@ -24,6 +24,7 @@ local function OnAddOnLoaded(eventCode, addonName)
     GAFE.TrialFinder.Init()
     GAFE.AutoConfirm.Init()
     GAFE.PledgeQuestHandler.Init()
+    -- GAFE.Timers.Init()
 
     -- Init settings menu
     GAFE.SettingsMenu.Init()

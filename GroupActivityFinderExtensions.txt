@@ -1,7 +1,7 @@
 ## Title: Group & Activity Finder Extensions
 ## Description: Quality of life improvements for the Group & Activity Finder.
 ## Author: Panicida
-## APIVersion: 100035
+## APIVersion: 101032
 ## AddOnVersion: 040110
 ## DependsOn: LibAddonMenu-2.0
 ## SavedVariables: GroupActivityFinderExtensions_Vars
@@ -53,6 +53,9 @@ Business/TrialFinder/TrialFinder.lua
 
 Business/AutoConfirm.lua
 
+Business/QuestJournal/Timers/QuestsTimersManager.lua
+Business/QuestJournal/Timers/QuestsTimers.xml
+Business/QuestJournal/Timers/Timers.lua
 
 SettingsMenu.lua
 Main.lua
