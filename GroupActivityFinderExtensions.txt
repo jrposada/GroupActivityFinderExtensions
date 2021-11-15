@@ -34,13 +34,9 @@ Business/FinderExtensions/FinderActivityExtender.lua
 
 Business/DungeonFinder/DungeonActivityData.lua
 Business/DungeonFinder/DungeonPledgeList.lua
-Business/DungeonFinder/DungeonPledgeQuestName.en.lua
-Business/DungeonFinder/DungeonPledgeQuestName.$(language).lua
 Business/DungeonFinder/DungeonFinder.lua
 Business/DungeonFinder/DungeonFinderCommands.lua
 
-Business/Pledges/PledgeChatterOptions.en.lua
-Business/Pledges/PledgeChatterOptions.$(language).lua
 Business/Pledges/PledgeQuestHandler.lua
 
 Business/Trials/SortedLocationsData.lua
