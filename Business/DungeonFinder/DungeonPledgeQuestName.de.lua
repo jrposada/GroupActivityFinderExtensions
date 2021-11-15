@@ -40,10 +40,12 @@ GAFE.DungeonPledgeQuestName = {
 	[PledgeId.MarchOfSacrifices] = "Marsch der Aufopferung",
 	[PledgeId.MoonHunterKeep] = "Mondjägerfeste",
 	[PledgeId.MoongraveFane] = "Mondgrab-Tempelstadt",
+	[PledgeId.RedPetalBastion] = "Red Petal Bastion", -- translate
 	[PledgeId.RuinsOfMazzatun] = "Ruinen von Mazzatun",
 	[PledgeId.ScalecallerPeak] = "Gipfel der Schuppenruferin",
 	[PledgeId.StoneGarden] = "Steingarten",
 	[PledgeId.Cauldron] = "Der Kessel",
+	[PledgeId.DreadCellar] = "The Dread Cellar", --translate
 	[PledgeId.UnhallowedGrave] = "Unheiliges Grab",
 	[PledgeId.WhiteGoldTower] = "Weißgoldturm"
 }

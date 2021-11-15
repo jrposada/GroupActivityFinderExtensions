@@ -40,10 +40,12 @@ GAFE.DungeonPledgeQuestName = {
 	[PledgeId.MarchOfSacrifices] = "Путь Жертвоприношений",
 	[PledgeId.MoonHunterKeep] = "Крепость Лунного Охотника",
 	[PledgeId.MoongraveFane] = "Храм Погребенных Лун",
+	[PledgeId.RedPetalBastion] = "Red Petal Bastion", --translate
 	[PledgeId.RuinsOfMazzatun] = "Руины Маззатуна",
 	[PledgeId.ScalecallerPeak] = "Пик Воспевательницы Дракона",
 	[PledgeId.StoneGarden] = "Каменный Сад",
 	[PledgeId.Cauldron] = "Котел",
+	[PledgeId.DreadCellar] = "The Dread Cellar", --translate
 	[PledgeId.UnhallowedGrave] = "Нечестивая Могила",
 	[PledgeId.WhiteGoldTower] = "Башня Белого Золота"
 }

@@ -40,11 +40,13 @@ GAFE.DungeonPledgeList = {
 		PledgeId.StoneGarden,
 		PledgeId.CastleThorn,
 		PledgeId.BlackDrakeVilla,
+		PledgeId.RedPetalBastion, -- sort from
+		PledgeId.DreadCellar,
 		PledgeId.Cauldron,
 		PledgeId.ImperialCityPrison,
 		PledgeId.RuinsOfMazzatun,
 		PledgeId.WhiteGoldTower,
-		PledgeId.CradleOfShadows,
+		PledgeId.CradleOfShadows, -- sort to
 		PledgeId.BloodrootForge,
 		PledgeId.FalkreathHold,
 		PledgeId.FangLair,
@@ -54,6 +56,6 @@ GAFE.DungeonPledgeList = {
 		PledgeId.DepthsOfMalatar,
 		PledgeId.Frostvault,
 		PledgeId.MoongraveFane,
-		shift=10
+		shift=16
 	},
 }

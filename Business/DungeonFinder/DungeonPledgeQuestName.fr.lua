@@ -40,10 +40,12 @@ GAFE.DungeonPledgeQuestName = {
 	[PledgeId.MarchOfSacrifices] = "Procession des Sacrifiés",
 	[PledgeId.MoonHunterKeep] = "Fort du Chasseur lunaire",
 	[PledgeId.MoongraveFane] = "reliquaire des Lunes funèbres",
+	[PledgeId.RedPetalBastion] = "Red Petal Bastion", --translate
 	[PledgeId.RuinsOfMazzatun] = "Ruines de Mazzatun",
 	[PledgeId.ScalecallerPeak] = "Pic de la Mandécailles",
 	[PledgeId.StoneGarden] = "Jardin de pierre",
 	[PledgeId.Cauldron] = "Le Chaudron",
+	[PledgeId.DreadCellar] = "The Dread Cellar", --translate
 	[PledgeId.UnhallowedGrave] = "Sépulcre profane",
 	[PledgeId.WhiteGoldTower] = "Tour d'Or Blanc"
 }

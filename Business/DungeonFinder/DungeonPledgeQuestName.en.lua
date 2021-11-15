@@ -40,10 +40,12 @@ GAFE.DungeonPledgeQuestName = {
 	[PledgeId.MarchOfSacrifices] = "March of Sacrifices",
 	[PledgeId.MoonHunterKeep] = "Moon Hunter Keep",
 	[PledgeId.MoongraveFane] = "Moongrave Fane",
+	[PledgeId.RedPetalBastion] = "Red Petal Bastion",
 	[PledgeId.RuinsOfMazzatun] = "Ruins of Mazzatun",
 	[PledgeId.ScalecallerPeak] = "Scalecaller Peak",
 	[PledgeId.StoneGarden] = "Stone Garden",
 	[PledgeId.Cauldron] = "The Cauldron",
+	[PledgeId.DreadCellar] = "The Dread Cellar",
 	[PledgeId.UnhallowedGrave] = "Unhallowed Grave",
 	[PledgeId.WhiteGoldTower] = "White-Gold Tower"
 }

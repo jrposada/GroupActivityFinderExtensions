@@ -52,7 +52,9 @@ GAFE.Constants.PledgeId = {
     UnhallowedGrave 	= 41,
     WhiteGoldTower 		= 42,
 	BlackDrakeVilla		= 43,
-	Cauldron			= 44
+	Cauldron			= 44,
+	RedPetalBastion		= 45,
+	DreadCellar			= 46
 }
 
 GAFE.Constants.ActivityId = {
@@ -171,6 +173,9 @@ GAFE.Constants.ActivityId = {
 	NormalMoongraveFane			= 494,
 	VeteranMoongraveFane		= 495,
 
+	NormalRedPetalBastion		= 295,
+	VeteranRedPetalBastion		= 296,
+
 	NormalRuinsOfMazzatun		= 293,
 	VeteranRuinsOfMazzatun		= 294,
 
@@ -182,6 +187,9 @@ GAFE.Constants.ActivityId = {
 
 	NormalCauldron				= 593,
 	VeteranCauldron				= 594,
+
+	NormalDreadCellar			= 597,
+	VeteranDreadCellar			= 598,
 
 	NormalUnhallowedGrave		= 505,
 	VeteranUnhallowedGrave		= 506,
