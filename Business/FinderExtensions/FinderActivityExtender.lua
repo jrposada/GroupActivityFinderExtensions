@@ -103,16 +103,12 @@ function FinderActivityExtender:AddTeleport(nodeIndex, parent)
 end
 
 function FinderActivityExtender:AutoCollapse()
-    local savedVars = GAFE.SavedVars
-    local collapseMode = GAFE.Constants.CollapseMode
-    local difficultyMode = savedVars.collapse == collapseMode.Group and
-      (ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and 3 or 2) -- Normal => 2, Veteran => 3
-      or (savedVars.collapse == collapseMode.Normal and 3 or 2)
+    local difficultyMode = self:GetDungeonDifficulty()
     for c = 2, 3 do
         local header=_G[self.prefix.."_"..self.finderName.."Finder_KeyboardListSectionScrollChildZO_ActivityFinderTemplateNavigationHeader_Keyboard"..c-1]
         if header then
             local state=header.text:GetColor()
-            if ((difficultyMode==c)==(state==1)) then header:OnMouseUp(true) end
+            if ((difficultyMode~=c)==(state==1)) then header:OnMouseUp(true) end
         end
     end
 end
@@ -150,6 +146,14 @@ function FinderActivityExtender:GetSelecteds()
 		end
 	end
     return selected, count
+end
+
+function FinderActivityExtender:GetDungeonDifficulty()
+    local savedVars = GAFE.SavedVars
+    local collapseMode = GAFE.Constants.CollapseMode
+    return savedVars.collapse == collapseMode.Group and
+      (ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and LFG_ACTIVITY_DUNGEON or LFG_ACTIVITY_MASTER_DUNGEON) -- Normal => 2, Veteran => 3
+      or (savedVars.collapse == collapseMode.Normal and LFG_ACTIVITY_DUNGEON or LFG_ACTIVITY_MASTER_DUNGEON)
 end
 
 function FinderActivityExtender:FormatTexture(texture, size)

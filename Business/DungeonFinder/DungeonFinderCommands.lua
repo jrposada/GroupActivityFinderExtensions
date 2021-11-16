@@ -36,6 +36,7 @@ local function quests(verbose)
     local queuedLocations = {}
     local isGroupRelevant = IsUnitGrouped("player")
     local isLeader = IsUnitGroupLeader("player")
+    -- fix this!
 	local activityType = ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and LFG_ACTIVITY_DUNGEON or LFG_ACTIVITY_MASTER_DUNGEON
     local activityRequiresRoles = ZO_DoesActivityTypeRequireRoles(activityType)
     local sortedLocationsData = ZO_ACTIVITY_FINDER_ROOT_MANAGER.specificLocationsLookupData[activityType]

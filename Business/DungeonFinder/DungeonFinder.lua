@@ -69,12 +69,12 @@ local function UpdateLocals()
 end
 
 local function CheckPledges(obj)
-	local activityType = ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and LFG_ACTIVITY_DUNGEON or LFG_ACTIVITY_MASTER_DUNGEON
+	local activityType = finderActivityExtender:GetDungeonDifficulty()
 	return obj.pledge and obj.node.data:GetActivityType() == activityType
 end
 
 local function CheckQuests(obj)
-	local activityType = ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and LFG_ACTIVITY_DUNGEON or LFG_ACTIVITY_MASTER_DUNGEON
+	local activityType = finderActivityExtender:GetDungeonDifficulty()
 	return obj.quest and obj.node.data:GetActivityType() == activityType
 end
 
