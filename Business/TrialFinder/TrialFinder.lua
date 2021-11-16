@@ -10,18 +10,19 @@ local lfmButton
 local counterTs
 local counterHs
 local counterDds
+local counterModifiers
 
 --------
 -- LF --
 --------
 local function Lfg()
-	local selected, count = finderActivityExtender:GetSelecteds()
-	GAFE.QueueManager.Lfg(selected, count)
+	local selected = finderActivityExtender:GetSelecteds()
+	GAFE.QueueManager.Lfg(selected)
 end
 
 local function Lfm()
-	local selected, count = finderActivityExtender:GetSelecteds()
-	GAFE.QueueManager.Lfm(selected, count)
+	local selected = finderActivityExtender:GetSelecteds()
+	GAFE.QueueManager.Lfm(selected)
 end
 
 local function CanLfg(isAnythingSelected)
@@ -46,6 +47,10 @@ end
 
 local function UpdateTargetDd(value)
 	GAFE.QueueManager.SetRoleTarget(LFG_ROLE_DPS, value)
+end
+
+local function UpdateTargetModifiers(value)
+	GAFE.QueueManager.SetModifiersTarget(value)
 end
 
 -----------------
@@ -86,6 +91,10 @@ local function RefreshControlsVisibility(canLfm)
 
 	if counterDds then
 		counterDds:SetHidden((not canLfm) or tabHidden)
+	end
+
+	if counterModifiers then
+		counterModifiers:SetHidden((not canLfm) or tabHidden)
 	end
 end
 
@@ -164,9 +173,10 @@ function GAFE.TrialFinder.Init()
 
 			-- Create party composition controls
 			dims = {60,36}
-			counterTs = GAFE.UI.Counter(GAFE.name.."_Group_ts", parent, dims, {BOTTOM,parent,BOTTOM,-w/3,0}, nil, GAFE.QueueManager.GetRoleText(LFG_ROLE_TANK), GAFE.QueueManager.GetRoleTarget(LFG_ROLE_TANK), UpdateTargetTank, not canLfm)
-			counterHs = GAFE.UI.Counter(GAFE.name.."_Group_hl", parent, dims, {BOTTOM,parent,BOTTOM,0,0}, nil, GAFE.QueueManager.GetRoleText(LFG_ROLE_HEAL), GAFE.QueueManager.GetRoleTarget(LFG_ROLE_HEAL), UpdateTargetHeal, not canLfm)
-			counterDds = GAFE.UI.Counter(GAFE.name.."_Group_dds", parent, dims, {BOTTOM,parent,BOTTOM,w/3,0}, nil, GAFE.QueueManager.GetRoleText(LFG_ROLE_DPS), GAFE.QueueManager.GetRoleTarget(LFG_ROLE_DPS), UpdateTargetDd, not canLfm)
+			counterTs = GAFE.UI.Counter(GAFE.name.."_Group_ts", parent, dims, {BOTTOM,parent,BOTTOM,-w/2,0}, nil, GAFE.QueueManager.GetRoleText(LFG_ROLE_TANK), GAFE.QueueManager.GetRoleTarget(LFG_ROLE_TANK), UpdateTargetTank, not canLfm)
+			counterHs = GAFE.UI.Counter(GAFE.name.."_Group_hl", parent, dims, {BOTTOM,parent,BOTTOM,-w/6,0}, nil, GAFE.QueueManager.GetRoleText(LFG_ROLE_HEAL), GAFE.QueueManager.GetRoleTarget(LFG_ROLE_HEAL), UpdateTargetHeal, not canLfm)
+			counterDds = GAFE.UI.Counter(GAFE.name.."_Group_dds", parent, dims, {BOTTOM,parent,BOTTOM,w/6,0}, nil, GAFE.QueueManager.GetRoleText(LFG_ROLE_DPS), GAFE.QueueManager.GetRoleTarget(LFG_ROLE_DPS), UpdateTargetDd, not canLfm)
+			counterModifiers = GAFE.UI.Counter(GAFE.name.."_Group_mods", parent, dims, {BOTTOM,parent,BOTTOM,w/2,0}, nil, 'Mod', 0, UpdateTargetModifiers, not canLfm)
 
 			ZO_SearchingForGroupStatus:ClearAnchors()
 			ZO_SearchingForGroupStatus:SetAnchor(BOTTOM,parent,BOTTOM,0,-148)
@@ -183,8 +193,9 @@ function GAFE.TrialFinder.Init()
 			-- Create party composition controls
 			dims = {65,40}
 			counterTs = GAFE.UI.Counter(GAFE.name.."_Group_ts", parent, dims, {BOTTOM,parent,BOTTOM,-w/3,-35}, nil, GAFE.QueueManager.GetRoleText(LFG_ROLE_TANK), GAFE.QueueManager.GetRoleTarget(LFG_ROLE_TANK), UpdateTargetTank, not canLfm)
-			counterHs = GAFE.UI.Counter(GAFE.name.."_Group_hl", parent, dims, {BOTTOM,parent,BOTTOM,0,-35}, nil, GAFE.QueueManager.GetRoleText(LFG_ROLE_HEAL), GAFE.QueueManager.GetRoleTarget(LFG_ROLE_HEAL), UpdateTargetHeal, not canLfm)
-			counterDds = GAFE.UI.Counter(GAFE.name.."_Group_dds", parent, dims, {BOTTOM,parent,BOTTOM,w/3,-35}, nil, GAFE.QueueManager.GetRoleText(LFG_ROLE_DPS), GAFE.QueueManager.GetRoleTarget(LFG_ROLE_DPS), UpdateTargetDd, not canLfm)
+			counterHs = GAFE.UI.Counter(GAFE.name.."_Group_hl", parent, dims, {BOTTOM,parent,BOTTOM,-w/9,-35}, nil, GAFE.QueueManager.GetRoleText(LFG_ROLE_HEAL), GAFE.QueueManager.GetRoleTarget(LFG_ROLE_HEAL), UpdateTargetHeal, not canLfm)
+			counterDds = GAFE.UI.Counter(GAFE.name.."_Group_dds", parent, dims, {BOTTOM,parent,BOTTOM,w/9,-35}, nil, GAFE.QueueManager.GetRoleText(LFG_ROLE_DPS), GAFE.QueueManager.GetRoleTarget(LFG_ROLE_DPS), UpdateTargetDd, not canLfm)
+			counterModifiers = GAFE.UI.Counter(GAFE.name.."_Group_mods", parent, dims, {BOTTOM,parent,BOTTOM,w/3,-35}, nil, 'Mod', 0, UpdateTargetModifiers, not canLfm)
 
 			-- Hide queue button.
 			local queueButton = GAFE_TrialFinder_KeyboardQueueButton

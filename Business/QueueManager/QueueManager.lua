@@ -36,6 +36,7 @@ local roleTarget = {
 	[LFG_ROLE_HEAL] = 2,
 	[LFG_ROLE_TANK] = 2
 }
+local modifiers = 0
 local queueWordList
 local queueInfo = {
     [QueueInfoType.Type] = nil,
@@ -220,21 +221,29 @@ function GAFE.QueueManager.Enable(enabled)
     RefreshEvents()
 end
 
-function GAFE.QueueManager.Lfg(activities, numActivities)
+function GAFE.QueueManager.Lfg(activities)
 	local message = RoleText[GetSelectedLFGRole()].." "..TypeText[Type.Lfg]
 
-	for i = 1, numActivities do
+	for i = 1, #activities do
 		message = message.." "..TrialActivityData[activities[i]].lf
+	end
+
+	if modifiers ~= 0 then
+		message = message.."+"..modifiers
 	end
 
 	GAFE.Chat.SendMessage(message)
 	LeaveQueue()
 end
 
-function GAFE.QueueManager.Lfm(activities, numActivities)
+function GAFE.QueueManager.Lfm(activities)
 	local message = TypeText[Type.Lfm]
-	for i = 1, numActivities do
+	for i = 1, #activities do
 		message = message.." "..TrialActivityData[activities[i]].lf
+	end
+
+	if modifiers ~= 0 then
+		message = message.."+"..modifiers
 	end
 
 	-- Group composition
@@ -290,6 +299,11 @@ end
 function GAFE.QueueManager.SetRoleTarget(role, value)
     roleTarget[role] = value
 end
+
+function GAFE.QueueManager.SetModifiersTarget(value)
+    modifiers = value
+end
+
 
 function GAFE.QueueManager.RefreshControls()
 	SetIsQueued(isQueued)
