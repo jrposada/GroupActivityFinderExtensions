@@ -9,7 +9,7 @@ ZO_CreateStringId("SI_LFGACTIVITY"..GAFE_LFG_ACTIVITY_MASTER_TRIAL, "Ветер�
 
 GAFE.Localization = {
     Settings_Description = "Добавляет дополнительные функции и информацию в пользовательский интерфейс Группа и Поиск активностей.",
-    Settings_AutoConfirm = "'Кнопка автопринятия",
+    Settings_AutoConfirm = "Кнопка автопринятия",
     Settings_AutoConfirmDelay = "задержка автоматического принятия",
     Settings_LoopQueueCompletedNotification = "При активности петли обнаружен звук",
     Settings_TrialsChest = "Сбросить таймер сундука",
@@ -36,13 +36,13 @@ GAFE.Localization = {
     TrialSunspire = "Солнечный Шпиль",
     TrialKynesAegis = "Эгида Кин",
     TrialRockgrave = "Каменная Роща",
-    LookForGroup = "Ищу группу(LFG)",
+    LookForGroup = "Ищу группу (LFG)",
     LookForMore = "Ищу игроков (LFM)",
     LookForGroupDisabled = "Вы уже в группе",
     LookForMoreDisabled = "Вы должны быть лидером группы",
     AutoInvite = "Автоприглашение",
-    QueuedList = "Queued: ", -- Translate
-    NotQueuedList = "Not queued: ",
+    QueuedList = "В очереди: ",
+    NotQueuedList = "Не в очереди: ",
     CollapseMode_Group = "Группа",
     CollapseMode_Normal = "Обычный",
     CollapseMode_Veteran = "Ветеранский",
