@@ -283,9 +283,9 @@ function GAFE.DungeonFinder.Init()
 	treeEntry.setupFunction = function(node, control, data, open)
 		baseEntrySetupFunction(node, control, data, open)
 
+		local debug = GetDisplayName() == "@Panicida"
 		local activityId=data.id
 		if DungeonActivityData[activityId] then
-			local debug = GetDisplayName() == "@Panicida"
 
 			-- Teleport
 			finderActivityExtender:AddTeleport(DungeonActivityData[activityId].node, control)
@@ -309,7 +309,7 @@ function GAFE.DungeonFinder.Init()
 
 			-- Survivor challenge (no death)
 			finderActivityExtender:AddAchievement(DungeonActivityData[activityId].nd, control:GetName().."nd", control, "/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds", 500, debug)
-		else
+		elseif debug then
 			GAFE.UI.Label(control:GetName().."TODO", control, {125,20}, {LEFT,control,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, "TODO:"..activityId)
 		end
 	end

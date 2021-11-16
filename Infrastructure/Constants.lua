@@ -173,8 +173,8 @@ GAFE.Constants.ActivityId = {
 	NormalMoongraveFane			= 494,
 	VeteranMoongraveFane		= 495,
 
-	NormalRedPetalBastion		= 295,
-	VeteranRedPetalBastion		= 296,
+	NormalRedPetalBastion		= 595,
+	VeteranRedPetalBastion		= 596,
 
 	NormalRuinsOfMazzatun		= 293,
 	VeteranRuinsOfMazzatun		= 294,

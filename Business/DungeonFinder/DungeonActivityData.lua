@@ -91,7 +91,7 @@ GAFE.DungeonActivityData={
     [ActivityId.VeteranMarchOfSacrifices]   = {id=2163,     node=370    ,q=6188, 	p=PledgeId.MarchOfSacrifices,	hm=2164,	tt=2165,	nd=2166},
     [ActivityId.VeteranMoonHunterKeep]      = {id=2153,     node=371    ,q=6186, 	p=PledgeId.MoonHunterKeep, 		hm=2154,	tt=2155,	nd=2156},
     [ActivityId.VeteranMoongraveFane]       = {id=2416,     node=391    ,q=6349, 	p=PledgeId.MoongraveFane, 		hm=2417,	tt=2418,	nd=2419},
-    [ActivityId.NormalRedPetalBastion]      = {id=3017,     node=470    ,q=6683,    p=PledgeId.RedPetalBastion,     hm=3087,    tt=3019,    nd=3020},
+    [ActivityId.VeteranRedPetalBastion]     = {id=3017,     node=470    ,q=6683,    p=PledgeId.RedPetalBastion,     hm=3087,    tt=3019,    nd=3020},
     [ActivityId.VeteranRuinsOfMazzatun]     = {id=1505,     node=260    ,q=5403, 	p=PledgeId.RuinsOfMazzatun,		hm=1506,	tt=1507,	nd=1508},
     [ActivityId.VeteranScalecallerPeak]     = {id=1976,     node=363    ,q=6065, 	p=PledgeId.ScalecallerPeak,		hm=1981,	tt=1979,	nd=1980},
 	[ActivityId.VeteranStoneGarden]         = {id=2695,     node=435    ,q=6505,    p=PledgeId.StoneGarden, 		hm=2755,	tt=2697,	nd=2698},
