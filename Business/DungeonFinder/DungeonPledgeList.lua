@@ -40,14 +40,14 @@ GAFE.DungeonPledgeList = {
 		PledgeId.StoneGarden,
 		PledgeId.CastleThorn,
 		PledgeId.BlackDrakeVilla,
-		PledgeId.RedPetalBastion, -- sort from
-		PledgeId.DreadCellar,
-		PledgeId.Cauldron,
+		PledgeId.Cauldron, -- sort from
 		PledgeId.ImperialCityPrison,
 		PledgeId.RuinsOfMazzatun,
 		PledgeId.WhiteGoldTower,
-		PledgeId.CradleOfShadows, -- sort to
-		PledgeId.BloodrootForge,
+		PledgeId.CradleOfShadows,
+		PledgeId.RedPetalBastion,
+		PledgeId.DreadCellar,
+		PledgeId.BloodrootForge, --- sort to
 		PledgeId.FalkreathHold,
 		PledgeId.FangLair,
 		PledgeId.ScalecallerPeak,
