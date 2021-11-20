@@ -48,7 +48,6 @@ GAFE.Localization = {
     CollapseMode_Veteran = "Veteranen",
 }
 
-
 -- This translations have to match pledge quest name in ingame journal
 GAFE.DungeonPledgeQuestName = {
 	[PledgeId.FungalGrottoI] = "Pilzgrotte I",
