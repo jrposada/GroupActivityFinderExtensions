@@ -180,7 +180,9 @@
 			"GAFE_QuestsTimers",
 			"ZO_FadeSceneFragment",
 			"MAIN_MENU_KEYBOARD",
-			"EVENT_MANAGER"
+			"EVENT_MANAGER",
+			"PledgeCalendarPanel",
+			"GROUP_MENU_KEYBOARD"
 		],
 		"terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
 		"terminal.integrated.profiles.windows": {

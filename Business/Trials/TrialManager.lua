@@ -1,11 +1,13 @@
 -- Replicates esoui\ingame\lfg\zo_battlegroundfinder_manager.lua
 local GAFE = GroupActivityFinderExtensions
 
+
+local priority = GAFE_ACTIVITY_FINDER_SORT_PRIORITY.TRIALS
 local categoryData =
 {
     keyboardData =
     {
-        priority = GAFE_ACTIVITY_FINDER_SORT_PRIORITY.TRIALS,
+        priority = priority,
         name = GAFE.Loc("TrialsCategoryHeader"),
         normalIcon = "/esoui/art/lfg/lfg_indexicon_trial_up.dds",
         pressedIcon = "/esoui/art/lfg/lfg_indexicon_trial_down.dds",
@@ -14,7 +16,7 @@ local categoryData =
 
     gamepadData = -- TODO: Understand
     {
-        priority = GAFE_ACTIVITY_FINDER_SORT_PRIORITY.TRIALS,
+        priority = priority,
         name =GAFE.Loc("TrialsCategoryHeader"),
         menuIcon = "EsoUI/Art/LFG/Gamepad/LFG_menuIcon_battlegrounds.dds",
         sceneName = "gamepadBattlegroundFinder",

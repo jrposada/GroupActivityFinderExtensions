@@ -1,0 +1,13 @@
+<GuiXml>
+  <Controls >
+    <TopLevelControl name="PledgeCalendarPanel" inherits="ZO_RightPanelFootPrint" hidden="true">
+      <OnInitialized> 
+        <!-- GroupActivityFinderExtensions.PledgeCalendar.Init() -->
+      </OnInitialized>
+      <Controls>
+
+      </Controls>
+    </TopLevelControl>
+
+  </Controls>    
+</GuiXml>
