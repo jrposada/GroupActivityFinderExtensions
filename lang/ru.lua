@@ -93,7 +93,7 @@ GAFE.DungeonPledgeQuestName = {
 	[PledgeId.ScalecallerPeak] = "Пик Воспевательницы Дракона",
 	[PledgeId.StoneGarden] = "Каменный Сад",
 	[PledgeId.Cauldron] = "Котел",
-	[PledgeId.DreadCellar] = "The Dread Cellar", --translate
+	[PledgeId.DreadCellar] = "Ужасный Подвал",
 	[PledgeId.UnhallowedGrave] = "Нечестивая Могила",
 	[PledgeId.WhiteGoldTower] = "Башня Белого Золота"
 }

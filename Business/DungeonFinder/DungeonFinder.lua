@@ -38,6 +38,9 @@ local function UpdateLocals()
 		for i=1, MAX_JOURNAL_QUESTS do
 			local name,_,_,stepType,_,completed,_,_,_,questType,instanceType=GetJournalQuestInfo(i)
 			if name and name~="" and not completed and questType==QUEST_TYPE_UNDAUNTED_PLEDGE and instanceType==INSTANCE_TYPE_GROUP then
+				if GAFE.CanDebug then
+					-- GAFE.LogLater(name)
+				end
 				local text=string.format("%s",name:gsub(".*:%s*",""):gsub(" "," "):lower())
 				pledgeQuests[text]=stepType~=QUEST_STEP_TYPE_AND
 				if stepType==QUEST_STEP_TYPE_AND then havePledge=true end
@@ -283,7 +286,7 @@ function GAFE.DungeonFinder.Init()
 	treeEntry.setupFunction = function(node, control, data, open)
 		baseEntrySetupFunction(node, control, data, open)
 
-		local debug = GetDisplayName() == "@Panicida"
+		local debug = GAFE.CanDebug
 		local activityId=data.id
 		if DungeonActivityData[activityId] then
 

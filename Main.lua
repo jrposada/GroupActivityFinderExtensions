@@ -15,6 +15,7 @@ local function OnAddOnLoaded(eventCode, addonName)
 
     -- Load saved variables
     GAFE.SavedVars = ZO_SavedVars:NewAccountWide(GAFE.name.."_Vars", GAFE.varsVersion, nil, GAFE.DefaultVars, GetWorldName())
+    GAFE.CanDebug = GetDisplayName() == "@Panicida"
 
     -- Initialize stuff
     GAFE.QueueManager.Init()
