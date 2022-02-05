@@ -56,5 +56,7 @@ Business/QuestJournal/Timers/QuestsTimersManager.lua
 Business/QuestJournal/Timers/QuestsTimers.xml
 Business/QuestJournal/Timers/Timers.lua
 
+Business/QueueTimer/QueueTimer.lua
+
 SettingsMenu.lua
 Main.lua
