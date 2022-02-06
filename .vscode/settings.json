@@ -184,6 +184,11 @@
         "GetFrameTimeMilliseconds",
         "ZO_FormatTimeMilliseconds",
         "TIME_FORMAT_STYLE_COLONS",
-        "TIME_FORMAT_PRECISION_TWELVE_HOUR"
+        "TIME_FORMAT_PRECISION_TWELVE_HOUR",
+        "ZO_DungeonFinder_KeyboardSingularSectionRewardsSectionHeader",
+        "TOPRIGHT",
+        "ACTIVITY_FINDER_STATUS_COMPLETE",
+        "ZO_FormatTime",
+        "TIME_FORMAT_PRECISION_SECONDS"
     ]
 }

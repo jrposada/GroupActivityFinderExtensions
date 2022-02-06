@@ -16,7 +16,8 @@ GroupActivityFinderExtensions = {
                 isIcon = false
             },
             handlePledgeQuest = true,
-            donePledges = {}
+            donePledges = {},
+            randomRewards = {}
         },
         autoConfirm = {
             enabled = true,

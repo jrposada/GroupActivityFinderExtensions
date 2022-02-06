@@ -37,6 +37,7 @@ Business/DungeonFinder/DungeonActivityData.lua
 Business/DungeonFinder/DungeonPledgeList.lua
 Business/DungeonFinder/DungeonFinder.lua
 Business/DungeonFinder/DungeonFinderCommands.lua
+Business/DungeonFinder/RandomDungeon.lua
 
 Business/PledgeCalendar/PledgeCalendar.lua
 
