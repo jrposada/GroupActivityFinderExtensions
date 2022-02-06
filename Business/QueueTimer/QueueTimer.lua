@@ -21,6 +21,9 @@ function GAFE.QueueTimer.Init()
     control = GAFE.UI.Label("GAFE_ActivityTracker", parent, {125,20}, {LEFT,parent,LEFT,0,20}, "ZoFontGameShadow", nil, {0,1})
 
     -- Register for update
-    ZO_PreHookHandler(parent, 'OnEffectivelyShown', function() EM:RegisterForUpdate("GAFE_ActivityTracker_Update", 1000, UpdateTimer) end)
+    ZO_PreHookHandler(parent, 'OnEffectivelyShown', function()
+        UpdateTimer()
+        EM:RegisterForUpdate("GAFE_ActivityTracker_Update", 1000, UpdateTimer)
+    end)
 	ZO_PreHookHandler(parent, 'OnEffectivelyHidden', function() EM:UnregisterForUpdate("GAFE_ActivityTracker_Update") end)
 end

@@ -46,7 +46,7 @@ GAFE.Localization = {
     CollapseMode_Group = "Grouper",
     CollapseMode_Normal = "Normal",
     CollapseMode_Veteran = "Vétéran",
-	DungeonFinderNextReward = "Suivant dans"
+	NextReward = "Suivant dans"
 }
 
 -- This translations have to match pledge quest name in ingame journal

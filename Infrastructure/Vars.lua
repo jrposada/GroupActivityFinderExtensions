@@ -19,6 +19,9 @@ GroupActivityFinderExtensions = {
             donePledges = {},
             randomRewards = {}
         },
+        battlegrounds = {
+            randomRewards = {}
+        },
         autoConfirm = {
             enabled = true,
             value = false,
