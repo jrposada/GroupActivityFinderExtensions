@@ -192,6 +192,11 @@
         "TIME_FORMAT_PRECISION_SECONDS",
         "EVENT_BATTLEGROUND_STATE_CHANGED",
         "BATTLEGROUND_STATE_FINISHED",
-        "BATTLEGROUND_STATE_POSTGAME"
+        "BATTLEGROUND_STATE_POSTGAME",
+        "GAFE_PledgeCalendarPanel",
+        "GAFE_ActivitySchedulePanel",
+        "ZO_ComboBox_ObjectFromContainer",
+        "ZO_ComboBox",
+        "ZO_COMBOBOX_SUPPRESS_UPDATE"
     ]
 }

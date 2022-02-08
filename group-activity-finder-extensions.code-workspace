@@ -184,8 +184,8 @@
 			"ZO_FadeSceneFragment",
 			"MAIN_MENU_KEYBOARD",
 			"EVENT_MANAGER",
-			"PledgeCalendarPanel",
-			"GROUP_MENU_KEYBOARD"
+			"GROUP_MENU_KEYBOARD",
+			"GAFE_PledgeCalendarPanel"
 		],
 		"terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
 		"terminal.integrated.profiles.windows": {

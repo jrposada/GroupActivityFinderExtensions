@@ -23,12 +23,11 @@ local function OnAddOnLoaded(eventCode, addonName)
     GAFE.DungeonFinderCommands.Init()
     GAFE.RandomDungeon.Init()
     GAFE.RandomBattleground.Init()
-    -- GAFE.PledgeCalendar.Init()
+    GAFE.ActivitySchedule.Init()
     GAFE.TrialChestTimer.Init()
     GAFE.TrialFinder.Init()
     GAFE.AutoConfirm.Init()
     GAFE.PledgeQuestHandler.Init()
-    -- GAFE.Timers.Init()
     GAFE.QueueTimer.Init()
 
     -- Init settings menu

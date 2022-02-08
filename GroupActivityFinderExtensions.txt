@@ -28,7 +28,6 @@ lang\$(language).lua
 
 Ui/Button.xml
 Ui/Counter.xml
-Ui/PledgeCalendarPanel.xml
 Ui/Texture.xml
 
 Business/FinderExtensions/FinderActivityExtender.lua
@@ -42,7 +41,9 @@ Business/DungeonFinder/RandomDungeon.lua
 
 Business/BattlegroundFinder/RandomBattleground.lua
 
-Business/PledgeCalendar/PledgeCalendar.lua
+Business/ActivitySchedule/ActivitySchedulePanel.lua
+Business/ActivitySchedule/ActivitySchedulePanel.xml
+Business/ActivitySchedule/ActivitySchedule.lua
 
 Business/PledgeAutomation/PledgeQuestHandler.lua
 
@@ -55,10 +56,6 @@ Business/QueueManager/QueueManager.lua
 Business/TrialFinder/TrialFinder.lua
 
 Business/AutoConfirm.lua
-
-Business/QuestJournal/Timers/QuestsTimersManager.lua
-Business/QuestJournal/Timers/QuestsTimers.xml
-Business/QuestJournal/Timers/Timers.lua
 
 Business/QueueTimer/QueueTimer.lua
 

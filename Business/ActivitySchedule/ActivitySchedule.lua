@@ -1,13 +1,13 @@
 local GAFE = GroupActivityFinderExtensions
 
-GAFE.PledgeCalendar = {}
+GAFE.ActivitySchedule = {}
 
-function GAFE.PledgeCalendar.Init()
-    local fragment = ZO_FadeSceneFragment:New(PledgeCalendarPanel)
-    local priority = GAFE_ACTIVITY_FINDER_SORT_PRIORITY.PLEDGE_CALENDAR
+function GAFE.ActivitySchedule.Init()
+    local fragment = ZO_FadeSceneFragment:New(GAFE_ActivitySchedulePanel)
+    local priority = GAFE_ACTIVITY_FINDER_SORT_PRIORITY.ACTIVITY_SCHEDULE
     GROUP_MENU_KEYBOARD:AddCategory({
         priority = priority,
-        name = "Pledge Calendar", -- translate
+        name = "Activity schedule", -- translate
         categoryFragment = fragment,
         normalIcon = "esoui/art/journal/journal_tabicon_achievements_up.dds",
         pressedIcon = "esoui/art/journal/journal_tabicon_achievements_down.dds",
