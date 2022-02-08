@@ -9,8 +9,10 @@ function GAFE.RandomDungeon.Init()
     extender:Init()
 
     local function OnActivityFinderStatusUpdate(_, status)
-        if status == ACTIVITY_FINDER_STATUS_COMPLETE then
-            local characterId = GetCurrentCharacterId()
+        local characterId = GetCurrentCharacterId()
+        local isRewardAvailable = extender:GetTimeUntilNextReward(characterId) <= 0
+
+        if status == ACTIVITY_FINDER_STATUS_COMPLETE and isRewardAvailable then
             extender.rewardsVars.randomRewards[characterId] = GetTimeStamp()
         end
     end

@@ -9,8 +9,12 @@ function GAFE.RandomBattleground.Init()
     extender:Init()
 
     local function OnActivityFinderStatusUpdate(_, previousState, nextState)
-        if nextState == BATTLEGROUND_STATE_POSTGAME then
-            local characterId = GetCurrentCharacterId()
+        local characterId = GetCurrentCharacterId()
+        local isRewardAvailable = extender:GetTimeUntilNextReward(characterId) <= 0
+
+        -- GAFE.LogLater("state "..nextState.." | "..(isRewardAvailable and "true" or "false"))
+        GAFE.LogLater('DETECT IF REWARD HAS BEEN AWARDED')
+        if nextState == BATTLEGROUND_STATE_POSTGAME and isRewardAvailable then
             extender.rewardsVars.randomRewards[characterId] = GetTimeStamp()
         end
     end
