@@ -2,6 +2,7 @@ local GAFE = GroupActivityFinderExtensions
 local LAM = LibAddonMenu2
 
 local ResetChest = GAFE.TrialChestTimer.ResetChest
+local characterId = GetCurrentCharacterId()
 
 GAFE.SettingsMenu = {}
 
@@ -103,6 +104,31 @@ function GAFE.SettingsMenu.Init()
                     setFunc = function(value) saveData.compatibility.perfectPixel = value end,
                     requiresReload = true
                 },
+            }
+        },
+        {
+            type = "divider"
+        },
+        {
+            type = "submenu",
+            name = GAFE.Loc("Settings_ResetPremiumRewards"),
+            controls = {
+                {
+                    type = "button",
+                    name = GAFE.Loc("Settings_Dungeon"),
+                    func = function() GAFE.SavedVars.dungeons.randomRewards[characterId] = GetTimeStamp() end,
+                    width = "half",
+                    warning = GAFE.Loc("Settings_ResetReward"),
+                    isDangerous = true
+                },
+                {
+                    type = "button",
+                    name = GAFE.Loc("Settings_Battleground"),
+                    func = function() GAFE.SavedVars.battlegrounds.randomRewards[characterId] = GetTimeStamp() end,
+                    width = "half",
+                    warning = GAFE.Loc("Settings_ResetReward"),
+                    isDangerous = true
+                }
             }
         },
         {
