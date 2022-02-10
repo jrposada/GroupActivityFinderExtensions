@@ -197,6 +197,8 @@
         "GAFE_ActivitySchedulePanel",
         "ZO_ComboBox_ObjectFromContainer",
         "ZO_ComboBox",
-        "ZO_COMBOBOX_SUPPRESS_UPDATE"
+        "ZO_COMBOBOX_SUPPRESS_UPDATE",
+        "ZO_MenuBar_AddButton",
+        "ZO_MenuBar_SelectDescriptor"
     ]
 }

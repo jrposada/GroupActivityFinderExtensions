@@ -4,6 +4,7 @@ GAFE.ActivitySchedule = {}
 
 function GAFE.ActivitySchedule.Init()
     local fragment = ZO_FadeSceneFragment:New(GAFE_ActivitySchedulePanel)
+
     local priority = GAFE_ACTIVITY_FINDER_SORT_PRIORITY.ACTIVITY_SCHEDULE
     GROUP_MENU_KEYBOARD:AddCategory({
         priority = priority,

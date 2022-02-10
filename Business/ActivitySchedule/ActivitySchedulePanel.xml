@@ -5,14 +5,63 @@
         GAFE_ActivitySchedulePanel_OnInitialized(self)
       </OnInitialized>
       <Controls>
-        <Control name="$(parent)Filter" inherits="ZO_ComboBox">
-          <Dimensions x="300" y="33" />
-          <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="2" offsetY="-7" />
+        <!-- Trials chest schedule Window -->
+        <Control name="$(parent)TrialsWindow" inherits="ZO_RightPanelFootPrint" hidden="true">
+          <OnInitialized>
+          <!-- Add init here -->
+          </OnInitialized>
+          <Controls>
+            <Label name="$(parent)Count" font="ZoFontGame" horizontalAlignment="CENTER" verticalAlignment="CENTER" text="Trials">
+                <Dimensions x="64" y="32" />
+                <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER"/>
+            </Label>
+          </Controls>
         </Control>
-          <Control name="$(parent)InfoContainer">
-            <Anchor point="TOPLEFT" />
-            <Anchor point="BOTTOMRIGHT" offsetY="-108" />
-            <Controls>
+
+        <!-- Pledges schedule Window -->
+        <Control name="$(parent)PledgesWindow" inherits="ZO_RightPanelFootPrint" hidden="true">
+          <OnInitialized>
+          <!-- Add init here -->
+          </OnInitialized>
+          <Controls>
+            <Label name="$(parent)Count" font="ZoFontGame" horizontalAlignment="CENTER" verticalAlignment="CENTER" text="Pledges">
+                <Dimensions x="64" y="32" />
+                <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER"/>
+            </Label>
+          </Controls>
+        </Control>
+
+        <!--  schedule Window -->
+        <Control name="$(parent)RandomActivitiesWindow" inherits="ZO_RightPanelFootPrint" hidden="true">
+          <OnInitialized>
+          <!-- Add init here -->
+          </OnInitialized>
+          <Controls>
+            <Label name="$(parent)Count" font="ZoFontGame" horizontalAlignment="CENTER" verticalAlignment="CENTER" text="Random">
+                <Dimensions x="64" y="32" />
+                <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER"/>
+            </Label>
+          </Controls>
+        </Control>
+
+        <!-- Menu bar -->
+        <Control name="$(parent)MenuBar" inherits="ZO_DefaultMenuBar" hidden="false"> 
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetY="-55" offsetX="400"/> 
+          <Controls> 
+            <Label name="$(parent)Label" font="$(BOLD_FONT)|$(KB_28)|soft-shadow-thick" color="aaaa85" wrapMode="ELLIPSIS" horizontalAlignment="RIGHT" > 
+              <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="-20" offsetY="10"/> 
+              <Dimensions x="400" y="50"/> 
+            </Label> 
+
+          </Controls> 
+        </Control>
+
+      </Controls>
+    </TopLevelControl>
+  </Controls>    
+</GuiXml>
+
+          <!-- <Controls> -->
                 <!-- <Texture name="$(parent)Background" color="666666" override="true">
                     <Dimensions y="512" />
                     <AnchorFill />
@@ -22,22 +71,22 @@
                     </Controls>
                 </Texture> -->
 
-                <Label name="$(parent)Title" override="true" font="ZoFontWinH2">
-                    <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
-                </Label>
+              <!-- <Label name="$(parent)Title" override="true" font="ZoFontWinH2">
+                  <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
+              </Label>
 
-                <Label name="$(parent)Description" override="true" font="ZoFontWinH4">
-                    <Anchor point="TOPLEFT" relativeTo="$(parent)Title" relativePoint="BOTTOMLEFT" />
-                    <Anchor point="RIGHT" constrains="X" offsetX="-10"/>
-                </Label>
+              <Label name="$(parent)Description" override="true" font="ZoFontWinH4">
+                  <Anchor point="TOPLEFT" relativeTo="$(parent)Title" relativePoint="BOTTOMLEFT" />
+                  <Anchor point="RIGHT" constrains="X" offsetX="-10"/>
+              </Label>
 
-                <Control name="$(parent)GridList" override="true" inherits="ZO_GridScrollList_Keyboard">
-                    <Anchor point="TOPLEFT" relativeTo="$(parent)Description" relativePoint="BOTTOMLEFT" offsetY="10" />
-                    <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" />
-                </Control>
-            </Controls>
-        </Control>
-      </Controls>
-    </TopLevelControl>
-  </Controls>    
-</GuiXml>
+              <Control name="$(parent)GridList" override="true" inherits="ZO_GridScrollList_Keyboard">
+                  <Anchor point="TOPLEFT" relativeTo="$(parent)Description" relativePoint="BOTTOMLEFT" offsetY="10" />
+                  <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" />
+              </Control>
+          </Controls> -->
+
+<!-- <Control name="ZO_GroupMenuKeyboard_ContentAnchors" virtual="true">
+            <Anchor point="TOPRIGHT" relativeTo="ZO_GroupMenu_KeyboardHeader" relativePoint="BOTTOMRIGHT" offsetX="-10" />
+            <Anchor point="BOTTOMLEFT" relativeTo="ZO_GroupMenu_KeyboardCategories" relativePoint="BOTTOMRIGHT" offsetX="10" />
+        </Control> -->

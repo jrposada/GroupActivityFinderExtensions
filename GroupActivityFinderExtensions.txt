@@ -41,10 +41,6 @@ Business/DungeonFinder/RandomDungeon.lua
 
 Business/BattlegroundFinder/RandomBattleground.lua
 
-Business/ActivitySchedule/ActivitySchedulePanel.lua
-Business/ActivitySchedule/ActivitySchedulePanel.xml
-Business/ActivitySchedule/ActivitySchedule.lua
-
 Business/PledgeAutomation/PledgeQuestHandler.lua
 
 Business/Trials/SortedLocationsData.lua
@@ -58,6 +54,13 @@ Business/TrialFinder/TrialFinder.lua
 Business/AutoConfirm.lua
 
 Business/QueueTimer/QueueTimer.lua
+
+
+Business/ActivitySchedule/Schedules/TrialsSchedule.lua
+Business/ActivitySchedule/Schedules/TrialsSchedule.xml
+Business/ActivitySchedule/ActivitySchedulePanel.lua
+Business/ActivitySchedule/ActivitySchedulePanel.xml
+Business/ActivitySchedule/ActivitySchedule.lua
 
 SettingsMenu.lua
 Main.lua

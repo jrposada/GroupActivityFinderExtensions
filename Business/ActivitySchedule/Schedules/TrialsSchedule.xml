@@ -1,0 +1,41 @@
+<GuiXml>
+  <Controls >
+  
+    <!-- <TopLevelControl name="ZO_ActivityFinderTemplateTopLevel_Keyboard" inherits="ZO_GroupMenuKeyboard_ContentAnchors" hidden="true" virtual="true">
+      <Controls>
+
+          <Control name="$(parent)ListSection" inherits="ZO_ScrollContainer" hidden="true">
+              <Anchor point="TOPLEFT" />
+              <Anchor point="BOTTOMRIGHT" offsetY="-100" />
+          </Control>
+
+
+          
+      </Controls>
+    </TopLevelControl> -->
+
+
+
+  
+    <TopLevelControl name="GAFE_TrialsSchedule" inherits="ZO_ScrollContainer" virtual="true" hidden="true">
+      <Anchor point="TOPLEFT" />
+      <Anchor point="BOTTOMRIGHT" offsetY="-100" />
+      
+      <!-- <Controls>
+        <Label name="$(parent)Count" font="ZoFontGame" horizontalAlignment="CENTER" verticalAlignment="CENTER" text="10">
+          <Dimensions x="64" y="32" />
+          <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER"/>
+        </Label>
+      </Controls> -->
+    </TopLevelControl>
+
+    <TopLevelControl name="GAFE_TrialsSchedule_Row" virtual="true">
+      <Controls>
+          <Label name="$(parent)Label" font="ZoFontGame" horizontalAlignment="CENTER" verticalAlignment="CENTER">
+            <Dimensions x="192" y="16" />
+            <Anchor point="LEFT" relativeTo="$(parent)" relativePoint="LEFT"/>
+        </Label>
+      </Controls>
+    </TopLevelControl>
+  </Controls>    
+</GuiXml>
