@@ -8,10 +8,10 @@
         <!-- Trials chest schedule Window -->
         <Control name="$(parent)TrialsWindow" inherits="ZO_RightPanelFootPrint" hidden="true">
           <OnInitialized>
-          <!-- Add init here -->
+            GAFE_TrialsSchedule_Init(self)
           </OnInitialized>
           <Controls>
-            <Label name="$(parent)Count" font="ZoFontGame" horizontalAlignment="CENTER" verticalAlignment="CENTER" text="Trials">
+            <Label name="$(parent)Label" font="ZoFontGame" horizontalAlignment="CENTER" verticalAlignment="CENTER" text="Trials">
                 <Dimensions x="64" y="32" />
                 <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER"/>
             </Label>

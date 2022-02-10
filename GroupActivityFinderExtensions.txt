@@ -57,7 +57,6 @@ Business/QueueTimer/QueueTimer.lua
 
 
 Business/ActivitySchedule/Schedules/TrialsSchedule.lua
-Business/ActivitySchedule/Schedules/TrialsSchedule.xml
 Business/ActivitySchedule/ActivitySchedulePanel.lua
 Business/ActivitySchedule/ActivitySchedulePanel.xml
 Business/ActivitySchedule/ActivitySchedule.lua
