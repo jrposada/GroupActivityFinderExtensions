@@ -13,7 +13,7 @@ function GAFE.RandomBattleground.Init()
         local isRewardAvailable = extender:GetTimeUntilNextReward(characterId) <= 0
 
         -- GAFE.LogLater("state "..nextState.." | "..(isRewardAvailable and "true" or "false"))
-        GAFE.LogLater('DETECT IF REWARD HAS BEEN AWARDED')
+        -- GAFE.LogLater('DETECT IF REWARD HAS BEEN AWARDED')
         if nextState == BATTLEGROUND_STATE_POSTGAME and isRewardAvailable then
             extender.rewardsVars.randomRewards[characterId] = GetTimeStamp()
         end
