@@ -199,6 +199,9 @@
         "ZO_ComboBox",
         "ZO_COMBOBOX_SUPPRESS_UPDATE",
         "ZO_MenuBar_AddButton",
-        "ZO_MenuBar_SelectDescriptor"
+        "ZO_MenuBar_SelectDescriptor",
+        "LibScroll",
+        "BOTTOMRIGHT",
+        "SCROLL_BOUNDING_UNBOUND"
     ]
 }

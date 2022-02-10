@@ -3,7 +3,7 @@
 ## Author: Panicida
 ## APIVersion: 101032
 ## AddOnVersion: 041301
-## DependsOn: LibAddonMenu-2.0
+## DependsOn: LibAddonMenu-2.0 LibScroll
 ## SavedVariables: GroupActivityFinderExtensions_Vars
 
 ; DISCLAIMER:
