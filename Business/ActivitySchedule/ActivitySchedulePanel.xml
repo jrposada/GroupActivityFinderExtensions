@@ -11,17 +11,9 @@
             GAFE_TrialsSchedule_Init(self)
           </OnInitialized>
           <Controls>
-            <Scroll name="$(parent)Scroll">
+            <Control name="$(parent)Container" inherits="ZO_ScrollContainer">
               <AnchorFill />
-
-              <Controls>
-                <Control name="$(parent)ScrollChild">
-                  <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="10" />
-                  <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="-10" />
-                </Control>
-              </Controls>
-            </Scroll>
-
+            </Control>
           </Controls>
         </Control>
 
