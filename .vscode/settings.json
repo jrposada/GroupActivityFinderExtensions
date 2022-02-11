@@ -202,6 +202,8 @@
         "ZO_MenuBar_SelectDescriptor",
         "LibScroll",
         "BOTTOMRIGHT",
-        "SCROLL_BOUNDING_UNBOUND"
+        "SCROLL_BOUNDING_UNBOUND",
+        "IsActivityEligibleForDailyReward",
+        "LFG_ACTIVITY_BATTLE_GROUND_NON_CHAMPION"
     ]
 }
