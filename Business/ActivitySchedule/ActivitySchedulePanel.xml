@@ -20,20 +20,25 @@
         <!-- Pledges schedule Window -->
         <Control name="$(parent)PledgesWindow" inherits="ZO_GroupMenuKeyboard_ContentAnchors" hidden="true">
           <OnInitialized>
-          <!-- Add init here -->
+            GAFE_PledgesSchedule_Init(self)
           </OnInitialized>
           <Controls>
-            <Label name="$(parent)Count" font="ZoFontGame" horizontalAlignment="CENTER" verticalAlignment="CENTER" text="Pledges">
-                <Dimensions x="64" y="32" />
-                <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER"/>
+            <Label name="$(parent)Header" font="ZoFontWinH4" horizontalAlignment="CENTER" verticalAlignment="CENTER" text="Upcoming pledges"> <!-- translate -->
+              <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" />
+              <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" />
+              <Dimensions y="24"/>
             </Label>
+            <Control name="$(parent)ListContainer">
+              <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetY="30"/>
+              <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" />
+            </Control>
           </Controls>
         </Control>
 
         <!--  schedule Window -->
-        <Control name="$(parent)RandomActivitiesWindow" inherits="ZO_GroupMenuKeyboard_ContentAnchors" hidden="true">
+        <Control name="$(parent)DailiesWindow" inherits="ZO_GroupMenuKeyboard_ContentAnchors" hidden="true">
           <OnInitialized>
-          <!-- Add init here -->
+            GAFE_DailiesSchedule_Init(self)
           </OnInitialized>
           <Controls>
             <Label name="$(parent)Count" font="ZoFontGame" horizontalAlignment="CENTER" verticalAlignment="CENTER" text="Random">
@@ -45,7 +50,7 @@
 
         <!-- Menu bar -->
         <Control name="$(parent)MenuBar" inherits="ZO_DefaultMenuBar" hidden="false"> 
-          <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetY="-55" offsetX="400"/> 
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetY="-120" offsetX="400"/> 
           <Controls> 
             <Label name="$(parent)Label" font="$(BOLD_FONT)|$(KB_28)|soft-shadow-thick" color="aaaa85" wrapMode="ELLIPSIS" horizontalAlignment="RIGHT" > 
               <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="-20" offsetY="10"/> 

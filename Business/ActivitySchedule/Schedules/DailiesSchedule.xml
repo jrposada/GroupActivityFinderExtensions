@@ -1,0 +1,13 @@
+<GuiXml>
+    <Controls >
+        <Control name="GAFE_DialyScheduleRow" hidden="true">
+            <Controls>
+            </Controls>
+        </Control>
+
+        <Control name="GAFE_DialyScheduleHeader" hidden="true">
+            <Controls>
+            </Controls>
+        </Control>
+    </Controls>    
+</GuiXml>

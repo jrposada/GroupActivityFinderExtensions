@@ -56,6 +56,10 @@ Business/AutoConfirm.lua
 Business/QueueTimer/QueueTimer.lua
 
 
+Business/ActivitySchedule/Schedules/DailiesSchedule.lua
+Business/ActivitySchedule/Schedules/DailiesSchedule.xml
+Business/ActivitySchedule/Schedules/PledgesSchedule.lua
+Business/ActivitySchedule/Schedules/PledgesSchedule.xml
 Business/ActivitySchedule/Schedules/TrialsSchedule.lua
 Business/ActivitySchedule/ActivitySchedulePanel.lua
 Business/ActivitySchedule/ActivitySchedulePanel.xml
