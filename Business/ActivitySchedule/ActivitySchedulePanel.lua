@@ -41,14 +41,6 @@ function GAFE_ActivitySchedule:InitializeMenuBar()
 
     local name = self.menuBar:GetName()
     ZO_MenuBar_AddButton(self.menuBar, {
-        descriptor = name.."ButtonPledges",
-        normal = "/esoui/art/lfg/lfg_indexicon_dungeon_up.dds",
-        pressed = "/esoui/art/lfg/lfg_indexicon_dungeon_down.dds",
-        highlight = "/esoui/art/lfg/lfg_indexicon_dungeon_over.dds",
-        label = "Pledges Schedule",-- TODO: translate
-        callback = MenuSelector,
-    })
-    ZO_MenuBar_AddButton(self.menuBar, {
         descriptor = name.."DailiesWindow",
         normal = "/esoui/art/campaign/campaignbrowser_indexicon_specialevents_up.dds",
         pressed = "/esoui/art/campaign/campaignbrowser_indexicon_specialevents_down.dds",
@@ -57,15 +49,23 @@ function GAFE_ActivitySchedule:InitializeMenuBar()
         callback = MenuSelector,
     })
     ZO_MenuBar_AddButton(self.menuBar, {
-        descriptor = name.."ButtonTrials",
-        normal = "/esoui/art/lfg/lfg_indexicon_trial_up.dds",
-        pressed = "/esoui/art/lfg/lfg_indexicon_trial_down.dds",
-        highlight = "/esoui/art/lfg/lfg_indexicon_trial_over.dds",
-        label = "Trials Schedule",-- TODO: translate
+        descriptor = name.."ButtonPledges",
+        normal = "/esoui/art/lfg/lfg_indexicon_dungeon_up.dds",
+        pressed = "/esoui/art/lfg/lfg_indexicon_dungeon_down.dds",
+        highlight = "/esoui/art/lfg/lfg_indexicon_dungeon_over.dds",
+        label = "Pledges Schedule",-- TODO: translate
         callback = MenuSelector,
     })
+    -- ZO_MenuBar_AddButton(self.menuBar, {
+    --     descriptor = name.."ButtonTrials",
+    --     normal = "/esoui/art/lfg/lfg_indexicon_trial_up.dds",
+    --     pressed = "/esoui/art/lfg/lfg_indexicon_trial_down.dds",
+    --     highlight = "/esoui/art/lfg/lfg_indexicon_trial_over.dds",
+    --     label = "Trials Schedule",-- TODO: translate
+    --     callback = MenuSelector,
+    -- })
 
-    ZO_MenuBar_SelectDescriptor(self.menuBar, name.."ButtonPledges")
+    ZO_MenuBar_SelectDescriptor(self.menuBar, name.."DailiesWindow")
 end
 
 function GAFE_ActivitySchedulePanel_OnInitialized(control)

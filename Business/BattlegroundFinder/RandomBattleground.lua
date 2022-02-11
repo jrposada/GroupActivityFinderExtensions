@@ -10,7 +10,7 @@ function GAFE.RandomBattleground.Init()
 
     local function OnActivityFinderStatusUpdate(_, previousState, nextState)
         local characterId = GetCurrentCharacterId()
-        local isRewardAvailableByTimer = extender:GetTimeUntilNextReward(characterId) <= 0
+        local isRewardAvailableByTimer = RandomActivityExtender_GetTimeUntilNextReward(characterId, extender.rewardsVars) <= 0
         -- There are several battleground activities but so far they all share the reward.
         local isRewardAvailableByZos = IsActivityEligibleForDailyReward(LFG_ACTIVITY_BATTLE_GROUND_NON_CHAMPION)
 

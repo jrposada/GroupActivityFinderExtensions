@@ -13,9 +13,14 @@ local function OnAddOnLoaded(eventCode, addonName)
         GAFE.LogLater("Could not migrate Group & Activity Finder Extensions settings. Reset to default.")
     end
 
+    -- local localCallbackManager = ZO_CallbackObject:Subclass()
+    -- GAFE.CallbackManager = localCallbackManager
+
     -- Load saved variables
     GAFE.SavedVars = ZO_SavedVars:NewAccountWide(GAFE.name.."_Vars", GAFE.varsVersion, nil, GAFE.DefaultVars, GetWorldName())
     GAFE.CanDebug = GetDisplayName() == "@Panicida"
+
+    -- GAFE.CallbackManager:FireCallbacks("GafeSavedVarsInitialied")
 
     -- Initialize stuff
     GAFE.QueueManager.Init()
@@ -23,12 +28,12 @@ local function OnAddOnLoaded(eventCode, addonName)
     GAFE.DungeonFinderCommands.Init()
     GAFE.RandomDungeon.Init()
     GAFE.RandomBattleground.Init()
-    GAFE.ActivitySchedule.Init()
     GAFE.TrialChestTimer.Init()
     GAFE.TrialFinder.Init()
     GAFE.AutoConfirm.Init()
     GAFE.PledgeQuestHandler.Init()
     GAFE.QueueTimer.Init()
+    GAFE.ActivitySchedule.Init()
 
     -- Init settings menu
     GAFE.SettingsMenu.Init()

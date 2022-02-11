@@ -1,6 +1,6 @@
 <GuiXml>
   <Controls >
-    <TopLevelControl name="GAFE_ActivitySchedulePanel" inherits="ZO_GroupMenuKeyboard_ContentAnchors" hidden="true">
+    <TopLevelControl name="GAFE_ActivitySchedulePanel" virtual="true" inherits="ZO_GroupMenuKeyboard_ContentAnchors" hidden="true">
       <OnInitialized>
         GAFE_ActivitySchedulePanel_OnInitialized(self)
       </OnInitialized>
@@ -41,10 +41,15 @@
             GAFE_DailiesSchedule_Init(self)
           </OnInitialized>
           <Controls>
-            <Label name="$(parent)Count" font="ZoFontGame" horizontalAlignment="CENTER" verticalAlignment="CENTER" text="Random">
-                <Dimensions x="64" y="32" />
-                <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER"/>
+            <Label name="$(parent)Header" inherits="GAFE_DailiesScheduleRow">
+              <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" />
+              <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" />
+              <Dimensions y="24"/>
             </Label>
+            <Control name="$(parent)ListContainer">
+              <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetY="30"/>
+              <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" />
+            </Control>
           </Controls>
         </Control>
 

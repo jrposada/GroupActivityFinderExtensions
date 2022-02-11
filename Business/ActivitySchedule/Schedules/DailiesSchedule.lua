@@ -1,5 +1,5 @@
 local GAFE = GroupActivityFinderExtensions
-local WM = WINDOW_MANAGER
+local EM = EVENT_MANAGER
 local libScroll = LibScroll
 
 GAFE_DailiesSchedule = ZO_Object:Subclass()
@@ -13,6 +13,9 @@ end
 function GAFE_DailiesSchedule:Initialize(control)
     self.control = control
 
+    self.header = self.control:GetNamedChild("Header")
+    self.listContainer = self.control:GetNamedChild("ListContainer")
+
     self:InitializeControls()
 end
 
@@ -23,44 +26,72 @@ end
 function GAFE_DailiesSchedule:InitializeFragment()
     local function SetupDataRow(rowControl, data, scrollList)
         -- Do whatever you want/need to setup the control
-        rowControl:SetText(data.name)
-        rowControl:SetFont("ZoFontWinH4")
+        local control = rowControl
+        local label = control:GetNamedChild("Label")
+        local dungeon = control:GetNamedChild("Dungeon")
+        local battleground = control:GetNamedChild("Battleground")
+
+        label:SetText(data.name)
+        dungeon:SetText(data.dungeon)
+        battleground:SetText(data.battleground)
+
+        local height = 30
+        local labelWidth = 400
+        local pledgeWidth = 100
+
+        label:SetDimensions(labelWidth, height)
+        label:SetAnchor(TOPLEFT, control, TOPLEFT, 0, 0)
+        dungeon:SetDimensions(pledgeWidth, height)
+        dungeon:SetAnchor(TOPLEFT, control, TOPLEFT, labelWidth, 0)
+        battleground:SetDimensions(pledgeWidth, height)
+        battleground:SetAnchor(TOPLEFT, control, TOPLEFT, labelWidth + pledgeWidth, 0)
     end
 
-    local parent = self.control
+    -- Setup header
+    SetupDataRow(
+        self.header,
+        {
+            name=GAFE.Loc("Character"),
+            dungeon=GetString(SI_DUNGEON_FINDER_GENERAL_ACTIVITY_DESCRIPTOR),
+            battleground=GetString(SI_BATTLEGROUND_FINDER_GENERAL_ACTIVITY_DESCRIPTOR)
+        }
+    )
 
     -- Create the scroll list
+    local parent = self.listContainer
     local scrollData = {
         name    = "GAFE_DailiesWindowScrollList",
         parent  = parent,
-        -- width   = 300,
-        -- height  = 500,
-
-        -- rowHeight       = 23,
-        -- rowTemplate     = "EmoteItRowControlTemplate",
+        rowHeight       = 30,
+        rowTemplate     = "GAFE_DailiesScheduleRow",
         setupCallback   = SetupDataRow,
-        -- sortFunction    = SortScrollList,
-        -- selectTemplate  = "EmoteItSelectTemplate",
-        -- selectCallback  = OnRowSelection,
-
-        -- dataTypeSelectSound = SOUNDS.BOOK_CLOSE,
-        -- hideCallback    = OnRowHide,
-        -- resetCallback   = OnRowReset,
-
-        -- categories  = {1, 2},
     }
 
-    self.scrollList = libScroll:CreateScrollList(scrollData)
-    self.scrollList:SetAnchor(TOPLEFT, parent, TOPLEFT, 0, 0)
-    self.scrollList:SetAnchor(BOTTOMRIGHT, parent, BOTTOMRIGHT, 50, 0)
+    local scrollList = libScroll:CreateScrollList(scrollData)
+    scrollList:SetAnchor(TOPLEFT, parent, TOPLEFT, 0, 0)
+    scrollList:SetAnchor(BOTTOMRIGHT, parent, BOTTOMRIGHT, 0, 0)
 
     -- Add data to scroll list.
     local dataItems = {
     }
-    for i=1,100 do
-        local data = {name= i..'asdf asdf asdf asdfasdfasdfa sdfa sdfa sdfa  '}
+    local numCharacters = GetNumCharacters()
+    local battlegroundsRewardsVars = GAFE.SavedVars.battlegrounds
+    local dungeonsRewardsVars = GAFE.SavedVars.dungeons
+    for i = 1, numCharacters do
+        local characterName, _, _, _, _, _, characterId, _ = GetCharacterInfo(i)
+        local nextDailyBattleground = RandomActivityExtender_GetTimeUntilNextReward(characterId, battlegroundsRewardsVars)
+        local nextDailyDungeon = RandomActivityExtender_GetTimeUntilNextReward(characterId, dungeonsRewardsVars)
+
+        local data = {
+            name=zo_strformat("<<1>>", characterName),
+            battleground=nextDailyBattleground > 0 and nextDailyBattleground or "|cFFD700Available|r",
+            dungeon=nextDailyDungeon > 0 and nextDailyDungeon or '|cFFD700Available|r',
+        }
+        dataItems[i] = data
     end
-    self.scrollList:Update(dataItems)
+    scrollList:Update(dataItems)
+
+    self.scrollList = scrollList
 end
 
 function GAFE_DailiesSchedule_Init(control)

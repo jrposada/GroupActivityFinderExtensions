@@ -51,7 +51,8 @@ GAFE.Localization = {
     CollapseMode_Normal = "Обычный",
     CollapseMode_Veteran = "Ветеранский",
 	NextReward = "Далее через",
-	InXDays = "<<1[Today/In $d day/In $d days]>>" -- translate
+	InXDays = "<<1[Today/In $d day/In $d days]>>", -- translate
+	ActivitySchedule = "Activity Schedule" -- translate
 }
 
 -- This translations have to match pledge quest name in ingame journal

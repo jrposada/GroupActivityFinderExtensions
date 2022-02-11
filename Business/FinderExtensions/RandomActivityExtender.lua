@@ -35,7 +35,7 @@ end
 
 function RandomActivityExtender:UpdatePurpleRewardTimer()
     local characterId = GetCurrentCharacterId()
-	local timeUntilNextReward = self:GetTimeUntilNextReward(characterId)
+	local timeUntilNextReward = RandomActivityExtender_GetTimeUntilNextReward(characterId, self.rewardsVars)
     if timeUntilNextReward > 0 then
         self.control:SetHidden(false)
 
@@ -48,9 +48,9 @@ function RandomActivityExtender:UpdatePurpleRewardTimer()
 end
 
 -- Returns time in milliseconds until next reward. It's in a 20 hours cooldown.
-function RandomActivityExtender:GetTimeUntilNextReward(characterId)
+function RandomActivityExtender_GetTimeUntilNextReward(characterId, rewardsVars)
     local result = 0
-    local completedTimeStamp = self.rewardsVars.randomRewards[characterId]
+    local completedTimeStamp = rewardsVars.randomRewards[characterId]
 
     if completedTimeStamp then
         result = completedTimeStamp + 72000 - GetTimeStamp() -- 72000 = 20 hours

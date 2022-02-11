@@ -81,7 +81,7 @@ function GAFE_PledgesSchedule:InitializeFragment()
     local today = math.floor(GetDiffBetweenTimeStamps(GetTimeStamp(), 1517464800) / 86400) -- 86400 = 1 day
 
     local dataItems = {}
-    for day=1,20 do
+    for day=1,14 do
         local pledges = GetPledgesOfDay(today + day)
         local data = {
             day=day,
