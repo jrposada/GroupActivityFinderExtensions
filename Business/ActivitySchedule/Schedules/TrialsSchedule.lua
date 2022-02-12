@@ -66,7 +66,7 @@ function GAFE_TrialsSchedule:InitializeFragment()
 
         
     -- end
-    GAFE.UI.ZOButton("GAFE_PledgesCheck", scrollChild, {200, 200}, {TOP,scrollChild,TOP,0,0}, GAFE.Loc("CheckActivePledges"))
+    -- GAFE.UI.ZOButton("GAFE_PledgesCheck", scrollChild, {200, 200}, {TOP,scrollChild,TOP,0,0}, GAFE.Loc("CheckActivePledges"))
 
     -- self.scrollList:Update(dataItems)
 
