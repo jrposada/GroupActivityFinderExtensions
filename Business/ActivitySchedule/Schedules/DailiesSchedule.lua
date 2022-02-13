@@ -12,11 +12,13 @@ end
 
 function GAFE_DailiesSchedule:Initialize(control)
     self.control = control
+    self.rowsControlData = {}
 
     self.header = self.control:GetNamedChild("Header")
     self.listContainer = self.control:GetNamedChild("ListContainer")
 
     self:InitializeControls()
+    self:InitializeEvents()
 end
 
 function GAFE_DailiesSchedule:InitializeControls()
@@ -24,7 +26,7 @@ function GAFE_DailiesSchedule:InitializeControls()
 end
 
 function GAFE_DailiesSchedule:InitializeFragment()
-    local function SetupDataRow(rowControl, data, scrollList)
+    local function SetupHeaderRow(rowControl, data)
         -- Do whatever you want/need to setup the control
         local control = rowControl
         local label = control:GetNamedChild("Label")
@@ -47,8 +49,31 @@ function GAFE_DailiesSchedule:InitializeFragment()
         battleground:SetAnchor(TOPLEFT, control, TOPLEFT, labelWidth + pledgeWidth, 0)
     end
 
+    local function SetupDataRow(rowControl, data, scrollList)
+        -- Do whatever you want/need to setup the control
+        local control = rowControl
+        local label = control:GetNamedChild("Label")
+        local dungeon = control:GetNamedChild("Dungeon")
+        local battleground = control:GetNamedChild("Battleground")
+
+        label:SetText(data.name)
+
+        local height = 30
+        local labelWidth = 400
+        local pledgeWidth = 100
+
+        label:SetDimensions(labelWidth, height)
+        label:SetAnchor(TOPLEFT, control, TOPLEFT, 0, 0)
+        dungeon:SetDimensions(pledgeWidth, height)
+        dungeon:SetAnchor(TOPLEFT, control, TOPLEFT, labelWidth, 0)
+        battleground:SetDimensions(pledgeWidth, height)
+        battleground:SetAnchor(TOPLEFT, control, TOPLEFT, labelWidth + pledgeWidth, 0)
+
+        self.rowsControlData[data.name] = {control=rowControl, data=data}
+    end
+
     -- Setup header
-    SetupDataRow(
+    SetupHeaderRow(
         self.header,
         {
             name=GAFE.Loc("Character"),
@@ -75,23 +100,45 @@ function GAFE_DailiesSchedule:InitializeFragment()
     local dataItems = {
     }
     local numCharacters = GetNumCharacters()
-    local battlegroundsRewardsVars = GAFE.SavedVars.battlegrounds
-    local dungeonsRewardsVars = GAFE.SavedVars.dungeons
     for i = 1, numCharacters do
         local characterName, _, _, _, _, _, characterId, _ = GetCharacterInfo(i)
-        local nextDailyBattleground = RandomActivityExtender_GetTimeUntilNextReward(characterId, battlegroundsRewardsVars)
-        local nextDailyDungeon = RandomActivityExtender_GetTimeUntilNextReward(characterId, dungeonsRewardsVars)
 
         local data = {
             name=zo_strformat("<<1>>", characterName),
-            battleground=nextDailyBattleground > 0 and ZO_FormatTime(nextDailyBattleground, TIME_FORMAT_STYLE_COLONS, TIME_FORMAT_PRECISION_SECONDS) or "|cFFD700Available|r",
-            dungeon=nextDailyDungeon > 0 and ZO_FormatTime(nextDailyDungeon, TIME_FORMAT_STYLE_COLONS, TIME_FORMAT_PRECISION_SECONDS) or '|cFFD700Available|r',
+            characterId=characterId,
         }
         dataItems[i] = data
     end
     scrollList:Update(dataItems)
 
     self.scrollList = scrollList
+end
+
+function GAFE_DailiesSchedule:UpdateDataRows()
+    for _, rowControlData in pairs(self.rowsControlData) do
+        local control = rowControlData.control
+        local data = rowControlData.data
+
+        local dungeon = control:GetNamedChild("Dungeon")
+        local battleground = control:GetNamedChild("Battleground")
+
+        local battlegroundsRewardsVars = GAFE.SavedVars.battlegrounds
+        local dungeonsRewardsVars = GAFE.SavedVars.dungeons
+        local nextDailyBattleground = RandomActivityExtender_GetTimeUntilNextReward(data.characterId, battlegroundsRewardsVars)
+        local nextDailyDungeon = RandomActivityExtender_GetTimeUntilNextReward(data.characterId, dungeonsRewardsVars)
+
+        dungeon:SetText(nextDailyDungeon > 0 and ZO_FormatTime(nextDailyDungeon, TIME_FORMAT_STYLE_COLONS, TIME_FORMAT_PRECISION_SECONDS) or "|cFFD700Available|r")
+        battleground:SetText(nextDailyBattleground > 0 and ZO_FormatTime(nextDailyBattleground, TIME_FORMAT_STYLE_COLONS, TIME_FORMAT_PRECISION_SECONDS) or "|cFFD700Available|r")
+    end
+end
+
+function GAFE_DailiesSchedule:InitializeEvents()
+    ZO_PreHookHandler(GAFE_DailiesWindowScrollList, 'OnEffectivelyShown', function()
+        self:UpdateDataRows()
+        EM:RegisterForUpdate("GAFE_DailiesSchedule_UpdateScrollList", 1000, function() self:UpdateDataRows() end)
+    end)
+	ZO_PreHookHandler(GAFE_DailiesWindowScrollList, 'OnEffectivelyHidden', function() EM:UnregisterForUpdate("GAFE_DailiesSchedule_UpdateScrollList") end)
+
 end
 
 function GAFE_DailiesSchedule_Init(control)
