@@ -207,6 +207,9 @@
         "LFG_ACTIVITY_BATTLE_GROUND_NON_CHAMPION",
         "SI_BATTLEGROUND_FINDER_GENERAL_ACTIVITY_DESCRIPTOR",
         "SI_DUNGEON_FINDER_GENERAL_ACTIVITY_DESCRIPTOR",
-        "GAFE_DailiesWindowScrollList"
+        "GAFE_DailiesWindowScrollList",
+        "KEYBIND_STRIP",
+        "KEYBIND_STRIP_ALIGN_CENTER",
+        "ZO_WorldMapInfo"
     ]
 }

@@ -34,6 +34,7 @@ local function OnAddOnLoaded(eventCode, addonName)
     GAFE.PledgeQuestHandler.Init()
     GAFE.QueueTimer.Init()
     GAFE.ActivitySchedule.Init()
+    if GAFE.CanDebug then GAFE.Map.Init() end
 
     -- Init settings menu
     GAFE.SettingsMenu.Init()
