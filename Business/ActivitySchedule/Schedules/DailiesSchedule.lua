@@ -84,8 +84,8 @@ function GAFE_DailiesSchedule:InitializeFragment()
 
         local data = {
             name=zo_strformat("<<1>>", characterName),
-            battleground=nextDailyBattleground > 0 and nextDailyBattleground or "|cFFD700Available|r",
-            dungeon=nextDailyDungeon > 0 and nextDailyDungeon or '|cFFD700Available|r',
+            battleground=nextDailyBattleground > 0 and ZO_FormatTime(nextDailyBattleground, TIME_FORMAT_STYLE_COLONS, TIME_FORMAT_PRECISION_SECONDS) or "|cFFD700Available|r",
+            dungeon=nextDailyDungeon > 0 and ZO_FormatTime(nextDailyDungeon, TIME_FORMAT_STYLE_COLONS, TIME_FORMAT_PRECISION_SECONDS) or '|cFFD700Available|r',
         }
         dataItems[i] = data
     end
