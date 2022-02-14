@@ -8,10 +8,11 @@ function GAFE.Map.Init()
     -- GAFE.Debug.LogControlShown()
     -- GAFE.Debug.LogNodeIds()
     local function OnShown()
+        -- TODO: add to settings
+        local nodeIndex = 382
+        local knownNode, name = GetFastTravelNodeInfo(nodeIndex)
+
         local function TeleportToHome()
-            -- TODO: add to settings
-            local nodeIndex = 382
-            local knownNode, name = GetFastTravelNodeInfo(nodeIndex)
             -- TODO: figure out how to know if there is going to be a cost.
             local cost = GetRecallCost(nodeIndex)
             if knownNode then
@@ -25,7 +26,7 @@ function GAFE.Map.Init()
 
         myButtonGroup = {
             {
-                name = "Favourite",
+                name = name,
                 keybind = "UI_SHORTCUT_QUATERNARY",
                 callback = function() TeleportToHome() end,
             },

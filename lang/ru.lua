@@ -21,10 +21,10 @@ GAFE.Localization = {
     Settings_HandleQuest = "Автоматически брать квест дейликов Неустрашимых",
     Settings_CompatibilityTitle = "Совместимость",
     Settings_PerfectPixelAddon = "PerfectPixel",
-	Settings_ResetPremiumRewards = "Reset premium reward timers", -- translate
-	Settings_Dungeon = "Dungeon", -- translate
+	Settings_ResetPremiumRewards = "Сбросить таймеры премиальных наград",
+	Settings_Dungeon = "Подземелье",
 	Settings_Battleground = "Battleground", -- translate
-	Settings_ResetReward = "This will reset the 20 ours timer", -- translate
+	Settings_ResetReward = "Это сбросит 20-часовой таймер.",
     CheckActivePledges = "Проверить активные дейлики",
     CheckMissingQuests = "Проверить не выполненные квесты",
     AutoConfirm = "Автопринятие",
@@ -51,8 +51,10 @@ GAFE.Localization = {
     CollapseMode_Normal = "Обычный",
     CollapseMode_Veteran = "Ветеранский",
 	NextReward = "Далее через",
-	InXDays = "<<1[Today/In $d day/In $d days]>>", -- translate
-	ActivitySchedule = "Schedule" -- translate
+	InXDays = "<<1[Сегодня/Через $d день/через $d дня]>>",
+	ActivitySchedule = "Календарь",
+	DailiesSchedule = "Dailies", -- translate
+	PledgesSchedule = "Pledges" -- translate
 }
 
 -- This translations have to match pledge quest name in ingame journal

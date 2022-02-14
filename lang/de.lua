@@ -21,10 +21,10 @@ GAFE.Localization = {
     Settings_PerfectPixelAddon = "PerfectPixel",
     Settings_TextureSize = "Symbolgröße",
     Settings_AutoInvite = "BETA Auto invite",
-	Settings_ResetPremiumRewards = "Reset premium reward timers", -- translate
-	Settings_Dungeon = "Dungeon", -- translate
+	Settings_ResetPremiumRewards = "Premium-Belohnungstimer zurücksetzen",
+	Settings_Dungeon = "Verlies",
 	Settings_Battleground = "Battleground", -- translate
-	Settings_ResetReward = "This will reset the 20 ours timer", -- translate
+	Settings_ResetReward = "Dadurch wird der 20-Stunden-Timer zurückgesetzt",
     CheckActivePledges = "Wähle Gelöbnisse",
     CheckMissingQuests = "Wähle fehl. Quests",
     AutoConfirm = "Autom. bestätigen",
@@ -51,8 +51,10 @@ GAFE.Localization = {
     CollapseMode_Normal = "Normal",
     CollapseMode_Veteran = "Veteranen",
 	NextReward = "Weiter in",
-	InXDays = "<<1[Today/In $d day/In $d days]>>", -- translate
-	ActivitySchedule = "Schedule" -- translate
+	InXDays = "<<1[Heute/An $d Tag/In $d Tagen]>>",
+	ActivitySchedule = "Kalender",
+	DailiesSchedule = "DailiTägliche",
+	PledgesSchedule = "Gelöbnisse"
 }
 
 -- This translations have to match pledge quest name in ingame journal

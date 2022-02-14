@@ -45,7 +45,7 @@ function GAFE_ActivitySchedule:InitializeMenuBar()
         normal = "/esoui/art/campaign/campaignbrowser_indexicon_specialevents_up.dds",
         pressed = "/esoui/art/campaign/campaignbrowser_indexicon_specialevents_down.dds",
         highlight = "/esoui/art/campaign/campaignbrowser_indexicon_specialevents_over.dds",
-        label = "Dailies Schedule",-- TODO: translate
+        label = GAFE.Loc("DailiesSchedule"),
         callback = MenuSelector,
     })
     ZO_MenuBar_AddButton(self.menuBar, {
@@ -53,7 +53,7 @@ function GAFE_ActivitySchedule:InitializeMenuBar()
         normal = "/esoui/art/lfg/lfg_indexicon_dungeon_up.dds",
         pressed = "/esoui/art/lfg/lfg_indexicon_dungeon_down.dds",
         highlight = "/esoui/art/lfg/lfg_indexicon_dungeon_over.dds",
-        label = "Pledges Schedule",-- TODO: translate
+        label = GAFE.Loc("PledgesSchedule"),
         callback = MenuSelector,
     })
     -- ZO_MenuBar_AddButton(self.menuBar, {
@@ -61,7 +61,7 @@ function GAFE_ActivitySchedule:InitializeMenuBar()
     --     normal = "/esoui/art/lfg/lfg_indexicon_trial_up.dds",
     --     pressed = "/esoui/art/lfg/lfg_indexicon_trial_down.dds",
     --     highlight = "/esoui/art/lfg/lfg_indexicon_trial_over.dds",
-    --     label = "Trials Schedule",-- TODO: translate
+    --     label = "Trials Schedule",
     --     callback = MenuSelector,
     -- })
 

@@ -24,7 +24,7 @@ GAFE.Localization = {
 	Settings_ResetPremiumRewards = "Reset premium reward timers",
 	Settings_Dungeon = "Dungeon",
 	Settings_Battleground = "Battleground",
-	Settings_ResetReward = "This will reset the 20 ours timer",
+	Settings_ResetReward = "This will reset the 20 hours timer",
     CheckActivePledges = "Check active pledges",
     CheckMissingQuests = "Check missing quests",
     AutoConfirm = "Auto confirm",
@@ -52,7 +52,9 @@ GAFE.Localization = {
     CollapseMode_Veteran = "Veteran",
 	NextReward = "Next in",
 	InXDays = "<<1[Today/In $d day/In $d days]>>",
-	ActivitySchedule = "Schedule"
+	ActivitySchedule = "Schedule",
+	DailiesSchedule = "Dailies",
+	PledgesSchedule = "Pledges"
 }
 
 -- This translations have to match pledge quest name in ingame journal

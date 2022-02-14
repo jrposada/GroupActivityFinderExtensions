@@ -21,10 +21,10 @@ GAFE.Localization = {
     Settings_HandleQuest = "Accepter automatiquement la quête d'engagement",
     Settings_CompatibilityTitle = "Compatibility",
     Settings_PerfectPixelAddon = "PerfectPixel",
-	Settings_ResetPremiumRewards = "Reset premium reward timers", -- translate
-	Settings_Dungeon = "Dungeon", -- translate
+	Settings_ResetPremiumRewards = "Réinitialiser les minuteurs de récompense premium",
+	Settings_Dungeon = "Donjon",
 	Settings_Battleground = "Battleground", -- translate
-	Settings_ResetReward = "This will reset the 20 ours timer", -- translate
+	Settings_ResetReward = "Cela réinitialisera la minuterie de 20 heures",
     CheckActivePledges = "Sélect serment activ",
     CheckMissingQuests = "Sélect quêtes incompl",
     AutoConfirm = "Auto confirmer",
@@ -51,8 +51,10 @@ GAFE.Localization = {
     CollapseMode_Normal = "Normal",
     CollapseMode_Veteran = "Vétéran",
 	NextReward = "Suivant dans",
-	InXDays = "<<1[Today/In $d day/In $d days]>>", -- translate
-	ActivitySchedule = "Schedule" -- translate
+	InXDays = "<<1[Aujourd'hui/En $d jour/Dans $d jours]>>",
+	ActivitySchedule = "Calendrier",
+	DailiesSchedule = "Quotidiennes",
+	PledgesSchedule = "Serments"
 }
 
 -- This translations have to match pledge quest name in ingame journal
