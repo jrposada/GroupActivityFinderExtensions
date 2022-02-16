@@ -21,6 +21,7 @@ local haveQuests = false
 local day
 local checkQuestsButton
 local checkPledgesButton
+local checkSetsButton
 local characterId
 
 local function UpdateLocals()
@@ -74,6 +75,11 @@ end
 local function CheckPledges(obj)
 	local activityType = finderActivityExtender:GetDungeonDifficulty()
 	return obj.pledge and obj.node.data:GetActivityType() == activityType
+end
+
+local function CheckSets(obj)
+	local activityType = finderActivityExtender:GetDungeonDifficulty()
+	return obj.set and obj.node.data:GetActivityType() == activityType
 end
 
 local function CheckQuests(obj)
@@ -186,13 +192,19 @@ local function RefreshControlsVisibility()
 
 		return true
 	end
+	local function IsAllSetsCollected()
+		-- TODO: implement.
+		return false
+	end
 
 	local autoMarkPledges = GAFE.SavedVars.dungeons.autoMarkPledges
 	local tabHidden = ZO_DungeonFinder_KeyboardListSection:IsHidden()
 	local allPledgesDone = IsAllPledgesDone()
+	local haveAllSets = IsAllSetsCollected()
 
 	checkQuestsButton:SetHidden(not haveQuests or tabHidden)
 	checkPledgesButton:SetHidden(autoMarkPledges or tabHidden or allPledgesDone)
+	checkSetsButton:SetHidden(haveAllSets or tabHidden)
 end
 
 local function RefreshControls()
@@ -251,8 +263,9 @@ function GAFE.DungeonFinder.Init()
 	if parent then
 		local perfectPixel = savedVars.compatibility.perfectPixel
 		local autoMarkPledges = savedVars.dungeons.autoMarkPledges
-		local w = parent:GetWidth()
-		local dims = {200,28}
+		local origin = -parent:GetWidth() / 3
+		local width = 120
+		local dims = {width,28}
 
 		FastTravelToAllianceCity(214, AllianceId.Aldmeri, parent)
 		FastTravelToAllianceCity(56, AllianceId.Daggerfall, parent)
@@ -262,17 +275,20 @@ function GAFE.DungeonFinder.Init()
 			parent = ZO_SearchingForGroup
 			checkPledgesButton = GAFE.UI.ZOButton("GAFE_PledgesCheck", parent, dims, {BOTTOM,parent,BOTTOM,0,-76}, GAFE.Loc("CheckActivePledges"), finderActivityExtender:CheckAllWhere(CheckPledges), havePledge, nil, autoMarkPledges)
 			checkQuestsButton = GAFE.UI.ZOButton("GAFE_QuestsCheck", parent, dims, {BOTTOM,parent,BOTTOM,0,-112}, GAFE.Loc("CheckMissingQuests"), finderActivityExtender:CheckAllWhere(CheckQuests), true)
+			checkSetsButton = GAFE.UI.ZOButton("GAFE_SetsCheck", parent, dims, {BOTTOM,parent,BOTTOM,0,-112}, GAFE.Loc("CheckMissingSets"), finderActivityExtender:CheckAllWhere(CheckQuests), true)
 
 			ZO_SearchingForGroupStatus:ClearAnchors()
 			ZO_SearchingForGroupStatus:SetAnchor(BOTTOM,parent,BOTTOM,0,-148)
 			ZO_SearchingForGroupStatus:SetDrawTier(2)
 		else
-			checkQuestsButton = GAFE.UI.ZOButton("GAFE_QuestsCheck", parent, dims, {BOTTOM,parent,BOTTOM,w/3,0}, GAFE.Loc("CheckMissingQuests"), finderActivityExtender:CheckAllWhere(CheckQuests), true)
-			checkPledgesButton = GAFE.UI.ZOButton("GAFE_PledgesCheck", parent, dims, {BOTTOM,parent,BOTTOM,-w/3,0}, GAFE.Loc("CheckActivePledges"), finderActivityExtender:CheckAllWhere(CheckPledges), havePledge, nil, autoMarkPledges)
+			checkQuestsButton = GAFE.UI.ZOButton("GAFE_QuestsCheck", parent, dims, {BOTTOM,parent,BOTTOM,origin + width ,0}, GAFE.Loc("CheckMissingQuests"), finderActivityExtender:CheckAllWhere(CheckQuests), true)
+			checkPledgesButton = GAFE.UI.ZOButton("GAFE_PledgesCheck", parent, dims, {BOTTOM,parent,BOTTOM,origin + width*2,0}, GAFE.Loc("CheckActivePledges"), finderActivityExtender:CheckAllWhere(CheckPledges), havePledge, nil, autoMarkPledges)
+			checkSetsButton = GAFE.UI.ZOButton("GAFE_SetsCheck", parent, dims, {BOTTOM,parent,BOTTOM,origin + width*3,0}, GAFE.Loc("CheckMissingSets"), finderActivityExtender:CheckAllWhere(CheckSets), true)
 
 			if ZO_DungeonFinder_KeyboardQueueButton then
 				ZO_DungeonFinder_KeyboardQueueButton:ClearAnchors()
-				ZO_DungeonFinder_KeyboardQueueButton:SetAnchor(BOTTOM,parent,BOTTOM,0,0)
+				ZO_DungeonFinder_KeyboardQueueButton:SetDimensions(dims[1], dims[2])
+				ZO_DungeonFinder_KeyboardQueueButton:SetAnchor(BOTTOM,parent,BOTTOM,origin,0)
 				ZO_DungeonFinder_KeyboardQueueButton:SetDrawTier(2)
 			end
 		end
@@ -295,6 +311,10 @@ function GAFE.DungeonFinder.Init()
 
 			-- Pledge
 			AddPledge(control, data)
+
+			-- Sets
+			local _, hasAllSets = finderActivityExtender:AddSet(DungeonActivityData[activityId].sets, control:GetName().."sets", control, "/esoui/art/crafting/smithing_tabicon_armorset_up.dds", 400, debug)
+			control.set = not hasAllSets
 
 			-- Quest (skill point)
 			finderActivityExtender:AddQuest(DungeonActivityData[activityId].q, control:GetName().."q", control, "/esoui/art/icons/achievements_indexicon_quests_up.dds", 420, debug)

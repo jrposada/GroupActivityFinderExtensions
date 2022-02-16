@@ -93,3 +93,14 @@ function GAFE.Debug.LogNodeIds()
         GAFE.LogLater(id.."-"..name)
     end
 end
+
+function GAFE.Debug.SetIds()
+    local function DebugLog(control, button, upInside)
+        local headerData = control.dataEntry.data.header
+        local setId = headerData:GetId()
+        local setCollectionData = ITEM_SET_COLLECTIONS_DATA_MANAGER:GetItemSetCollectionData(setId)
+        GAFE.LogLater(setCollectionData:GetRawName().." = "..setId)
+    end
+
+    ZO_PreHook("ZO_ItemSetsBook_Entry_Header_Keyboard_OnMouseUp", function(control, button, upInside) DebugLog(control) end)
+end

@@ -83,6 +83,24 @@ function FinderActivityExtender:AddQuest(questId, name, parent, texture, xOffset
     return GAFE.UI.Label(name, parent, {textureSize,textureSize}, {LEFT,parent,LEFT,xOffset,0}, "ZoFontGameLarge", nil, {0,1}, text)
 end
 
+function FinderActivityExtender:AddSet(setIds, name, parent, texture, xOffset, debug)
+    local textureSize = self:GetTextureSize()
+    local text
+    local hasAllSets = true
+    if setIds then
+        for _, setId in pairs(setIds) do
+            local setCollectionData = ITEM_SET_COLLECTIONS_DATA_MANAGER:GetItemSetCollectionData(setId)
+            local numUnlockedPieces, numPieces = setCollectionData:GetNumUnlockedPieces(), setCollectionData:GetNumPieces()
+            hasAllSets = hasAllSets and numUnlockedPieces == numPieces
+        end
+
+        text=hasAllSets and self:FormatTexture(texture) or ""
+    elseif debug and setIds == nil then
+        text="-"
+    end
+    return GAFE.UI.Label(name, parent, {textureSize,textureSize}, {LEFT,parent,LEFT,xOffset,0}, "ZoFontGameLarge", nil, {0,1}, text), hasAllSets
+end
+
 function FinderActivityExtender:AddLabel(text, name, parent, xOffset, width)
     local textureSize = self:GetTextureSize()
     if width == nil then width = textureSize end
