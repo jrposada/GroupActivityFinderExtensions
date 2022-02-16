@@ -265,7 +265,8 @@ function GAFE.DungeonFinder.Init()
 		local autoMarkPledges = savedVars.dungeons.autoMarkPledges
 		local origin = -parent:GetWidth() / 3
 		local width = 120
-		local dims = {width,28}
+		local height = 28
+		local dims = {width,height}
 
 		FastTravelToAllianceCity(214, AllianceId.Aldmeri, parent)
 		FastTravelToAllianceCity(56, AllianceId.Daggerfall, parent)
@@ -273,13 +274,15 @@ function GAFE.DungeonFinder.Init()
 
 		if perfectPixel then
 			parent = ZO_SearchingForGroup
-			checkPledgesButton = GAFE.UI.ZOButton("GAFE_PledgesCheck", parent, dims, {BOTTOM,parent,BOTTOM,0,-76}, GAFE.Loc("CheckActivePledges"), finderActivityExtender:CheckAllWhere(CheckPledges), havePledge, nil, autoMarkPledges)
-			checkQuestsButton = GAFE.UI.ZOButton("GAFE_QuestsCheck", parent, dims, {BOTTOM,parent,BOTTOM,0,-112}, GAFE.Loc("CheckMissingQuests"), finderActivityExtender:CheckAllWhere(CheckQuests), true)
-			checkSetsButton = GAFE.UI.ZOButton("GAFE_SetsCheck", parent, dims, {BOTTOM,parent,BOTTOM,0,-112}, GAFE.Loc("CheckMissingSets"), finderActivityExtender:CheckAllWhere(CheckQuests), true)
+			local w = parent:GetWidth()
+			checkPledgesButton = GAFE.UI.ZOButton("GAFE_PledgesCheck", parent, {w, height}, {BOTTOM,parent,BOTTOM,0,-76}, GAFE.Loc("CheckActivePledges"), finderActivityExtender:CheckAllWhere(CheckPledges), havePledge, nil, autoMarkPledges)
+			checkQuestsButton = GAFE.UI.ZOButton("GAFE_QuestsCheck", parent, {w/2, height}, {BOTTOM,parent,BOTTOM, -51,-112}, GAFE.Loc("CheckMissingQuests"), finderActivityExtender:CheckAllWhere(CheckQuests), true)
+			checkSetsButton = GAFE.UI.ZOButton("GAFE_SetsCheck", parent, {w/2, height}, {BOTTOM,parent,BOTTOM,51,-112}, GAFE.Loc("CheckMissingSets"), finderActivityExtender:CheckAllWhere(CheckQuests), true)
 
-			ZO_SearchingForGroupStatus:ClearAnchors()
-			ZO_SearchingForGroupStatus:SetAnchor(BOTTOM,parent,BOTTOM,0,-148)
-			ZO_SearchingForGroupStatus:SetDrawTier(2)
+			-- This seems to do nothing now...
+			-- ZO_SearchingForGroupStatus:ClearAnchors()
+			-- ZO_SearchingForGroupStatus:SetAnchor(BOTTOM,parent,BOTTOM,0,-184)
+			-- ZO_SearchingForGroupStatus:SetDrawTier(2)
 		else
 			checkQuestsButton = GAFE.UI.ZOButton("GAFE_QuestsCheck", parent, dims, {BOTTOM,parent,BOTTOM,origin + width ,0}, GAFE.Loc("CheckMissingQuests"), finderActivityExtender:CheckAllWhere(CheckQuests), true)
 			checkPledgesButton = GAFE.UI.ZOButton("GAFE_PledgesCheck", parent, dims, {BOTTOM,parent,BOTTOM,origin + width*2,0}, GAFE.Loc("CheckActivePledges"), finderActivityExtender:CheckAllWhere(CheckPledges), havePledge, nil, autoMarkPledges)
