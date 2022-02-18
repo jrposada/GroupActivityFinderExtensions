@@ -13,14 +13,9 @@ local function OnAddOnLoaded(eventCode, addonName)
         GAFE.LogLater("Could not migrate Group & Activity Finder Extensions settings. Reset to default.")
     end
 
-    -- local localCallbackManager = ZO_CallbackObject:Subclass()
-    -- GAFE.CallbackManager = localCallbackManager
-
     -- Load saved variables
     GAFE.SavedVars = ZO_SavedVars:NewAccountWide(GAFE.name.."_Vars", GAFE.varsVersion, nil, GAFE.DefaultVars, GetWorldName())
     GAFE.CanDebug = GetDisplayName() == "@Panicida"
-
-    -- GAFE.CallbackManager:FireCallbacks("GafeSavedVarsInitialied")
 
     -- Initialize stuff
     GAFE.QueueManager.Init()

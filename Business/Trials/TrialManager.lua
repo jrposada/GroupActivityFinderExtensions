@@ -14,7 +14,7 @@ local categoryData =
         mouseoverIcon = "/esoui/art/lfg/lfg_indexicon_trial_over.dds",
     },
 
-    gamepadData = -- TODO: Understand
+    gamepadData =
     {
         priority = priority,
         name =GAFE.Loc("TrialsCategoryHeader"),

@@ -13,7 +13,7 @@ function GAFE.Map.Init()
         local knownNode, name = GetFastTravelNodeInfo(nodeIndex)
 
         local function TeleportToHome()
-            -- TODO: figure out how to know if there is going to be a cost.
+            -- FIXME: figure out how to know if there is going to be a cost.
             local cost = GetRecallCost(nodeIndex)
             if knownNode then
                 if cost == 0 then
