@@ -193,8 +193,20 @@ local function RefreshControlsVisibility()
 		return true
 	end
 	local function IsAllSetsCollected()
-		-- TODO: implement.
-		return false
+		local hasAllSets = true
+		for _, activityData in pairs(DungeonActivityData) do
+			for _, setId in pairs(activityData.sets) do
+				local setCollectionData = ITEM_SET_COLLECTIONS_DATA_MANAGER:GetItemSetCollectionData(setId)
+				local numUnlockedPieces, numPieces = setCollectionData:GetNumUnlockedPieces(), setCollectionData:GetNumPieces()
+				if numUnlockedPieces ~= numPieces then
+					hasAllSets = false
+					break
+				end
+			end
+
+			if not hasAllSets then break end
+		end
+		return hasAllSets
 	end
 
 	local autoMarkPledges = GAFE.SavedVars.dungeons.autoMarkPledges
