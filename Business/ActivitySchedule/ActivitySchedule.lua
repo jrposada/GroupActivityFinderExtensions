@@ -12,8 +12,8 @@ function GAFE.ActivitySchedule.Init()
         priority = priority,
         name = GAFE.Loc("ActivitySchedule"),
         categoryFragment = fragment,
-        normalIcon = "esoui/art/journal/journal_tabicon_achievements_up.dds",
-        pressedIcon = "esoui/art/journal/journal_tabicon_achievements_down.dds",
-        mouseoverIcon = "esoui/art/journal/journal_tabicon_achievements_over.dds",
+        normalIcon = "esoui/art/journal/journal_tabicon_cadwell_up.dds",
+        pressedIcon = "esoui/art/journal/journal_tabicon_cadwell_down.dds",
+        mouseoverIcon = "esoui/art/journal/journal_tabicon_cadwell_over.dds",
       })
 end
