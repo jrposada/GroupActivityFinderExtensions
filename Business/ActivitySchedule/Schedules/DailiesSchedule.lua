@@ -37,6 +37,10 @@ function GAFE_DailiesSchedule:InitializeFragment()
         dungeon:SetText(data.dungeon)
         battleground:SetText(data.battleground)
 
+        label:SetColor(GetInterfaceColor(INTERFACE_COLOR_TYPE_TEXT_COLORS, INTERFACE_TEXT_COLOR_SELECTED))
+        dungeon:SetColor(GetInterfaceColor(INTERFACE_COLOR_TYPE_TEXT_COLORS, INTERFACE_TEXT_COLOR_SELECTED))
+        battleground:SetColor(GetInterfaceColor(INTERFACE_COLOR_TYPE_TEXT_COLORS, INTERFACE_TEXT_COLOR_SELECTED))
+
         local height = 30
         local labelWidth = 400
         local pledgeWidth = 100

@@ -211,6 +211,9 @@
         "KEYBIND_STRIP",
         "KEYBIND_STRIP_ALIGN_CENTER",
         "ZO_WorldMapInfo",
-        "ITEM_SET_COLLECTIONS_DATA_MANAGER"
+        "ITEM_SET_COLLECTIONS_DATA_MANAGER",
+        "INTERFACE_COLOR_TYPE_TEXT_COLORS",
+        "GetInterfaceColor",
+        "INTERFACE_TEXT_COLOR_SELECTED"
     ]
 }

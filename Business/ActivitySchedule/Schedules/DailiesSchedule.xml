@@ -2,11 +2,11 @@
     <Controls >
         <Control name="GAFE_DailiesScheduleRow" virtual="true">
             <Controls>
-                <Label name="$(parent)Label" font="ZoFontWinH4" horizontalAlignment="LEFT" verticalAlignment="CENTER">
+                <Label name="$(parent)Label" font="ZoFontWinH4" color="INTERFACE_COLOR_TYPE_TEXT_COLORS:INTERFACE_TEXT_COLOR_NORMAL" horizontalAlignment="LEFT" verticalAlignment="CENTER">
                 </Label>
-                <Label name="$(parent)Dungeon" font="ZoFontWinH4" horizontalAlignment="CENTER" verticalAlignment="CENTER">
+                <Label name="$(parent)Dungeon" font="ZoFontWinH4" color="INTERFACE_COLOR_TYPE_TEXT_COLORS:INTERFACE_TEXT_COLOR_NORMAL" horizontalAlignment="CENTER" verticalAlignment="CENTER">
                 </Label>
-                <Label name="$(parent)Battleground" font="ZoFontWinH4" horizontalAlignment="CENTER" verticalAlignment="CENTER">
+                <Label name="$(parent)Battleground" font="ZoFontWinH4" color="INTERFACE_COLOR_TYPE_TEXT_COLORS:INTERFACE_TEXT_COLOR_NORMAL" horizontalAlignment="CENTER" verticalAlignment="CENTER">
                 </Label>
             </Controls>
         </Control>
