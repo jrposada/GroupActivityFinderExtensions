@@ -108,10 +108,10 @@ local function quests(verbose)
     if result ~= ACTIVITY_QUEUE_RESULT_SUCCESS then
         ZO_AlertEvent(EVENT_ACTIVITY_QUEUE_RESULT, result)
     else
-        GAFE.LogLater(GAFE.Loc("QueuedList")..ZO_GenerateCommaSeparatedList(queuedLocations))
+        GAFE.LogLater(GAFE.Loc("Debug_QueuedList")..ZO_GenerateCommaSeparatedList(queuedLocations))
 
         if verbose == "verbose" then
-            GAFE.LogLater(GAFE.Loc("NotQueuedList")..ZO_GenerateCommaSeparatedList(lockedLocations))
+            GAFE.LogLater(GAFE.Loc("Debug_NotQueuedList")..ZO_GenerateCommaSeparatedList(lockedLocations))
         end
     end
 end

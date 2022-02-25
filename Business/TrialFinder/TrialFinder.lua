@@ -236,7 +236,7 @@ function GAFE.TrialFinder.Init()
 			-- Survivor challenge (no death)
 			finderActivityExtender:AddAchievement(TrialActivityData[activityId].nd, control:GetName().."nd", control, "/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds", 500, debug)
 		else
-			GAFE.UI.Label(control:GetName().."TODO", control, {125,20}, {LEFT,control,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, "TODO:"..activityId)
+			GAFE.UI.Label(control:GetName().."TODO", control, {125,20}, {LEFT,control,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, "TODO "..activityId)
 		end
 
 		control:SetHandler("OnMouseUp", function() RefreshControls() end, GAFE.name)

@@ -115,7 +115,7 @@ function GAFE.SettingsMenu.Init()
             controls = {
                 {
                     type = "button",
-                    name = GAFE.Loc("Settings_Dungeon"),
+                    name = GetString(SI_DUNGEON_FINDER_GENERAL_ACTIVITY_DESCRIPTOR),
                     func = function() GAFE.SavedVars.dungeons.randomRewards[characterId] = GetTimeStamp() end,
                     width = "half",
                     warning = GAFE.Loc("Settings_ResetReward"),
@@ -123,7 +123,7 @@ function GAFE.SettingsMenu.Init()
                 },
                 {
                     type = "button",
-                    name = GAFE.Loc("Settings_Battleground"),
+                    name = GetString(SI_BATTLEGROUND_FINDER_GENERAL_ACTIVITY_DESCRIPTOR),
                     func = function() GAFE.SavedVars.battlegrounds.randomRewards[characterId] = GetTimeStamp() end,
                     width = "half",
                     warning = GAFE.Loc("Settings_ResetReward"),
