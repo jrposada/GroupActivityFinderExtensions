@@ -9,12 +9,17 @@ function GAFE.RandomDungeon.Init()
     extender:Init()
 
     local function OnActivityFinderStatusUpdate(_, status)
-        local characterId = GetCurrentCharacterId()
-        local isRewardAvailable = RandomActivityExtender_GetTimeUntilNextReward(characterId, extender.rewardsVars) <= 0
+        -- Check 1 second later so IsActivityEligibleForDailyReward is ready.
+        zo_callLater(function()
+            local characterId = GetCurrentCharacterId()
+            local isRewardAvailable = RandomActivityExtender_GetTimeUntilNextReward(characterId, extender.rewardsVars) <= 0
+            -- There are several dungeon activities but so far they all share the reward.
+            local isRewardAvailableByZos = IsActivityEligibleForDailyReward(LFG_ACTIVITY_DUNGEON)
 
-        if status == ACTIVITY_FINDER_STATUS_COMPLETE and isRewardAvailable then
-            extender.rewardsVars.randomRewards[characterId] = GetTimeStamp()
-        end
+            if status == ACTIVITY_FINDER_STATUS_COMPLETE and isRewardAvailable and not isRewardAvailableByZos then
+                extender.rewardsVars.randomRewards[characterId] = GetTimeStamp()
+            end
+        end, 1000)
     end
 
     EM:RegisterForEvent(extender.name.."Activity_Update", EVENT_ACTIVITY_FINDER_STATUS_UPDATE, OnActivityFinderStatusUpdate)
