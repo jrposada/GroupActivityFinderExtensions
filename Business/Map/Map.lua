@@ -5,8 +5,6 @@ GAFE.Map = {}
 local myButtonGroup
 
 function GAFE.Map.Init()
-    -- GAFE.Debug.LogControlShown()
-    -- GAFE.Debug.LogNodeIds()
     local function OnShown()
         -- TODO: add to settings
         local nodeIndex = 382

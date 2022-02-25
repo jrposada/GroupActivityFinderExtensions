@@ -23,7 +23,7 @@ GAFE.Localization = {
     Settings_PerfectPixelAddon = "PerfectPixel",
 	Settings_ResetPremiumRewards = "Сбросить таймеры премиальных наград",
 	Settings_Dungeon = "Подземелье",
-	Settings_Battleground = "Battleground", -- translate
+	Settings_Battleground = "Battleground", -- TODO: translate
 	Settings_ResetReward = "Это сбросит 20-часовой таймер.",
     CheckActivePledges = "активные дейлики",
     CheckMissingQuests = "квесты",
@@ -54,8 +54,8 @@ GAFE.Localization = {
 	NextReward = "Далее через",
 	InXDays = "<<1[Сегодня/Через $d день/через $d дня]>>",
 	ActivitySchedule = "Календарь",
-	DailiesSchedule = "Dailies", -- translate
-	PledgesSchedule = "Pledges" -- translate
+	DailiesSchedule = "Dailies", -- TODO: translate
+	PledgesSchedule = "Pledges" -- TODO: translate
 }
 
 -- This translations have to match pledge quest name in ingame journal

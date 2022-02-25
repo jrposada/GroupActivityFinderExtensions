@@ -31,7 +31,7 @@
               <AnchorFill />
 
               <Controls >
-                <Label name="$(parent)Header" font="ZoFontWinH4" horizontalAlignment="CENTER" verticalAlignment="CENTER" text="Today pledges" color="INTERFACE_COLOR_TYPE_TEXT_COLORS:INTERFACE_TEXT_COLOR_SELECTED" modifyTextType="UPPERCASE" > <!-- translate -->
+                <Label name="$(parent)Header" font="ZoFontWinH4" horizontalAlignment="CENTER" verticalAlignment="CENTER" text="Today pledges" color="INTERFACE_COLOR_TYPE_TEXT_COLORS:INTERFACE_TEXT_COLOR_SELECTED" modifyTextType="UPPERCASE" > <!-- TODO: translate -->
                   <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" />
                   <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" />
                   <Dimensions y="24"/>
@@ -47,7 +47,7 @@
               <AnchorFill />
 
               <Controls >
-                <Label name="$(parent)Header" font="ZoFontWinH4" horizontalAlignment="CENTER" verticalAlignment="CENTER" text="Upcoming pledges" color="INTERFACE_COLOR_TYPE_TEXT_COLORS:INTERFACE_TEXT_COLOR_SELECTED" modifyTextType="UPPERCASE" > <!-- translate -->
+                <Label name="$(parent)Header" font="ZoFontWinH4" horizontalAlignment="CENTER" verticalAlignment="CENTER" text="Upcoming pledges" color="INTERFACE_COLOR_TYPE_TEXT_COLORS:INTERFACE_TEXT_COLOR_SELECTED" modifyTextType="UPPERCASE" > <!-- TODO: translate -->
                   <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" />
                   <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" />
                   <Dimensions y="24"/>
@@ -95,33 +95,3 @@
     </TopLevelControl>
   </Controls>    
 </GuiXml>
-
-          <!-- <Controls> -->
-                <!-- <Texture name="$(parent)Background" color="666666" override="true">
-                    <Dimensions y="512" />
-                    <AnchorFill />
-                    <TextureCoords left="0" right="ZO_KEYBOARD_ZONE_STORIES_BACKGROUND_TEXTURE_COORD_RIGHT" top="0" bottom="1"/>
-                    <Controls>
-                        <Backdrop name="$(parent)Border" inherits="ZO_DarkThinFrame" />
-                    </Controls>
-                </Texture> -->
-
-              <!-- <Label name="$(parent)Title" override="true" font="ZoFontWinH2">
-                  <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
-              </Label>
-
-              <Label name="$(parent)Description" override="true" font="ZoFontWinH4">
-                  <Anchor point="TOPLEFT" relativeTo="$(parent)Title" relativePoint="BOTTOMLEFT" />
-                  <Anchor point="RIGHT" constrains="X" offsetX="-10"/>
-              </Label>
-
-              <Control name="$(parent)GridList" override="true" inherits="ZO_GridScrollList_Keyboard">
-                  <Anchor point="TOPLEFT" relativeTo="$(parent)Description" relativePoint="BOTTOMLEFT" offsetY="10" />
-                  <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" />
-              </Control>
-          </Controls> -->
-
-<!-- <Control name="ZO_GroupMenuKeyboard_ContentAnchors" virtual="true">
-            <Anchor point="TOPRIGHT" relativeTo="ZO_GroupMenu_KeyboardHeader" relativePoint="BOTTOMRIGHT" offsetX="-10" />
-            <Anchor point="BOTTOMLEFT" relativeTo="ZO_GroupMenu_KeyboardCategories" relativePoint="BOTTOMRIGHT" offsetX="10" />
-        </Control> -->

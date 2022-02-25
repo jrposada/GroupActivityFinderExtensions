@@ -348,7 +348,7 @@ function GAFE.DungeonFinder.Init()
 			-- Survivor challenge (no death)
 			finderActivityExtender:AddAchievement(DungeonActivityData[activityId].nd, control:GetName().."nd", control, "/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds", 500, debug)
 		elseif debug then
-			GAFE.UI.Label(control:GetName().."TODO", control, {125,20}, {LEFT,control,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, "TODO:"..activityId)
+			GAFE.UI.Label(control:GetName().."TODO", control, {125,20}, {LEFT,control,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, "TODO "..activityId)
 		end
 	end
 
