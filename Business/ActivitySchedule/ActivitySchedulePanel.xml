@@ -31,11 +31,11 @@
               <AnchorFill />
 
               <Controls >
-                <Label name="$(parent)Header" font="ZoFontWinH4" horizontalAlignment="CENTER" verticalAlignment="CENTER" text="Today pledges" color="INTERFACE_COLOR_TYPE_TEXT_COLORS:INTERFACE_TEXT_COLOR_SELECTED" modifyTextType="UPPERCASE" > <!-- TODO: translate -->
+                <Control name="$(parent)Header" inherits="GAFE_PledgesScheduleRow">
                   <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" />
                   <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" />
                   <Dimensions y="24"/>
-                </Label>
+                </Control>
                 <Control name="$(parent)ListContainer">
                   <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetY="30"/>
                   <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" />
@@ -47,11 +47,11 @@
               <AnchorFill />
 
               <Controls >
-                <Label name="$(parent)Header" font="ZoFontWinH4" horizontalAlignment="CENTER" verticalAlignment="CENTER" text="Upcoming pledges" color="INTERFACE_COLOR_TYPE_TEXT_COLORS:INTERFACE_TEXT_COLOR_SELECTED" modifyTextType="UPPERCASE" > <!-- TODO: translate -->
+                <Control name="$(parent)Header" inherits="GAFE_PledgesScheduleRow">
                   <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" />
                   <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" />
                   <Dimensions y="24"/>
-                </Label>
+                </Control>
                 <Control name="$(parent)ListContainer">
                   <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetY="30"/>
                   <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" />

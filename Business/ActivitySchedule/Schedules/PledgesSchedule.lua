@@ -29,9 +29,11 @@ function GAFE_PledgesSchedule:Initialize(control)
     self.filter = self.control:GetNamedChild("Filter")
 
     self.today = self.control:GetNamedChild("Today")
+    self.todayHeader = self.today:GetNamedChild("Header")
     self.todayListContainer = self.today:GetNamedChild("ListContainer")
-
+    
     self.upcoming = self.control:GetNamedChild("Upcoming")
+    self.upcomingHeader = self.upcoming:GetNamedChild("Header")
     self.upcomingListContainer = self.upcoming:GetNamedChild("ListContainer")
 
     self:InitializeControls()
@@ -65,6 +67,38 @@ function GAFE_PledgesSchedule:InitializeFilter()
 end
 
 function GAFE_PledgesSchedule:InitializeTodayFragment()
+    local function SetupHeaderRow(rowControl, data)
+        -- Do whatever you want/need to setup the control
+        local control = rowControl
+        local label = control:GetNamedChild("Label")
+        local maj = control:GetNamedChild("Maj")
+        local glirion = control:GetNamedChild("Glirion")
+        local urgarlag = control:GetNamedChild("Urgarlag")
+
+        label:SetText(data.character)
+        maj:SetText(data.maj)
+        glirion:SetText(data.glirion)
+        urgarlag:SetText(data.urgarlag)
+
+        label:SetColor(GetInterfaceColor(INTERFACE_COLOR_TYPE_TEXT_COLORS, INTERFACE_TEXT_COLOR_SELECTED))
+        maj:SetColor(GetInterfaceColor(INTERFACE_COLOR_TYPE_TEXT_COLORS, INTERFACE_TEXT_COLOR_SELECTED))
+        glirion:SetColor(GetInterfaceColor(INTERFACE_COLOR_TYPE_TEXT_COLORS, INTERFACE_TEXT_COLOR_SELECTED))
+        urgarlag:SetColor(GetInterfaceColor(INTERFACE_COLOR_TYPE_TEXT_COLORS, INTERFACE_TEXT_COLOR_SELECTED))
+
+        local height = 30
+        local labelWidth = 80
+        local pledgeWidth = 165
+
+        label:SetDimensions(labelWidth, height)
+        label:SetAnchor(TOPLEFT, control, TOPLEFT, 0, 0)
+        maj:SetDimensions(pledgeWidth, height)
+        maj:SetAnchor(TOPLEFT, control, TOPLEFT, labelWidth, 0)
+        glirion:SetDimensions(pledgeWidth, height)
+        glirion:SetAnchor(TOPLEFT, control, TOPLEFT, labelWidth + pledgeWidth, 0)
+        urgarlag:SetDimensions(pledgeWidth, height)
+        urgarlag:SetAnchor(TOPLEFT, control, TOPLEFT, labelWidth + pledgeWidth * 2, 0)
+    end
+
     local function SetupDataRow(rowControl, data, scrollList)
         -- Do whatever you want/need to setup the control
         local control = rowControl
@@ -92,6 +126,20 @@ function GAFE_PledgesSchedule:InitializeTodayFragment()
         urgarlag:SetAnchor(TOPLEFT, control, TOPLEFT, labelWidth + pledgeWidth * 2, 0)
     end
 
+    local today = math.floor(GetDiffBetweenTimeStamps(GetTimeStamp(), 1517464800) / 86400) -- 86400 = 1 day
+    local pledges = GetPledgesOfDay(today)
+
+    -- Setup header
+    SetupHeaderRow(
+        self.todayHeader,
+        {
+            name='',
+            maj=PledgeQuestName[pledges[1]],
+            glirion=PledgeQuestName[pledges[2]],
+            urgarlag=PledgeQuestName[pledges[3]],
+        }
+    )
+
     local parent = self.todayListContainer
 
     -- Create the scroll list
@@ -108,10 +156,7 @@ function GAFE_PledgesSchedule:InitializeTodayFragment()
     scrollList:SetAnchor(BOTTOMRIGHT, parent, BOTTOMRIGHT, 0, 0)
 
     -- Add data to scroll list.
-    local today = math.floor(GetDiffBetweenTimeStamps(GetTimeStamp(), 1517464800) / 86400) -- 86400 = 1 day
-
     local dataItems = {}
-    local pledges = GetPledgesOfDay(today)
     local numCharacters = GetNumCharacters()
     for i = 1, numCharacters do
         local characterName, _, _, _, _, _, characterId, _ = GetCharacterInfo(i)
@@ -131,6 +176,38 @@ function GAFE_PledgesSchedule:InitializeTodayFragment()
 end
 
 function GAFE_PledgesSchedule:InitializeUpcomingFragment()
+    local function SetupHeaderRow(rowControl, data, scrollList)
+        -- Do whatever you want/need to setup the control
+        local control = rowControl
+        local label = control:GetNamedChild("Label")
+        local maj = control:GetNamedChild("Maj")
+        local glirion = control:GetNamedChild("Glirion")
+        local urgarlag = control:GetNamedChild("Urgarlag")
+
+        label:SetText(data.character)
+        maj:SetText(data.maj)
+        glirion:SetText(data.glirion)
+        urgarlag:SetText(data.urgarlag)
+
+        label:SetColor(GetInterfaceColor(INTERFACE_COLOR_TYPE_TEXT_COLORS, INTERFACE_TEXT_COLOR_SELECTED))
+        maj:SetColor(GetInterfaceColor(INTERFACE_COLOR_TYPE_TEXT_COLORS, INTERFACE_TEXT_COLOR_SELECTED))
+        glirion:SetColor(GetInterfaceColor(INTERFACE_COLOR_TYPE_TEXT_COLORS, INTERFACE_TEXT_COLOR_SELECTED))
+        urgarlag:SetColor(GetInterfaceColor(INTERFACE_COLOR_TYPE_TEXT_COLORS, INTERFACE_TEXT_COLOR_SELECTED))
+
+        local height = 30
+        local labelWidth = 80
+        local pledgeWidth = 165
+
+        label:SetDimensions(labelWidth, height)
+        label:SetAnchor(TOPLEFT, control, TOPLEFT, 0, 0)
+        maj:SetDimensions(pledgeWidth, height)
+        maj:SetAnchor(TOPLEFT, control, TOPLEFT, labelWidth, 0)
+        glirion:SetDimensions(pledgeWidth, height)
+        glirion:SetAnchor(TOPLEFT, control, TOPLEFT, labelWidth + pledgeWidth, 0)
+        urgarlag:SetDimensions(pledgeWidth, height)
+        urgarlag:SetAnchor(TOPLEFT, control, TOPLEFT, labelWidth + pledgeWidth * 2, 0)
+    end
+
     local function SetupDataRow(rowControl, data, scrollList)
         -- Do whatever you want/need to setup the control
         local control = rowControl
@@ -157,6 +234,17 @@ function GAFE_PledgesSchedule:InitializeUpcomingFragment()
         urgarlag:SetDimensions(pledgeWidth, height)
         urgarlag:SetAnchor(TOPLEFT, control, TOPLEFT, labelWidth + pledgeWidth * 2, 0)
     end
+
+    -- Setup header
+    SetupHeaderRow(
+        self.upcomingHeader,
+        {
+            character='',
+            maj="Maj",
+            glirion="Glirion",
+            urgarlag="Urgarlag",
+        }
+    )
 
     local parent = self.upcomingListContainer
 
