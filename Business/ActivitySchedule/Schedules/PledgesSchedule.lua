@@ -31,12 +31,16 @@ function GAFE_PledgesSchedule:Initialize(control)
     self.today = self.control:GetNamedChild("Today")
     self.todayHeader = self.today:GetNamedChild("Header")
     self.todayListContainer = self.today:GetNamedChild("ListContainer")
-    
+
     self.upcoming = self.control:GetNamedChild("Upcoming")
     self.upcomingHeader = self.upcoming:GetNamedChild("Header")
     self.upcomingListContainer = self.upcoming:GetNamedChild("ListContainer")
 
+    local today = math.floor(GetDiffBetweenTimeStamps(GetTimeStamp(), 1517464800) / 86400) -- 86400 = 1 day
+    self.todayPledges = GetPledgesOfDay(today)
+
     self:InitializeControls()
+    self:InitializeEvents()
 end
 
 function GAFE_PledgesSchedule:InitializeControls()
@@ -126,17 +130,14 @@ function GAFE_PledgesSchedule:InitializeTodayFragment()
         urgarlag:SetAnchor(TOPLEFT, control, TOPLEFT, labelWidth + pledgeWidth * 2, 0)
     end
 
-    local today = math.floor(GetDiffBetweenTimeStamps(GetTimeStamp(), 1517464800) / 86400) -- 86400 = 1 day
-    local pledges = GetPledgesOfDay(today)
-
     -- Setup header
     SetupHeaderRow(
         self.todayHeader,
         {
             name='',
-            maj=PledgeQuestName[pledges[1]],
-            glirion=PledgeQuestName[pledges[2]],
-            urgarlag=PledgeQuestName[pledges[3]],
+            maj=PledgeQuestName[self.todayPledges[1]],
+            glirion=PledgeQuestName[self.todayPledges[2]],
+            urgarlag=PledgeQuestName[self.todayPledges[3]],
         }
     )
 
@@ -155,24 +156,8 @@ function GAFE_PledgesSchedule:InitializeTodayFragment()
     scrollList:SetAnchor(TOPLEFT, parent, TOPLEFT, 0, 0)
     scrollList:SetAnchor(BOTTOMRIGHT, parent, BOTTOMRIGHT, 0, 0)
 
-    -- Add data to scroll list.
-    local dataItems = {}
-    local numCharacters = GetNumCharacters()
-    for i = 1, numCharacters do
-        local characterName, _, _, _, _, _, characterId, _ = GetCharacterInfo(i)
-
-        local donePledges = GAFE.SavedVars.dungeons.donePledges[characterId] or {};
-        local data = {
-            character=zo_strformat("<<1>>", characterName),
-            maj=GAFE.ContainsKey(donePledges, pledges[1]) and 'Done' or "|cFFD700Available|r",
-            glirion=GAFE.ContainsKey(donePledges, pledges[2]) and 'Done' or "|cFFD700Available|r",
-            urgarlag=GAFE.ContainsKey(donePledges, pledges[3]) and 'Done' or "|cFFD700Available|r"
-        }
-        dataItems[i] = data
-    end
-    scrollList:Update(dataItems)
-
     self.todayScrollList = scrollList
+    self:RefreshTodayPledges()
 end
 
 function GAFE_PledgesSchedule:InitializeUpcomingFragment()
@@ -283,6 +268,33 @@ end
 function GAFE_PledgesSchedule:OnFilterChanged(comboBox, entryText, entry)
     self.today:SetHidden(entry.data ~= 'today')
     self.upcoming:SetHidden(entry.data ~= 'upcoming')
+end
+
+function GAFE_PledgesSchedule:InitializeEvents()
+    local function OnShown()
+        self:RefreshTodayPledges()
+    end
+
+    ZO_PreHookHandler(self.today, 'OnEffectivelyShown', OnShown)
+end
+
+function GAFE_PledgesSchedule:RefreshTodayPledges()
+    -- Add data to scroll list.
+    local dataItems = {}
+    local numCharacters = GetNumCharacters()
+    for i = 1, numCharacters do
+        local characterName, _, _, _, _, _, characterId, _ = GetCharacterInfo(i)
+
+        local donePledges = GAFE.SavedVars.dungeons.donePledges[characterId] or {};
+        local data = {
+            character=zo_strformat("<<1>>", characterName),
+            maj=GAFE.ContainsKey(donePledges, self.todayPledges[1]) and 'Done' or "|cFFD700Available|r",
+            glirion=GAFE.ContainsKey(donePledges, self.todayPledges[2]) and 'Done' or "|cFFD700Available|r",
+            urgarlag=GAFE.ContainsKey(donePledges, self.todayPledges[3]) and 'Done' or "|cFFD700Available|r"
+        }
+        dataItems[i] = data
+    end
+    self.todayScrollList:Update(dataItems)
 end
 
 function GAFE_PledgesSchedule_Init(control)
