@@ -1,4 +1,5 @@
 local GAFE = GroupActivityFinderExtensions
+local EM = EVENT_MANAGER
 
 GAFE.Debug = {}
 
@@ -95,6 +96,8 @@ function GAFE.Debug.LogNodeIds()
 end
 
 function GAFE.Debug.SetIds()
+    GAFE.LogLater('Debuging Sets, right click in collection set to log id')
+
     local function DebugLog(control, button, upInside)
         local headerData = control.dataEntry.data.header
         local setId = headerData:GetId()
@@ -103,4 +106,14 @@ function GAFE.Debug.SetIds()
     end
 
     ZO_PreHook("ZO_ItemSetsBook_Entry_Header_Keyboard_OnMouseUp", function(control, button, upInside) DebugLog(control) end)
+end
+
+function GAFE.Debug.DebugQuests()
+    GAFE.LogLater('Debuging Quests')
+
+    local function LogQuest(_, isCompleted, _, questName, _, _, questId)
+        GAFE.LogLater(questName.." = "..questId)
+    end
+
+    EM:RegisterForEvent(GAFE.name.."_QuestRemoved_Debug", EVENT_QUEST_REMOVED, LogQuest)
 end

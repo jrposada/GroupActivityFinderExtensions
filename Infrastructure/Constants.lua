@@ -55,7 +55,9 @@ GAFE.Constants.PledgeId = {
 	BlackDrakeVilla		= 43,
 	Cauldron			= 44,
 	RedPetalBastion		= 45,
-	DreadCellar			= 46
+	DreadCellar			= 46,
+	CoralAerie          = 47,
+	ShipwrightsRegret   = 48
 }
 
 GAFE.Constants.ActivityId = {
@@ -141,6 +143,9 @@ GAFE.Constants.ActivityId = {
 	NormalCastleThorn			= 509,
 	VeteranCastleThorn			= 510,
 
+	NormalCoralAerie            = 599,
+	VeteranCoralAerie           = 600,
+
 	NormalCradleOfShadows		= 295,
 	VeteranCradleOfShadows		= 296,
 
@@ -182,6 +187,9 @@ GAFE.Constants.ActivityId = {
 
 	NormalScalecallerPeak		= 418,
 	VeteranScalecallerPeak		= 419,
+
+	NormalShipwrightsRegret     = 601,
+	VeteranShipwrightsRegret    = 602,
 
 	NormalStoneGarden			= 507,
 	VeteranStoneGarden			= 508,
@@ -397,4 +405,10 @@ GAFE.Constants.SetId = {
     BrandsofImperium = 184,
     EssenceThief = 198,
     SpellPowerCure = 185,
+	GlacialGuardian = 621,
+	GryphonsReprisal = 620,
+	MaligaligsMaelstrom = 619,
+	SpriggansVigor = 624,
+	StormCursedsRevenge = 623,
+	TurningTide = 622,
 }
