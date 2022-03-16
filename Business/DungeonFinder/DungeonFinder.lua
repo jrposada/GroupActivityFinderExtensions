@@ -321,6 +321,13 @@ function GAFE.DungeonFinder.Init()
 		local activityId=data.id
 		if DungeonActivityData[activityId] then
 
+			-- if (activityId == GAFE.Constants.ActivityId.VeteranShipwrightsRegret) then
+			-- 	GAFE.LogLater("VeteranShipwrightsRegret"..control.text:GetText())
+			-- end
+			-- if (activityId == GAFE.Constants.ActivityId.VeteranCoralAerie) then
+			-- 	GAFE.LogLater("VeteranCoralAerie"..control.text:GetText())
+			-- end
+
 			-- Teleport
 			finderActivityExtender:AddTeleport(DungeonActivityData[activityId].node, control)
 

@@ -7,14 +7,16 @@ local myButtonGroup
 function GAFE.Map.Init()
     local function OnShown()
         -- TODO: add to settings
-        local nodeIndex = 382
+        local nodeIndex = 284
         local knownNode, name = GetFastTravelNodeInfo(nodeIndex)
 
         local function TeleportToHome()
             -- FIXME: figure out how to know if there is going to be a cost.
+            local cooldown = GetRecallCooldown()
             local cost = GetRecallCost(nodeIndex)
+
             if knownNode then
-                if cost == 0 then
+                if cost == 0 and cooldown ~= nil then
                     ZO_Dialogs_ShowPlatformDialog("FAST_TRAVEL_CONFIRM", {nodeIndex = nodeIndex}, {mainTextParams = {name}})
                 else
                     ZO_Dialogs_ShowPlatformDialog("RECALL_CONFIRM", {nodeIndex = nodeIndex}, {mainTextParams = {name}})
