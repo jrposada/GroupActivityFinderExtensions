@@ -43,6 +43,8 @@ GAFE.DungeonPledgeList = {
 		PledgeId.Cauldron,
 		PledgeId.RedPetalBastion,
 		PledgeId.DreadCellar,
+		PledgeId.CoralAerie,
+		PledgeId.ShipwrightsRegret, -- Last
 		PledgeId.ImperialCityPrison,
 		PledgeId.RuinsOfMazzatun,
 		PledgeId.WhiteGoldTower,
@@ -56,6 +58,6 @@ GAFE.DungeonPledgeList = {
 		PledgeId.DepthsOfMalatar,
 		PledgeId.Frostvault,
 		PledgeId.MoongraveFane,
-		shift=16
+		shift=6
 	},
 }
