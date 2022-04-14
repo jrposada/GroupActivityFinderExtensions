@@ -33,7 +33,8 @@ GroupActivityFinderExtensions = {
         },
         compatibility = {
             perfectPixel = false
-        }
+        },
+        queueTimer = nil,
     }
 }
 
