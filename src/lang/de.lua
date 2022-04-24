@@ -1,5 +1,4 @@
 local GAFE = GroupActivityFinderExtensions
-local PledgeId = GAFE.Constants.PledgeId
 
 
 
@@ -57,57 +56,59 @@ GAFE.Localization = {
 }
 
 -- This translations have to match pledge quest name in ingame journal
-GAFE.DungeonPledgeQuestName = {
-	[PledgeId.FungalGrottoI] = "Pilzgrotte I",
-	[PledgeId.FungalGrottoII] = "Pilzgrotte II",
-	[PledgeId.SpindleclutchI] = "Spindeltiefen I",
-	[PledgeId.SpindleclutchII] = "Spindeltiefen II",
-	[PledgeId.BanishedCellsI] = "Verbannungszellen I",
-	[PledgeId.BanishedCellsII] = "Verbannungszellen II",
-	[PledgeId.DarkshadeCavernsI] = "Dunkelschattenkavernen I",
-	[PledgeId.DarkshadeCavernsII] = "Dunkelschattenkavernen II",
-	[PledgeId.EldenHollowI] = "Eldengrund I",
-	[PledgeId.EldenHollowII] = "Eldengrund II",
-	[PledgeId.WayrestSewersI] = "Kanalisation von Wegesruh I",
-	[PledgeId.WayrestSewersII] = "Kanalisation von Wegesruh II",
-	[PledgeId.ArxCorinium] = "Arx Corinium",
-	[PledgeId.CityOfAshI] = "Stadt der Asche I",
-	[PledgeId.CityOfAshII] = "Stadt der Asche II",
-	[PledgeId.CryptOfHeartsI] = "Krypta der Herzen I",
-	[PledgeId.CryptOfHeartsII] = "Krypta der Herzen II",
-	[PledgeId.DirefrostKeep] = "Burg Grauenfrost",
-	[PledgeId.TempestIsland] = "Orkaninsel",
-	[PledgeId.Volenfell] = "Volenfell",
-	[PledgeId.BlackheartHaven] = "Schwarzherz-Unterschlupf",
-	[PledgeId.BlessedCrucible] = "Gesegnete Feuerprobe",
-	[PledgeId.SelenesWeb] = "Selenes Netz",
-	[PledgeId.VaultsOfMadness] = "Kammern des Wahnsinns",
-	[PledgeId.BlackDrakeVilla] = "Schwarzdrachenvilla",
-	[PledgeId.BloodrootForge] = "Blutquellschmiede",
-	[PledgeId.CastleThorn] = "Kastell Dorn",
-	[PledgeId.CoralAerie] = "Korallenhorst", -- TODO: Review
-	[PledgeId.CradleOfShadows] = "Wiege der Schatten",
-	[PledgeId.DepthsOfMalatar] = "Tiefen von Malatar",
-	[PledgeId.FalkreathHold] = "Falkenring",
-	[PledgeId.FangLair] = "Krallenhort",
-	[PledgeId.Frostvault] = "Frostgewölbe",
-	[PledgeId.Icereach] = "Eiskap",
-	[PledgeId.ImperialCityPrison] = "Gefängnis der Kaiserstadt",
-	[PledgeId.LairOfMaarselok] = "Hort von Maarselok",
-	[PledgeId.MarchOfSacrifices] = "Marsch der Aufopferung",
-	[PledgeId.MoonHunterKeep] = "Mondjägerfeste",
-	[PledgeId.MoongraveFane] = "Mondgrab-Tempelstadt",
-	[PledgeId.RedPetalBastion] = "Die Rotblütenbastion",
-	[PledgeId.RuinsOfMazzatun] = "Ruinen von Mazzatun",
-	[PledgeId.ScalecallerPeak] = "Gipfel der Schuppenruferin",
-	[PledgeId.ShipwrightsRegret] = "Shrekenskeller", -- TODO: Review
-	[PledgeId.StoneGarden] = "Steingarten",
-	[PledgeId.Cauldron] = "Der Kessel",
-	[PledgeId.DreadCellar] = "Der Schreckenskeller",
-	[PledgeId.UnhallowedGrave] = "Unheiliges Grab",
-	[PledgeId.WhiteGoldTower] = "Weißgoldturm"
+GAFE_DUNGEON_PLEDGE_QUEST_NAME = {
+	[GAFE_PLEDGE_ID.FungalGrottoI] = "Pilzgrotte I",
+	[GAFE_PLEDGE_ID.FungalGrottoII] = "Pilzgrotte II",
+	[GAFE_PLEDGE_ID.SpindleclutchI] = "Spindeltiefen I",
+	[GAFE_PLEDGE_ID.SpindleclutchII] = "Spindeltiefen II",
+	[GAFE_PLEDGE_ID.BanishedCellsI] = "Verbannungszellen I",
+	[GAFE_PLEDGE_ID.BanishedCellsII] = "Verbannungszellen II",
+	[GAFE_PLEDGE_ID.DarkshadeCavernsI] = "Dunkelschattenkavernen I",
+	[GAFE_PLEDGE_ID.DarkshadeCavernsII] = "Dunkelschattenkavernen II",
+	[GAFE_PLEDGE_ID.EldenHollowI] = "Eldengrund I",
+	[GAFE_PLEDGE_ID.EldenHollowII] = "Eldengrund II",
+	[GAFE_PLEDGE_ID.WayrestSewersI] = "Kanalisation von Wegesruh I",
+	[GAFE_PLEDGE_ID.WayrestSewersII] = "Kanalisation von Wegesruh II",
+	[GAFE_PLEDGE_ID.ArxCorinium] = "Arx Corinium",
+	[GAFE_PLEDGE_ID.CityOfAshI] = "Stadt der Asche I",
+	[GAFE_PLEDGE_ID.CityOfAshII] = "Stadt der Asche II",
+	[GAFE_PLEDGE_ID.CryptOfHeartsI] = "Krypta der Herzen I",
+	[GAFE_PLEDGE_ID.CryptOfHeartsII] = "Krypta der Herzen II",
+	[GAFE_PLEDGE_ID.DirefrostKeep] = "Burg Grauenfrost",
+	[GAFE_PLEDGE_ID.TempestIsland] = "Orkaninsel",
+	[GAFE_PLEDGE_ID.Volenfell] = "Volenfell",
+	[GAFE_PLEDGE_ID.BlackheartHaven] = "Schwarzherz-Unterschlupf",
+	[GAFE_PLEDGE_ID.BlessedCrucible] = "Gesegnete Feuerprobe",
+	[GAFE_PLEDGE_ID.SelenesWeb] = "Selenes Netz",
+	[GAFE_PLEDGE_ID.VaultsOfMadness] = "Kammern des Wahnsinns",
+	[GAFE_PLEDGE_ID.BlackDrakeVilla] = "Schwarzdrachenvilla",
+	[GAFE_PLEDGE_ID.BloodrootForge] = "Blutquellschmiede",
+	[GAFE_PLEDGE_ID.CastleThorn] = "Kastell Dorn",
+	[GAFE_PLEDGE_ID.CoralAerie] = "Korallenhorst", -- TODO: Review
+	[GAFE_PLEDGE_ID.CradleOfShadows] = "Wiege der Schatten",
+	[GAFE_PLEDGE_ID.DepthsOfMalatar] = "Tiefen von Malatar",
+	[GAFE_PLEDGE_ID.FalkreathHold] = "Falkenring",
+	[GAFE_PLEDGE_ID.FangLair] = "Krallenhort",
+	[GAFE_PLEDGE_ID.Frostvault] = "Frostgewölbe",
+	[GAFE_PLEDGE_ID.Icereach] = "Eiskap",
+	[GAFE_PLEDGE_ID.ImperialCityPrison] = "Gefängnis der Kaiserstadt",
+	[GAFE_PLEDGE_ID.LairOfMaarselok] = "Hort von Maarselok",
+	[GAFE_PLEDGE_ID.MarchOfSacrifices] = "Marsch der Aufopferung",
+	[GAFE_PLEDGE_ID.MoonHunterKeep] = "Mondjägerfeste",
+	[GAFE_PLEDGE_ID.MoongraveFane] = "Mondgrab-Tempelstadt",
+	[GAFE_PLEDGE_ID.RedPetalBastion] = "Die Rotblütenbastion",
+	[GAFE_PLEDGE_ID.RuinsOfMazzatun] = "Ruinen von Mazzatun",
+	[GAFE_PLEDGE_ID.ScalecallerPeak] = "Gipfel der Schuppenruferin",
+	[GAFE_PLEDGE_ID.ShipwrightsRegret] = "Shrekenskeller", -- TODO: Review
+	[GAFE_PLEDGE_ID.StoneGarden] = "Steingarten",
+	[GAFE_PLEDGE_ID.Cauldron] = "Der Kessel",
+	[GAFE_PLEDGE_ID.DreadCellar] = "Der Schreckenskeller",
+	[GAFE_PLEDGE_ID.UnhallowedGrave] = "Unheiliges Grab",
+	[GAFE_PLEDGE_ID.WhiteGoldTower] = "Weißgoldturm"
 }
 
-GAFE.PledgeChatterOptions = {
-    "Was ist das heutige Gelöbnis?"
+GAFE_PLEDGE_NPC_NAME = {
+    ["Maj al-Ragath"] = true,
+    ["Glirion der Rotbart"] = true,
+    ["Urgarlag Häuptlingsfluch"] = true,
 }

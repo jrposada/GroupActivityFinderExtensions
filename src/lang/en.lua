@@ -1,5 +1,4 @@
 local GAFE = GroupActivityFinderExtensions
-local PledgeId = GAFE.Constants.PledgeId
 
 -- List header text in activity finder are set by zo with GetString("SI_LFGACTIVITY", activityType).
 -- This means we have the same prefix plus our custom activity type id.
@@ -56,58 +55,60 @@ GAFE.Localization = {
 	PledgesSchedule = "Pledges"
 }
 
--- This translations have to match pledge quest name in ingame journal
-GAFE.DungeonPledgeQuestName = {
-	[PledgeId.FungalGrottoI] = "Fungal Grotto I",
-	[PledgeId.FungalGrottoII] = "Fungal Grotto II",
-	[PledgeId.SpindleclutchI] = "Spindleclutch I",
-	[PledgeId.SpindleclutchII] = "Spindleclutch II",
-	[PledgeId.BanishedCellsI] = "Banished Cells I",
-	[PledgeId.BanishedCellsII] = "Banished Cells II",
-	[PledgeId.DarkshadeCavernsI] = "Darkshade Caverns I",
-	[PledgeId.DarkshadeCavernsII] = "Darkshade Caverns II",
-	[PledgeId.EldenHollowI] = "Elden Hollow I",
-	[PledgeId.EldenHollowII] = "Elden Hollow II",
-	[PledgeId.WayrestSewersI] = "Wayrest Sewers I",
-	[PledgeId.WayrestSewersII] = "Wayrest Sewers II",
-	[PledgeId.ArxCorinium] = "Arx Corinium",
-	[PledgeId.CityOfAshI] = "City of Ash I",
-	[PledgeId.CityOfAshII] = "City of Ash II",
-	[PledgeId.CryptOfHeartsI] = "Crypt of Hearts I",
-	[PledgeId.CryptOfHeartsII] = "Crypt of Hearts II",
-	[PledgeId.DirefrostKeep] = "Direfrost Keep",
-	[PledgeId.TempestIsland] = "Tempest Island",
-	[PledgeId.Volenfell] = "Volenfell",
-	[PledgeId.BlackheartHaven] = "Blackheart Haven",
-	[PledgeId.BlessedCrucible] = "Blessed Crucible",
-	[PledgeId.SelenesWeb] = "Selene's Web",
-	[PledgeId.VaultsOfMadness] = "Vaults of Madness",
-	[PledgeId.BlackDrakeVilla] = "Black Drake Villa",
-	[PledgeId.BloodrootForge] = "Bloodroot Forge",
-	[PledgeId.CastleThorn] = "Castle Thorn",
-	[PledgeId.CoralAerie] = "Coral Aerie", -- TODO: Review
-	[PledgeId.CradleOfShadows] = "Cradle of Shadows",
-	[PledgeId.DepthsOfMalatar] = "Depths of Malatar",
-	[PledgeId.FalkreathHold] = "Falkreath Hold",
-	[PledgeId.FangLair] = "Fang Lair",
-	[PledgeId.Frostvault] = "Frostvault",
-	[PledgeId.Icereach] = "Icereach",
-	[PledgeId.ImperialCityPrison] = "Imperial City Prison",
-	[PledgeId.LairOfMaarselok] = "Lair of Maarselok",
-	[PledgeId.MarchOfSacrifices] = "March of Sacrifices",
-	[PledgeId.MoonHunterKeep] = "Moon Hunter Keep",
-	[PledgeId.MoongraveFane] = "Moongrave Fane",
-	[PledgeId.RedPetalBastion] = "Red Petal Bastion",
-	[PledgeId.RuinsOfMazzatun] = "Ruins of Mazzatun",
-	[PledgeId.ScalecallerPeak] = "Scalecaller Peak",
-	[PledgeId.ShipwrightsRegret] = "Shipwright's Regret", -- TODO: Review
-	[PledgeId.StoneGarden] = "Stone Garden",
-	[PledgeId.Cauldron] = "The Cauldron",
-	[PledgeId.DreadCellar] = "The Dread Cellar",
-	[PledgeId.UnhallowedGrave] = "Unhallowed Grave",
-	[PledgeId.WhiteGoldTower] = "White-Gold Tower"
+--- This translations have to match pledge quest name in ingame journal
+GAFE_DUNGEON_PLEDGE_QUEST_NAME = {
+	[GAFE_PLEDGE_ID.FungalGrottoI] = "Fungal Grotto I",
+	[GAFE_PLEDGE_ID.FungalGrottoII] = "Fungal Grotto II",
+	[GAFE_PLEDGE_ID.SpindleclutchI] = "Spindleclutch I",
+	[GAFE_PLEDGE_ID.SpindleclutchII] = "Spindleclutch II",
+	[GAFE_PLEDGE_ID.BanishedCellsI] = "Banished Cells I",
+	[GAFE_PLEDGE_ID.BanishedCellsII] = "Banished Cells II",
+	[GAFE_PLEDGE_ID.DarkshadeCavernsI] = "Darkshade Caverns I",
+	[GAFE_PLEDGE_ID.DarkshadeCavernsII] = "Darkshade Caverns II",
+	[GAFE_PLEDGE_ID.EldenHollowI] = "Elden Hollow I",
+	[GAFE_PLEDGE_ID.EldenHollowII] = "Elden Hollow II",
+	[GAFE_PLEDGE_ID.WayrestSewersI] = "Wayrest Sewers I",
+	[GAFE_PLEDGE_ID.WayrestSewersII] = "Wayrest Sewers II",
+	[GAFE_PLEDGE_ID.ArxCorinium] = "Arx Corinium",
+	[GAFE_PLEDGE_ID.CityOfAshI] = "City of Ash I",
+	[GAFE_PLEDGE_ID.CityOfAshII] = "City of Ash II",
+	[GAFE_PLEDGE_ID.CryptOfHeartsI] = "Crypt of Hearts I",
+	[GAFE_PLEDGE_ID.CryptOfHeartsII] = "Crypt of Hearts II",
+	[GAFE_PLEDGE_ID.DirefrostKeep] = "Direfrost Keep",
+	[GAFE_PLEDGE_ID.TempestIsland] = "Tempest Island",
+	[GAFE_PLEDGE_ID.Volenfell] = "Volenfell",
+	[GAFE_PLEDGE_ID.BlackheartHaven] = "Blackheart Haven",
+	[GAFE_PLEDGE_ID.BlessedCrucible] = "Blessed Crucible",
+	[GAFE_PLEDGE_ID.SelenesWeb] = "Selene's Web",
+	[GAFE_PLEDGE_ID.VaultsOfMadness] = "Vaults of Madness",
+	[GAFE_PLEDGE_ID.BlackDrakeVilla] = "Black Drake Villa",
+	[GAFE_PLEDGE_ID.BloodrootForge] = "Bloodroot Forge",
+	[GAFE_PLEDGE_ID.CastleThorn] = "Castle Thorn",
+	[GAFE_PLEDGE_ID.CoralAerie] = "Coral Aerie", -- TODO: Review
+	[GAFE_PLEDGE_ID.CradleOfShadows] = "Cradle of Shadows",
+	[GAFE_PLEDGE_ID.DepthsOfMalatar] = "Depths of Malatar",
+	[GAFE_PLEDGE_ID.FalkreathHold] = "Falkreath Hold",
+	[GAFE_PLEDGE_ID.FangLair] = "Fang Lair",
+	[GAFE_PLEDGE_ID.Frostvault] = "Frostvault",
+	[GAFE_PLEDGE_ID.Icereach] = "Icereach",
+	[GAFE_PLEDGE_ID.ImperialCityPrison] = "Imperial City Prison",
+	[GAFE_PLEDGE_ID.LairOfMaarselok] = "Lair of Maarselok",
+	[GAFE_PLEDGE_ID.MarchOfSacrifices] = "March of Sacrifices",
+	[GAFE_PLEDGE_ID.MoonHunterKeep] = "Moon Hunter Keep",
+	[GAFE_PLEDGE_ID.MoongraveFane] = "Moongrave Fane",
+	[GAFE_PLEDGE_ID.RedPetalBastion] = "Red Petal Bastion",
+	[GAFE_PLEDGE_ID.RuinsOfMazzatun] = "Ruins of Mazzatun",
+	[GAFE_PLEDGE_ID.ScalecallerPeak] = "Scalecaller Peak",
+	[GAFE_PLEDGE_ID.ShipwrightsRegret] = "Shipwright's Regret", -- TODO: Review
+	[GAFE_PLEDGE_ID.StoneGarden] = "Stone Garden",
+	[GAFE_PLEDGE_ID.Cauldron] = "The Cauldron",
+	[GAFE_PLEDGE_ID.DreadCellar] = "The Dread Cellar",
+	[GAFE_PLEDGE_ID.UnhallowedGrave] = "Unhallowed Grave",
+	[GAFE_PLEDGE_ID.WhiteGoldTower] = "White-Gold Tower"
 }
 
-GAFE.PledgeChatterOptions = {
-    "What's the pledge today?"
+GAFE_PLEDGE_NPC_NAME = {
+    ["Maj al-Ragath"] = true,
+    ["Glirion the Redbeard"] = true,
+    ["Urgarlag Chief-bane"] = true,
 }

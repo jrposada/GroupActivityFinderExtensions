@@ -1,20 +1,20 @@
 local GAFE = GroupActivityFinderExtensions
 local LAM = LibAddonMenu2
 
-local ResetChest = GAFE.TrialChestTimer.ResetChest
+-- local ResetChest = GAFE.TrialChestTimer.ResetChest
 local characterId = GetCurrentCharacterId()
 
 GAFE.SettingsMenu = {}
 
 local collapseModeToString = {
-    [GAFE.Constants.CollapseMode.Group] = GAFE.Loc("CollapseMode_Group"),
-    [GAFE.Constants.CollapseMode.Normal] = GAFE.Loc("CollapseMode_Normal"),
-    [GAFE.Constants.CollapseMode.Veteran] = GAFE.Loc("CollapseMode_Veteran")
+    [GAFE_COLLAPSE_MODE.Group] = GAFE.Loc("CollapseMode_Group"),
+    [GAFE_COLLAPSE_MODE.Normal] = GAFE.Loc("CollapseMode_Normal"),
+    [GAFE_COLLAPSE_MODE.Veteran] = GAFE.Loc("CollapseMode_Veteran")
 }
 local stringToCollapseMode = {
-    [GAFE.Loc("CollapseMode_Group")] = GAFE.Constants.CollapseMode.Group,
-    [GAFE.Loc("CollapseMode_Normal")] = GAFE.Constants.CollapseMode.Normal,
-    [GAFE.Loc("CollapseMode_Veteran")] = GAFE.Constants.CollapseMode.Veteran,
+    [GAFE.Loc("CollapseMode_Group")] = GAFE_COLLAPSE_MODE.Group,
+    [GAFE.Loc("CollapseMode_Normal")] = GAFE_COLLAPSE_MODE.Normal,
+    [GAFE.Loc("CollapseMode_Veteran")] = GAFE_COLLAPSE_MODE.Veteran,
 }
 
 function GAFE.SettingsMenu.Init()
@@ -44,7 +44,7 @@ function GAFE.SettingsMenu.Init()
         {
             type = "dropdown",
             name = GAFE.Loc("Settings_Difficulty"),
-            choices = { collapseModeToString[GAFE.Constants.CollapseMode.Group], collapseModeToString[GAFE.Constants.CollapseMode.Normal], collapseModeToString[GAFE.Constants.CollapseMode.Veteran] },
+            choices = { collapseModeToString[GAFE_COLLAPSE_MODE.Group], collapseModeToString[GAFE_COLLAPSE_MODE.Normal], collapseModeToString[GAFE_COLLAPSE_MODE.Veteran] },
             getFunc = function() return collapseModeToString[saveData.collapse] end,
             setFunc = function(value) saveData.collapse = stringToCollapseMode[value] end
         },
@@ -91,7 +91,7 @@ function GAFE.SettingsMenu.Init()
             type = "checkbox",
             name = GAFE.Loc("Settings_HandleQuest"),
             getFunc = function() return saveData.dungeons.handlePledgeQuest end,
-            setFunc = function(value) GAFE.PledgeQuestHandler.Enable(value) end
+            setFunc = function(value) GAFE_DUNGEON_EXTENSIONS.AutomaticallyHandlePledgeQuests(value) end
         },
         {
             type = "submenu",
@@ -134,84 +134,84 @@ function GAFE.SettingsMenu.Init()
         {
             type = "divider"
         },
-        {
-            type = "submenu",
-            name = GAFE.Loc("Settings_TrialsChest"),
-            controls = {
-                {
-                    type = "button",
-                    name = GAFE.Loc("TrialAetherianArchive"),
-                    func = function() return ResetChest(GAFE.TrialChestTimer.TrialQuest.AetherianArchive) end,
-                    width = "half",
-                    warning = GAFE.Loc("Settings_ResetChestWarning"),
-                    isDangerous = true
-                },
-                {
-                    type = "button",
-                    name = GAFE.Loc("TrialHelRaCitadel"),
-                    func = function() return ResetChest(GAFE.TrialChestTimer.TrialQuest.HelRaCitadel) end,
-                    width = "half",
-                    warning = GAFE.Loc("Settings_ResetChestWarning"),
-                    isDangerous = true
-                },
-                {
-                    type = "button",
-                    name = GAFE.Loc("TrialSanctumOphidia"),
-                    func = function() return ResetChest(GAFE.TrialChestTimer.TrialQuest.SanctumOphidia) end,
-                    width = "half",
-                    warning = GAFE.Loc("Settings_ResetChestWarning"),
-                    isDangerous = true
-                },
-                {
-                    type = "button",
-                    name = GAFE.Loc("TrialMawOfLorkhaj"),
-                    func = function() return ResetChest(GAFE.TrialChestTimer.TrialQuest.MawOfLorkhaj) end,
-                    width = "half",
-                    warning = GAFE.Loc("Settings_ResetChestWarning"),
-                    isDangerous = true
-                },
-                {
-                    type = "button",
-                    name = GAFE.Loc("TrialHallsOfFabrication"),
-                    func = function() return ResetChest(GAFE.TrialChestTimer.TrialQuest.HallsOfFabrication) end,
-                    width = "half",
-                    warning = GAFE.Loc("Settings_ResetChestWarning"),
-                    isDangerous = true
-                },
-                {
-                    type = "button",
-                    name = GAFE.Loc("TrialAsylumSanctorium"),
-                    func = function() return ResetChest(GAFE.TrialChestTimer.TrialQuest.AsylumSanctorium) end,
-                    width = "half",
-                    warning = GAFE.Loc("Settings_ResetChestWarning"),
-                    isDangerous = true
-                },
-                {
-                    type = "button",
-                    name = GAFE.Loc("TrialCloudrest"),
-                    func = function() return ResetChest(GAFE.TrialChestTimer.TrialQuest.Cloudrest) end,
-                    width = "half",
-                    warning = GAFE.Loc("Settings_ResetChestWarning"),
-                    isDangerous = true
-                },
-                {
-                    type = "button",
-                    name = GAFE.Loc("TrialSunspire"),
-                    func = function() return ResetChest(GAFE.TrialChestTimer.TrialQuest.Sunspire) end,
-                    width = "half",
-                    warning = GAFE.Loc("Settings_ResetChestWarning"),
-                    isDangerous = true
-                },
-                {
-                    type = "button",
-                    name = GAFE.Loc("TrialKynesAegis"),
-                    func = function() return ResetChest(GAFE.TrialChestTimer.TrialQuest.KynesAegis) end,
-                    width = "half",
-                    warning = GAFE.Loc("Settings_ResetChestWarning"),
-                    isDangerous = true
-                },
-            },
-        },
+        -- {
+        --     type = "submenu",
+        --     name = GAFE.Loc("Settings_TrialsChest"),
+        --     controls = {
+        --         {
+        --             type = "button",
+        --             name = GAFE.Loc("TrialAetherianArchive"),
+        --             func = function() return ResetChest(GAFE.TrialChestTimer.TrialQuest.AetherianArchive) end,
+        --             width = "half",
+        --             warning = GAFE.Loc("Settings_ResetChestWarning"),
+        --             isDangerous = true
+        --         },
+        --         {
+        --             type = "button",
+        --             name = GAFE.Loc("TrialHelRaCitadel"),
+        --             func = function() return ResetChest(GAFE.TrialChestTimer.TrialQuest.HelRaCitadel) end,
+        --             width = "half",
+        --             warning = GAFE.Loc("Settings_ResetChestWarning"),
+        --             isDangerous = true
+        --         },
+        --         {
+        --             type = "button",
+        --             name = GAFE.Loc("TrialSanctumOphidia"),
+        --             func = function() return ResetChest(GAFE.TrialChestTimer.TrialQuest.SanctumOphidia) end,
+        --             width = "half",
+        --             warning = GAFE.Loc("Settings_ResetChestWarning"),
+        --             isDangerous = true
+        --         },
+        --         {
+        --             type = "button",
+        --             name = GAFE.Loc("TrialMawOfLorkhaj"),
+        --             func = function() return ResetChest(GAFE.TrialChestTimer.TrialQuest.MawOfLorkhaj) end,
+        --             width = "half",
+        --             warning = GAFE.Loc("Settings_ResetChestWarning"),
+        --             isDangerous = true
+        --         },
+        --         {
+        --             type = "button",
+        --             name = GAFE.Loc("TrialHallsOfFabrication"),
+        --             func = function() return ResetChest(GAFE.TrialChestTimer.TrialQuest.HallsOfFabrication) end,
+        --             width = "half",
+        --             warning = GAFE.Loc("Settings_ResetChestWarning"),
+        --             isDangerous = true
+        --         },
+        --         {
+        --             type = "button",
+        --             name = GAFE.Loc("TrialAsylumSanctorium"),
+        --             func = function() return ResetChest(GAFE.TrialChestTimer.TrialQuest.AsylumSanctorium) end,
+        --             width = "half",
+        --             warning = GAFE.Loc("Settings_ResetChestWarning"),
+        --             isDangerous = true
+        --         },
+        --         {
+        --             type = "button",
+        --             name = GAFE.Loc("TrialCloudrest"),
+        --             func = function() return ResetChest(GAFE.TrialChestTimer.TrialQuest.Cloudrest) end,
+        --             width = "half",
+        --             warning = GAFE.Loc("Settings_ResetChestWarning"),
+        --             isDangerous = true
+        --         },
+        --         {
+        --             type = "button",
+        --             name = GAFE.Loc("TrialSunspire"),
+        --             func = function() return ResetChest(GAFE.TrialChestTimer.TrialQuest.Sunspire) end,
+        --             width = "half",
+        --             warning = GAFE.Loc("Settings_ResetChestWarning"),
+        --             isDangerous = true
+        --         },
+        --         {
+        --             type = "button",
+        --             name = GAFE.Loc("TrialKynesAegis"),
+        --             func = function() return ResetChest(GAFE.TrialChestTimer.TrialQuest.KynesAegis) end,
+        --             width = "half",
+        --             warning = GAFE.Loc("Settings_ResetChestWarning"),
+        --             isDangerous = true
+        --         },
+        --     },
+        -- },
     }
 
     LAM:RegisterAddonPanel(panelName, panelData)

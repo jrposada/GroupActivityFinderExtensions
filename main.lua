@@ -18,25 +18,25 @@ local function OnAddOnLoaded(eventCode, addonName)
     GAFE.CanDebug = GetDisplayName() == "@Panicida"
 
     -- Initialize stuff
-    GAFE.QueueManager.Init()
-    GAFE.DungeonFinder.Init()
-    GAFE.DungeonFinderCommands.Init()
-    GAFE.RandomDungeon.Init()
-    GAFE.RandomBattleground.Init()
-    GAFE.TrialChestTimer.Init()
-    GAFE.TrialFinder.Init()
-    GAFE.AutoConfirm.Init()
-    GAFE.PledgeQuestHandler.Init()
-    GAFE.QueueTimer.Init()
-    GAFE.ActivitySchedule.Init()
-    if GAFE.CanDebug then GAFE.Map.Init() end
+    GAFE_GROUP_EXTENSIONS.Init()
+    GAFE_DUNGEON_EXTENSIONS.Init()
+    GAFE_TRIALS_EXTENSIONS.Init()
+    GAFE_QUEUE_EXTENSIONS.Init()
+
+    -- GAFE.QueueManager.Init()
+    -- GAFE.DungeonFinderCommands.Init()
+    -- GAFE.RandomDungeon.Init()
+    -- GAFE.RandomBattleground.Init()
+    -- GAFE.TrialChestTimer.Init()
+    -- GAFE.TrialFinder.Init()
+    -- GAFE.AutoConfirm.Init()
+    -- GAFE.PledgeQuestHandler.Init()
+    -- GAFE.QueueTimer.Init()
+    -- GAFE.ActivitySchedule.Init()
+    -- if GAFE.CanDebug then GAFE.Map.Init() end
 
     -- Init settings menu
     GAFE.SettingsMenu.Init()
-
-    if GAFE.CanDebug then
-        -- GAFE.Debug.LogNodeIds()
-    end
 end
 
 -- Finally, we'll register our event handler function to be called when the proper event occurs.

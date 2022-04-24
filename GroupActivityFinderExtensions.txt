@@ -26,48 +26,36 @@ src/infrastructure/controls.lua
 src/infrastructure/debug.lua
 src/infrastructure/chat.lua
 
-src/lang/en.lua
-src/lang/$(language).lua
-
 src/ui/button.xml
 src/ui/counter.xml
 src/ui/texture.xml
 
-src/business/finder-extensions/finder-activity-extender.lua
-src/business/finder-extensions/random-activity-extender.lua
 
-src/business/dungeon-finder/dungeon-activity-data.lua
-src/business/dungeon-finder/dungeon-pledge-list.lua
-src/business/dungeon-finder/dungeon-finder.lua
-src/business/dungeon-finder/dungeon-finder-commands.lua
-src/business/dungeon-finder/random-dungeon.lua
 
-src/business/battleground-finder/random-battleground.lua
 
-src/business/pledge-automation/pledge-quest-handler.lua
 
-src/business/trials/sorted-locations-data.lua
-src/business/trials/trial-manager.lua
+src/modules/activity-finder/activity-id.lua
+src/modules/activity-finder/collapse-mode.lua
+src/modules/activity-finder/set-id.lua
 
-src/business/trial-finder/trial-chest-timer.lua
-src/business/trial-finder/trial-activity-data.lua
-src/business/queue-manager/queue-manager.lua
-src/business/trial-finder/trial-finder.lua
+src/modules/activity-finder/dungeons/pledge-id.lua
+src/modules/activity-finder/dungeons/pledge-list.lua
+src/modules/activity-finder/dungeons/dungeons-activity-data.lua
 
-src/business/auto-confirm.lua
+src/modules/activity-finder/trials/trials-activity-data.lua
 
-src/business/queue-timer/queue-timer.lua
+src/lang/en.lua
+src/lang/$(language).lua
 
-src/business/map/map.lua
+src/modules/activity-finder/trials/sorted-locations-data.lua
+src/modules/activity-finder/trials/trial-manager.lua
 
-src/business/activity-schedule/schedules/dailies-schedule.lua
-src/business/activity-schedule/schedules/dailies-schedule.xml
-src/business/activity-schedule/schedules/pledges-schedule.lua
-src/business/activity-schedule/schedules/pledges-schedule.xml
-src/business/activity-schedule/schedules/trials-schedule.lua
-src/business/activity-schedule/activity-schedule-panel.lua
-src/business/activity-schedule/activity-schedule-panel.xml
-src/business/activity-schedule/activity-schedule.lua
+src/modules/activity-finder/extender.lua
+
+src/modules/activity-finder/group/group-extensions.lua
+src/modules/activity-finder/dungeons/dungeons-extensions.lua
+src/modules/activity-finder/trials/trials-extensions.lua
+src/modules/activity-finder/queue/queue-extensions.lua
 
 settings-menu.lua
 main.lua

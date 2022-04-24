@@ -214,6 +214,15 @@
         "ITEM_SET_COLLECTIONS_DATA_MANAGER",
         "INTERFACE_COLOR_TYPE_TEXT_COLORS",
         "GetInterfaceColor",
-        "INTERFACE_TEXT_COLOR_SELECTED"
+        "INTERFACE_TEXT_COLOR_SELECTED",
+        "EVENT_QUEST_ADDED",
+        "GROUP_LIST",
+        "ZO_Dialogs_ShowDialog",
+        "SI_GROUP_LEAVE",
+        "SI_GROUP_LIST_PANEL_CHARACTER_NAME",
+        "GetUnitName",
+        "SI_ACTIVITY_QUEUE_STATUS_LABEL_FORMAT",
+        "STATUS_HEADER_TEXT",
+        "SI_GAMEPAD_LFG_QUEUE_ACTUAL"
     ]
 }

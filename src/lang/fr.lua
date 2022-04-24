@@ -1,5 +1,4 @@
 local GAFE = GroupActivityFinderExtensions
-local PledgeId = GAFE.Constants.PledgeId
 
 
 
@@ -57,58 +56,59 @@ GAFE.Localization = {
 }
 
 -- This translations have to match pledge quest name in ingame journal
-GAFE.DungeonPledgeQuestName = {
-	[PledgeId.FungalGrottoI] = "Champignonnière I",
-	[PledgeId.FungalGrottoII] = "Champignonnière II",
-	[PledgeId.SpindleclutchI] = "Tressefuseau I",
-	[PledgeId.SpindleclutchII] = "Tressefuseau II",
-	[PledgeId.BanishedCellsI] = "Cachot interdit I",
-	[PledgeId.BanishedCellsII] = "Cachot interdit II",
-	[PledgeId.DarkshadeCavernsI] = "Cavernes d'Ombre-noire I",
-	[PledgeId.DarkshadeCavernsII] = "Cavernes d'Ombre-noire II",
-	[PledgeId.EldenHollowI] = "Creuset des aînés I",
-	[PledgeId.EldenHollowII] = "Creuset des aînés II",
-	[PledgeId.WayrestSewersI] = "Égouts d'Haltevoie I",
-	[PledgeId.WayrestSewersII] = "Égouts d'Haltevoie II",
-	[PledgeId.ArxCorinium] = "Arx Corinium",
-	[PledgeId.CityOfAshI] = "Cité des cendres I",
-	[PledgeId.CityOfAshII] = "Cité des cendres II",
-	[PledgeId.CryptOfHeartsI] = "Crypte des cœurs I",
-	[PledgeId.CryptOfHeartsII] = "Crypte des cœurs II",
-	[PledgeId.DirefrostKeep] = "Donjon d'Affregivre",
-	[PledgeId.TempestIsland] = "Île des Tempêtes",
-	[PledgeId.Volenfell] = "Volenfell",
-	[PledgeId.BlackheartHaven] = "Havre de Cœurnoir",
-	[PledgeId.BlessedCrucible] = "Creuset béni",
-	[PledgeId.SelenesWeb] = "Toile de Sélène",
-	[PledgeId.VaultsOfMadness] = "Chambres de la folie",
-	[PledgeId.BlackDrakeVilla] = "Villa du Dragon noir",
-	[PledgeId.BloodrootForge] = "Forge de Sangracine",
-	[PledgeId.CastleThorn] = "Bastion-les-Ronce",
-	[PledgeId.CoralAerie] = "Aerie de corail", -- TODO: Review
-	[PledgeId.CradleOfShadows] = "Berceau des ombres",
-	[PledgeId.DepthsOfMalatar] = "Profondeurs de Malatar",
-	[PledgeId.FalkreathHold] = "Forteresse d'Épervine",
-	[PledgeId.FangLair] = "Repaire du croc",
-	[PledgeId.Frostvault] = "Arquegivre",
-	[PledgeId.Icereach] = "Crève-Nève",
-	[PledgeId.ImperialCityPrison] = "Prison de le cité impériale",
-	[PledgeId.LairOfMaarselok] = "Repaire de Maarselok",
-	[PledgeId.MarchOfSacrifices] = "Procession des Sacrifiés",
-	[PledgeId.MoonHunterKeep] = "Fort du Chasseur lunaire",
-	[PledgeId.MoongraveFane] = "reliquaire des Lunes funèbres",
-	[PledgeId.RedPetalBastion] = "Le Bastion du Pétale Rouge",
-	[PledgeId.RuinsOfMazzatun] = "Ruines de Mazzatun",
-	[PledgeId.ScalecallerPeak] = "Pic de la Mandécailles",
-	[PledgeId.ShipwrightsRegret] = "Regret du charpentier", -- TODO: Review
-	[PledgeId.StoneGarden] = "Jardin de pierre",
-	[PledgeId.Cauldron] = "Le Chaudron",
-	[PledgeId.DreadCellar] = "La Cave d'effroi",
-	[PledgeId.UnhallowedGrave] = "Sépulcre profane",
-	[PledgeId.WhiteGoldTower] = "Tour d'Or Blanc"
+GAFE_DUNGEON_PLEDGE_QUEST_NAME = {
+	[GAFE_PLEDGE_ID.FungalGrottoI] = "Champignonnière I",
+	[GAFE_PLEDGE_ID.FungalGrottoII] = "Champignonnière II",
+	[GAFE_PLEDGE_ID.SpindleclutchI] = "Tressefuseau I",
+	[GAFE_PLEDGE_ID.SpindleclutchII] = "Tressefuseau II",
+	[GAFE_PLEDGE_ID.BanishedCellsI] = "Cachot interdit I",
+	[GAFE_PLEDGE_ID.BanishedCellsII] = "Cachot interdit II",
+	[GAFE_PLEDGE_ID.DarkshadeCavernsI] = "Cavernes d'Ombre-noire I",
+	[GAFE_PLEDGE_ID.DarkshadeCavernsII] = "Cavernes d'Ombre-noire II",
+	[GAFE_PLEDGE_ID.EldenHollowI] = "Creuset des aînés I",
+	[GAFE_PLEDGE_ID.EldenHollowII] = "Creuset des aînés II",
+	[GAFE_PLEDGE_ID.WayrestSewersI] = "Égouts d'Haltevoie I",
+	[GAFE_PLEDGE_ID.WayrestSewersII] = "Égouts d'Haltevoie II",
+	[GAFE_PLEDGE_ID.ArxCorinium] = "Arx Corinium",
+	[GAFE_PLEDGE_ID.CityOfAshI] = "Cité des cendres I",
+	[GAFE_PLEDGE_ID.CityOfAshII] = "Cité des cendres II",
+	[GAFE_PLEDGE_ID.CryptOfHeartsI] = "Crypte des cœurs I",
+	[GAFE_PLEDGE_ID.CryptOfHeartsII] = "Crypte des cœurs II",
+	[GAFE_PLEDGE_ID.DirefrostKeep] = "Donjon d'Affregivre",
+	[GAFE_PLEDGE_ID.TempestIsland] = "Île des Tempêtes",
+	[GAFE_PLEDGE_ID.Volenfell] = "Volenfell",
+	[GAFE_PLEDGE_ID.BlackheartHaven] = "Havre de Cœurnoir",
+	[GAFE_PLEDGE_ID.BlessedCrucible] = "Creuset béni",
+	[GAFE_PLEDGE_ID.SelenesWeb] = "Toile de Sélène",
+	[GAFE_PLEDGE_ID.VaultsOfMadness] = "Chambres de la folie",
+	[GAFE_PLEDGE_ID.BlackDrakeVilla] = "Villa du Dragon noir",
+	[GAFE_PLEDGE_ID.BloodrootForge] = "Forge de Sangracine",
+	[GAFE_PLEDGE_ID.CastleThorn] = "Bastion-les-Ronce",
+	[GAFE_PLEDGE_ID.CoralAerie] = "Aerie de corail", -- TODO: Review
+	[GAFE_PLEDGE_ID.CradleOfShadows] = "Berceau des ombres",
+	[GAFE_PLEDGE_ID.DepthsOfMalatar] = "Profondeurs de Malatar",
+	[GAFE_PLEDGE_ID.FalkreathHold] = "Forteresse d'Épervine",
+	[GAFE_PLEDGE_ID.FangLair] = "Repaire du croc",
+	[GAFE_PLEDGE_ID.Frostvault] = "Arquegivre",
+	[GAFE_PLEDGE_ID.Icereach] = "Crève-Nève",
+	[GAFE_PLEDGE_ID.ImperialCityPrison] = "Prison de le cité impériale",
+	[GAFE_PLEDGE_ID.LairOfMaarselok] = "Repaire de Maarselok",
+	[GAFE_PLEDGE_ID.MarchOfSacrifices] = "Procession des Sacrifiés",
+	[GAFE_PLEDGE_ID.MoonHunterKeep] = "Fort du Chasseur lunaire",
+	[GAFE_PLEDGE_ID.MoongraveFane] = "reliquaire des Lunes funèbres",
+	[GAFE_PLEDGE_ID.RedPetalBastion] = "Le Bastion du Pétale Rouge",
+	[GAFE_PLEDGE_ID.RuinsOfMazzatun] = "Ruines de Mazzatun",
+	[GAFE_PLEDGE_ID.ScalecallerPeak] = "Pic de la Mandécailles",
+	[GAFE_PLEDGE_ID.ShipwrightsRegret] = "Regret du charpentier", -- TODO: Review
+	[GAFE_PLEDGE_ID.StoneGarden] = "Jardin de pierre",
+	[GAFE_PLEDGE_ID.Cauldron] = "Le Chaudron",
+	[GAFE_PLEDGE_ID.DreadCellar] = "La Cave d'effroi",
+	[GAFE_PLEDGE_ID.UnhallowedGrave] = "Sépulcre profane",
+	[GAFE_PLEDGE_ID.WhiteGoldTower] = "Tour d'Or Blanc"
 }
 
-GAFE.PledgeChatterOptions = {
-    "Quel est le serment d'aujourd'hui ?",
-    "Quel est le serment, aujourd'hui ?"
+GAFE_PLEDGE_NPC_NAME = {
+    ["Maj al-Ragath"] = true,
+    ["Glirion Barbe-Rousse"] = true,
+    ["Urgarlag l'Émasculatrice"] = true,
 }

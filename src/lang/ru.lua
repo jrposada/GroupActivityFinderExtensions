@@ -1,9 +1,8 @@
 local GAFE = GroupActivityFinderExtensions
-local PledgeId = GAFE.Constants.PledgeId
 
--- List header text in activity finder are set by zo with GetString("SI_LFGACTIVITY", activityType).
--- This means we have the same prefix plus our custom activity type id.
--- Since we use LFG_ACTIVITY_ITERATION_END + 1 it should never overwrite and actual zo string.
+
+
+
 ZO_CreateStringId("SI_LFGACTIVITY"..GAFE_LFG_ACTIVITY_TRIAL, "Обычный режим")
 ZO_CreateStringId("SI_LFGACTIVITY"..GAFE_LFG_ACTIVITY_MASTER_TRIAL, "Ветеранский режим")
 
@@ -57,57 +56,59 @@ GAFE.Localization = {
 }
 
 -- This translations have to match pledge quest name in ingame journal
-GAFE.DungeonPledgeQuestName = {
-	[PledgeId.FungalGrottoI] = "Грибной грот I",
-	[PledgeId.FungalGrottoII] = "Грибной грот II",
-	[PledgeId.SpindleclutchI] = "Логово Мертвой Хватки I",
-	[PledgeId.SpindleclutchII] = "Логово Мертвой Хватки II",
-	[PledgeId.BanishedCellsI] = "Темницы изгнанников I",
-	[PledgeId.BanishedCellsII] = "Темницы изгнанников II",
-	[PledgeId.DarkshadeCavernsI] = "Пещеры Глубокой Тени I",
-	[PledgeId.DarkshadeCavernsII] = "Пещеры Глубокой Тени II",
-	[PledgeId.EldenHollowI] = "Элденская расщелина I",
-	[PledgeId.EldenHollowII] = "Элденская расщелина II",
-	[PledgeId.WayrestSewersI] = "Канализация Вэйреста I",
-	[PledgeId.WayrestSewersII] = "Канализация Вэйреста II",
-	[PledgeId.ArxCorinium] = "Аркс-Кориниум",
-	[PledgeId.CityOfAshI] = "Город Пепла I",
-	[PledgeId.CityOfAshII] = "Город Пепла II",
-	[PledgeId.CryptOfHeartsI] = "Крипта Сердец I",
-	[PledgeId.CryptOfHeartsII] = "Крипта Сердец II",
-	[PledgeId.DirefrostKeep] = "Крепость Лютых Морозов",
-	[PledgeId.TempestIsland] = "Остров Бурь",
-	[PledgeId.Volenfell] = "Воленфелл",
-	[PledgeId.BlackheartHaven] = "Гавань Черного Сердца",
-	[PledgeId.BlessedCrucible] = "Священное Горнило",
-	[PledgeId.SelenesWeb] = "Паутина Селены",
-	[PledgeId.VaultsOfMadness] = "Своды Безумия",
-	[PledgeId.BlackDrakeVilla] = "Вилла Черного Змея",
-	[PledgeId.BloodrootForge] = "Кузница Кровавого корня",
-	[PledgeId.CastleThorn] = "Замок Шипов",
-	[PledgeId.CoralAerie] = "Коралловое Гнездо", -- TODO: Review
-	[PledgeId.CradleOfShadows] = "Колыбель Теней",
-	[PledgeId.DepthsOfMalatar] = "Глубины Малатара",
-	[PledgeId.FalkreathHold] = "Владение Фолкрит",
-	[PledgeId.FangLair] = "Логово Клыка",
-	[PledgeId.Frostvault] = "Морозное хранилище",
-	[PledgeId.Icereach] = "Ледяной Предел",
-	[PledgeId.ImperialCityPrison] = "Тюрьма Имперского города",
-	[PledgeId.LairOfMaarselok] = "Логово Марселока",
-	[PledgeId.MarchOfSacrifices] = "Путь Жертвоприношений",
-	[PledgeId.MoonHunterKeep] = "Крепость Лунного Охотника",
-	[PledgeId.MoongraveFane] = "Храм Погребенных Лун",
-	[PledgeId.RedPetalBastion] = "Оплот алый лепесток",
-	[PledgeId.RuinsOfMazzatun] = "Руины Маззатуна",
-	[PledgeId.ScalecallerPeak] = "Пик Воспевательницы Дракона",
-	[PledgeId.ShipwrightsRegret] = "Горе Корабела", -- TODO: Review
-	[PledgeId.StoneGarden] = "Каменный Сад",
-	[PledgeId.Cauldron] = "Котел",
-	[PledgeId.DreadCellar] = "Ужасный Подвал",
-	[PledgeId.UnhallowedGrave] = "Нечестивая Могила",
-	[PledgeId.WhiteGoldTower] = "Башня Белого Золота"
+GAFE_DUNGEON_PLEDGE_QUEST_NAME = {
+	[GAFE_PLEDGE_ID.FungalGrottoI] = "Грибной грот I",
+	[GAFE_PLEDGE_ID.FungalGrottoII] = "Грибной грот II",
+	[GAFE_PLEDGE_ID.SpindleclutchI] = "Логово Мертвой Хватки I",
+	[GAFE_PLEDGE_ID.SpindleclutchII] = "Логово Мертвой Хватки II",
+	[GAFE_PLEDGE_ID.BanishedCellsI] = "Темницы изгнанников I",
+	[GAFE_PLEDGE_ID.BanishedCellsII] = "Темницы изгнанников II",
+	[GAFE_PLEDGE_ID.DarkshadeCavernsI] = "Пещеры Глубокой Тени I",
+	[GAFE_PLEDGE_ID.DarkshadeCavernsII] = "Пещеры Глубокой Тени II",
+	[GAFE_PLEDGE_ID.EldenHollowI] = "Элденская расщелина I",
+	[GAFE_PLEDGE_ID.EldenHollowII] = "Элденская расщелина II",
+	[GAFE_PLEDGE_ID.WayrestSewersI] = "Канализация Вэйреста I",
+	[GAFE_PLEDGE_ID.WayrestSewersII] = "Канализация Вэйреста II",
+	[GAFE_PLEDGE_ID.ArxCorinium] = "Аркс-Кориниум",
+	[GAFE_PLEDGE_ID.CityOfAshI] = "Город Пепла I",
+	[GAFE_PLEDGE_ID.CityOfAshII] = "Город Пепла II",
+	[GAFE_PLEDGE_ID.CryptOfHeartsI] = "Крипта Сердец I",
+	[GAFE_PLEDGE_ID.CryptOfHeartsII] = "Крипта Сердец II",
+	[GAFE_PLEDGE_ID.DirefrostKeep] = "Крепость Лютых Морозов",
+	[GAFE_PLEDGE_ID.TempestIsland] = "Остров Бурь",
+	[GAFE_PLEDGE_ID.Volenfell] = "Воленфелл",
+	[GAFE_PLEDGE_ID.BlackheartHaven] = "Гавань Черного Сердца",
+	[GAFE_PLEDGE_ID.BlessedCrucible] = "Священное Горнило",
+	[GAFE_PLEDGE_ID.SelenesWeb] = "Паутина Селены",
+	[GAFE_PLEDGE_ID.VaultsOfMadness] = "Своды Безумия",
+	[GAFE_PLEDGE_ID.BlackDrakeVilla] = "Вилла Черного Змея",
+	[GAFE_PLEDGE_ID.BloodrootForge] = "Кузница Кровавого корня",
+	[GAFE_PLEDGE_ID.CastleThorn] = "Замок Шипов",
+	[GAFE_PLEDGE_ID.CoralAerie] = "Коралловое Гнездо", -- TODO: Review
+	[GAFE_PLEDGE_ID.CradleOfShadows] = "Колыбель Теней",
+	[GAFE_PLEDGE_ID.DepthsOfMalatar] = "Глубины Малатара",
+	[GAFE_PLEDGE_ID.FalkreathHold] = "Владение Фолкрит",
+	[GAFE_PLEDGE_ID.FangLair] = "Логово Клыка",
+	[GAFE_PLEDGE_ID.Frostvault] = "Морозное хранилище",
+	[GAFE_PLEDGE_ID.Icereach] = "Ледяной Предел",
+	[GAFE_PLEDGE_ID.ImperialCityPrison] = "Тюрьма Имперского города",
+	[GAFE_PLEDGE_ID.LairOfMaarselok] = "Логово Марселока",
+	[GAFE_PLEDGE_ID.MarchOfSacrifices] = "Путь Жертвоприношений",
+	[GAFE_PLEDGE_ID.MoonHunterKeep] = "Крепость Лунного Охотника",
+	[GAFE_PLEDGE_ID.MoongraveFane] = "Храм Погребенных Лун",
+	[GAFE_PLEDGE_ID.RedPetalBastion] = "Оплот алый лепесток",
+	[GAFE_PLEDGE_ID.RuinsOfMazzatun] = "Руины Маззатуна",
+	[GAFE_PLEDGE_ID.ScalecallerPeak] = "Пик Воспевательницы Дракона",
+	[GAFE_PLEDGE_ID.ShipwrightsRegret] = "Горе Корабела", -- TODO: Review
+	[GAFE_PLEDGE_ID.StoneGarden] = "Каменный Сад",
+	[GAFE_PLEDGE_ID.Cauldron] = "Котел",
+	[GAFE_PLEDGE_ID.DreadCellar] = "Ужасный Подвал",
+	[GAFE_PLEDGE_ID.UnhallowedGrave] = "Нечестивая Могила",
+	[GAFE_PLEDGE_ID.WhiteGoldTower] = "Башня Белого Золота"
 }
 
-GAFE.PledgeChatterOptions = {
-    "Какой обет сегодня?"
+GAFE_PLEDGE_NPC_NAME = {
+    ["Мадж аль-Рагат"] = true,
+    ["Глирион Рыжебородый"] = true,
+    ["Ургарлаг Бич Вождей"] = true,
 }
