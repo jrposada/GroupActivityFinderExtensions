@@ -134,6 +134,20 @@ function GAFE.SettingsMenu.Init()
         {
             type = "divider"
         },
+        {
+            type = "submenu",
+            name = "Developer",
+            controls = {
+                {
+                    type = "checkbox",
+                    name = GetString(SI_DUNGEON_FINDER_GENERAL_ACTIVITY_DESCRIPTOR),
+                    getFunc = function() return saveData.developerMode end,
+                    setFunc = function(value) saveData.developerMode = value end,
+                    warning = "Intended only for developers",
+                    isDangerous = true
+                }
+            }
+        },
         -- {
         --     type = "submenu",
         --     name = GAFE.Loc("Settings_TrialsChest"),

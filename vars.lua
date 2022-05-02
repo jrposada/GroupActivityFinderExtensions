@@ -33,9 +33,9 @@ GroupActivityFinderExtensions = {
         },
         compatibility = {
             perfectPixel = false
-        }
+        },
+        developerMode = false
     },
-    developerMode = false
 }
 
 local GAFE = GroupActivityFinderExtensions

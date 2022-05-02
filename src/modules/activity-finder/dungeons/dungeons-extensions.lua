@@ -137,7 +137,17 @@ function GAFE_DUNGEON_EXTENSIONS.Init()
             name = GAFE.Loc("CheckActivePledges"),
             keybind = "UI_SHORTCUT_SECONDARY",
             callback = function() CheckPledges() end,
-            visible = function() return true end -- TODO:
+            visible = function()
+                local donePledges = GAFE.SavedVars.dungeons.donePledges[characterId];
+
+                for _, pledgeId in ipairs(todayPledges) do
+                    if not GAFE.ContainsKey(donePledges, pledgeId) then
+                        return false
+                    end
+                end
+
+                return true
+            end
         },
     }
 
@@ -156,15 +166,29 @@ function GAFE_DUNGEON_EXTENSIONS.Init()
         end
     end
 
+    local function OnActivityFinderStatusUpdate(_, status)
+        -- Check 1 second later so IsActivityEligibleForDailyReward is ready.
+        zo_callLater(function()
+            local isRewardAvailable = extender.GetTimeUntilNextReward(extender.characterId, extender.rewardsVars) <= 0
+            -- There are several dungeon activities but so far they all share the reward.
+            local isRewardAvailableByZos = IsActivityEligibleForDailyReward(LFG_ACTIVITY_DUNGEON)
+
+            if status == ACTIVITY_FINDER_STATUS_COMPLETE and isRewardAvailable and not isRewardAvailableByZos then
+                extender.rewardsVars.randomRewards[extender.characterId] = GetTimeStamp()
+            end
+        end, 1000)
+    end
+
     GAFE_DUNGEON_EXTENSIONS.AutomaticallyHandlePledgeQuests(
         GAFE.SavedVars.dungeons.handlePledgeQuest
     )
     UpdateTodayPledges()
     UpdatePledgesInJournal()
-    extender:Initialize("ZO_Dungeon", dungeonData, treeEntry, customExtensions, keybindStripGroup, OnShown)
+    extender:Initialize("ZO_Dungeon", dungeonData, treeEntry, customExtensions, GAFE.SavedVars.dungeons, keybindStripGroup, OnShown)
 
     EVENT_MANAGER:RegisterForEvent(GAFE.name.."_DungonExtension_QuestAdded", EVENT_QUEST_ADDED, OnQuestAdded)
     EVENT_MANAGER:RegisterForEvent(GAFE.name.."_DungonExtension_QuestRemoved", EVENT_QUEST_REMOVED, OnQuestRemoved)
+    EVENT_MANAGER:RegisterForEvent(extender.root.."Activity_Update", EVENT_ACTIVITY_FINDER_STATUS_UPDATE, OnActivityFinderStatusUpdate)
 end
 
 function GAFE_DUNGEON_EXTENSIONS.AutomaticallyHandlePledgeQuests(enable)

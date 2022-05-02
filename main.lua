@@ -15,12 +15,12 @@ local function OnAddOnLoaded(eventCode, addonName)
 
     -- Load saved variables
     GAFE.SavedVars = ZO_SavedVars:NewAccountWide(GAFE.name.."_Vars", GAFE.varsVersion, nil, GAFE.DefaultVars, GetWorldName())
-    GAFE.CanDebug = GetDisplayName() == "@Panicida"
 
     -- Initialize stuff
     GAFE_GROUP_EXTENSIONS.Init()
     GAFE_DUNGEON_EXTENSIONS.Init()
     GAFE_TRIALS_EXTENSIONS.Init()
+    GAFE_BATTLEGROUNDS_EXTENSIONS.Init()
     GAFE_QUEUE_EXTENSIONS.Init()
 
     -- GAFE.QueueManager.Init()
@@ -37,6 +37,10 @@ local function OnAddOnLoaded(eventCode, addonName)
 
     -- Init settings menu
     GAFE.SettingsMenu.Init()
+
+    if GAFE.SavedVars.developerMode then
+        GAFE.Debug.SetIds()
+    end
 end
 
 -- Finally, we'll register our event handler function to be called when the proper event occurs.

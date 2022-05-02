@@ -2,18 +2,20 @@ local GAFE = GroupActivityFinderExtensions
 
 GAFE_ActivityFinderExtender = ZO_Object:Subclass()
 
-function GAFE_ActivityFinderExtender:New(...)
+function GAFE_ActivityFinderExtender:New()
     local activityFinderExtender = ZO_Object.New(self)
     return activityFinderExtender
 end
 
-function GAFE_ActivityFinderExtender:Initialize(_root_, _data_, _treeEntry_, _customExtensions_, _keybindStripGroup_, _onShown_)
-    local root, data, treeEntry, customExtensions, keybindStripGroup, onShown =
-        _root_, _data_, _treeEntry_, _customExtensions_, _keybindStripGroup_, _onShown_
+function GAFE_ActivityFinderExtender:Initialize(_root_, _data_, _treeEntry_, _customExtensions_, _rewardsVars_, _keybindStripGroup_, _onShown_)
+    local root, data, treeEntry, customExtensions, rewardsVars, keybindStripGroup, onShown =
+        _root_, _data_, _treeEntry_, _customExtensions_, _rewardsVars_, _keybindStripGroup_, _onShown_
 
+    self.characterId = GetCurrentCharacterId()
     self.root = root
     self.data = data
     self.customExtensions = customExtensions
+    self.rewardsVars = rewardsVars
     self.onShown = onShown
     self.textureSize = GroupActivityFinderExtensions.SavedVars.textureSize
     self.leaveGroupKeybindStripGroup = {
@@ -43,7 +45,22 @@ function GAFE_ActivityFinderExtender:Initialize(_root_, _data_, _treeEntry_, _cu
             name = GAFE.Loc("CheckMissingSets"),
             keybind = "UI_SHORTCUT_QUATERNARY",
             callback = function() self:CheckMissingSets() end,
-            enabled = true, -- TODO:
+            visible = function()
+                local hasAllSets = true
+                for _, activityData in pairs(self.data) do
+                    for _, setId in pairs(activityData.sets) do
+                        local setCollectionData = ITEM_SET_COLLECTIONS_DATA_MANAGER:GetItemSetCollectionData(setId)
+                        local numUnlockedPieces, numPieces = setCollectionData:GetNumUnlockedPieces(), setCollectionData:GetNumPieces()
+                        if numUnlockedPieces ~= numPieces then
+                            hasAllSets = false
+                            break
+                        end
+                    end
+
+                    if not hasAllSets then break end
+                end
+                return not hasAllSets
+            end,
         },
         self.leaveGroupKeybindStripGroup[0]
     }
@@ -53,7 +70,8 @@ function GAFE_ActivityFinderExtender:Initialize(_root_, _data_, _treeEntry_, _cu
         end
     end
 
-    self:InitializeSetupFunction(treeEntry)
+    if treeEntry then self:InitializeSetupFunction(treeEntry) end
+    self:InitializeRandomReward()
     self:InitializeEvents()
 end
 
@@ -124,6 +142,14 @@ function GAFE_ActivityFinderExtender:InitializeSetupFunction(_treeEntry_)
     treeEntry.setupFunction = setupFunction
 end
 
+function GAFE_ActivityFinderExtender:InitializeRandomReward()
+    -- Initialize control.
+    self.singularSectionRewards = _G[self.root.."Finder_Keyboard".."SingularSectionRewardsSectionHeader"]
+    if self.singularSectionRewards then
+        self.premiumRewardTimerControl = GAFE.UI.Label(self.root.."_RandomReward", self.singularSectionRewards, {125,20}, {TOPLEFT,self.parent,TOPRIGHT,10,2}, "ZoFontGameShadow", nil, {0,1})
+    end
+end
+
 function GAFE_ActivityFinderExtender:InitializeEvents()
     local function OnKeyboardListSectionShown()
         KEYBIND_STRIP:AddKeybindButtonGroup(self.keybindStripGroup)
@@ -153,6 +179,25 @@ function GAFE_ActivityFinderExtender:InitializeEvents()
     if singularSection then
         ZO_PreHookHandler(singularSection, 'OnEffectivelyShown', OnSingularSectionShown)
         ZO_PreHookHandler(singularSection, 'OnEffectivelyHidden', OnSingularSectionHidden)
+    end
+
+    if self.singularSectionRewards then
+        local eventName = self.root..'_RandomEvent'
+        local function OnRandomActivitySectionShown()
+            local function Update()
+                self:UpdatePurpleRewardTimer()
+            end
+
+            self:UpdatePurpleRewardTimer()
+            EVENT_MANAGER:RegisterForUpdate(eventName, 1000, Update)
+        end
+
+        local function OnRandomActivitySectionHidden()
+            EVENT_MANAGER:UnregisterForUpdate(eventName)
+        end
+
+        ZO_PreHookHandler(self.singularSectionRewards, 'OnEffectivelyShown', OnRandomActivitySectionShown)
+        ZO_PreHookHandler(self.singularSectionRewards, 'OnEffectivelyHidden', OnRandomActivitySectionHidden)
     end
 end
 
@@ -287,6 +332,19 @@ function GAFE_ActivityFinderExtender:Collapse()
     GAFE.CallLater(GAFE.name..self.root.."_Extensions", 200, collapse)
 end
 
+function GAFE_ActivityFinderExtender:UpdatePurpleRewardTimer()
+	local timeUntilNextReward = self.GetTimeUntilNextReward(self.characterId, self.rewardsVars)
+    if timeUntilNextReward > 0 then
+        self.premiumRewardTimerControl:SetHidden(false)
+
+        local textStartTime = ZO_FormatTime(timeUntilNextReward, TIME_FORMAT_STYLE_COLONS, TIME_FORMAT_PRECISION_SECONDS)
+
+        self.premiumRewardTimerControl:SetText(GAFE.Loc("NextReward").." "..textStartTime)
+    else
+        self.premiumRewardTimerControl:SetHidden(true)
+    end
+end
+
 function GAFE_ActivityFinderExtender:CheckMissingQuests()
     local function checkFunc(_obj_)
         local obj = _obj_
@@ -331,31 +389,13 @@ function GAFE_ActivityFinderExtender:RefreshDungeonDifficulty()
       or (savedVars.collapse == GAFE_COLLAPSE_MODE.Normal and LFG_ACTIVITY_DUNGEON or LFG_ACTIVITY_MASTER_DUNGEON)
 end
 
+function GAFE_ActivityFinderExtender.GetTimeUntilNextReward(characterId, rewardsVars)
+    local result = 0
+    local completedTimeStamp = rewardsVars.randomRewards[characterId]
 
--- local function IsAllPledgesDone()
---     local donePledges = GAFE.SavedVars.dungeons.donePledges[characterId];
+    if completedTimeStamp then
+        result = completedTimeStamp + 72000 - GetTimeStamp() -- 72000 = 20 hours
+    end
 
---     for _, pledgeId in ipairs(todayPledges) do
---         if not GAFE.ContainsKey(donePledges, pledgeId) then
---             return false
---         end
---     end
-
---     return true
--- end
--- local function IsAllSetsCollected()
---     local hasAllSets = true
---     for _, activityData in pairs(DungeonActivityData) do
---         for _, setId in pairs(activityData.sets) do
---             local setCollectionData = ITEM_SET_COLLECTIONS_DATA_MANAGER:GetItemSetCollectionData(setId)
---             local numUnlockedPieces, numPieces = setCollectionData:GetNumUnlockedPieces(), setCollectionData:GetNumPieces()
---             if numUnlockedPieces ~= numPieces then
---                 hasAllSets = false
---                 break
---             end
---         end
-
---         if not hasAllSets then break end
---     end
---     return hasAllSets
--- end
+    return result
+end

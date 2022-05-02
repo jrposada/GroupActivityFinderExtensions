@@ -1,4 +1,6 @@
-local trialsExtensions = {}
+local GAFE = GroupActivityFinderExtensions
+
+local extender = GAFE_ActivityFinderExtender:New()
 
 local function AddChest(_control_)
     local control = _control_
@@ -26,8 +28,9 @@ local function AddChest(_control_)
     -- control.text:SetText(text)
 end
 
+GAFE_TRIALS_EXTENSIONS = {}
 
-function trialsExtensions.Init()
+function GAFE_TRIALS_EXTENSIONS.Init()
     local trialsData = GAFE_TRIALS_ACTIVITY_DATA
     local treeEntry = TRIAL_FINDER_KEYBOARD.navigationTree.templateInfo.ZO_ActivityFinderTemplateNavigationEntry_Keyboard
 
@@ -40,7 +43,5 @@ function trialsExtensions.Init()
         end
     end
 
-    local extender = GAFE_ActivityFinderExtender:New("GAFE_Trial", trialsData, treeEntry, customExtensions)
+    extender:Initialize("GAFE_Trial", trialsData, treeEntry, customExtensions, nil, nil, nil)
 end
-
-GAFE_TRIALS_EXTENSIONS = trialsExtensions
