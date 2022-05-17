@@ -36,13 +36,16 @@ end
 
 local function QuestNameToPledgeId(_questName_)
     local questName = _questName_
--- FIXME: broken in french
+    -- FIXME: broken in french
     -- Remove weird white spaces and other special characters.
     local cleanQuestName = string.format("%s", questName:gsub(".*:%s*",""):gsub(" "," "):lower())
     local pledgeId = nil
     for id, pledgeName in pairs(GAFE_DUNGEON_PLEDGE_QUEST_NAME) do
         if string.match(cleanQuestName, pledgeName:lower()) then
             pledgeId = id
+        end
+        if GAFE.SavedVars.developerMode and pledgeId then
+            -- GAFE.LogLater(cleanQuestName.." - "..pledgeName:lower().." - "..(pledgeId or 'nil'))
         end
     end
 
@@ -58,8 +61,8 @@ local function UpdatePledgesInJournal()
     for i=1, MAX_JOURNAL_QUESTS do
         local questName,_,_,stepType,_,completed,_,_,_,questType,instanceType=GetJournalQuestInfo(i)
         if questName and questName~="" and not completed and questType==QUEST_TYPE_UNDAUNTED_PLEDGE and instanceType==INSTANCE_TYPE_GROUP then
-            if GAFE.developerMode then
-                GAFE.LogLater("Developer mode: (quest name) "..questName)
+            if GAFE.SavedVars.developerMode then
+                -- GAFE.LogLater("Developer mode: (quest name) "..questName)
             end
 
             local pledgeId = QuestNameToPledgeId(questName)
@@ -75,6 +78,18 @@ end
 
 local function AddPledge(_pledgeId_, _control_)
     local pledgeId, control = _pledgeId_, _control_
+
+    if GAFE.SavedVars.developerMode then
+        local value = pledgesInJournal[pledgeId] and "true"
+        if pledgesInJournal[pledgeId]==false then
+            value = "false"
+        end
+
+        if pledgesInJournal[pledgeId]==nil then
+            value = "nil"
+        end
+        GAFE.LogLater("Adding: "..control.text:GetText().." - "..(value))
+    end
 
     local donePledges = GAFE.SavedVars.dungeons.donePledges[characterId]
     local text = control.text:GetText()
@@ -131,6 +146,9 @@ GAFE_DUNGEON_EXTENSIONS = {}
 
 function GAFE_DUNGEON_EXTENSIONS.Init()
     local treeEntry = DUNGEON_FINDER_KEYBOARD.navigationTree.templateInfo.ZO_ActivityFinderTemplateNavigationEntry_Keyboard
+
+    UpdateTodayPledges()
+    UpdatePledgesInJournal()
     local keybindStripGroup = {
         {
             alignment = KEYBIND_STRIP_ALIGN_CENTER,
@@ -182,8 +200,6 @@ function GAFE_DUNGEON_EXTENSIONS.Init()
     GAFE_DUNGEON_EXTENSIONS.AutomaticallyHandlePledgeQuests(
         GAFE.SavedVars.dungeons.handlePledgeQuest
     )
-    UpdateTodayPledges()
-    UpdatePledgesInJournal()
     extender:Initialize("ZO_Dungeon", dungeonData, treeEntry, customExtensions, GAFE.SavedVars.dungeons, keybindStripGroup, OnShown)
 
     EVENT_MANAGER:RegisterForEvent(GAFE.name.."_DungonExtension_QuestAdded", EVENT_QUEST_ADDED, OnQuestAdded)

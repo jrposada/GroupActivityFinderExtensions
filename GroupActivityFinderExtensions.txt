@@ -44,6 +44,14 @@ src/modules/activity-finder/dungeons/dungeons-activity-data.lua
 
 src/modules/activity-finder/trials/trials-activity-data.lua
 
+src/modules/activity-finder/schedule/schedules/dailies-schedule.lua
+src/modules/activity-finder/schedule/schedules/dailies-schedule.xml
+src/modules/activity-finder/schedule/schedules/pledges-schedule.lua
+src/modules/activity-finder/schedule/schedules/pledges-schedule.xml
+
+src/modules/activity-finder/schedule/activity-schedule-panel.lua
+src/modules/activity-finder/schedule/activity-schedule-panel.xml
+
 src/lang/en.lua
 src/lang/$(language).lua
 
@@ -57,6 +65,8 @@ src/modules/activity-finder/dungeons/dungeons-extensions.lua
 src/modules/activity-finder/trials/trials-extensions.lua
 src/modules/activity-finder/battlegrounds/battlegrounds-extensions.lua
 src/modules/activity-finder/queue/queue-extensions.lua
+
+src/modules/activity-finder/schedule/schedule.lua
 
 settings-menu.lua
 main.lua

@@ -334,6 +334,7 @@ end
 
 function GAFE_ActivityFinderExtender:UpdatePurpleRewardTimer()
 	local timeUntilNextReward = self.GetTimeUntilNextReward(self.characterId, self.rewardsVars)
+
     if timeUntilNextReward > 0 then
         self.premiumRewardTimerControl:SetHidden(false)
 

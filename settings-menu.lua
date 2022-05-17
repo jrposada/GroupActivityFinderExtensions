@@ -140,7 +140,7 @@ function GAFE.SettingsMenu.Init()
             controls = {
                 {
                     type = "checkbox",
-                    name = GetString(SI_DUNGEON_FINDER_GENERAL_ACTIVITY_DESCRIPTOR),
+                    name = 'Developer mode',
                     getFunc = function() return saveData.developerMode end,
                     setFunc = function(value) saveData.developerMode = value end,
                     warning = "Intended only for developers",

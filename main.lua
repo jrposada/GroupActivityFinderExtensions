@@ -22,6 +22,7 @@ local function OnAddOnLoaded(eventCode, addonName)
     GAFE_TRIALS_EXTENSIONS.Init()
     GAFE_BATTLEGROUNDS_EXTENSIONS.Init()
     GAFE_QUEUE_EXTENSIONS.Init()
+    GAFE_SCHEDULE.Init()
 
     -- GAFE.QueueManager.Init()
     -- GAFE.DungeonFinderCommands.Init()
@@ -39,7 +40,8 @@ local function OnAddOnLoaded(eventCode, addonName)
     GAFE.SettingsMenu.Init()
 
     if GAFE.SavedVars.developerMode then
-        GAFE.Debug.SetIds()
+        -- GAFE.Debug.SetIds()
+        -- GAFE.Debug.LogControlShown()
     end
 end
 
