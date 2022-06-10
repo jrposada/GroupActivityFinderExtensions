@@ -132,6 +132,35 @@ function GAFE_DUNGEON_EXTENSIONS.Init()
     local keybindStripGroup = {
         {
             alignment = KEYBIND_STRIP_ALIGN_CENTER,
+            name = GAFE.Loc("CheckMissingQuests"),
+            keybind = "UI_SHORTCUT_TERTIARY",
+            callback = function() extender:CheckMissingQuests() end,
+            enabled = true, -- TODO:
+        },
+        {
+            alignment = KEYBIND_STRIP_ALIGN_CENTER,
+            name = GAFE.Loc("CheckMissingSets"),
+            keybind = "UI_SHORTCUT_QUATERNARY",
+            callback = function() extender:CheckMissingSets() end,
+            visible = function()
+                local hasAllSets = true
+                for _, activityData in pairs(extender.data) do
+                    for _, setId in pairs(activityData.sets) do
+                        local setCollectionData = ITEM_SET_COLLECTIONS_DATA_MANAGER:GetItemSetCollectionData(setId)
+                        local numUnlockedPieces, numPieces = setCollectionData:GetNumUnlockedPieces(), setCollectionData:GetNumPieces()
+                        if numUnlockedPieces ~= numPieces then
+                            hasAllSets = false
+                            break
+                        end
+                    end
+
+                    if not hasAllSets then break end
+                end
+                return not hasAllSets
+            end,
+        },
+        {
+            alignment = KEYBIND_STRIP_ALIGN_CENTER,
             name = GAFE.Loc("CheckActivePledges"),
             keybind = "UI_SHORTCUT_SECONDARY",
             callback = function() CheckPledges() end,

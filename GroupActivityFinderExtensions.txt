@@ -63,6 +63,7 @@ src/modules/activity-finder/extender.lua
 src/modules/activity-finder/group/group-extensions.lua
 src/modules/activity-finder/dungeons/dungeons-extensions.lua
 src/modules/activity-finder/dungeons/dungeons-commands.lua
+src/modules/activity-finder/trials/trials-chests.lua
 src/modules/activity-finder/trials/trials-extensions.lua
 src/modules/activity-finder/battlegrounds/battlegrounds-extensions.lua
 src/modules/activity-finder/queue/queue-extensions.lua

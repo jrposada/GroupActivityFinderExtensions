@@ -9,7 +9,7 @@ end
 
 function GAFE_ActivityFinderExtender:Initialize(_root_, _data_, _treeEntry_, _customExtensions_, _rewardsVars_, _keybindStripGroup_, _onShown_)
     local root, data, treeEntry, customExtensions, rewardsVars, keybindStripGroup, onShown =
-        _root_, _data_, _treeEntry_, _customExtensions_, _rewardsVars_, _keybindStripGroup_, _onShown_
+    _root_, _data_, _treeEntry_, _customExtensions_, _rewardsVars_, _keybindStripGroup_, _onShown_
 
     self.characterId = GetCurrentCharacterId()
     self.root = root
@@ -33,35 +33,6 @@ function GAFE_ActivityFinderExtender:Initialize(_root_, _data_, _treeEntry_, _cu
         }
     }
     self.keybindStripGroup = {
-        {
-            alignment = KEYBIND_STRIP_ALIGN_CENTER,
-            name = GAFE.Loc("CheckMissingQuests"),
-            keybind = "UI_SHORTCUT_TERTIARY",
-            callback = function() self:CheckMissingQuests() end,
-            enabled = true, -- TODO:
-        },
-        {
-            alignment = KEYBIND_STRIP_ALIGN_CENTER,
-            name = GAFE.Loc("CheckMissingSets"),
-            keybind = "UI_SHORTCUT_QUATERNARY",
-            callback = function() self:CheckMissingSets() end,
-            visible = function()
-                local hasAllSets = true
-                for _, activityData in pairs(self.data) do
-                    for _, setId in pairs(activityData.sets) do
-                        local setCollectionData = ITEM_SET_COLLECTIONS_DATA_MANAGER:GetItemSetCollectionData(setId)
-                        local numUnlockedPieces, numPieces = setCollectionData:GetNumUnlockedPieces(), setCollectionData:GetNumPieces()
-                        if numUnlockedPieces ~= numPieces then
-                            hasAllSets = false
-                            break
-                        end
-                    end
-
-                    if not hasAllSets then break end
-                end
-                return not hasAllSets
-            end,
-        },
         self.leaveGroupKeybindStripGroup[0]
     }
     if keybindStripGroup then
@@ -95,36 +66,36 @@ function GAFE_ActivityFinderExtender:InitializeSetupFunction(_treeEntry_)
             -- Survivor challenge (no death)
             self:AddAchievement(
                 activityData.nd,
-                control:GetName().."nd",
+                control:GetName() .. "nd",
                 control,
                 "/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds"
             )
             -- Speed challenge
             self:AddAchievement(
                 activityData.tt,
-                control:GetName().."tt",
+                control:GetName() .. "tt",
                 control,
                 "/esoui/art/ava/overview_icon_underdog_score.dds"
             )
             -- Death challenge (hard mode)
             self:AddAchievement(
                 activityData.hm,
-                control:GetName().."hm",
+                control:GetName() .. "hm",
                 control,
                 "/esoui/art/unitframes/target_veteranrank_icon.dds"
             )
             -- General Vanquisher (normal) / Conqueror (veteran)
             self:AddAchievement(
                 activityData.id,
-                control:GetName().."id",
+                control:GetName() .. "id",
                 control,
                 "/esoui/art/announcewindow/announcement_icon_up.dds"
             )
 
             -- Quest (skill point)
-			self:AddQuest(
+            self:AddQuest(
                 activityData.q,
-                control:GetName().."q",
+                control:GetName() .. "q",
                 control,
                 "/esoui/art/icons/achievements_indexicon_quests_up.dds"
             )
@@ -133,7 +104,7 @@ function GAFE_ActivityFinderExtender:InitializeSetupFunction(_treeEntry_)
             self:AddWayshrine(activityData.node, control)
         else
             -- TODO:
-			GAFE.UI.AddIcon(control:GetName().."TODO", control, {125,20}, {LEFT,control,LEFT,420,0}, "ZoFontGameLarge", nil, {0,1}, "TODO "..activityId)
+            GAFE.UI.AddIcon(control:GetName() .. "TODO", control, { 125, 20 }, { LEFT, control, LEFT, 420, 0 }, "ZoFontGameLarge", nil, { 0, 1 }, "TODO " .. activityId)
         end
 
         if (self.customExtensions) then self.customExtensions(node, control, data, open) end
@@ -144,9 +115,9 @@ end
 
 function GAFE_ActivityFinderExtender:InitializeRandomReward()
     -- Initialize control.
-    self.singularSectionRewards = _G[self.root.."Finder_Keyboard".."SingularSectionRewardsSectionHeader"]
+    self.singularSectionRewards = _G[self.root .. "Finder_Keyboard" .. "SingularSectionRewardsSectionHeader"]
     if self.singularSectionRewards then
-        self.premiumRewardTimerControl = GAFE.UI.Label(self.root.."_RandomReward", self.singularSectionRewards, {125,20}, {TOPLEFT,self.parent,TOPRIGHT,10,2}, "ZoFontGameShadow", nil, {0,1})
+        self.premiumRewardTimerControl = GAFE.UI.Label(self.root .. "_RandomReward", self.singularSectionRewards, { 125, 20 }, { TOPLEFT, self.parent, TOPRIGHT, 10, 2 }, "ZoFontGameShadow", nil, { 0, 1 })
     end
 end
 
@@ -160,6 +131,7 @@ function GAFE_ActivityFinderExtender:InitializeEvents()
     local function OnKeyboardListSectionHidden()
         KEYBIND_STRIP:RemoveKeybindButtonGroup(self.keybindStripGroup)
     end
+
     local function OnSingularSectionShown()
         KEYBIND_STRIP:AddKeybindButtonGroup(self.leaveGroupKeybindStripGroup)
         if self.onShown then self.onShown() end
@@ -169,20 +141,20 @@ function GAFE_ActivityFinderExtender:InitializeEvents()
         KEYBIND_STRIP:RemoveKeybindButtonGroup(self.leaveGroupKeybindStripGroup)
     end
 
-    local keyboardSection = _G[self.root..'Finder_KeyboardListSection']
+    local keyboardSection = _G[self.root .. 'Finder_KeyboardListSection']
     if keyboardSection then
         ZO_PreHookHandler(keyboardSection, 'OnEffectivelyShown', OnKeyboardListSectionShown)
         ZO_PreHookHandler(keyboardSection, 'OnEffectivelyHidden', OnKeyboardListSectionHidden)
     end
 
-    local singularSection = _G[self.root..'Finder_KeyboardSingularSection']
+    local singularSection = _G[self.root .. 'Finder_KeyboardSingularSection']
     if singularSection then
         ZO_PreHookHandler(singularSection, 'OnEffectivelyShown', OnSingularSectionShown)
         ZO_PreHookHandler(singularSection, 'OnEffectivelyHidden', OnSingularSectionHidden)
     end
 
     if self.singularSectionRewards then
-        local eventName = self.root..'_RandomEvent'
+        local eventName = self.root .. '_RandomEvent'
         local function OnRandomActivitySectionShown()
             local function Update()
                 self:UpdatePurpleRewardTimer()
@@ -203,25 +175,25 @@ end
 
 function GAFE_ActivityFinderExtender:AddAchievement(_achivementId_, _controlName_, _parent_, _texture_)
     local achievementId, controlName, parent, texture =
-        _achivementId_, _controlName_, _parent_, _texture_
+    _achivementId_, _controlName_, _parent_, _texture_
     local sceneManager = SCENE_MANAGER
     local achievements = ACHIEVEMENTS
 
     local function showAchievement()
-        if select(1,GetCategoryInfoFromAchievementId(achievementId)) ~= nil then
+        if select(1, GetCategoryInfoFromAchievementId(achievementId)) ~= nil then
             sceneManager:ShowBaseScene()
             achievements:ShowAchievement(achievementId)
         end
     end
 
-    local text, hidden, tooltip =  nil, false, nil
+    local text, hidden, tooltip = nil, false, nil
     if achievementId then
-        local achievementName, _,  _, icon, isCompleted, _, _ = GetAchievementInfo(achievementId)
-        text= isCompleted and self:FormatTexture(texture) or ""
-        tooltip = self:FormatTexture(icon)..zo_strformat(achievementName)
+        local achievementName, _, _, icon, isCompleted, _, _ = GetAchievementInfo(achievementId)
+        text = isCompleted and self:FormatTexture(texture) or ""
+        tooltip = self:FormatTexture(icon) .. zo_strformat(achievementName)
         hidden = not isCompleted
     elseif GAFE.developerMode then
-        text="-"
+        text = "-"
         hidden = false
     end
 
@@ -234,11 +206,11 @@ function GAFE_ActivityFinderExtender:AddQuest(_questId_, _controlName_, _parent_
     local text, isQuestCompleted = nil, false
     if questId then
         isQuestCompleted = GetCompletedQuestInfo(questId) ~= "" and true or false
-        text= isQuestCompleted and self:FormatTexture(texture) or ""
+        text = isQuestCompleted and self:FormatTexture(texture) or ""
         parent.gafeQuest = not isQuestCompleted
         self.hasQuests = self.hasQuests or parent.gafeQuest
     elseif GAFE.developerMode then
-        text="-"
+        text = "-"
     end
 
     return self:AddIcon(controlName, parent, text, nil, nil, parent.gafeQuest)
@@ -249,21 +221,21 @@ function GAFE_ActivityFinderExtender:AddWayshrine(_nodeIndex_, _parent_)
     local text, knownNode, name = nil, nil, nil
 
     local function FastTravel()
-        ZO_Dialogs_ShowPlatformDialog("RECALL_CONFIRM", {nodeIndex = nodeIndex}, {mainTextParams = {name}})
+        ZO_Dialogs_ShowPlatformDialog("RECALL_CONFIRM", { nodeIndex = nodeIndex }, { mainTextParams = { name } })
     end
 
     if nodeIndex then
         knownNode, name = GetFastTravelNodeInfo(nodeIndex)
         text = knownNode and self:FormatTexture("/esoui/art/icons/poi/poi_wayshrine_complete.dds") or ""
     elseif GAFE.developerMode then
-        text="-"
+        text = "-"
     end
 
     return GAFE.UI.Button(
-        parent:GetName().."t",
+        parent:GetName() .. "t",
         parent,
-        {self.textureSize,self.textureSize},
-        {RIGHT,parent,LEFT,-5,0},
+        { self.textureSize, self.textureSize },
+        { RIGHT, parent, LEFT, -5, 0 },
         text,
         FastTravel,
         true,
@@ -283,23 +255,23 @@ function GAFE_ActivityFinderExtender:AddSets(_setsIds_, _parent_)
             hasAllSets = hasAllSets and numUnlockedPieces == numPieces
         end
 
-        text=hasAllSets and self:FormatTexture("/esoui/art/crafting/smithing_tabicon_armorset_up.dds") or ""
+        text = hasAllSets and self:FormatTexture("/esoui/art/crafting/smithing_tabicon_armorset_up.dds") or ""
         parent.gafeSets = not hasAllSets
     elseif GAFE.developerMode then
-        text="-"
+        text = "-"
     end
 
-    return self:AddIcon(parent:GetName().."sets", parent, text, nil, nil, parent.gafeSets)
+    return self:AddIcon(parent:GetName() .. "sets", parent, text, nil, nil, parent.gafeSets)
 end
 
 function GAFE_ActivityFinderExtender:FormatTexture(texture, size)
     if size == nil then size = self.textureSize end
-    return "|t"..size..":"..size..":"..texture.."|t"
+    return "|t" .. size .. ":" .. size .. ":" .. texture .. "|t"
 end
 
 function GAFE_ActivityFinderExtender:AddIcon(_controlName_, _parent_, _text_, _func_, _tooltip_, _hidden_)
     local controlName, parent, text, func, tooltip, hidden =
-        _controlName_, _parent_, _text_, _func_, _tooltip_, _hidden_
+    _controlName_, _parent_, _text_, _func_, _tooltip_, _hidden_
 
     local position = self.position
     self.position = position - self.textureSize
@@ -307,8 +279,8 @@ function GAFE_ActivityFinderExtender:AddIcon(_controlName_, _parent_, _text_, _f
     return GAFE.UI.Button(
         controlName,
         parent,
-        {self.textureSize,self.textureSize},
-        {LEFT,parent,LEFT,self.position,0},
+        { self.textureSize, self.textureSize },
+        { LEFT, parent, LEFT, self.position, 0 },
         text,
         func,
         true,
@@ -321,26 +293,26 @@ function GAFE_ActivityFinderExtender:Collapse()
     local function collapse()
         self:RefreshDungeonDifficulty()
         for c = 2, 3 do
-            local header=_G[self.root.."Finder_KeyboardListSectionScrollChildZO_ActivityFinderTemplateNavigationHeader_Keyboard"..c-1]
+            local header = _G[self.root .. "Finder_KeyboardListSectionScrollChildZO_ActivityFinderTemplateNavigationHeader_Keyboard" .. c - 1]
             if header then
-                local state=header.text:GetColor()
-                if ((self.dungeonDifficulty~=c)==(state==1)) then header:OnMouseUp(true) end
+                local state = header.text:GetColor()
+                if ((self.dungeonDifficulty ~= c) == (state == 1)) then header:OnMouseUp(true) end
             end
         end
     end
 
-    GAFE.CallLater(GAFE.name..self.root.."_Extensions", 200, collapse)
+    GAFE.CallLater(GAFE.name .. self.root .. "_Extensions", 200, collapse)
 end
 
 function GAFE_ActivityFinderExtender:UpdatePurpleRewardTimer()
-	local timeUntilNextReward = self.GetTimeUntilNextReward(self.characterId, self.rewardsVars)
+    local timeUntilNextReward = self.GetTimeUntilNextReward(self.characterId, self.rewardsVars)
 
     if timeUntilNextReward > 0 then
         self.premiumRewardTimerControl:SetHidden(false)
 
         local textStartTime = ZO_FormatTime(timeUntilNextReward, TIME_FORMAT_STYLE_COLONS, TIME_FORMAT_PRECISION_SECONDS)
 
-        self.premiumRewardTimerControl:SetText(GAFE.Loc("NextReward").." "..textStartTime)
+        self.premiumRewardTimerControl:SetText(GAFE.Loc("NextReward") .. " " .. textStartTime)
     else
         self.premiumRewardTimerControl:SetHidden(true)
     end
@@ -372,7 +344,7 @@ function GAFE_ActivityFinderExtender:CheckAllWhere(_checkFunc_)
     local checkFunc = _checkFunc_
 
     local m_active = self.pool.m_Active
-    for k,obj in pairs(m_active) do
+    for k, obj in pairs(m_active) do
         if checkFunc(obj) and obj.check:GetState() == 0 then
             ZO_CheckButton_OnClicked(obj.check)
             ZO_ACTIVITY_FINDER_ROOT_MANAGER:ToggleLocationSelected(obj.node.data)
@@ -386,8 +358,8 @@ end
 function GAFE_ActivityFinderExtender:RefreshDungeonDifficulty()
     local savedVars = GAFE.SavedVars
     self.dungeonDifficulty = savedVars.collapse == GAFE_COLLAPSE_MODE.Group and
-      (ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and LFG_ACTIVITY_DUNGEON or LFG_ACTIVITY_MASTER_DUNGEON) -- Normal => 2, Veteran => 3
-      or (savedVars.collapse == GAFE_COLLAPSE_MODE.Normal and LFG_ACTIVITY_DUNGEON or LFG_ACTIVITY_MASTER_DUNGEON)
+        (ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and LFG_ACTIVITY_DUNGEON or LFG_ACTIVITY_MASTER_DUNGEON) -- Normal => 2, Veteran => 3
+        or (savedVars.collapse == GAFE_COLLAPSE_MODE.Normal and LFG_ACTIVITY_DUNGEON or LFG_ACTIVITY_MASTER_DUNGEON)
 end
 
 function GAFE_ActivityFinderExtender.GetTimeUntilNextReward(characterId, rewardsVars)

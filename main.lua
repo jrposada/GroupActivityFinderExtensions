@@ -17,6 +17,8 @@ local function OnAddOnLoaded(eventCode, addonName)
     GAFE.SavedVars = ZO_SavedVars:NewAccountWide(GAFE.name .. "_Vars", GAFE.varsVersion, nil, GAFE.DefaultVars, GetWorldName())
 
     -- Initialize stuff
+    GAFE_TRIALS_CHESTS.Init()
+
     GAFE_GROUP_EXTENSIONS.Init()
     GAFE_DUNGEON_EXTENSIONS.Init()
     GAFE_DUNGEON_COMMANDS.Init()
@@ -41,8 +43,9 @@ local function OnAddOnLoaded(eventCode, addonName)
     GAFE.SettingsMenu.Init()
 
     if GAFE.SavedVars.developerMode then
-        -- GAFE.Debug.SetIds()
+        GAFE.Debug.SetIds()
         -- GAFE.Debug.LogControlShown()
+        GAFE.Debug.LogNodeIds()
     end
 end
 
