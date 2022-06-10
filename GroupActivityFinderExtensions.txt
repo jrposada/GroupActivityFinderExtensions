@@ -2,8 +2,8 @@
 ## Description: Quality of life improvements for the Group & Activity Finder.
 ## Author: Panicida
 ## APIVersion: 101033
-## AddOnVersion: 050401
-## Version: 5.4
+## AddOnVersion: 050500
+## Version: 5.5
 ## DependsOn: LibAddonMenu-2.0 LibScroll
 ## SavedVariables: GroupActivityFinderExtensions_Vars
 

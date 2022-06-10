@@ -1,9 +1,9 @@
 GroupActivityFinderExtensions = {
     name = "GroupActivityFinderExtensions",
-    version = 5.4,
+    version = 5.5,
     varsVersion = 3,
     Localization = {},
-    Loc	= function(var) return GroupActivityFinderExtensions.Localization[var] or var end,
+    Loc = function(var) return GroupActivityFinderExtensions.Localization[var] or var end,
     DefaultVars = {
         textureSize = 25,
         collapse = 1,
@@ -52,7 +52,7 @@ local function migration2()
         }
     }
 
-    ZO_SavedVars:NewAccountWide(GAFE.name.."_Vars", newVersion, nil, newDefault, GetWorldName())
+    ZO_SavedVars:NewAccountWide(GAFE.name .. "_Vars", newVersion, nil, newDefault, GetWorldName())
     local savedVars = GroupActivityFinderExtensions_Vars
 
     -- Set up locals
@@ -100,7 +100,7 @@ local function migration3()
     -- Set up locals
     local savedVars = GroupActivityFinderExtensions_Vars
     local oldSavedVars = savedVars[GetWorldName()][GetDisplayName()]["$AccountWide"]
-    local newSavedVars = ZO_SavedVars:NewAccountWide(GAFE.name.."_Vars", newVersion, nil, newDefault, GetWorldName())
+    local newSavedVars = ZO_SavedVars:NewAccountWide(GAFE.name .. "_Vars", newVersion, nil, newDefault, GetWorldName())
 
     -- Migrate values
     local autoConfirmEnabled = oldSavedVars.autoConfirm.enabled
@@ -118,16 +118,16 @@ local migrations = {
 function GAFE.Vars.Migrate()
     local function GetSavedVarsVersion(savedVars)
         if savedVars["Default"] and
-           savedVars["Default"][GetDisplayName()] and
-           savedVars["Default"][GetDisplayName()]["$AccountWide"] and
-           savedVars["Default"][GetDisplayName()]["$AccountWide"]["version"] == 1 then
+            savedVars["Default"][GetDisplayName()] and
+            savedVars["Default"][GetDisplayName()]["$AccountWide"] and
+            savedVars["Default"][GetDisplayName()]["$AccountWide"]["version"] == 1 then
             return savedVars["Default"][GetDisplayName()]["$AccountWide"]["version"]
         end
 
         if savedVars[GetWorldName()] and
-           savedVars[GetWorldName()][GetDisplayName()] and
-           savedVars[GetWorldName()][GetDisplayName()]["$AccountWide"] and
-           savedVars[GetWorldName()][GetDisplayName()]["$AccountWide"]["version"] then
+            savedVars[GetWorldName()][GetDisplayName()] and
+            savedVars[GetWorldName()][GetDisplayName()]["$AccountWide"] and
+            savedVars[GetWorldName()][GetDisplayName()]["$AccountWide"]["version"] then
             return savedVars[GetWorldName()][GetDisplayName()]["$AccountWide"]["version"]
         end
 
@@ -142,4 +142,4 @@ function GAFE.Vars.Migrate()
     for version = oldVersion + 1, GAFE.varsVersion do
         migrations[version]()
     end
- end
+end
