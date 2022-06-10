@@ -7,15 +7,14 @@ done
 
 # version=$(awk '/^## AddOnVersion/{print $NF}' GroupActivityFinderExtensions.txt)
 
-mkdir GroupActivityFinderExtensions
+$output = build/GroupActivityFinderExtensions
 
-cp -r Business GroupActivityFinderExtensions
-cp -r Infrastructure  GroupActivityFinderExtensions
-cp -r lang  GroupActivityFinderExtensions
-cp -r Ui  GroupActivityFinderExtensions
-cp GroupActivityFinderExtensions.txt  GroupActivityFinderExtensions
-cp Main.lua  GroupActivityFinderExtensions
-cp SettingsMenu.lua  GroupActivityFinderExtensions
+mkdir $output
 
-zip GroupActivityFinderExtensions-$version.zip -r GroupActivityFinderExtensions
-rm -rf GroupActivityFinderExtensions
+cp -r src $output
+cp Main.lua  $output
+cp Vars.lua  $output
+cp SettingsMenu.lua  $output
+
+zip $output-$version.zip -r $output
+rm -rf $output
