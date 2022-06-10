@@ -8,6 +8,7 @@
 		}
 	],
 	"settings": {
+		"editor.formatOnSave": true,
 		"terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
 		"terminal.integrated.profiles.windows": {
 			"PowerShell": {

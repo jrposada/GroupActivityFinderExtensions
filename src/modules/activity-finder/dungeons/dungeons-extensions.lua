@@ -18,9 +18,9 @@ local function UpdateTodayPledges()
 
     todayPledges.day = math.floor(GetDiffBetweenTimeStamps(GetTimeStamp(), 1517464800) / 86400) -- 86400 = 1 day
 
-    for npc = 1,3 do
+    for npc = 1, 3 do
         local dpList = GAFE_PLEDGE_LIST[npc]
-        local n = 1 + (todayPledges.day+dpList.shift) % #dpList
+        local n = 1 + (todayPledges.day + dpList.shift) % #dpList
         todayPledges[dpList[n]] = true
     end
 
@@ -38,14 +38,11 @@ local function QuestNameToPledgeId(_questName_)
     local questName = _questName_
     -- FIXME: broken in french
     -- Remove weird white spaces and other special characters.
-    local cleanQuestName = string.format("%s", questName:gsub(".*:%s*",""):gsub(" "," "):lower())
+    local cleanQuestName = string.format("%s", questName:gsub(".*:%s*", ""):gsub(" ", " "):lower())
     local pledgeId = nil
     for id, pledgeName in pairs(GAFE_DUNGEON_PLEDGE_QUEST_NAME) do
         if string.match(cleanQuestName, pledgeName:lower()) then
             pledgeId = id
-        end
-        if GAFE.SavedVars.developerMode and pledgeId then
-            -- GAFE.LogLater(cleanQuestName.." - "..pledgeName:lower().." - "..(pledgeId or 'nil'))
         end
     end
 
@@ -58,19 +55,16 @@ local pledgesInJournal = {}
 local function UpdatePledgesInJournal()
     pledgesInJournal = {}
 
-    for i=1, MAX_JOURNAL_QUESTS do
-        local questName,_,_,stepType,_,completed,_,_,_,questType,instanceType=GetJournalQuestInfo(i)
-        if questName and questName~="" and not completed and questType==QUEST_TYPE_UNDAUNTED_PLEDGE and instanceType==INSTANCE_TYPE_GROUP then
-            if GAFE.SavedVars.developerMode then
-                -- GAFE.LogLater("Developer mode: (quest name) "..questName)
-            end
+    for i = 1, MAX_JOURNAL_QUESTS do
+        local questName, _, _, stepType, _, completed, _, _, _, questType, instanceType = GetJournalQuestInfo(i)
+        if questName and questName ~= "" and not completed and questType == QUEST_TYPE_UNDAUNTED_PLEDGE and instanceType == INSTANCE_TYPE_GROUP then
 
             local pledgeId = QuestNameToPledgeId(questName)
 
             if pledgeId then
-                pledgesInJournal[pledgeId] = stepType~=QUEST_STEP_TYPE_AND
+                pledgesInJournal[pledgeId] = stepType ~= QUEST_STEP_TYPE_AND
             else
-                GAFE.LogLater("Group & Activity Finder Extensions has encounter an unknown pledge quest name: "..questName)
+                GAFE.LogLater("Group & Activity Finder Extensions has encounter an unknown pledge quest name: " .. questName)
             end
         end
     end
@@ -79,29 +73,17 @@ end
 local function AddPledge(_pledgeId_, _control_)
     local pledgeId, control = _pledgeId_, _control_
 
-    if GAFE.SavedVars.developerMode then
-        local value = pledgesInJournal[pledgeId] and "true"
-        if pledgesInJournal[pledgeId]==false then
-            value = "false"
-        end
-
-        if pledgesInJournal[pledgeId]==nil then
-            value = "nil"
-        end
-        GAFE.LogLater("Adding: "..control.text:GetText().." - "..(value))
-    end
-
     local donePledges = GAFE.SavedVars.dungeons.donePledges[characterId]
     local text = control.text:GetText()
     if pledgesInJournal[pledgeId] or donePledges[pledgeId] then
         -- In Journal and completed or done and not in journal
-        text="|c32CD32"..text.."|r" -- green
-    elseif pledgesInJournal[pledgeId]==false then
+        text = "|c32CD32" .. text .. "|r" -- green
+    elseif pledgesInJournal[pledgeId] == false then
         -- In Journal and no completed
-        text="|cFFD700"..text.."|r" -- gold
+        text = "|cFFD700" .. text .. "|r" -- gold
     elseif todayPledges[pledgeId] then
         -- Not done and not in journal
-        text="|c00CED1"..text.."|r" -- blue
+        text = "|c00CED1" .. text .. "|r" -- blue
     end
     control.text:SetText(text)
 
@@ -147,8 +129,6 @@ GAFE_DUNGEON_EXTENSIONS = {}
 function GAFE_DUNGEON_EXTENSIONS.Init()
     local treeEntry = DUNGEON_FINDER_KEYBOARD.navigationTree.templateInfo.ZO_ActivityFinderTemplateNavigationEntry_Keyboard
 
-    UpdateTodayPledges()
-    UpdatePledgesInJournal()
     local keybindStripGroup = {
         {
             alignment = KEYBIND_STRIP_ALIGN_CENTER,
@@ -200,15 +180,24 @@ function GAFE_DUNGEON_EXTENSIONS.Init()
     GAFE_DUNGEON_EXTENSIONS.AutomaticallyHandlePledgeQuests(
         GAFE.SavedVars.dungeons.handlePledgeQuest
     )
+
     extender:Initialize("ZO_Dungeon", dungeonData, treeEntry, customExtensions, GAFE.SavedVars.dungeons, keybindStripGroup, OnShown)
 
-    EVENT_MANAGER:RegisterForEvent(GAFE.name.."_DungonExtension_QuestAdded", EVENT_QUEST_ADDED, OnQuestAdded)
-    EVENT_MANAGER:RegisterForEvent(GAFE.name.."_DungonExtension_QuestRemoved", EVENT_QUEST_REMOVED, OnQuestRemoved)
-    EVENT_MANAGER:RegisterForEvent(extender.root.."Activity_Update", EVENT_ACTIVITY_FINDER_STATUS_UPDATE, OnActivityFinderStatusUpdate)
+    EVENT_MANAGER:RegisterForEvent(
+        GAFE.name .. "_DungonExtension_PlayerReady",
+        EVENT_PLAYER_ACTIVATED,
+        function()
+            UpdateTodayPledges()
+            UpdatePledgesInJournal()
+        end
+    )
+    EVENT_MANAGER:RegisterForEvent(GAFE.name .. "_DungonExtension_QuestAdded", EVENT_QUEST_ADDED, OnQuestAdded)
+    EVENT_MANAGER:RegisterForEvent(GAFE.name .. "_DungonExtension_QuestRemoved", EVENT_QUEST_REMOVED, OnQuestRemoved)
+    EVENT_MANAGER:RegisterForEvent(extender.root .. "Activity_Update", EVENT_ACTIVITY_FINDER_STATUS_UPDATE, OnActivityFinderStatusUpdate)
 end
 
 function GAFE_DUNGEON_EXTENSIONS.AutomaticallyHandlePledgeQuests(enable)
-    local questOfferedEventName, questOffered = GAFE.name.."_QuestOffered", false
+    local questOfferedEventName, questOffered = GAFE.name .. "_QuestOffered", false
 
     local function HandleQuestOffered()
         if questOffered then
@@ -248,14 +237,13 @@ function GAFE_DUNGEON_EXTENSIONS.AutomaticallyHandlePledgeQuests(enable)
 
     if enable then
         EVENT_MANAGER:RegisterForEvent(
-            GAFE.name.."_DungonExtension_PledgeChatter",
+            GAFE.name .. "_DungonExtension_PledgeChatter",
             EVENT_CHATTER_BEGIN,
             HandleChatterBegin
         )
     else
-        EVENT_MANAGER:UnregisterForEvent(GAFE.name.."_DungonExtension_PledgeChatter")
+        EVENT_MANAGER:UnregisterForEvent(GAFE.name .. "_DungonExtension_PledgeChatter")
     end
 
     GAFE.SavedVars.dungeons.handlePledgeQuest = enable
 end
-

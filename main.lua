@@ -6,7 +6,7 @@ local GAFE = GroupActivityFinderExtensions
 local function OnAddOnLoaded(eventCode, addonName)
     -- The event fires each time *any* addon loads - but we only care about when our own addon loads.
     if addonName ~= GAFE.name then return end
-	EVENT_MANAGER:UnregisterForEvent(GAFE.name.."_Event", EVENT_ADD_ON_LOADED)
+    EVENT_MANAGER:UnregisterForEvent(GAFE.name .. "_Event", EVENT_ADD_ON_LOADED)
 
     -- Migrate old saved vars versions
     if not pcall(GAFE.Vars.Migrate) then
@@ -14,11 +14,12 @@ local function OnAddOnLoaded(eventCode, addonName)
     end
 
     -- Load saved variables
-    GAFE.SavedVars = ZO_SavedVars:NewAccountWide(GAFE.name.."_Vars", GAFE.varsVersion, nil, GAFE.DefaultVars, GetWorldName())
+    GAFE.SavedVars = ZO_SavedVars:NewAccountWide(GAFE.name .. "_Vars", GAFE.varsVersion, nil, GAFE.DefaultVars, GetWorldName())
 
     -- Initialize stuff
     GAFE_GROUP_EXTENSIONS.Init()
     GAFE_DUNGEON_EXTENSIONS.Init()
+    GAFE_DUNGEON_COMMANDS.Init()
     GAFE_TRIALS_EXTENSIONS.Init()
     GAFE_BATTLEGROUNDS_EXTENSIONS.Init()
     GAFE_QUEUE_EXTENSIONS.Init()
@@ -46,4 +47,4 @@ local function OnAddOnLoaded(eventCode, addonName)
 end
 
 -- Finally, we'll register our event handler function to be called when the proper event occurs.
-EVENT_MANAGER:RegisterForEvent(GAFE.name.."_Event", EVENT_ADD_ON_LOADED, OnAddOnLoaded)
+EVENT_MANAGER:RegisterForEvent(GAFE.name .. "_Event", EVENT_ADD_ON_LOADED, OnAddOnLoaded)
