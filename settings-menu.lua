@@ -44,7 +44,8 @@ function GAFE.SettingsMenu.Init()
         {
             type = "dropdown",
             name = GAFE.Loc("Settings_Difficulty"),
-            choices = { collapseModeToString[GAFE_COLLAPSE_MODE.Group], collapseModeToString[GAFE_COLLAPSE_MODE.Normal], collapseModeToString[GAFE_COLLAPSE_MODE.Veteran] },
+            choices = { collapseModeToString[GAFE_COLLAPSE_MODE.Group], collapseModeToString[GAFE_COLLAPSE_MODE.Normal],
+                collapseModeToString[GAFE_COLLAPSE_MODE.Veteran] },
             getFunc = function() return collapseModeToString[saveData.collapse] end,
             setFunc = function(value) saveData.collapse = stringToCollapseMode[value] end
         },
@@ -52,7 +53,7 @@ function GAFE.SettingsMenu.Init()
             type = "checkbox",
             name = GAFE.Loc("Settings_AutoConfirm"),
             getFunc = function() return saveData.autoConfirm.enabled end,
-            setFunc = function(value) GAFE.AutoConfirm.Enable(value) end
+            setFunc = function(value) GAFE_QUEUE_EXTENSIONS.AutoConfirm(value) end
         },
         {
             type = "slider",
@@ -81,12 +82,6 @@ function GAFE.SettingsMenu.Init()
         --     getFunc = function() return saveData.autoInvite.enabled end,
         --     setFunc = function(value) GAFE.QueueManager.Enable(value) end
         -- },
-        {
-            type = "checkbox",
-            name = GAFE.Loc("Settings_MarkPledgesWithIcon"),
-            getFunc = function() return saveData.dungeons.dailyPledgeMarker.isIcon end,
-            setFunc = function(value) saveData.dungeons.dailyPledgeMarker.isIcon = value end
-        },
         {
             type = "checkbox",
             name = GAFE.Loc("Settings_HandleQuest"),
@@ -141,7 +136,9 @@ function GAFE.SettingsMenu.Init()
                 {
                     type = "button",
                     name = GAFE.Loc("TrialAetherianArchive"),
-                    func = function() return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[GAFE_ACTIVITY_ID.NormalAetherianArchive].q) end,
+                    func = function() return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
+                            GAFE_ACTIVITY_ID.NormalAetherianArchive].q)
+                    end,
                     width = "half",
                     warning = GAFE.Loc("Settings_ResetChestWarning"),
                     isDangerous = true
@@ -149,7 +146,9 @@ function GAFE.SettingsMenu.Init()
                 {
                     type = "button",
                     name = GAFE.Loc("TrialHelRaCitadel"),
-                    func = function() return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[GAFE_ACTIVITY_ID.NormalHelRaCitadel].q) end,
+                    func = function() return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
+                            GAFE_ACTIVITY_ID.NormalHelRaCitadel].q)
+                    end,
                     width = "half",
                     warning = GAFE.Loc("Settings_ResetChestWarning"),
                     isDangerous = true
@@ -157,7 +156,9 @@ function GAFE.SettingsMenu.Init()
                 {
                     type = "button",
                     name = GAFE.Loc("TrialSanctumOphidia"),
-                    func = function() return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[GAFE_ACTIVITY_ID.NormalSanctumOphidia].q) end,
+                    func = function() return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
+                            GAFE_ACTIVITY_ID.NormalSanctumOphidia].q)
+                    end,
                     width = "half",
                     warning = GAFE.Loc("Settings_ResetChestWarning"),
                     isDangerous = true
@@ -165,7 +166,9 @@ function GAFE.SettingsMenu.Init()
                 {
                     type = "button",
                     name = GAFE.Loc("TrialMawOfLorkhaj"),
-                    func = function() return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[GAFE_ACTIVITY_ID.NormalMawOfLorkhaj].q) end,
+                    func = function() return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
+                            GAFE_ACTIVITY_ID.NormalMawOfLorkhaj].q)
+                    end,
                     width = "half",
                     warning = GAFE.Loc("Settings_ResetChestWarning"),
                     isDangerous = true
@@ -173,7 +176,9 @@ function GAFE.SettingsMenu.Init()
                 {
                     type = "button",
                     name = GAFE.Loc("TrialHallsOfFabrication"),
-                    func = function() return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[GAFE_ACTIVITY_ID.NormalHallsOfFabrication].q) end,
+                    func = function() return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
+                            GAFE_ACTIVITY_ID.NormalHallsOfFabrication].q)
+                    end,
                     width = "half",
                     warning = GAFE.Loc("Settings_ResetChestWarning"),
                     isDangerous = true
@@ -181,7 +186,9 @@ function GAFE.SettingsMenu.Init()
                 {
                     type = "button",
                     name = GAFE.Loc("TrialAsylumSanctorium"),
-                    func = function() return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[GAFE_ACTIVITY_ID.NormalAsylumSanctorium].q) end,
+                    func = function() return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
+                            GAFE_ACTIVITY_ID.NormalAsylumSanctorium].q)
+                    end,
                     width = "half",
                     warning = GAFE.Loc("Settings_ResetChestWarning"),
                     isDangerous = true
@@ -189,7 +196,9 @@ function GAFE.SettingsMenu.Init()
                 {
                     type = "button",
                     name = GAFE.Loc("TrialCloudrest"),
-                    func = function() return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[GAFE_ACTIVITY_ID.NormalCloudrest].q) end,
+                    func = function() return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
+                            GAFE_ACTIVITY_ID.NormalCloudrest].q)
+                    end,
                     width = "half",
                     warning = GAFE.Loc("Settings_ResetChestWarning"),
                     isDangerous = true
@@ -197,7 +206,9 @@ function GAFE.SettingsMenu.Init()
                 {
                     type = "button",
                     name = GAFE.Loc("TrialSunspire"),
-                    func = function() return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[GAFE_ACTIVITY_ID.NormalSunspire].q) end,
+                    func = function() return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
+                            GAFE_ACTIVITY_ID.NormalSunspire].q)
+                    end,
                     width = "half",
                     warning = GAFE.Loc("Settings_ResetChestWarning"),
                     isDangerous = true
@@ -205,7 +216,9 @@ function GAFE.SettingsMenu.Init()
                 {
                     type = "button",
                     name = GAFE.Loc("TrialKynesAegis"),
-                    func = function() return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[GAFE_ACTIVITY_ID.NormalKynesAegis].q) end,
+                    func = function() return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
+                            GAFE_ACTIVITY_ID.NormalKynesAegis].q)
+                    end,
                     width = "half",
                     warning = GAFE.Loc("Settings_ResetChestWarning"),
                     isDangerous = true
@@ -213,7 +226,9 @@ function GAFE.SettingsMenu.Init()
                 {
                     type = "button",
                     name = GAFE.Loc("TrialDreadsailReef"),
-                    func = function() return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[GAFE_ACTIVITY_ID.NormalDreadsailReef].q) end,
+                    func = function() return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
+                            GAFE_ACTIVITY_ID.NormalDreadsailReef].q)
+                    end,
                     width = "half",
                     warning = GAFE.Loc("Settings_ResetChestWarning"),
                     isDangerous = true

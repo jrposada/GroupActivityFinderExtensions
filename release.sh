@@ -1,3 +1,4 @@
+#!/bin/sh
 while getopts v: flag
 do
     case "${flag}" in
@@ -7,14 +8,16 @@ done
 
 # version=$(awk '/^## AddOnVersion/{print $NF}' GroupActivityFinderExtensions.txt)
 
-$output = build/GroupActivityFinderExtensions
+# output = build/GroupActivityFinderExtensions
 
-mkdir $output
 
-cp -r src $output
-cp Main.lua  $output
-cp Vars.lua  $output
-cp SettingsMenu.lua  $output
+mkdir build/GroupActivityFinderExtensions
 
-zip $output-$version.zip -r $output
-rm -rf $output
+cp -r src build/GroupActivityFinderExtensions
+cp GroupActivityFinderExtensions.txt  build/GroupActivityFinderExtensions
+cp main.lua  build/GroupActivityFinderExtensions
+cp vars.lua  build/GroupActivityFinderExtensions
+cp settings-menu.lua  build/GroupActivityFinderExtensions
+
+# zip ./build/GroupActivityFinderExtensions-$version.zip -r ./build/GroupActivityFinderExtensions
+# rm -rf build/GroupActivityFinderExtensions
