@@ -36,12 +36,11 @@ end
 
 local function QuestNameToPledgeId(_questName_)
     local questName = _questName_
-    -- FIXME: broken in french
     -- Remove weird white spaces and other special characters.
     local cleanQuestName = string.format("%s", questName:gsub(".*:%s*", ""):gsub(" ", " "):lower())
     local pledgeId = nil
     for id, pledgeName in pairs(GAFE_DUNGEON_PLEDGE_QUEST_NAME) do
-        if string.match(cleanQuestName, pledgeName:lower()) then
+        if cleanQuestName == pledgeName:lower() then
             pledgeId = id
         end
     end
@@ -57,14 +56,16 @@ local function UpdatePledgesInJournal()
 
     for i = 1, MAX_JOURNAL_QUESTS do
         local questName, _, _, stepType, _, completed, _, _, _, questType, instanceType = GetJournalQuestInfo(i)
-        if questName and questName ~= "" and not completed and questType == QUEST_TYPE_UNDAUNTED_PLEDGE and instanceType == INSTANCE_TYPE_GROUP then
+        if questName and questName ~= "" and not completed and questType == QUEST_TYPE_UNDAUNTED_PLEDGE and
+            instanceType == INSTANCE_TYPE_GROUP then
 
             local pledgeId = QuestNameToPledgeId(questName)
 
             if pledgeId then
                 pledgesInJournal[pledgeId] = stepType ~= QUEST_STEP_TYPE_AND
             else
-                GAFE.LogLater("Group & Activity Finder Extensions has encounter an unknown pledge quest name: " .. questName)
+                GAFE.LogLater("Group & Activity Finder Extensions has encounter an unknown pledge quest name: " ..
+                    questName)
             end
         end
     end
@@ -127,7 +128,8 @@ end
 GAFE_DUNGEON_EXTENSIONS = {}
 
 function GAFE_DUNGEON_EXTENSIONS.Init()
-    local treeEntry = DUNGEON_FINDER_KEYBOARD.navigationTree.templateInfo.ZO_ActivityFinderTemplateNavigationEntry_Keyboard
+    local treeEntry = DUNGEON_FINDER_KEYBOARD.navigationTree.templateInfo.
+        ZO_ActivityFinderTemplateNavigationEntry_Keyboard
 
     local keybindStripGroup = {
         {
@@ -147,7 +149,8 @@ function GAFE_DUNGEON_EXTENSIONS.Init()
                 for _, activityData in pairs(extender.data) do
                     for _, setId in pairs(activityData.sets) do
                         local setCollectionData = ITEM_SET_COLLECTIONS_DATA_MANAGER:GetItemSetCollectionData(setId)
-                        local numUnlockedPieces, numPieces = setCollectionData:GetNumUnlockedPieces(), setCollectionData:GetNumPieces()
+                        local numUnlockedPieces, numPieces = setCollectionData:GetNumUnlockedPieces(),
+                            setCollectionData:GetNumPieces()
                         if numUnlockedPieces ~= numPieces then
                             hasAllSets = false
                             break
@@ -210,7 +213,8 @@ function GAFE_DUNGEON_EXTENSIONS.Init()
         GAFE.SavedVars.dungeons.handlePledgeQuest
     )
 
-    extender:Initialize("ZO_Dungeon", dungeonData, treeEntry, customExtensions, GAFE.SavedVars.dungeons, keybindStripGroup, OnShown)
+    extender:Initialize("ZO_Dungeon", dungeonData, treeEntry, customExtensions, GAFE.SavedVars.dungeons,
+        keybindStripGroup, OnShown)
 
     EVENT_MANAGER:RegisterForEvent(
         GAFE.name .. "_DungonExtension_PlayerReady",
@@ -222,7 +226,8 @@ function GAFE_DUNGEON_EXTENSIONS.Init()
     )
     EVENT_MANAGER:RegisterForEvent(GAFE.name .. "_DungonExtension_QuestAdded", EVENT_QUEST_ADDED, OnQuestAdded)
     EVENT_MANAGER:RegisterForEvent(GAFE.name .. "_DungonExtension_QuestRemoved", EVENT_QUEST_REMOVED, OnQuestRemoved)
-    EVENT_MANAGER:RegisterForEvent(extender.root .. "Activity_Update", EVENT_ACTIVITY_FINDER_STATUS_UPDATE, OnActivityFinderStatusUpdate)
+    EVENT_MANAGER:RegisterForEvent(extender.root .. "Activity_Update", EVENT_ACTIVITY_FINDER_STATUS_UPDATE,
+        OnActivityFinderStatusUpdate)
 end
 
 function GAFE_DUNGEON_EXTENSIONS.AutomaticallyHandlePledgeQuests(enable)
