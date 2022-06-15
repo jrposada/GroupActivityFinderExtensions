@@ -20,4 +20,4 @@ cp vars.lua  build/GroupActivityFinderExtensions
 cp settings-menu.lua  build/GroupActivityFinderExtensions
 
 # zip ./build/GroupActivityFinderExtensions-$version.zip -r ./build/GroupActivityFinderExtensions
-# rm -rf build/GroupActivityFinderExtensions
+rm -rf build/GroupActivityFinderExtensions
