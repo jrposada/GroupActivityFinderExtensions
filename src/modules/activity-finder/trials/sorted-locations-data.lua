@@ -318,6 +318,14 @@ function GAFE_ActivityFinderLocation_Specific:GetZoneId()
     return self.zoneId
 end
 
+function GAFE_ActivityFinderLocation_Specific:IsLockedByAvailablityRequirementList()
+    return false -- Not currently supported for specifics
+end
+
+function GAFE_ActivityFinderLocation_Specific:GetQuestToUnlock()
+    return 0 -- Not currently supported for specifics, as an optimization
+end
+
 -- from esoui\ingame\lfg\zo_activityfinderroot_classes.lua
 ------------------
 -- Activity Set --
