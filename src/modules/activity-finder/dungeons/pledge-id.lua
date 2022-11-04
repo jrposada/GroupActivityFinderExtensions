@@ -46,5 +46,7 @@ GAFE_PLEDGE_ID = {
     RedPetalBastion     = 45,
     DreadCellar         = 46,
     CoralAerie          = 47,
-    ShipwrightsRegret   = 48
+    ShipwrightsRegret   = 48,
+    EarthenRootEnclave  = 49,
+    GravenDeep          = 50,
 }

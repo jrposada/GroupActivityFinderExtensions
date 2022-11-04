@@ -40,7 +40,9 @@ GAFE_PLEDGE_LIST = {
 		GAFE_PLEDGE_ID.RedPetalBastion,
 		GAFE_PLEDGE_ID.DreadCellar,
 		GAFE_PLEDGE_ID.CoralAerie,
-		GAFE_PLEDGE_ID.ShipwrightsRegret, -- Last
+		GAFE_PLEDGE_ID.ShipwrightsRegret,
+		GAFE_PLEDGE_ID.EarthenRootEnclave,
+		GAFE_PLEDGE_ID.GravenDeep, -- Last
 		GAFE_PLEDGE_ID.ImperialCityPrison,
 		GAFE_PLEDGE_ID.RuinsOfMazzatun,
 		GAFE_PLEDGE_ID.WhiteGoldTower,
@@ -54,6 +56,6 @@ GAFE_PLEDGE_LIST = {
 		GAFE_PLEDGE_ID.DepthsOfMalatar,
 		GAFE_PLEDGE_ID.Frostvault,
 		GAFE_PLEDGE_ID.MoongraveFane,
-		shift=6
+		shift=0
 	},
 }

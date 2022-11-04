@@ -144,6 +144,12 @@ GAFE_ACTIVITY_ID = {
     NormalWhiteGoldTower  = 288,
     VeteranWhiteGoldTower = 287,
 
+    NormalEarthenRootEnclave  = 608,
+    VeteranEarthenRootEnclave = 609,
+
+    NormalGravenDeep  = 610,
+    VeteranGravenDeep = 611,
+
     -- Custom ids. For safety start from 1000
     NormalAetherianArchive  = 1001,
     VeteranAetherianArchive = 1002,
