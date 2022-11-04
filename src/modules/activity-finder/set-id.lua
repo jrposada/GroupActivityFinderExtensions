@@ -165,6 +165,13 @@ GAFE_SET_ID = {
     SpriggansVigor = 624,
     StormCursedsRevenge = 623,
     TurningTide = 622,
+    DeeprootZeal = 660,
+    RageOfTheUrsauk = 662,
+    StonesAccord = 661,
+    GraveInevitability = 664,
+    PangritDenmother = 663,
+    PhylacterysGrasp = 665,
+    -- Trial Sets
     DefendingWarrior = 138,
     HealingMage = 141,
     InfallibleMage = 172,
