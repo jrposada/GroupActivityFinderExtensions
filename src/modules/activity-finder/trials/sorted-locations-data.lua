@@ -116,8 +116,8 @@ local function GAFE_GetActivityKeyboardDescriptionTextures(activityId)
         [GAFE_ACTIVITY_ID.NormalCloudrest] = { small = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds", large = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds" },
         [GAFE_ACTIVITY_ID.NormalSunspire] = { small = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds", large = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds" },
         [GAFE_ACTIVITY_ID.NormalKynesAegis] = { small = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds", large = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds" },
-        [GAFE_ACTIVITY_ID.NormalDreadsailReef] = { small = "/esoui/art/loadingscreens/loadscreen_dreadsailreef_01.dds", large = "/esoui/art/loadingscreens/loadscreen_dreadsailreef_01.dds" },
         [GAFE_ACTIVITY_ID.NormalRockgrove] = { small = "/esoui/art/loadingscreens/loadscreen_rockgrove_01.dds", large = "/esoui/art/loadingscreens/loadscreen_rockgrove_01.dds" },
+        [GAFE_ACTIVITY_ID.NormalDreadsailReef] = { small = "/esoui/art/loadingscreens/loadscreen_dreadsail_reef_trial_01.dds", large = "/esoui/art/loadingscreens/loadscreen_dreadsail_reef_trial_01.dds" },
 
         [GAFE_ACTIVITY_ID.VeteranAetherianArchive] = { small = "/esoui/art/lfg/lfg_bgsaetherianarchive_tooltip.dds", large = "/esoui/art/lfg/lfg_bgsaetherianarchive_tooltip.dds" },
         [GAFE_ACTIVITY_ID.VeteranHelRaCitadel] = { small = "/esoui/art/lfg/lfg_bgshelracitadel_tooltip.dds", large = "/esoui/art/lfg/lfg_bgshelracitadel_tooltip.dds" },
@@ -128,8 +128,8 @@ local function GAFE_GetActivityKeyboardDescriptionTextures(activityId)
         [GAFE_ACTIVITY_ID.VeteranCloudrest] = { small = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds", large = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds" },
         [GAFE_ACTIVITY_ID.VeteranSunspire] = { small = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds", large = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds" },
         [GAFE_ACTIVITY_ID.VeteranKynesAegis] = { small = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds", large = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds" },
-        [GAFE_ACTIVITY_ID.VeteranDreadsailReef] = { small = "/esoui/art/loadingscreens/loadscreen_dreadsailreef_01.dds", large = "/esoui/art/loadingscreens/loadscreen_dreadsailreef_01.dds" },
         [GAFE_ACTIVITY_ID.VeteranRockgrove] = { small = "/esoui/art/loadingscreens/loadscreen_rockgrove_01.dds", large = "/esoui/art/loadingscreens/loadscreen_rockgrove_01.dds" },
+        [GAFE_ACTIVITY_ID.VeteranDreadsailReef] = { small = "/esoui/art/loadingscreens/loadscreen_dreadsail_reef_trial_01.dds", large = "/esoui/art/loadingscreens/loadscreen_dreadsail_reef_trial_01.dds" },
     }
 
     if texture[activityId] then
@@ -150,8 +150,8 @@ local function GAFE_GetActivityGamepadDescriptionTexture(activityId)
         [GAFE_ACTIVITY_ID.NormalCloudrest] = { small = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds", large = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds" },
         [GAFE_ACTIVITY_ID.NormalSunspire] = { small = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds", large = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds" },
         [GAFE_ACTIVITY_ID.NormalKynesAegis] = { small = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds", large = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds" },
-        [GAFE_ACTIVITY_ID.NormalDreadsailReef] = { small = "/esoui/art/loadingscreens/loadscreen_dreadsailreef_01.dds", large = "/esoui/art/loadingscreens/loadscreen_dreadsailreef_01.dds" },
         [GAFE_ACTIVITY_ID.NormalRockgrove] = { small = "/esoui/art/loadingscreens/loadscreen_rockgrove_01.dds", large = "/esoui/art/loadingscreens/loadscreen_rockgrove_01.dds" },
+        [GAFE_ACTIVITY_ID.NormalDreadsailReef] = { small = "/esoui/art/loadingscreens/loadscreen_dreadsail_reef_trial_01.dds", large = "/esoui/art/loadingscreens/loadscreen_dreadsail_reef_trial_01.dds" },
 
         [GAFE_ACTIVITY_ID.VeteranAetherianArchive] = { small = "/esoui/art/lfg/lfg_bgsaetherianarchive_tooltip.dds", large = "/esoui/art/lfg/lfg_bgsaetherianarchive_tooltip.dds" },
         [GAFE_ACTIVITY_ID.VeteranHelRaCitadel] = { small = "/esoui/art/lfg/lfg_bgshelracitadel_tooltip.dds", large = "/esoui/art/lfg/lfg_bgshelracitadel_tooltip.dds" },
@@ -162,8 +162,8 @@ local function GAFE_GetActivityGamepadDescriptionTexture(activityId)
         [GAFE_ACTIVITY_ID.VeteranCloudrest] = { small = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds", large = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds" },
         [GAFE_ACTIVITY_ID.VeteranSunspire] = { small = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds", large = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds" },
         [GAFE_ACTIVITY_ID.VeteranKynesAegis] = { small = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds", large = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds" },
-        [GAFE_ACTIVITY_ID.VeteranDreadsailReef] = { small = "/esoui/art/loadingscreens/loadscreen_dreadsailreef_01.dds", large = "/esoui/art/loadingscreens/loadscreen_dreadsailreef_01.dds" }, -- TODO: image does not exist
         [GAFE_ACTIVITY_ID.VeteranRockgrove] = { small = "/esoui/art/loadingscreens/loadscreen_rockgrove_01.dds", large = "/esoui/art/loadingscreens/loadscreen_rockgrove_01.dds" },
+        [GAFE_ACTIVITY_ID.VeteranDreadsailReef] = { small = "/esoui/art/loadingscreens/loadscreen_dreadsail_reef_trial_01.dds", large = "/esoui/art/loadingscreens/loadscreen_dreadsail_reef_trial_01.dds" },
     }
 
     if texture[activityId] then
