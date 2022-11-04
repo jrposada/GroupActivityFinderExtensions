@@ -7,7 +7,8 @@ function GAFE_ActivityFinderExtender:New()
     return activityFinderExtender
 end
 
-function GAFE_ActivityFinderExtender:Initialize(_root_, _data_, _treeEntry_, _customExtensions_, _rewardsVars_, _keybindStripGroup_, _onShown_)
+function GAFE_ActivityFinderExtender:Initialize(_root_, _data_, _treeEntry_, _customExtensions_, _rewardsVars_,
+                                                _keybindStripGroup_, _onShown_)
     local root, data, treeEntry, customExtensions, rewardsVars, keybindStripGroup, onShown =
     _root_, _data_, _treeEntry_, _customExtensions_, _rewardsVars_, _keybindStripGroup_, _onShown_
 
@@ -104,7 +105,8 @@ function GAFE_ActivityFinderExtender:InitializeSetupFunction(_treeEntry_)
             self:AddWayshrine(activityData.node, control)
         else
             -- TODO:
-            GAFE.UI.AddIcon(control:GetName() .. "TODO", control, { 125, 20 }, { LEFT, control, LEFT, 420, 0 }, "ZoFontGameLarge", nil, { 0, 1 }, "TODO " .. activityId)
+            GAFE.UI.AddIcon(control:GetName() .. "TODO", control, { 125, 20 }, { LEFT, control, LEFT, 420, 0 },
+                "ZoFontGameLarge", nil, { 0, 1 }, "TODO " .. activityId)
         end
 
         if (self.customExtensions) then self.customExtensions(node, control, data, open) end
@@ -117,7 +119,8 @@ function GAFE_ActivityFinderExtender:InitializeRandomReward()
     -- Initialize control.
     self.singularSectionRewards = _G[self.root .. "Finder_Keyboard" .. "SingularSectionRewardsSectionHeader"]
     if self.singularSectionRewards then
-        self.premiumRewardTimerControl = GAFE.UI.Label(self.root .. "_RandomReward", self.singularSectionRewards, { 125, 20 }, { TOPLEFT, self.parent, TOPRIGHT, 10, 2 }, "ZoFontGameShadow", nil, { 0, 1 })
+        self.premiumRewardTimerControl = GAFE.UI.Label(self.root .. "_RandomReward", self.singularSectionRewards,
+            { 125, 20 }, { TOPLEFT, self.parent, TOPRIGHT, 10, 2 }, "ZoFontGameShadow", nil, { 0, 1 })
     end
 end
 
@@ -213,7 +216,7 @@ function GAFE_ActivityFinderExtender:AddQuest(_questId_, _controlName_, _parent_
         text = "-"
     end
 
-    return self:AddIcon(controlName, parent, text, nil, nil, parent.gafeQuest)
+    return self:AddIcon(controlName, parent, text, function() end, nil, parent.gafeQuest)
 end
 
 function GAFE_ActivityFinderExtender:AddWayshrine(_nodeIndex_, _parent_)
@@ -251,7 +254,8 @@ function GAFE_ActivityFinderExtender:AddSets(_setsIds_, _parent_)
     if setsIds then
         for _, setId in pairs(setsIds) do
             local setCollectionData = ITEM_SET_COLLECTIONS_DATA_MANAGER:GetItemSetCollectionData(setId)
-            local numUnlockedPieces, numPieces = setCollectionData:GetNumUnlockedPieces(), setCollectionData:GetNumPieces()
+            local numUnlockedPieces, numPieces = setCollectionData:GetNumUnlockedPieces(),
+                setCollectionData:GetNumPieces()
             hasAllSets = hasAllSets and numUnlockedPieces == numPieces
         end
 
@@ -269,7 +273,7 @@ function GAFE_ActivityFinderExtender:FormatTexture(texture, size)
     return "|t" .. size .. ":" .. size .. ":" .. texture .. "|t"
 end
 
-function GAFE_ActivityFinderExtender:AddIcon(_controlName_, _parent_, _text_, _func_, _tooltip_, _hidden_)
+function GAFE_ActivityFinderExtender:iAddIcon(_controlName_, _parent_, _text_, _func_, _tooltip_, _hidden_)
     local controlName, parent, text, func, tooltip, hidden =
     _controlName_, _parent_, _text_, _func_, _tooltip_, _hidden_
 
@@ -293,7 +297,9 @@ function GAFE_ActivityFinderExtender:Collapse()
     local function collapse()
         self:RefreshDungeonDifficulty()
         for c = 2, 3 do
-            local header = _G[self.root .. "Finder_KeyboardListSectionScrollChildZO_ActivityFinderTemplateNavigationHeader_Keyboard" .. c - 1]
+            local header = _G[
+                self.root ..
+                    "Finder_KeyboardListSectionScrollChildZO_ActivityFinderTemplateNavigationHeader_Keyboard" .. c - 1]
             if header then
                 local state = header.text:GetColor()
                 if ((self.dungeonDifficulty ~= c) == (state == 1)) then header:OnMouseUp(true) end
@@ -358,7 +364,9 @@ end
 function GAFE_ActivityFinderExtender:RefreshDungeonDifficulty()
     local savedVars = GAFE.SavedVars
     self.dungeonDifficulty = savedVars.collapse == GAFE_COLLAPSE_MODE.Group and
-        (ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and LFG_ACTIVITY_DUNGEON or LFG_ACTIVITY_MASTER_DUNGEON) -- Normal => 2, Veteran => 3
+        (
+        ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and LFG_ACTIVITY_DUNGEON or
+            LFG_ACTIVITY_MASTER_DUNGEON) -- Normal => 2, Veteran => 3
         or (savedVars.collapse == GAFE_COLLAPSE_MODE.Normal and LFG_ACTIVITY_DUNGEON or LFG_ACTIVITY_MASTER_DUNGEON)
 end
 
