@@ -35,7 +35,7 @@ local function GAFE_GetActivityIdByTypeAndIndex(activityType, index)
             [7] = GAFE_ACTIVITY_ID.NormalCloudrest,
             [8] = GAFE_ACTIVITY_ID.NormalSunspire,
             [9] = GAFE_ACTIVITY_ID.NormalKynesAegis,
-            [10] = GAFE_ACTIVITY_ID.NormalRockgrave,
+            [10] = GAFE_ACTIVITY_ID.NormalRockgrove,
             [11] = GAFE_ACTIVITY_ID.NormalDreadsailReef
         },
         [GAFE_LFG_ACTIVITY_MASTER_TRIAL] = {
@@ -48,7 +48,7 @@ local function GAFE_GetActivityIdByTypeAndIndex(activityType, index)
             [7] = GAFE_ACTIVITY_ID.VeteranCloudrest,
             [8] = GAFE_ACTIVITY_ID.VeteranSunspire,
             [9] = GAFE_ACTIVITY_ID.VeteranKynesAegis,
-            [10] = GAFE_ACTIVITY_ID.VeteranRockgrave,
+            [10] = GAFE_ACTIVITY_ID.VeteranRockgrove,
             [11] = GAFE_ACTIVITY_ID.VeteranDreadsailReef
         }
     }
@@ -70,7 +70,7 @@ local function GAFE_GetActivityInfo(activityId)
         [GAFE_ACTIVITY_ID.NormalCloudrest] = { name = GAFE.Loc("TrialCloudrest"), levelMin = 50, levelMax = 99, championPointsMin = 0, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
         [GAFE_ACTIVITY_ID.NormalSunspire] = { name = GAFE.Loc("TrialSunspire"), levelMin = 50, levelMax = 99, championPointsMin = 0, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
         [GAFE_ACTIVITY_ID.NormalKynesAegis] = { name = GAFE.Loc("TrialKynesAegis"), levelMin = 50, levelMax = 99, championPointsMin = 0, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
-        [GAFE_ACTIVITY_ID.NormalRockgrave] = { name = GAFE.Loc("TrialRockgrave"), levelMin = 50, levelMax = 99, championPointsMin = 0, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
+        [GAFE_ACTIVITY_ID.NormalRockgrove] = { name = GAFE.Loc("TrialRockgrove"), levelMin = 50, levelMax = 99, championPointsMin = 0, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
         [GAFE_ACTIVITY_ID.NormalDreadsailReef] = { name = GAFE.Loc("TrialDreadsailReef"), levelMin = 50, levelMax = 99, championPointsMin = 0, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
 
         [GAFE_ACTIVITY_ID.VeteranAetherianArchive] = { name = GAFE.Loc("TrialAetherianArchive"), levelMin = 50, levelMax = 99, championPointsMin = 300, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
@@ -82,7 +82,7 @@ local function GAFE_GetActivityInfo(activityId)
         [GAFE_ACTIVITY_ID.VeteranCloudrest] = { name = GAFE.Loc("TrialCloudrest"), levelMin = 50, levelMax = 99, championPointsMin = 300, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
         [GAFE_ACTIVITY_ID.VeteranSunspire] = { name = GAFE.Loc("TrialSunspire"), levelMin = 50, levelMax = 99, championPointsMin = 300, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
         [GAFE_ACTIVITY_ID.VeteranKynesAegis] = { name = GAFE.Loc("TrialKynesAegis"), levelMin = 50, levelMax = 99, championPointsMin = 300, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
-        [GAFE_ACTIVITY_ID.VeteranRockgrave] = { name = GAFE.Loc("TrialRockgrave"), levelMin = 50, levelMax = 99, championPointsMin = 300, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
+        [GAFE_ACTIVITY_ID.VeteranRockgrove] = { name = GAFE.Loc("TrialRockgrove"), levelMin = 50, levelMax = 99, championPointsMin = 300, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
         [GAFE_ACTIVITY_ID.VeteranDreadsailReef] = { name = GAFE.Loc("TrialDreadsailReef"), levelMin = 50, levelMax = 99, championPointsMin = 0, championPointsMax = 999990, groupType = LFG_GROUP_TYPE_MEDIUM, minGroupSize = 12, description = "", sortOrder = 4 },
     }
 
@@ -116,8 +116,8 @@ local function GAFE_GetActivityKeyboardDescriptionTextures(activityId)
         [GAFE_ACTIVITY_ID.NormalCloudrest] = { small = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds", large = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds" },
         [GAFE_ACTIVITY_ID.NormalSunspire] = { small = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds", large = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds" },
         [GAFE_ACTIVITY_ID.NormalKynesAegis] = { small = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds", large = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds" },
-        [GAFE_ACTIVITY_ID.NormalRockgrave] = { small = "/esoui/art/loadingscreens/loadscreen_rockgrave_01.dds", large = "/esoui/art/loadingscreens/loadscreen_rockgrave_01.dds" },
         [GAFE_ACTIVITY_ID.NormalDreadsailReef] = { small = "/esoui/art/loadingscreens/loadscreen_dreadsailreef_01.dds", large = "/esoui/art/loadingscreens/loadscreen_dreadsailreef_01.dds" },
+        [GAFE_ACTIVITY_ID.NormalRockgrove] = { small = "/esoui/art/loadingscreens/loadscreen_rockgrove_01.dds", large = "/esoui/art/loadingscreens/loadscreen_rockgrove_01.dds" },
 
         [GAFE_ACTIVITY_ID.VeteranAetherianArchive] = { small = "/esoui/art/lfg/lfg_bgsaetherianarchive_tooltip.dds", large = "/esoui/art/lfg/lfg_bgsaetherianarchive_tooltip.dds" },
         [GAFE_ACTIVITY_ID.VeteranHelRaCitadel] = { small = "/esoui/art/lfg/lfg_bgshelracitadel_tooltip.dds", large = "/esoui/art/lfg/lfg_bgshelracitadel_tooltip.dds" },
@@ -128,8 +128,8 @@ local function GAFE_GetActivityKeyboardDescriptionTextures(activityId)
         [GAFE_ACTIVITY_ID.VeteranCloudrest] = { small = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds", large = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds" },
         [GAFE_ACTIVITY_ID.VeteranSunspire] = { small = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds", large = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds" },
         [GAFE_ACTIVITY_ID.VeteranKynesAegis] = { small = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds", large = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds" },
-        [GAFE_ACTIVITY_ID.VeteranRockgrave] = { small = "/esoui/art/loadingscreens/loadscreen_rockgrave_01.dds", large = "/esoui/art/loadingscreens/loadscreen_rockgrave_01.dds" },
         [GAFE_ACTIVITY_ID.VeteranDreadsailReef] = { small = "/esoui/art/loadingscreens/loadscreen_dreadsailreef_01.dds", large = "/esoui/art/loadingscreens/loadscreen_dreadsailreef_01.dds" },
+        [GAFE_ACTIVITY_ID.VeteranRockgrove] = { small = "/esoui/art/loadingscreens/loadscreen_rockgrove_01.dds", large = "/esoui/art/loadingscreens/loadscreen_rockgrove_01.dds" },
     }
 
     if texture[activityId] then
@@ -150,8 +150,8 @@ local function GAFE_GetActivityGamepadDescriptionTexture(activityId)
         [GAFE_ACTIVITY_ID.NormalCloudrest] = { small = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds", large = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds" },
         [GAFE_ACTIVITY_ID.NormalSunspire] = { small = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds", large = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds" },
         [GAFE_ACTIVITY_ID.NormalKynesAegis] = { small = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds", large = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds" },
-        [GAFE_ACTIVITY_ID.NormalRockgrave] = { small = "/esoui/art/loadingscreens/loadscreen_rockgrave_01.dds", large = "/esoui/art/loadingscreens/loadscreen_rockgrave_01.dds" },
         [GAFE_ACTIVITY_ID.NormalDreadsailReef] = { small = "/esoui/art/loadingscreens/loadscreen_dreadsailreef_01.dds", large = "/esoui/art/loadingscreens/loadscreen_dreadsailreef_01.dds" },
+        [GAFE_ACTIVITY_ID.NormalRockgrove] = { small = "/esoui/art/loadingscreens/loadscreen_rockgrove_01.dds", large = "/esoui/art/loadingscreens/loadscreen_rockgrove_01.dds" },
 
         [GAFE_ACTIVITY_ID.VeteranAetherianArchive] = { small = "/esoui/art/lfg/lfg_bgsaetherianarchive_tooltip.dds", large = "/esoui/art/lfg/lfg_bgsaetherianarchive_tooltip.dds" },
         [GAFE_ACTIVITY_ID.VeteranHelRaCitadel] = { small = "/esoui/art/lfg/lfg_bgshelracitadel_tooltip.dds", large = "/esoui/art/lfg/lfg_bgshelracitadel_tooltip.dds" },
@@ -162,8 +162,8 @@ local function GAFE_GetActivityGamepadDescriptionTexture(activityId)
         [GAFE_ACTIVITY_ID.VeteranCloudrest] = { small = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds", large = "/esoui/art/loadingscreens/loadscreen_cloudrest_01.dds" },
         [GAFE_ACTIVITY_ID.VeteranSunspire] = { small = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds", large = "/esoui/art/loadingscreens/loadscreen_sunspire_01.dds" },
         [GAFE_ACTIVITY_ID.VeteranKynesAegis] = { small = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds", large = "/esoui/art/loadingscreens/loadscreen_kynesaegis_01.dds" },
-        [GAFE_ACTIVITY_ID.VeteranRockgrave] = { small = "/esoui/art/loadingscreens/loadscreen_rockgrave_01.dds", large = "/esoui/art/loadingscreens/loadscreen_rockgrave_01.dds" }, -- TODO: image does not exist
         [GAFE_ACTIVITY_ID.VeteranDreadsailReef] = { small = "/esoui/art/loadingscreens/loadscreen_dreadsailreef_01.dds", large = "/esoui/art/loadingscreens/loadscreen_dreadsailreef_01.dds" }, -- TODO: image does not exist
+        [GAFE_ACTIVITY_ID.VeteranRockgrove] = { small = "/esoui/art/loadingscreens/loadscreen_rockgrove_01.dds", large = "/esoui/art/loadingscreens/loadscreen_rockgrove_01.dds" },
     }
 
     if texture[activityId] then
@@ -201,10 +201,10 @@ local function GAFE_GetActivityZoneId(activityId)
         [GAFE_ACTIVITY_ID.VeteranSunspire] = 1121,
         [GAFE_ACTIVITY_ID.NormalKynesAegis] = 1160,
         [GAFE_ACTIVITY_ID.VeteranKynesAegis] = 1160,
-        [GAFE_ACTIVITY_ID.NormalRockgrave] = 1160,
-        [GAFE_ACTIVITY_ID.VeteranRockgrave] = 1160,
         [GAFE_ACTIVITY_ID.NormalDreadsailReef] = 1160,
         [GAFE_ACTIVITY_ID.VeteranDreadsailReef] = 1160,
+        [GAFE_ACTIVITY_ID.NormalRockgrove] = 1263,
+        [GAFE_ACTIVITY_ID.VeteranRockgrove] = 1263,
     }
 
     if zoneId[activityId] then
