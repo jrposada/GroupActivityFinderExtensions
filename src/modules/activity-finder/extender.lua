@@ -103,10 +103,9 @@ function GAFE_ActivityFinderExtender:InitializeSetupFunction(_treeEntry_)
 
             -- Wayshrine
             self:AddWayshrine(activityData.node, control)
-        else
+        elseif GAFE.SavedVars.developerMode then
             -- TODO:
-            GAFE.UI.AddIcon(control:GetName() .. "TODO", control, { 125, 20 }, { LEFT, control, LEFT, 420, 0 },
-                "ZoFontGameLarge", nil, { 0, 1 }, "TODO " .. activityId)
+            GAFE.UI.Label(control:GetName() .. "TODO", control, { 125, 20 }, { LEFT, control, LEFT, 420, 0 }, "ZoFontGameLarge", nil, { 0, 1 }, "TODO " .. activityId)
         end
 
         if (self.customExtensions) then self.customExtensions(node, control, data, open) end
@@ -195,7 +194,7 @@ function GAFE_ActivityFinderExtender:AddAchievement(_achivementId_, _controlName
         text = isCompleted and self:FormatTexture(texture) or ""
         tooltip = self:FormatTexture(icon) .. zo_strformat(achievementName)
         hidden = not isCompleted
-    elseif GAFE.developerMode then
+    elseif GAFE.SavedVars.developerMode then
         text = "-"
         hidden = false
     end
@@ -212,7 +211,7 @@ function GAFE_ActivityFinderExtender:AddQuest(_questId_, _controlName_, _parent_
         text = isQuestCompleted and self:FormatTexture(texture) or ""
         parent.gafeQuest = not isQuestCompleted
         self.hasQuests = self.hasQuests or parent.gafeQuest
-    elseif GAFE.developerMode then
+    elseif GAFE.SavedVars.developerMode then
         text = "-"
     end
 
@@ -230,7 +229,7 @@ function GAFE_ActivityFinderExtender:AddWayshrine(_nodeIndex_, _parent_)
     if nodeIndex then
         knownNode, name = GetFastTravelNodeInfo(nodeIndex)
         text = knownNode and self:FormatTexture("/esoui/art/icons/poi/poi_wayshrine_complete.dds") or ""
-    elseif GAFE.developerMode then
+    elseif GAFE.SavedVars.developerMode then
         text = "-"
     end
 
@@ -261,7 +260,7 @@ function GAFE_ActivityFinderExtender:AddSets(_setsIds_, _parent_)
 
         text = hasAllSets and self:FormatTexture("/esoui/art/crafting/smithing_tabicon_armorset_up.dds") or ""
         parent.gafeSets = not hasAllSets
-    elseif GAFE.developerMode then
+    elseif GAFE.SavedVars.developerMode then
         text = "-"
     end
 
@@ -273,7 +272,7 @@ function GAFE_ActivityFinderExtender:FormatTexture(texture, size)
     return "|t" .. size .. ":" .. size .. ":" .. texture .. "|t"
 end
 
-function GAFE_ActivityFinderExtender:iAddIcon(_controlName_, _parent_, _text_, _func_, _tooltip_, _hidden_)
+function GAFE_ActivityFinderExtender:AddIcon(_controlName_, _parent_, _text_, _func_, _tooltip_, _hidden_)
     local controlName, parent, text, func, tooltip, hidden =
     _controlName_, _parent_, _text_, _func_, _tooltip_, _hidden_
 

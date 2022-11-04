@@ -132,4 +132,16 @@ GAFE_DUNGEON_COMMANDS = {}
 function GAFE_DUNGEON_COMMANDS.Init()
     SLASH_COMMANDS["/gafe"] = help
     SLASH_COMMANDS["/gafequests"] = quests
+
+    if GAFE.SavedVars.developerMode then
+        GAFE.LogLater('GAFE Developer Mode is enabled.')
+        GAFE.Debug.SetIds()
+
+        GAFE.LogLater('The following commands have been added:')
+        GAFE.LogLater('/gafenodeids -- will log all node ids')
+
+        SLASH_COMMANDS["/gafenodeids"] = function() GAFE.Debug.LogNodeIds() end
+        -- GAFE.Debug.LogControlShown()
+
+    end
 end
