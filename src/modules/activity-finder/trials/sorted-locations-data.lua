@@ -199,12 +199,12 @@ local function GAFE_GetActivityZoneId(activityId)
         [GAFE_ACTIVITY_ID.VeteranCloudrest] = 1051,
         [GAFE_ACTIVITY_ID.NormalSunspire] = 1121,
         [GAFE_ACTIVITY_ID.VeteranSunspire] = 1121,
-        [GAFE_ACTIVITY_ID.NormalKynesAegis] = 1160,
-        [GAFE_ACTIVITY_ID.VeteranKynesAegis] = 1160,
-        [GAFE_ACTIVITY_ID.NormalDreadsailReef] = 1160,
-        [GAFE_ACTIVITY_ID.VeteranDreadsailReef] = 1160,
+        [GAFE_ACTIVITY_ID.NormalKynesAegis] = 1196,
+        [GAFE_ACTIVITY_ID.VeteranKynesAegis] = 1196,
         [GAFE_ACTIVITY_ID.NormalRockgrove] = 1263,
         [GAFE_ACTIVITY_ID.VeteranRockgrove] = 1263,
+        [GAFE_ACTIVITY_ID.NormalDreadsailReef] = 1344,
+        [GAFE_ACTIVITY_ID.VeteranDreadsailReef] = 1344,
     }
 
     if zoneId[activityId] then
