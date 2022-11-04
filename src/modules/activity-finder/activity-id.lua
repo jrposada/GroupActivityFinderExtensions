@@ -172,8 +172,8 @@ GAFE_ACTIVITY_ID = {
     NormalKynesAegis  = 1017,
     VeteranKynesAegis = 1018,
 
-    NormalRockgrave  = 1019,
-    VeteranRockgrave = 1020,
+    NormalRockgrove  = 1019,
+    VeteranRockgrove = 1020,
 
     NormalDreadsailReef  = 1021,
     VeteranDreadsailReef = 1022
