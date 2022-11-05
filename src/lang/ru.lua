@@ -3,42 +3,43 @@ local GAFE = GroupActivityFinderExtensions
 
 
 
-ZO_CreateStringId("SI_LFGACTIVITY" .. GAFE_LFG_ACTIVITY_TRIAL, "Обычный режим")
-ZO_CreateStringId("SI_LFGACTIVITY" .. GAFE_LFG_ACTIVITY_MASTER_TRIAL, "Ветеранский режим")
+SafeAddString(_G["SI_LFGACTIVITY" .. GAFE_LFG_ACTIVITY_TRIAL], "Обычный режим", 1)
+SafeAddString(_G["SI_LFGACTIVITY" .. GAFE_LFG_ACTIVITY_MASTER_TRIAL], "Ветеранский режим", 1)
 
 GAFE.Localization = {
-    Settings_Description = "Добавляет дополнительные функции и информацию в пользовательский интерфейс Группа и Поиск активностей.",
+    Settings_Description = "Добавляет дополнительные функции и информацию в меню «Группа» и «Поиск занятия».",
     Settings_AutoConfirm = "Кнопка автопринятия",
-    Settings_AutoConfirmDelay = "задержка автоматического принятия",
-    Settings_LoopQueueCompletedNotification = "При активности петли обнаружен звук",
-    Settings_TrialsChest = "Сбросить таймер сундука",
+    Settings_AutoConfirmDelay = "Задержка автоматического принятия",
+    Settings_LoopQueueCompletedNotification = "Зациклить звук уведомления поиска",
+    Settings_TrialsChest = "Сбросить таймеры сундуков",
     Settings_ResetChestWarning = "Это сбросит таймер на 1 неделю!",
-    Settings_AutoMarkPledges = "Автоматическая отметка доступных дейликов",
-    Settings_MarkPledgesWithIcon = "Использовать иконку для дейликов",
+    Settings_AutoMarkPledges = "Автоматическая отметка доступных обетов",
+    Settings_MarkPledgesWithIcon = "Использовать иконку для обетов",
     Settings_TextureSize = "Размер иконки",
     Settings_AutoInvite = "BETA Автоприглашение",
-    Settings_HandleQuest = "Автоматически брать квест дейликов Неустрашимых",
+    Settings_HandleQuest = "Автом. брать квест обетов Неустрашимых",
     Settings_CompatibilityTitle = "Совместимость",
     Settings_PerfectPixelAddon = "PerfectPixel",
-    Settings_ResetPremiumRewards = "Сбросить таймеры премиальных наград",
+    Settings_ResetPremiumRewards = "Сбросить таймеры элитных наград",
     Settings_ResetReward = "Это сбросит 20-часовой таймер.",
-    CheckActivePledges = "активные дейлики",
+    Settings_Difficulty = "Режим сложности",
+    CheckActivePledges = "активные обеты",
     CheckMissingQuests = "квесты",
-    CheckMissingSets = "Sets", -- TODO: translate
+    CheckMissingSets = "наборы",
     AutoConfirm = "Автопринятие",
     TrialsCategoryHeader = "Испытания",
     TrialsSpecificFilterText = "Конкретные Испытания",
-    TrialAetherianArchive = "Этерианский Архив",
-    TrialHelRaCitadel = "Цитадель Хел Ра",
-    TrialSanctumOphidia = "Святилище Офидии",
-    TrialMawOfLorkhaj = "Пасть Лорхаджа",
-    TrialHallsOfFabrication = "Залы Фабрикации",
-    TrialAsylumSanctorium = "Изоляционный Санктуарий",
+    TrialAetherianArchive = "Этерианский архив",
+    TrialHelRaCitadel = "Цитадель Хель-Ра",
+    TrialSanctumOphidia = "Санктум-Офидия",
+    TrialMawOfLorkhaj = "Пасть Лоркаджа",
+    TrialHallsOfFabrication = "Залы фабрикации",
+    TrialAsylumSanctorium = "Изоляционный санктуарий",
     TrialCloudrest = "Клаудрест",
     TrialSunspire = "Солнечный Шпиль",
     TrialKynesAegis = "Эгида Кин",
     TrialRockgrove = "Каменная Роща",
-    TrialDreadsailReef = "Dreadsail Reef", -- TODO: translate
+    TrialDreadsailReef = "Риф Зловещих Парусов",
     LookForGroup = "Ищу группу (LFG)",
     LookForMore = "Ищу игроков (LFM)",
     LookForGroupDisabled = "Вы уже в группе",
@@ -50,10 +51,10 @@ GAFE.Localization = {
     CollapseMode_Normal = "Обычный",
     CollapseMode_Veteran = "Ветеранский",
     NextReward = "Далее через",
-    InXDays = "<<1[Сегодня/Через $d день/через $d дня]>>",
+    InXDays = "<<1[Завтра/Ч-з $d дня/Ч-з $d дней]>>",
     ActivitySchedule = "Календарь",
-    DailiesSchedule = "Dailies", -- TODO: translate
-    PledgesSchedule = "Pledges" -- TODO: translate
+    DailiesSchedule = "Ежедневки",
+    PledgesSchedule = "Обеты"
 }
 
 -- This translations have to match pledge quest name in ingame journal
