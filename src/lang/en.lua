@@ -22,6 +22,7 @@ GAFE.Localization = {
     Settings_PerfectPixelAddon = "PerfectPixel",
     Settings_ResetPremiumRewards = "Reset premium reward timers",
     Settings_ResetReward = "This will reset the 20 hours timer",
+    Settings_Difficulty = "Difficulty Mode",
     CheckActivePledges = "Pledges",
     CheckMissingQuests = "Quests",
     CheckMissingSets = "Sets",
