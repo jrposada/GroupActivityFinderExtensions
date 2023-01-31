@@ -223,6 +223,11 @@
         "GetUnitName",
         "SI_ACTIVITY_QUEUE_STATUS_LABEL_FORMAT",
         "STATUS_HEADER_TEXT",
-        "SI_GAMEPAD_LFG_QUEUE_ACTUAL"
+        "SI_GAMEPAD_LFG_QUEUE_ACTUAL",
+        "EVENT_QUEST_COMPLETE_DIALOG",
+        "CHATTER_TALK_CHOICE",
+        "CHATTER_START_TALK",
+        "EVENT_CONVERSATION_UPDATED",
+        "CompleteQuest"
     ]
 }

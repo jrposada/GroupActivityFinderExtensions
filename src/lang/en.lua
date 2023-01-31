@@ -10,6 +10,7 @@ GAFE.Localization = {
     Settings_Description = "Adds a bit of extra functionality and information to the Group & Activity Finder UI",
     Settings_AutoConfirm = "'Auto confirm' button",
     Settings_AutoConfirmDelay = "'Auto confirm' delay",
+    Settings_Difficulty = "Difficulty",
     Settings_LoopQueueCompletedNotification = "Loop activity found sound",
     Settings_TrialsChest = "Reset chest timers",
     Settings_ResetChestWarning = "This will reset the timer to 1 week!",
@@ -17,7 +18,7 @@ GAFE.Localization = {
     Settings_MarkPledgesWithIcon = "Use icon for pledges",
     Settings_TextureSize = "Icon size",
     Settings_AutoInvite = "BETA Auto invite",
-    Settings_HandleQuest = "Automatically accept pledge quest",
+    Settings_HandleQuest = "Automate supported quests",
     Settings_CompatibilityTitle = "Compatibility",
     Settings_PerfectPixelAddon = "PerfectPixel",
     Settings_ResetPremiumRewards = "Reset premium reward timers",
@@ -114,4 +115,13 @@ GAFE_PLEDGE_NPC_NAME = {
     ["Maj al-Ragath"] = true,
     ["Glirion the Redbeard"] = true,
     ["Urgarlag Chief-bane"] = true,
+}
+
+GAFE_DIALY_NPC_NAME = {
+    -- Fargrave Dialies
+    ["Luna Beriel"] = true,
+    ["Vaveli Indavel"] = true,
+    --
+    ["Justiciar Farowel"] = true,
+    ["Justiciar Tanorian"] = true,
 }

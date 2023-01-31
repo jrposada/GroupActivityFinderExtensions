@@ -10,12 +10,13 @@ GAFE.Localization = {
     Settings_Description = "Fügt der Benutzeroberfläche von Group & Activity Finder zusätzliche Funktionen und UI",
     Settings_AutoConfirm = "'Autom. bestätigen' Knopf",
     Settings_AutoConfirmDelay = "'Autom. bestätigen' verzögern",
+    Settings_Difficulty = "Schwierigkeit",
     Settings_LoopQueueCompletedNotification = "Loop-Aktivität hat Sound gefunden",
     Settings_TrialsChest = "Setzen Sie den Timer für Truhen zurück",
     Settings_ResetChestWarning = "Dadurch wird der Timer auf 1 Woche zurückgesetzt!",
     Settings_AutoMarkPledges = "Wähle Gelöbnisse automatisch",
     Settings_MarkPledgesWithIcon = "Verwenden Sie das Symbol für Gelöbnisse",
-    Settings_HandleQuest = "Versprechen-Quest automatisch annehmen",
+    Settings_HandleQuest = "Unterstützte Quests automatisieren",
     Settings_CompatibilityTitle = "Compatibility",
     Settings_PerfectPixelAddon = "PerfectPixel",
     Settings_TextureSize = "Symbolgröße",
@@ -114,4 +115,13 @@ GAFE_PLEDGE_NPC_NAME = {
     ["Maj al-Ragath"] = true,
     ["Glirion der Rotbart"] = true,
     ["Urgarlag Häuptlingsfluch"] = true,
+}
+
+-- TODO: translate
+GAFE_DIALY_NPC_NAME = {
+    -- Fargrave Dialies
+    ["Luna Beriel"] = true,
+    ["Vaveli Indavel"] = true,
+    --
+    ["Justiciar Farowel"] = true
 }

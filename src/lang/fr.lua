@@ -10,6 +10,7 @@ GAFE.Localization = {
     Settings_Description = "Ajoute un peu de fonctionnalité et d'information a IU de Groupe et Recherche d'activités",
     Settings_AutoConfirm = "Bouton 'Auto confirmer'",
     Settings_AutoConfirmDelay = "Délai de 'Auto confirmer'",
+    Settings_Difficulty = "Difficulté",
     Settings_LoopQueueCompletedNotification = "L'activité de la boucle a trouvé du son",
     Settings_TrialsChest = "Réinitialiser la minuterie des coffres",
     Settings_ResetChestWarning = "Cela réinitialisera la minuterie à 1 semaine!",
@@ -17,7 +18,7 @@ GAFE.Localization = {
     Settings_MarkPledgesWithIcon = "Utiliser l'icône pour les serment",
     Settings_TextureSize = "Taille de l'icône",
     Settings_AutoInvite = "BETA Auto invite",
-    Settings_HandleQuest = "Accepter automatiquement la quête d'engagement",
+    Settings_HandleQuest = "Automatisez les quêtes prises en charge",
     Settings_CompatibilityTitle = "Compatibility",
     Settings_PerfectPixelAddon = "PerfectPixel",
     Settings_ResetPremiumRewards = "Réinitialiser les minuteurs de récompense premium",
@@ -114,4 +115,13 @@ GAFE_PLEDGE_NPC_NAME = {
     ["Maj al-Ragath"] = true,
     ["Glirion Barbe-Rousse"] = true,
     ["Urgarlag l'Émasculatrice"] = true,
+}
+
+-- TODO: translate
+GAFE_DIALY_NPC_NAME = {
+    -- Fargrave Dialies
+    ["Luna Beriel"] = true,
+    ["Vaveli Indavel"] = true,
+    --
+    ["Justiciar Farowel"] = true
 }

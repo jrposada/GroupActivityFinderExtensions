@@ -209,10 +209,6 @@ function GAFE_DUNGEON_EXTENSIONS.Init()
         end, 1000)
     end
 
-    GAFE_DUNGEON_EXTENSIONS.AutomaticallyHandlePledgeQuests(
-        GAFE.SavedVars.dungeons.handlePledgeQuest
-    )
-
     extender:Initialize("ZO_Dungeon", dungeonData, treeEntry, customExtensions, GAFE.SavedVars.dungeons,
         keybindStripGroup, OnShown)
 
@@ -228,56 +224,4 @@ function GAFE_DUNGEON_EXTENSIONS.Init()
     EVENT_MANAGER:RegisterForEvent(GAFE.name .. "_DungonExtension_QuestRemoved", EVENT_QUEST_REMOVED, OnQuestRemoved)
     EVENT_MANAGER:RegisterForEvent(extender.root .. "Activity_Update", EVENT_ACTIVITY_FINDER_STATUS_UPDATE,
         OnActivityFinderStatusUpdate)
-end
-
-function GAFE_DUNGEON_EXTENSIONS.AutomaticallyHandlePledgeQuests(enable)
-    local questOfferedEventName, questOffered = GAFE.name .. "_QuestOffered", false
-
-    local function HandleQuestOffered()
-        if questOffered then
-            EVENT_MANAGER:UnregisterForEvent(questOfferedEventName, EVENT_QUEST_OFFERED)
-        end
-
-        questOffered = true
-        AcceptOfferedQuest()
-    end
-
-    local function HandleChatterBegin(_, _optionCount_, _debugSource_)
-        local optionCount = _optionCount_
-
-        local npcName = GetUnitName("interact")
-
-        if questOffered then
-            questOffered = false
-            EndInteraction(INTERACTION_CONVERSATION)
-        end
-
-        if GAFE_PLEDGE_NPC_NAME[npcName] then
-            if optionCount ~= 0 then
-                for optionIndex = 1, optionCount do
-                    local optionString, optionType = GetChatterOption(optionIndex)
-
-                    if optionType == CHATTER_START_NEW_QUEST_BESTOWAL
-                        or optionType == CHATTER_START_COMPLETE_QUEST
-                    then
-                        questOffered = false
-                        EVENT_MANAGER:RegisterForEvent(questOfferedEventName, EVENT_QUEST_OFFERED, HandleQuestOffered)
-                        SelectChatterOption(optionIndex)
-                    end
-                end
-            end
-        end
-    end
-
-    if enable then
-        EVENT_MANAGER:RegisterForEvent(
-            GAFE.name .. "_DungonExtension_PledgeChatter",
-            EVENT_CHATTER_BEGIN,
-            HandleChatterBegin
-        )
-    else
-        EVENT_MANAGER:UnregisterForEvent(GAFE.name .. "_DungonExtension_PledgeChatter")
-    end
-
-    GAFE.SavedVars.dungeons.handlePledgeQuest = enable
 end

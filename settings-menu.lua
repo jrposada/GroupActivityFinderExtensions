@@ -86,7 +86,7 @@ function GAFE.SettingsMenu.Init()
             type = "checkbox",
             name = GAFE.Loc("Settings_HandleQuest"),
             getFunc = function() return saveData.dungeons.handlePledgeQuest end,
-            setFunc = function(value) GAFE_DUNGEON_EXTENSIONS.AutomaticallyHandlePledgeQuests(value) end
+            setFunc = function(value) GAFE_QUEST_AUTOMATION.AutomaticallyHandleQuests(value) end
         },
         {
             type = "submenu",

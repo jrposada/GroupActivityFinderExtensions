@@ -10,6 +10,7 @@ GAFE.Localization = {
     Settings_Description = "Добавляет дополнительные функции и информацию в пользовательский интерфейс Группа и Поиск активностей.",
     Settings_AutoConfirm = "Кнопка автопринятия",
     Settings_AutoConfirmDelay = "задержка автоматического принятия",
+    Settings_Difficulty = "Сложность",
     Settings_LoopQueueCompletedNotification = "При активности петли обнаружен звук",
     Settings_TrialsChest = "Сбросить таймер сундука",
     Settings_ResetChestWarning = "Это сбросит таймер на 1 неделю!",
@@ -17,7 +18,7 @@ GAFE.Localization = {
     Settings_MarkPledgesWithIcon = "Использовать иконку для дейликов",
     Settings_TextureSize = "Размер иконки",
     Settings_AutoInvite = "BETA Автоприглашение",
-    Settings_HandleQuest = "Автоматически брать квест дейликов Неустрашимых",
+    Settings_HandleQuest = "Автоматизировать поддерживаемые квесты",
     Settings_CompatibilityTitle = "Совместимость",
     Settings_PerfectPixelAddon = "PerfectPixel",
     Settings_ResetPremiumRewards = "Сбросить таймеры премиальных наград",
@@ -114,4 +115,13 @@ GAFE_PLEDGE_NPC_NAME = {
     ["Мадж аль-Рагат"] = true,
     ["Глирион Рыжебородый"] = true,
     ["Ургарлаг Бич Вождей"] = true,
+}
+
+-- TODO: translate
+GAFE_DIALY_NPC_NAME = {
+    -- Fargrave Dialies
+    ["Luna Beriel"] = true,
+    ["Vaveli Indavel"] = true,
+    --
+    ["Justiciar Farowel"] = true
 }
