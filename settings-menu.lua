@@ -17,6 +17,19 @@ local stringToCollapseMode = {
     [GAFE.Loc("CollapseMode_Veteran")] = GAFE_COLLAPSE_MODE.Veteran,
 }
 
+local fastTravelNodesByName = {}
+local fastTravelNodesById = {}
+local fastTravelOptions = {}
+for id=1, GetNumFastTravelNodes() do
+    local _, name = GetFastTravelNodeInfo(id)
+    if name ~= "" then
+        fastTravelNodesByName[name] = id
+        fastTravelNodesById[id] = name
+        table.insert(fastTravelOptions, name)
+    end
+end
+table.sort(fastTravelOptions)
+
 function GAFE.SettingsMenu.Init()
     local saveData = GAFE.SavedVars -- This should be a reference to your actual saved variables table
     local panelName = GAFE.name .. "_SettingsPanel" -- The name will be used to create a global variable, pick something unique or you may overwrite an existing variable!
@@ -75,6 +88,14 @@ function GAFE.SettingsMenu.Init()
             name = GAFE.Loc("Settings_AutoMarkPledges"),
             getFunc = function() return saveData.dungeons.autoMarkPledges end,
             setFunc = function(value) saveData.dungeons.autoMarkPledges = value end
+        },
+        {
+            type = "dropdown",
+            name = GAFE.Loc("Settings_FavouriteLocation"),
+            choices = fastTravelOptions,
+            scrollable = true,
+            getFunc = function() return fastTravelNodesById[saveData.map.favourite] end,
+            setFunc = function(value) saveData.map.favourite = fastTravelNodesByName[value] end
         },
         -- {
         --     type = "checkbox",

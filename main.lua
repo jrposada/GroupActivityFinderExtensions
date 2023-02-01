@@ -26,6 +26,7 @@ local function OnAddOnLoaded(eventCode, addonName)
     GAFE_BATTLEGROUNDS_EXTENSIONS.Init()
     GAFE_QUEUE_EXTENSIONS.Init()
     GAFE_SCHEDULE.Init()
+    GAFE_MAP.Init()
     GAFE_QUEST_AUTOMATION.Init()
 
     -- GAFE.QueueManager.Init()

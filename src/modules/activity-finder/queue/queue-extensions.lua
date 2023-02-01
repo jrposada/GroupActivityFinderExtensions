@@ -99,6 +99,8 @@ function GAFE_QUEUE_EXTENSIONS.Init()
     InitializeTimer()
 end
 
+--- Toggle auto confirm feature for Activity Finder queue.
+---@param enable boolean
 function GAFE_QUEUE_EXTENSIONS.AutoConfirm(enable)
     local savedVars = GAFE.SavedVars
     savedVars.autoConfirm.enabled = enable

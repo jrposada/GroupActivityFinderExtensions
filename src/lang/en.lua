@@ -11,6 +11,7 @@ GAFE.Localization = {
     Settings_AutoConfirm = "'Auto confirm' button",
     Settings_AutoConfirmDelay = "'Auto confirm' delay",
     Settings_Difficulty = "Difficulty",
+    Settings_FavouriteLocation = "Favourite location",
     Settings_LoopQueueCompletedNotification = "Loop activity found sound",
     Settings_TrialsChest = "Reset chest timers",
     Settings_ResetChestWarning = "This will reset the timer to 1 week!",

@@ -1,22 +1,26 @@
 local GAFE = GroupActivityFinderExtensions
 
-GAFE.Map = {}
+GAFE_MAP = {}
 
-local myButtonGroup
+function GAFE_MAP.Init()
+    local keybindStripGroup
+    local isFastTravel = false
 
-function GAFE.Map.Init()
+    local function OnFastTravelStart()
+        isFastTravel = true
+    end
+
+    local function OnFastTravelEnd()
+        isFastTravel = false
+    end
+
     local function OnShown()
-        -- TODO: add to settings
-        local nodeIndex = 284
+        local nodeIndex = GAFE.SavedVars.map.favourite
         local knownNode, name = GetFastTravelNodeInfo(nodeIndex)
 
         local function TeleportToHome()
-            -- FIXME: figure out how to know if there is going to be a cost.
-            local cooldown = GetRecallCooldown()
-            local cost = GetRecallCost(nodeIndex)
-
             if knownNode then
-                if cost == 0 and cooldown ~= nil then
+                if isFastTravel then
                     ZO_Dialogs_ShowPlatformDialog("FAST_TRAVEL_CONFIRM", {nodeIndex = nodeIndex}, {mainTextParams = {name}})
                 else
                     ZO_Dialogs_ShowPlatformDialog("RECALL_CONFIRM", {nodeIndex = nodeIndex}, {mainTextParams = {name}})
@@ -24,7 +28,7 @@ function GAFE.Map.Init()
             end
         end
 
-        myButtonGroup = {
+        keybindStripGroup = {
             {
                 name = name,
                 keybind = "UI_SHORTCUT_QUATERNARY",
@@ -32,15 +36,18 @@ function GAFE.Map.Init()
             },
             alignment = KEYBIND_STRIP_ALIGN_CENTER,
         }
-        KEYBIND_STRIP:AddKeybindButtonGroup(myButtonGroup)
+        KEYBIND_STRIP:AddKeybindButtonGroup(keybindStripGroup)
     end
 
     local function OnHidden()
-        KEYBIND_STRIP:RemoveKeybindButtonGroup(myButtonGroup)
+        KEYBIND_STRIP:RemoveKeybindButtonGroup(keybindStripGroup)
     end
 
     ZO_PreHookHandler(ZO_WorldMapInfo, 'OnEffectivelyShown', OnShown)
 	ZO_PreHookHandler(ZO_WorldMapInfo, 'OnEffectivelyHidden', OnHidden)
+
+    EVENT_MANAGER:RegisterForEvent(GAFE.name .. "_Map", EVENT_START_FAST_TRAVEL_INTERACTION, OnFastTravelStart)
+    EVENT_MANAGER:RegisterForEvent(GAFE.name .. "_Map", EVENT_END_FAST_TRAVEL_INTERACTION, OnFastTravelEnd)
 end
 
 

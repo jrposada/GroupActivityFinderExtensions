@@ -1,41 +1,47 @@
+local defaultVars = {
+    textureSize = 25,
+    collapse = 1,
+    autoInvite = {
+        enabled = false
+    },
+    dungeons = {
+        autoMarkPledges = false,
+        dailyPledgeMarker = {
+            isIcon = false
+        },
+        handlePledgeQuest = true,
+        donePledges = {},
+        randomRewards = {}
+    },
+    battlegrounds = {
+        randomRewards = {}
+    },
+    autoConfirm = {
+        enabled = true,
+        value = false,
+        delay = 1000,
+        loopSound = true
+    },
+    trials = {
+        chests = {}
+    },
+    compatibility = {
+        perfectPixel = false
+    },
+    developerMode = false,
+    map = {
+        favourite = 284
+    }
+}
+
 GroupActivityFinderExtensions = {
     name = "GroupActivityFinderExtensions",
     version = 5.7,
     varsVersion = 3,
     Localization = {},
     Loc = function(var) return GroupActivityFinderExtensions.Localization[var] or var end,
-    DefaultVars = {
-        textureSize = 25,
-        collapse = 1,
-        autoInvite = {
-            enabled = false
-        },
-        dungeons = {
-            autoMarkPledges = false,
-            dailyPledgeMarker = {
-                isIcon = false
-            },
-            handlePledgeQuest = true,
-            donePledges = {},
-            randomRewards = {}
-        },
-        battlegrounds = {
-            randomRewards = {}
-        },
-        autoConfirm = {
-            enabled = true,
-            value = false,
-            delay = 1000,
-            loopSound = true
-        },
-        trials = {
-            chests = {}
-        },
-        compatibility = {
-            perfectPixel = false
-        },
-        developerMode = false
-    },
+    DefaultVars = defaultVars,
+    SavedVars = defaultVars -- Value will be overwriten in main.lua with current values.
 }
 
 local GAFE = GroupActivityFinderExtensions

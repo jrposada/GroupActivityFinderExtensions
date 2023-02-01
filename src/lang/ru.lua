@@ -11,6 +11,7 @@ GAFE.Localization = {
     Settings_AutoConfirm = "Кнопка автопринятия",
     Settings_AutoConfirmDelay = "задержка автоматического принятия",
     Settings_Difficulty = "Сложность",
+    Settings_FavouriteLocation = "Любимое место",
     Settings_LoopQueueCompletedNotification = "При активности петли обнаружен звук",
     Settings_TrialsChest = "Сбросить таймер сундука",
     Settings_ResetChestWarning = "Это сбросит таймер на 1 неделю!",

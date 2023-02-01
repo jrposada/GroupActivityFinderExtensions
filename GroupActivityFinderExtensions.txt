@@ -1,7 +1,7 @@
 ## Title: Group & Activity Finder Extensions
 ## Description: Quality of life improvements for the Group & Activity Finder.
 ## Author: Panicida
-## APIVersion: 101033
+## APIVersion: 101036
 ## AddOnVersion: 050700
 ## Version: 5.7
 ## DependsOn: LibAddonMenu-2.0 LibScroll
@@ -68,6 +68,8 @@ src/modules/activity-finder/trials/trials-extensions.lua
 src/modules/activity-finder/battlegrounds/battlegrounds-extensions.lua
 src/modules/activity-finder/queue/queue-extensions.lua
 src/modules/activity-finder/schedule/schedule.lua
+
+src/modules/map/map.lua
 
 src/modules/quest-automation/quest-automation.lua
 

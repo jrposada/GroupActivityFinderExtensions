@@ -11,6 +11,7 @@ GAFE.Localization = {
     Settings_AutoConfirm = "'Autom. bestätigen' Knopf",
     Settings_AutoConfirmDelay = "'Autom. bestätigen' verzögern",
     Settings_Difficulty = "Schwierigkeit",
+    Settings_FavouriteLocation = "Lieblingsort",
     Settings_LoopQueueCompletedNotification = "Loop-Aktivität hat Sound gefunden",
     Settings_TrialsChest = "Setzen Sie den Timer für Truhen zurück",
     Settings_ResetChestWarning = "Dadurch wird der Timer auf 1 Woche zurückgesetzt!",

@@ -11,6 +11,7 @@ GAFE.Localization = {
     Settings_AutoConfirm = "Bouton 'Auto confirmer'",
     Settings_AutoConfirmDelay = "Délai de 'Auto confirmer'",
     Settings_Difficulty = "Difficulté",
+    Settings_FavouriteLocation = "Lieu préféré",
     Settings_LoopQueueCompletedNotification = "L'activité de la boucle a trouvé du son",
     Settings_TrialsChest = "Réinitialiser la minuterie des coffres",
     Settings_ResetChestWarning = "Cela réinitialisera la minuterie à 1 semaine!",
