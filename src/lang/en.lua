@@ -125,4 +125,6 @@ GAFE_DIALY_NPC_NAME = {
     --
     ["Justiciar Farowel"] = true,
     ["Justiciar Tanorian"] = true,
+    -- Battlegrounds
+    ["Battlemaster Rivyn"] = true,
 }

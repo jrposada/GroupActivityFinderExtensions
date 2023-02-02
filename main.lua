@@ -30,16 +30,8 @@ local function OnAddOnLoaded(eventCode, addonName)
     GAFE_QUEST_AUTOMATION.Init()
 
     -- GAFE.QueueManager.Init()
-    -- GAFE.DungeonFinderCommands.Init()
-    -- GAFE.RandomDungeon.Init()
-    -- GAFE.RandomBattleground.Init()
     -- GAFE.TrialChestTimer.Init()
     -- GAFE.TrialFinder.Init()
-    -- GAFE.AutoConfirm.Init()
-    -- GAFE.PledgeQuestHandler.Init()
-    -- GAFE.QueueTimer.Init()
-    -- GAFE.ActivitySchedule.Init()
-    -- if GAFE.CanDebug then GAFE.Map.Init() end
 
     -- Init settings menu
     GAFE.SettingsMenu.Init()
