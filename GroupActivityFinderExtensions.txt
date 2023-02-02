@@ -37,6 +37,7 @@ src/ui/texture.xml
 src/modules/activity-finder/activity-id.lua
 src/modules/activity-finder/collapse-mode.lua
 src/modules/activity-finder/set-id.lua
+src/modules/map/alliance-id.lua
 
 src/modules/activity-finder/dungeons/pledge-id.lua
 src/modules/activity-finder/dungeons/pledge-list.lua
