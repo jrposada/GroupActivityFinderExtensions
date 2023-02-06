@@ -32,8 +32,6 @@ src/ui/texture.xml
 
 
 
-
-
 src/modules/activity-finder/activity-id.lua
 src/modules/activity-finder/collapse-mode.lua
 src/modules/activity-finder/set-id.lua
@@ -44,17 +42,20 @@ src/modules/activity-finder/dungeons/pledge-list.lua
 src/modules/activity-finder/dungeons/dungeons-activity-data.lua
 
 src/modules/activity-finder/trials/trials-activity-data.lua
+src/modules/activity-finder/trials/trials-chests.lua
+
+src/lang/en.lua
+src/lang/$(language).lua
 
 src/modules/activity-finder/schedule/schedules/dailies-schedule.lua
 src/modules/activity-finder/schedule/schedules/dailies-schedule.xml
 src/modules/activity-finder/schedule/schedules/pledges-schedule.lua
 src/modules/activity-finder/schedule/schedules/pledges-schedule.xml
+src/modules/activity-finder/schedule/schedules/trials-schedule.lua
+src/modules/activity-finder/schedule/schedules/trials-schedule.xml
 
 src/modules/activity-finder/schedule/activity-schedule-panel.lua
 src/modules/activity-finder/schedule/activity-schedule-panel.xml
-
-src/lang/en.lua
-src/lang/$(language).lua
 
 src/modules/activity-finder/trials/sorted-locations-data.lua
 src/modules/activity-finder/trials/trial-manager.lua
@@ -64,7 +65,6 @@ src/modules/activity-finder/extender.lua
 src/modules/activity-finder/group/group-extensions.lua
 src/modules/activity-finder/dungeons/dungeons-extensions.lua
 src/modules/activity-finder/dungeons/dungeons-commands.lua
-src/modules/activity-finder/trials/trials-chests.lua
 src/modules/activity-finder/trials/trials-extensions.lua
 src/modules/activity-finder/battlegrounds/battlegrounds-extensions.lua
 src/modules/activity-finder/queue/queue-extensions.lua

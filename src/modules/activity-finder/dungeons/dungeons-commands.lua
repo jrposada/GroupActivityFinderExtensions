@@ -142,6 +142,5 @@ function GAFE_DUNGEON_COMMANDS.Init()
 
         SLASH_COMMANDS["/gafenodeids"] = function() GAFE.Debug.LogNodeIds() end
         -- GAFE.Debug.LogControlShown()
-
     end
 end

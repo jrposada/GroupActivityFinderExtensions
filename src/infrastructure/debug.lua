@@ -1,3 +1,5 @@
+---@diagnostic disable: undefined-global
+
 local GAFE = GroupActivityFinderExtensions
 local EM = EVENT_MANAGER
 

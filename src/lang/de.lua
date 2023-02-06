@@ -55,7 +55,8 @@ GAFE.Localization = {
     InXDays = "<<1[Heute/An $d Tag/In $d Tagen]>>",
     ActivitySchedule = "Kalender",
     DailiesSchedule = "DailiTägliche",
-    PledgesSchedule = "Gelöbnisse"
+    PledgesSchedule = "Gelöbnisse",
+    Available = "Verfügbar"
 }
 
 -- This translations have to match pledge quest name in ingame journal
