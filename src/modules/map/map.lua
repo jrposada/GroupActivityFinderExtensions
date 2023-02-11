@@ -41,24 +41,14 @@ function GAFE_MAP.Init()
         KEYBIND_STRIP:AddKeybindButtonGroup(keybindStripGroup)
 
         -- Add Fast travel to alliances
-        local function FastTravelToAllianceCity(nodeIndex, allianceId, parent)
+        local function FastTravelToAllianceCity(params)
+            local nodeIndex, parent, position, texture = params.nodeIndex, params.parent, params.position, params.texture
             local size = 30
-            local texture, position
-            if allianceId == GAFE_ALLIANCE_ID.Aldmeri then
-                texture = "/esoui/art/ava/ava_allianceflag_aldmeri.dds"
-                position = 0
-            elseif allianceId == GAFE_ALLIANCE_ID.Daggerfall then
-                texture = "/esoui/art/ava/ava_allianceflag_daggerfall.dds"
-                position = size * 2
-            elseif allianceId == GAFE_ALLIANCE_ID.Ebonheart then
-                texture = "/esoui/art/ava/ava_allianceflag_ebonheart.dds"
-                position = size * 4
-            end
-    
+
             local knownNode, name = GetFastTravelNodeInfo(nodeIndex)
             local xOffset = 4
-            GAFE.UI.Texture(parent:GetName().."GAFE_Label"..allianceId, parent, {size,size*2}, {TOPLEFT,parent,TOPLEFT,position + xOffset, -45}, texture)
-            local button = GAFE.UI.Button(parent:GetName().."GAFE_Button"..allianceId, parent, {size*1.2,size*1.2}, {TOPLEFT,parent,TOPLEFT,position + xOffset + size - 10, -47}, nil, function() TeleportTo(nodeIndex) end, true, name)
+            GAFE.UI.Texture(parent:GetName().."GAFE_Label"..nodeIndex, parent, {size,size*2}, {TOPLEFT,parent,TOPLEFT,position * size + xOffset, -45}, texture)
+            local button = GAFE.UI.Button(parent:GetName().."GAFE_Button"..nodeIndex, parent, {size*1.2,size*1.2}, {TOPLEFT,parent,TOPLEFT,position * size + xOffset + size - 10, -47}, nil, function() TeleportTo(nodeIndex) end, true, name)
             if knownNode then
                 button:SetNormalTexture("/esoui/art/icons/poi/poi_wayshrine_complete.dds")
                 button:SetMouseOverTexture("/esoui/art/icons/poi/poi_wayshrine_glow.dds")
@@ -68,9 +58,10 @@ function GAFE_MAP.Init()
         end
 
         local parent = ZO_WorldMapInfo
-        FastTravelToAllianceCity(214, GAFE_ALLIANCE_ID.Aldmeri, parent)
-        FastTravelToAllianceCity(56, GAFE_ALLIANCE_ID.Daggerfall, parent)
-        FastTravelToAllianceCity(28, GAFE_ALLIANCE_ID.Ebonheart, parent)
+        FastTravelToAllianceCity({nodeIndex=214, parent=parent, position=0, texture="/esoui/art/ava/ava_allianceflag_aldmeri.dds"})
+        FastTravelToAllianceCity({nodeIndex=56, parent=parent, position=2, texture="/esoui/art/ava/ava_allianceflag_daggerfall.dds"})
+        FastTravelToAllianceCity({nodeIndex=28, parent=parent, position=4, texture="/esoui/art/ava/ava_allianceflag_ebonheart.dds"})
+        -- FastTravelToAllianceCity({nodeIndex=220, parent=parent, position=6, texture=}) -- Craglorn
     end
 
     local function OnHidden()

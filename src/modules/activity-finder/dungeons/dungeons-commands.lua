@@ -1,6 +1,6 @@
 local GAFE = GroupActivityFinderExtensions
 local DungeonActivityData = GAFE_DUNGEONS_ACTIVITY_DATA
-local AFRM = ZO_ACTIVITY_FINDER_ROOT_MANAGER
+local ZO_AFRM = ZO_ACTIVITY_FINDER_ROOT_MANAGER
 
 -- TODO: Refactor.
 
@@ -25,7 +25,7 @@ local function GetLevelOrChampionPointsRequirementText(levelMin, levelMax, point
     end
 end
 
-local function quests(verbose)
+local function queue(condition, verbose)
     if IsCurrentlySearchingForGroup() then
         return
     end
@@ -38,7 +38,7 @@ local function quests(verbose)
     local isLeader = IsUnitGroupLeader("player")
     local activityType = ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and LFG_ACTIVITY_DUNGEON or LFG_ACTIVITY_MASTER_DUNGEON
     local activityRequiresRoles = ZO_DoesActivityTypeRequireRoles(activityType)
-    local sortedLocationsData = ZO_ACTIVITY_FINDER_ROOT_MANAGER.specificLocationsLookupData[activityType]
+    local sortedLocationsData = ZO_AFRM.specificLocationsLookupData[activityType]
     for _, location in pairs(sortedLocationsData) do
         -- esoui\ingame\lfg\zo_activityfinderroot_manager.lua -> ActivityFinderRoot_Manager:UpdateLocationData()
         location:SetLocked(true)
@@ -47,7 +47,7 @@ local function quests(verbose)
         local cooldownText
         local applicableCooldowns = location:GetApplicableCooldownTypes()
         if applicableCooldowns and applicableCooldowns.queueCooldownType then
-            cooldownText = AFRM:GetLFGCooldownLockText(applicableCooldowns.queueCooldownType, CONCISE_COOLDOWN_TEXT)
+            cooldownText = ZO_AFRM:GetLFGCooldownLockText(applicableCooldowns.queueCooldownType, CONCISE_COOLDOWN_TEXT)
         end
 
         if cooldownText then
@@ -73,7 +73,7 @@ local function quests(verbose)
             location:SetLockReasonText(lockReasonText)
             location:SetCountsForAverageRoleTime(false)
         else
-            local groupTooLarge = isGroupRelevant and AFRM.groupSize > location:GetMaxGroupSize()
+            local groupTooLarge = isGroupRelevant and ZO_AFRM.groupSize > location:GetMaxGroupSize()
 
             if groupTooLarge then
                 location:SetLockReasonText(SI_LFG_LOCK_REASON_GROUP_TOO_LARGE)
@@ -96,8 +96,8 @@ local function quests(verbose)
             table.insert(lockedLocations, location.rawName .. ": " .. location.lockReasonText)
         else
             local activityData = DungeonActivityData[location.id]
-            if GetCompletedQuestInfo(activityData.q) == "" and true or false then
-                AFRM:SetLocationSelected(location, true)
+            if condition(activityData) then
+                ZO_AFRM:SetLocationSelected(location, true)
                 location:AddActivitySearchEntry()
                 table.insert(queuedLocations, location.rawName)
             end
@@ -116,9 +116,26 @@ local function quests(verbose)
     end
 end
 
+local function quests(verbose)
+    local function condition(activityData)
+        return GetCompletedQuestInfo(activityData.q) == "" and true or false
+    end
+
+    queue(condition, verbose)
+end
+
+local function pledges(verbose)
+    local function condition(activityData)
+        local pledgesInJournal = GAFE_DUNGEON_EXTENSIONS.GetPledgesInJournal()
+        return pledgesInJournal[activityData.p] == false
+    end
+
+    queue(condition, verbose)
+end
+
 local commandsList = {
-    "/gafequests",
-    "/gafequests verbose"
+    {name="/queuequests", func=quests},
+    {name="/queuepledges", func=pledges}
 }
 
 local function help()
@@ -131,7 +148,10 @@ GAFE_DUNGEON_COMMANDS = {}
 
 function GAFE_DUNGEON_COMMANDS.Init()
     SLASH_COMMANDS["/gafe"] = help
-    SLASH_COMMANDS["/gafequests"] = quests
+
+    for _, param in pairs(commandsList) do
+        SLASH_COMMANDS[param.name] = param.func
+    end
 
     if GAFE.SavedVars.developerMode then
         GAFE.LogLater('GAFE Developer Mode is enabled.')

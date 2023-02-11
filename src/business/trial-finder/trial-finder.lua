@@ -53,20 +53,6 @@ local function UpdateTargetModifiers(value)
     GAFE.QueueManager.SetModifiersTarget(value)
 end
 
------------------
--- Chest timer --
------------------
-local function UpdateChestLabel(label, characterId, questId)
-    local chestText
-    local timeUntilNextChest = GAFE.TrialChestTimer.GetTimeUntilNextChest(characterId, questId)
-    if timeUntilNextChest > 0 then
-        chestText = GAFE.ParseTimeStamp(timeUntilNextChest)
-    else
-        chestText = finderActivityExtender:FormatTexture("/esoui/art/icons/mail_armor_container.dds")
-    end
-    label:SetText(chestText)
-end
-
 -------------
 -- General --
 -------------
@@ -150,20 +136,6 @@ function GAFE.TrialFinder.Init()
         local canLfg = CanLfg()
         local canLfm = CanLfm()
 
-        -- Fast travel to Craglorn
-        local nodeIndex = 220
-        local knownNode, name = GetFastTravelNodeInfo(nodeIndex)
-        local position, size = 0, 30
-        local texture = "/esoui/art/ava/ava_allianceflag_aldmeri.dds"
-
-        -- GAFE.UI.Texture(parent:GetName().."LabelCraglorn", parent, {size,size*2}, {TOPLEFT,parent,TOPLEFT,position, -40}, texture)
-        local button = GAFE.UI.Button(parent:GetName() .. "ButtonCraglorn", parent, { size * 1.2, size * 1.2 }, { TOPLEFT, parent, TOPLEFT, position + size - 10, -40 }, nil, function() finderActivityExtender:FastTravel(nodeIndex, name) end, knownNode)
-        if knownNode then
-            button:SetNormalTexture("/esoui/art/icons/poi/poi_wayshrine_complete.dds")
-        else
-            button:SetNormalTexture("/esoui/art/icons/poi/poi_wayshrine_incomplete.dds")
-        end
-
         if perfectPixel then
             parent = ZO_SearchingForGroup
             local w = parent:GetWidth()
@@ -210,34 +182,6 @@ function GAFE.TrialFinder.Init()
     local baseEntrySetupFunction = treeEntry.setupFunction
     treeEntry.setupFunction = function(node, control, data, open)
         baseEntrySetupFunction(node, control, data, open)
-
-        local activityId = data.id
-        if TrialActivityData[activityId] then
-            local characterId = GetCurrentCharacterId()
-            local debug = GetDisplayName() == "@Panicida"
-
-            -- Teleport
-            finderActivityExtender:AddTeleport(TrialActivityData[activityId].node, control)
-
-            -- Chest label
-            local chestLabel = finderActivityExtender:AddLabel(nil, control:GetName() .. "c", control, 370, 70)
-            UpdateChestLabel(chestLabel, characterId, TrialActivityData[activityId].q)
-            chestLabel:SetHandler("OnUpdate", function() UpdateChestLabel(chestLabel, characterId, TrialActivityData[activityId].q) end)
-
-            -- General Vanquisher (normal) / Conqueror (veteran)
-            finderActivityExtender:AddAchievement(TrialActivityData[activityId].id, control:GetName() .. "id", control, "/esoui/art/announcewindow/announcement_icon_up.dds", 440, debug)
-
-            -- Death challenge (hard mode)
-            finderActivityExtender:AddAchievement(TrialActivityData[activityId].hm, control:GetName() .. "hm", control, "/esoui/art/unitframes/target_veteranrank_icon.dds", 460, debug)
-
-            -- Speed challenge
-            finderActivityExtender:AddAchievement(TrialActivityData[activityId].tt, control:GetName() .. "tt", control, "/esoui/art/ava/overview_icon_underdog_score.dds", 480, debug)
-
-            -- Survivor challenge (no death)
-            finderActivityExtender:AddAchievement(TrialActivityData[activityId].nd, control:GetName() .. "nd", control, "/esoui/art/treeicons/gamepad/gp_tutorial_idexicon_death.dds", 500, debug)
-        else
-            GAFE.UI.Label(control:GetName() .. "TODO", control, { 125, 20 }, { LEFT, control, LEFT, 420, 0 }, "ZoFontGameLarge", nil, { 0, 1 }, "TODO " .. activityId)
-        end
 
         control:SetHandler("OnMouseUp", function() RefreshControls() end, GAFE.name)
     end

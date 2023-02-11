@@ -52,23 +52,7 @@ local pledgesInJournal = {}
 
 --- Updates local pledgesInJournal variable with the GAFE_PLEDGE_ID of pledges in journal and whether they have been completed or not.
 local function UpdatePledgesInJournal()
-    pledgesInJournal = {}
-
-    for i = 1, MAX_JOURNAL_QUESTS do
-        local questName, _, _, stepType, _, completed, _, _, _, questType, instanceType = GetJournalQuestInfo(i)
-        if questName and questName ~= "" and not completed and questType == QUEST_TYPE_UNDAUNTED_PLEDGE and
-            instanceType == INSTANCE_TYPE_GROUP then
-
-            local pledgeId = QuestNameToPledgeId(questName)
-
-            if pledgeId then
-                pledgesInJournal[pledgeId] = stepType ~= QUEST_STEP_TYPE_AND
-            else
-                GAFE.LogLater("Group & Activity Finder Extensions has encounter an unknown pledge quest name: " ..
-                    questName)
-            end
-        end
-    end
+    pledgesInJournal = GAFE_DUNGEON_EXTENSIONS.GetPledgesInJournal()
 end
 
 local function AddPledge(_pledgeId_, _control_)
@@ -224,4 +208,26 @@ function GAFE_DUNGEON_EXTENSIONS.Init()
     EVENT_MANAGER:RegisterForEvent(GAFE.name .. "_DungonExtension_QuestRemoved", EVENT_QUEST_REMOVED, OnQuestRemoved)
     EVENT_MANAGER:RegisterForEvent(extender.root .. "Activity_Update", EVENT_ACTIVITY_FINDER_STATUS_UPDATE,
         OnActivityFinderStatusUpdate)
+end
+
+function GAFE_DUNGEON_EXTENSIONS.GetPledgesInJournal()
+    local result = {}
+
+    for i = 1, MAX_JOURNAL_QUESTS do
+        local questName, _, _, stepType, _, completed, _, _, _, questType, instanceType = GetJournalQuestInfo(i)
+        if questName and questName ~= "" and not completed and questType == QUEST_TYPE_UNDAUNTED_PLEDGE and
+            instanceType == INSTANCE_TYPE_GROUP then
+
+            local pledgeId = QuestNameToPledgeId(questName)
+
+            if pledgeId then
+                result[pledgeId] = stepType ~= QUEST_STEP_TYPE_AND
+            else
+                GAFE.LogLater("Group & Activity Finder Extensions has encounter an unknown pledge quest name: " ..
+                    questName)
+            end
+        end
+    end
+
+    return result
 end
