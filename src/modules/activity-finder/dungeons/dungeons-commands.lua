@@ -134,8 +134,8 @@ local function pledges(verbose)
 end
 
 local commandsList = {
-    {name="/queuequests", func=quests},
-    {name="/queuepledges", func=pledges}
+    {name="/quests", func=quests},
+    {name="/pledges", func=pledges}
 }
 
 local function help()
