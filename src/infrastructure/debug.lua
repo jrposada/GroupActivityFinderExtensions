@@ -110,6 +110,17 @@ function GAFE.Debug.SetIds()
     ZO_PreHook("ZO_ItemSetsBook_Entry_Header_Keyboard_OnMouseUp", function(control, button, upInside) DebugLog(control) end)
 end
 
+function GAFE.Debug.AchievementIds()
+    GAFE.LogLater('Debuging Achievement, right click in an achievement to log id')
+
+    local original = Achievement.ToggleCollapse
+    Achievement.ToggleCollapse = function (self, button)
+        original(self, button)
+        local name = GetAchievementInfo(self.achievementId)
+        GAFE.LogLater(name.." = "..self.achievementId)
+    end
+end
+
 function GAFE.Debug.DebugQuests()
     GAFE.LogLater('Debuging Quests')
 

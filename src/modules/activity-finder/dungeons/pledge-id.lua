@@ -49,4 +49,6 @@ GAFE_PLEDGE_ID = {
     ShipwrightsRegret   = 48,
     EarthenRootEnclave  = 49,
     GravenDeep          = 50,
+    BalSunnar           = 51,
+    ScrivenersHall      = 52,
 }

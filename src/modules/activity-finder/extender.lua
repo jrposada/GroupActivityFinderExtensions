@@ -194,7 +194,7 @@ function GAFE_ActivityFinderExtender:AddAchievement(_achivementId_, _controlName
         text = isCompleted and self:FormatTexture(texture) or ""
         tooltip = self:FormatTexture(icon) .. zo_strformat(achievementName)
         hidden = not isCompleted
-    elseif GAFE.SavedVars.developerMode then
+    elseif GAFE.SavedVars.developerMode and achievementId == nil then
         text = "-"
         hidden = false
     end
@@ -211,7 +211,7 @@ function GAFE_ActivityFinderExtender:AddQuest(_questId_, _controlName_, _parent_
         text = isQuestCompleted and self:FormatTexture(texture) or ""
         parent.gafeQuest = not isQuestCompleted
         self.hasQuests = self.hasQuests or parent.gafeQuest
-    elseif GAFE.SavedVars.developerMode then
+    elseif GAFE.SavedVars.developerMode and questId == nil then
         text = "-"
     end
 

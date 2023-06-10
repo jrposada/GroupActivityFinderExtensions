@@ -30,6 +30,19 @@ GAFE_PLEDGE_LIST = {
 		shift=0
 	},
 	[3]={	--Urgarlag
+        GAFE_PLEDGE_ID.ImperialCityPrison,
+        GAFE_PLEDGE_ID.RuinsOfMazzatun,
+        GAFE_PLEDGE_ID.WhiteGoldTower,
+        GAFE_PLEDGE_ID.CradleOfShadows,
+        GAFE_PLEDGE_ID.BloodrootForge,
+        GAFE_PLEDGE_ID.FalkreathHold,
+        GAFE_PLEDGE_ID.FangLair,
+        GAFE_PLEDGE_ID.ScalecallerPeak,
+        GAFE_PLEDGE_ID.MoonHunterKeep,
+        GAFE_PLEDGE_ID.MarchOfSacrifices,
+        GAFE_PLEDGE_ID.DepthsOfMalatar,
+        GAFE_PLEDGE_ID.Frostvault,
+        GAFE_PLEDGE_ID.MoongraveFane,
 		GAFE_PLEDGE_ID.LairOfMaarselok,
 		GAFE_PLEDGE_ID.Icereach,
 		GAFE_PLEDGE_ID.UnhallowedGrave,
@@ -43,19 +56,8 @@ GAFE_PLEDGE_LIST = {
 		GAFE_PLEDGE_ID.ShipwrightsRegret,
 		GAFE_PLEDGE_ID.EarthenRootEnclave,
 		GAFE_PLEDGE_ID.GravenDeep, -- Last
-		GAFE_PLEDGE_ID.ImperialCityPrison,
-		GAFE_PLEDGE_ID.RuinsOfMazzatun,
-		GAFE_PLEDGE_ID.WhiteGoldTower,
-		GAFE_PLEDGE_ID.CradleOfShadows,
-		GAFE_PLEDGE_ID.BloodrootForge,
-		GAFE_PLEDGE_ID.FalkreathHold,
-		GAFE_PLEDGE_ID.FangLair,
-		GAFE_PLEDGE_ID.ScalecallerPeak,
-		GAFE_PLEDGE_ID.MoonHunterKeep,
-		GAFE_PLEDGE_ID.MarchOfSacrifices,
-		GAFE_PLEDGE_ID.DepthsOfMalatar,
-		GAFE_PLEDGE_ID.Frostvault,
-		GAFE_PLEDGE_ID.MoongraveFane,
-		shift=0
+		GAFE_PLEDGE_ID.BalSunnar, -- sort
+		GAFE_PLEDGE_ID.ScrivenersHall, -- sort
+		shift=7
 	},
 }

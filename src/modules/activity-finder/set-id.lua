@@ -171,6 +171,12 @@ GAFE_SET_ID = {
     GraveInevitability = 664,
     PangritDenmother = 663,
     PhylacterysGrasp = 665,
+    AbyssalBrace = 686,
+    ApocryphalInspiration = 685,
+    RunecarversBlaze = 684,
+    NixHoundsHowl = 681,
+    RitemastersBond = 680,
+    TelvanniEnforcer = 682,
     -- Trial Sets
     DefendingWarrior = 138,
     HealingMage = 141,

@@ -72,6 +72,9 @@ GAFE_ACTIVITY_ID = {
     NormalVaultsOfMadness  = 17,
     VeteranVaultsOfMadness = 314,
 
+    NormalBalSunnar  = 613,
+    VeteranBalSunnar = 614,
+
     NormalBlackDrakeVilla  = 591,
     VeteranBlackDrakeVilla = 592,
 
@@ -125,6 +128,9 @@ GAFE_ACTIVITY_ID = {
 
     NormalScalecallerPeak  = 418,
     VeteranScalecallerPeak = 419,
+
+    NormalScrivenersHall  = 615,
+    VeteranScrivenersHall = 616,
 
     NormalShipwrightsRegret  = 601,
     VeteranShipwrightsRegret = 602,
