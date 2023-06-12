@@ -6,6 +6,7 @@ local GAFE = GroupActivityFinderExtensions
 ZO_CreateStringId("SI_LFGACTIVITY" .. GAFE_LFG_ACTIVITY_TRIAL, "Обычный режим")
 ZO_CreateStringId("SI_LFGACTIVITY" .. GAFE_LFG_ACTIVITY_MASTER_TRIAL, "Ветеранский режим")
 
+GAFE.lang = "ru"
 GAFE.Localization = {
     Settings_Description = "Добавляет дополнительные функции и информацию в пользовательский интерфейс Группа и Поиск активностей.",
     Settings_AutoConfirm = "Кнопка автопринятия",
@@ -57,62 +58,6 @@ GAFE.Localization = {
     DailiesSchedule = "Dailies", -- TODO: translate
     PledgesSchedule = "Pledges", -- TODO: translate
     Available = "Доступный"
-}
-
--- This translations have to match pledge quest name in ingame journal
-GAFE_DUNGEON_PLEDGE_QUEST_NAME = {
-    [GAFE_PLEDGE_ID.FungalGrottoI] = "Грибной грот I",
-    [GAFE_PLEDGE_ID.FungalGrottoII] = "Грибной грот II",
-    [GAFE_PLEDGE_ID.SpindleclutchI] = "Логово Мертвой Хватки I",
-    [GAFE_PLEDGE_ID.SpindleclutchII] = "Логово Мертвой Хватки II",
-    [GAFE_PLEDGE_ID.BanishedCellsI] = "Темницы Изгнанников I",
-    [GAFE_PLEDGE_ID.BanishedCellsII] = "Темницы Изгнанников II",
-    [GAFE_PLEDGE_ID.DarkshadeCavernsI] = "Пещеры Глубокой Тени I",
-    [GAFE_PLEDGE_ID.DarkshadeCavernsII] = "Пещеры Глубокой Тени II",
-    [GAFE_PLEDGE_ID.EldenHollowI] = "Элденская расщелина I",
-    [GAFE_PLEDGE_ID.EldenHollowII] = "Элденская расщелина II",
-    [GAFE_PLEDGE_ID.WayrestSewersI] = "Канализация Вэйреста I",
-    [GAFE_PLEDGE_ID.WayrestSewersII] = "Канализация Вэйреста II",
-    [GAFE_PLEDGE_ID.ArxCorinium] = "Аркс-Кориниум",
-    [GAFE_PLEDGE_ID.CityOfAshI] = "Город Пепла I",
-    [GAFE_PLEDGE_ID.CityOfAshII] = "Город Пепла II",
-    [GAFE_PLEDGE_ID.CryptOfHeartsI] = "Крипта Сердец I",
-    [GAFE_PLEDGE_ID.CryptOfHeartsII] = "Крипта Сердец II",
-    [GAFE_PLEDGE_ID.DirefrostKeep] = "Крепость Лютых Морозов",
-    [GAFE_PLEDGE_ID.TempestIsland] = "Остров Бурь",
-    [GAFE_PLEDGE_ID.Volenfell] = "Воленфелл",
-    [GAFE_PLEDGE_ID.BlackheartHaven] = "Гавань Черного Сердца",
-    [GAFE_PLEDGE_ID.BlessedCrucible] = "Священное Горнило",
-    [GAFE_PLEDGE_ID.SelenesWeb] = "Паутина Селены",
-    [GAFE_PLEDGE_ID.VaultsOfMadness] = "Своды Безумия",
-    [GAFE_PLEDGE_ID.BalSunnar] = "Bal Sunnar", -- todo: translate
-    [GAFE_PLEDGE_ID.BlackDrakeVilla] = "Вилла Черного Змея",
-    [GAFE_PLEDGE_ID.BloodrootForge] = "Кузница Кровавого корня",
-    [GAFE_PLEDGE_ID.CastleThorn] = "Замок Шипов",
-    [GAFE_PLEDGE_ID.Cauldron] = "Котел",
-    [GAFE_PLEDGE_ID.CoralAerie] = "Коралловое Гнездо",
-    [GAFE_PLEDGE_ID.CradleOfShadows] = "Колыбель Теней",
-    [GAFE_PLEDGE_ID.DepthsOfMalatar] = "Глубины Малатара",
-    [GAFE_PLEDGE_ID.DreadCellar] = "Ужасный Подвал",
-    [GAFE_PLEDGE_ID.EarthenRootEnclave] = "Анклав Земляного Корня",
-    [GAFE_PLEDGE_ID.FalkreathHold] = "Владение Фолкрит",
-    [GAFE_PLEDGE_ID.FangLair] = "Логово Клыка",
-    [GAFE_PLEDGE_ID.Frostvault] = "Морозное хранилище",
-    [GAFE_PLEDGE_ID.GravenDeep] = "Могильная Пучина",
-    [GAFE_PLEDGE_ID.Icereach] = "Ледяной Предел",
-    [GAFE_PLEDGE_ID.ImperialCityPrison] = "Тюрьма Имперского города",
-    [GAFE_PLEDGE_ID.LairOfMaarselok] = "Логово Марселока",
-    [GAFE_PLEDGE_ID.MarchOfSacrifices] = "Путь Жертвоприношений",
-    [GAFE_PLEDGE_ID.MoonHunterKeep] = "Крепость Лунного Охотника",
-    [GAFE_PLEDGE_ID.MoongraveFane] = "Храм Погребенных Лун",
-    [GAFE_PLEDGE_ID.RedPetalBastion] = "Оплот Алый Лепесток",
-    [GAFE_PLEDGE_ID.RuinsOfMazzatun] = "Руины Маззатуна",
-    [GAFE_PLEDGE_ID.ScalecallerPeak] = "Пик Воспевательницы Дракона",
-    [GAFE_PLEDGE_ID.ScrivenersHall] = "Scrivener's Hall", -- todo: translate
-    [GAFE_PLEDGE_ID.ShipwrightsRegret] = "Горе Корабела",
-    [GAFE_PLEDGE_ID.StoneGarden] = "Каменный Сад",
-    [GAFE_PLEDGE_ID.UnhallowedGrave] = "Нечестивая Могила",
-    [GAFE_PLEDGE_ID.WhiteGoldTower] = "Башня Белого Золота"
 }
 
 GAFE_PLEDGE_NPC_NAME = {

@@ -1,5 +1,5 @@
 local GAFE = GroupActivityFinderExtensions
-local WM = WINDOW_MANAGER
+local LQD = LibQuestData
 local libScroll = LibScroll
 
 local function GetPledgesOfDay(day)
@@ -130,14 +130,13 @@ function GAFE_PledgesSchedule:InitializeTodayFragment()
     end
 
     -- Setup header
-    local pledgeQuestName = GAFE_DUNGEON_PLEDGE_QUEST_NAME
     SetupHeaderRow(
         self.todayHeader,
         {
             name='',
-            maj=pledgeQuestName[self.todayPledges[1]],
-            glirion=pledgeQuestName[self.todayPledges[2]],
-            urgarlag=pledgeQuestName[self.todayPledges[3]],
+            maj=GAFE.CleanPledgeQuestName(LQD:get_quest_name(self.todayPledges[1], GAFE.lang)),
+            glirion=GAFE.CleanPledgeQuestName(LQD:get_quest_name(self.todayPledges[2], GAFE.lang)),
+            urgarlag=GAFE.CleanPledgeQuestName(LQD:get_quest_name(self.todayPledges[3], GAFE.lang)),
         }
     )
 
@@ -249,15 +248,14 @@ function GAFE_PledgesSchedule:InitializeUpcomingFragment()
     -- Add data to scroll list.
     local today = math.floor(GetDiffBetweenTimeStamps(GetTimeStamp(), 1517464800) / 86400) -- 86400 = 1 day
 
-    local pledgeQuestName = GAFE_DUNGEON_PLEDGE_QUEST_NAME
     local dataItems = {}
     for day=1,14 do
         local pledges = GetPledgesOfDay(today + day)
         local data = {
             day=day,
-            maj=pledgeQuestName[pledges[1]],
-            glirion=pledgeQuestName[pledges[2]],
-            urgarlag=pledgeQuestName[pledges[3]]
+            maj=GAFE.CleanPledgeQuestName(LQD:get_quest_name(pledges[1], GAFE.lang)),
+            glirion=GAFE.CleanPledgeQuestName(LQD:get_quest_name(pledges[2], GAFE.lang)),
+            urgarlag=GAFE.CleanPledgeQuestName(LQD:get_quest_name(pledges[3], GAFE.lang)),
         }
         dataItems[day] = data
     end

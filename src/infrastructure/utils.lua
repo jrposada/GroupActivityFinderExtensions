@@ -62,3 +62,7 @@ function GAFE.ContainsValue(table, value)
 
 	return false
 end
+
+function GAFE.CleanPledgeQuestName(name)
+    return string.format("%s", name:gsub(".*:%s*", ""))
+end

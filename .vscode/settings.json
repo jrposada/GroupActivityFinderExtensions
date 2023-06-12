@@ -232,6 +232,7 @@
         "GetRecallCooldown",
         "GetNumFastTravelNodes",
         "EVENT_START_FAST_TRAVEL_INTERACTION",
-        "EVENT_END_FAST_TRAVEL_INTERACTION"
+        "EVENT_END_FAST_TRAVEL_INTERACTION",
+        "LibQuestData"
     ]
 }

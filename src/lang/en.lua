@@ -6,6 +6,7 @@ local GAFE = GroupActivityFinderExtensions
 ZO_CreateStringId("SI_LFGACTIVITY" .. GAFE_LFG_ACTIVITY_TRIAL, "Normal")
 ZO_CreateStringId("SI_LFGACTIVITY" .. GAFE_LFG_ACTIVITY_MASTER_TRIAL, "Veteran")
 
+GAFE.lang = "en"
 GAFE.Localization = {
     Settings_Description = "Adds a bit of extra functionality and information to the Group & Activity Finder UI",
     Settings_AutoConfirm = "'Auto confirm' button",
@@ -57,62 +58,6 @@ GAFE.Localization = {
     DailiesSchedule = "Dailies Random",
     PledgesSchedule = "Pledges",
     Available = "Available"
-}
-
---- This translations have to match pledge quest name in ingame journal
-GAFE_DUNGEON_PLEDGE_QUEST_NAME = {
-    [GAFE_PLEDGE_ID.FungalGrottoI] = "Fungal Grotto I",
-    [GAFE_PLEDGE_ID.FungalGrottoII] = "Fungal Grotto II",
-    [GAFE_PLEDGE_ID.SpindleclutchI] = "Spindleclutch I",
-    [GAFE_PLEDGE_ID.SpindleclutchII] = "Spindleclutch II",
-    [GAFE_PLEDGE_ID.BanishedCellsI] = "Banished Cells I",
-    [GAFE_PLEDGE_ID.BanishedCellsII] = "Banished Cells II",
-    [GAFE_PLEDGE_ID.DarkshadeCavernsI] = "Darkshade Caverns I",
-    [GAFE_PLEDGE_ID.DarkshadeCavernsII] = "Darkshade II",
-    [GAFE_PLEDGE_ID.EldenHollowI] = "Elden Hollow I",
-    [GAFE_PLEDGE_ID.EldenHollowII] = "Elden Hollow II",
-    [GAFE_PLEDGE_ID.WayrestSewersI] = "Wayrest Sewers I",
-    [GAFE_PLEDGE_ID.WayrestSewersII] = "Wayrest Sewers II",
-    [GAFE_PLEDGE_ID.ArxCorinium] = "Arx Corinium",
-    [GAFE_PLEDGE_ID.CityOfAshI] = "City of Ash I",
-    [GAFE_PLEDGE_ID.CityOfAshII] = "City of Ash II",
-    [GAFE_PLEDGE_ID.CryptOfHeartsI] = "Crypt of Hearts I",
-    [GAFE_PLEDGE_ID.CryptOfHeartsII] = "Crypt of Hearts II",
-    [GAFE_PLEDGE_ID.DirefrostKeep] = "Direfrost Keep",
-    [GAFE_PLEDGE_ID.TempestIsland] = "Tempest Island",
-    [GAFE_PLEDGE_ID.Volenfell] = "Volenfell",
-    [GAFE_PLEDGE_ID.BlackheartHaven] = "Blackheart Haven",
-    [GAFE_PLEDGE_ID.BlessedCrucible] = "Blessed Crucible",
-    [GAFE_PLEDGE_ID.SelenesWeb] = "Selene's Web",
-    [GAFE_PLEDGE_ID.VaultsOfMadness] = "Vaults of Madness",
-    [GAFE_PLEDGE_ID.BalSunnar] = "Bal Sunnar", -- todo: review
-    [GAFE_PLEDGE_ID.BlackDrakeVilla] = "Black Drake Villa",
-    [GAFE_PLEDGE_ID.BloodrootForge] = "Bloodroot Forge",
-    [GAFE_PLEDGE_ID.CastleThorn] = "Castle Thorn",
-    [GAFE_PLEDGE_ID.Cauldron] = "The Cauldron",
-    [GAFE_PLEDGE_ID.CoralAerie] = "Coral Aerie",
-    [GAFE_PLEDGE_ID.CradleOfShadows] = "Cradle of Shadows",
-    [GAFE_PLEDGE_ID.DepthsOfMalatar] = "Depths of Malatar",
-    [GAFE_PLEDGE_ID.DreadCellar] = "The Dread Cellar",
-    [GAFE_PLEDGE_ID.EarthenRootEnclave] = "Earthen Root Enclave",
-    [GAFE_PLEDGE_ID.FalkreathHold] = "Falkreath Hold",
-    [GAFE_PLEDGE_ID.FangLair] = "Fang Lair",
-    [GAFE_PLEDGE_ID.Frostvault] = "Frostvault",
-    [GAFE_PLEDGE_ID.GravenDeep] = "Graven Deep",
-    [GAFE_PLEDGE_ID.Icereach] = "Icereach",
-    [GAFE_PLEDGE_ID.ImperialCityPrison] = "Imperial City Prison",
-    [GAFE_PLEDGE_ID.LairOfMaarselok] = "Lair of Maarselok",
-    [GAFE_PLEDGE_ID.MarchOfSacrifices] = "March of Sacrifices",
-    [GAFE_PLEDGE_ID.MoonHunterKeep] = "Moon Hunter Keep",
-    [GAFE_PLEDGE_ID.MoongraveFane] = "Moongrave Fane",
-    [GAFE_PLEDGE_ID.RedPetalBastion] = "Red Petal Bastion",
-    [GAFE_PLEDGE_ID.RuinsOfMazzatun] = "Ruins of Mazzatun",
-    [GAFE_PLEDGE_ID.ScalecallerPeak] = "Scalecaller Peak",
-    [GAFE_PLEDGE_ID.ScrivenersHall] = "Scrivener's Hall", -- todo: review
-    [GAFE_PLEDGE_ID.ShipwrightsRegret] = "Shipwright's Regret",
-    [GAFE_PLEDGE_ID.StoneGarden] = "Stone Garden",
-    [GAFE_PLEDGE_ID.UnhallowedGrave] = "Unhallowed Grave",
-    [GAFE_PLEDGE_ID.WhiteGoldTower] = "White-Gold Tower"
 }
 
 GAFE_PLEDGE_NPC_NAME = {

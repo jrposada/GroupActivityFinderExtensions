@@ -39,6 +39,7 @@ GroupActivityFinderExtensions = {
     version = 5.7,
     varsVersion = 3,
     Localization = {},
+    lang = "",
     Loc = function(var) return GroupActivityFinderExtensions.Localization[var] or var end,
     DefaultVars = defaultVars,
     SavedVars = defaultVars -- Value will be overwriten in main.lua with current values.

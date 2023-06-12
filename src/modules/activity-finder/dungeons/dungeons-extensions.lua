@@ -1,5 +1,6 @@
 local GAFE = GroupActivityFinderExtensions
 local dungeonData = GAFE_DUNGEONS_ACTIVITY_DATA
+local LQD = LibQuestData
 
 local extender = GAFE_ActivityFinderExtender:New()
 
@@ -36,12 +37,12 @@ end
 
 local function QuestNameToPledgeId(_questName_)
     local questName = _questName_
-    -- Remove weird white spaces and other special characters.
-    local cleanQuestName = string.format("%s", questName:gsub(".*:%s*", ""):gsub(" ", " "):lower())
     local pledgeId = nil
-    for id, pledgeName in pairs(GAFE_DUNGEON_PLEDGE_QUEST_NAME) do
-        if cleanQuestName == pledgeName:lower() then
+    for _, id in pairs(GAFE_PLEDGE_ID) do
+        local pledgeName = LQD:get_quest_name(id, GAFE.lang)
+        if questName == pledgeName then
             pledgeId = id
+            break
         end
     end
 
