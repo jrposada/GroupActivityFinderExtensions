@@ -33,14 +33,7 @@ function GAFE_ActivityFinderExtender:Initialize(_root_, _data_, _treeEntry_, _cu
             end
         }
     }
-    self.keybindStripGroup = {
-        self.leaveGroupKeybindStripGroup[0]
-    }
-    if keybindStripGroup then
-        for _, item in pairs(keybindStripGroup) do
-            table.insert(self.keybindStripGroup, item)
-        end
-    end
+    self.keybindStripGroup = keybindStripGroup
 
     if treeEntry then self:InitializeSetupFunction(treeEntry) end
     self:InitializeRandomReward()
@@ -124,22 +117,43 @@ function GAFE_ActivityFinderExtender:InitializeRandomReward()
 end
 
 function GAFE_ActivityFinderExtender:InitializeEvents()
+    local isKeyboardListSectionVisible = false
+    local isSingularSectionVisible = false
+
     local function OnKeyboardListSectionShown()
-        KEYBIND_STRIP:AddKeybindButtonGroup(self.keybindStripGroup)
+        isKeyboardListSectionVisible = true
+
+        if self.keybindStripGroup then
+            KEYBIND_STRIP:AddKeybindButtonGroup(self.keybindStripGroup)
+        end
+        KEYBIND_STRIP:AddKeybindButtonGroup(self.leaveGroupKeybindStripGroup)
         self:Collapse()
         if self.onShown then self.onShown() end
     end
 
     local function OnKeyboardListSectionHidden()
-        KEYBIND_STRIP:RemoveKeybindButtonGroup(self.keybindStripGroup)
+        isKeyboardListSectionVisible = false
+
+        if self.keybindStripGroup then
+            KEYBIND_STRIP:RemoveKeybindButtonGroup(self.keybindStripGroup)
+        end
+        if not isSingularSectionVisible then
+            KEYBIND_STRIP:RemoveKeybindButtonGroup(self.leaveGroupKeybindStripGroup)
+        end
     end
 
     local function OnSingularSectionShown()
+        isSingularSectionVisible = true
+
         KEYBIND_STRIP:AddKeybindButtonGroup(self.leaveGroupKeybindStripGroup)
         if self.onShown then self.onShown() end
     end
 
     local function OnSingularSectionHidden()
+        isSingularSectionVisible = false
+
+        if isKeyboardListSectionVisible then return end
+
         KEYBIND_STRIP:RemoveKeybindButtonGroup(self.leaveGroupKeybindStripGroup)
     end
 
