@@ -35,7 +35,7 @@ function GAFE_PledgesSchedule:Initialize(control)
     self.upcomingHeader = self.upcoming:GetNamedChild("Header")
     self.upcomingListContainer = self.upcoming:GetNamedChild("ListContainer")
 
-    local today = math.floor(GetDiffBetweenTimeStamps(GetTimeStamp(), 1517464800) / 86400) -- 86400 = 1 day
+    local today = GAFE.Today()
     self.todayPledges = GetPledgesOfDay(today)
 
     self:InitializeControls()
@@ -246,7 +246,7 @@ function GAFE_PledgesSchedule:InitializeUpcomingFragment()
     scrollList:SetAnchor(BOTTOMRIGHT, parent, BOTTOMRIGHT, 0, 0)
 
     -- Add data to scroll list.
-    local today = math.floor(GetDiffBetweenTimeStamps(GetTimeStamp(), 1517464800) / 86400) -- 86400 = 1 day
+    local today = GAFE.Today()
 
     local dataItems = {}
     for day=1,14 do

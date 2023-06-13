@@ -66,3 +66,15 @@ end
 function GAFE.CleanPledgeQuestName(name)
     return string.format("%s", name:gsub(".*:%s*", ""))
 end
+
+-- https://forums.elderscrollsonline.com/en/discussion/629071/pc-mac-patch-notes-v8-3-5
+-- 3am UTC for European servers and 10am UTC for North American servers
+if GetWorldName() == 'EU Megaserver' then
+    GAFE.baseResetTimesamp = 1517454000
+else
+    GAFE.baseResetTimesamp = 1517479200
+end
+
+function GAFE.Today()
+    return math.floor(GetDiffBetweenTimeStamps(GetTimeStamp(), 1517454000) / 86400) -- 86400 = 1 day
+end

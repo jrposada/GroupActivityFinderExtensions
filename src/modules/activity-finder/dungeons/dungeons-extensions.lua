@@ -17,7 +17,7 @@ local function UpdateTodayPledges()
         day = nil
     }
 
-    todayPledges.day = math.floor(GetDiffBetweenTimeStamps(GetTimeStamp(), 1517464800) / 86400) -- 86400 = 1 day
+    todayPledges.day = GAFE.Today()
 
     for npc = 1, 3 do
         local dpList = GAFE_PLEDGE_LIST[npc]

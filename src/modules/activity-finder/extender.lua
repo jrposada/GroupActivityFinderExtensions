@@ -387,8 +387,10 @@ function GAFE_ActivityFinderExtender.GetTimeUntilNextReward(characterId, rewards
     local result = 0
     local completedTimeStamp = rewardsVars.randomRewards[characterId]
 
+    local nextReset = (GAFE.Today() + 1) * 86400 + GAFE.baseResetTimesamp -- 86400 = 1 day
+
     if completedTimeStamp then
-        result = completedTimeStamp + 72000 - GetTimeStamp() -- 72000 = 20 hours
+        result = nextReset - GetTimeStamp() -- 72000 = 20 hours
     end
 
     return result
