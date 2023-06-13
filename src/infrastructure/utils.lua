@@ -76,5 +76,5 @@ else
 end
 
 function GAFE.Today()
-    return math.floor(GetDiffBetweenTimeStamps(GetTimeStamp(), 1517454000) / 86400) -- 86400 = 1 day
+    return math.floor(GetDiffBetweenTimeStamps(GetTimeStamp(), GAFE.baseResetTimesamp) / 86400) -- 86400 = 1 day
 end
