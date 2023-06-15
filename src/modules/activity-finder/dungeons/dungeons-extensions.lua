@@ -17,7 +17,7 @@ local function UpdateTodayPledges()
         day = nil
     }
 
-    todayPledges.day = GAFE.Today()
+    todayPledges.day = GAFE.GetDay()
 
     for npc = 1, 3 do
         local dpList = GAFE_PLEDGE_LIST[npc]

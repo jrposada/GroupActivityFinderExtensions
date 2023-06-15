@@ -75,6 +75,6 @@ else
     GAFE.baseResetTimesamp = 1517479200
 end
 
-function GAFE.Today()
-    return math.floor(GetDiffBetweenTimeStamps(GetTimeStamp(), GAFE.baseResetTimesamp) / 86400) -- 86400 = 1 day
+function GAFE.GetDay(timestamp)
+    return math.floor(GetDiffBetweenTimeStamps(timestamp or GetTimeStamp(), GAFE.baseResetTimesamp) / 86400) -- 86400 = 1 day
 end
