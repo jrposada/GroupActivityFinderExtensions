@@ -154,6 +154,10 @@ function GAFE_DUNGEON_COMMANDS.Init()
     end
 
     -- todo: move to elsewere
+    SLASH_COMMANDS['/home'] = function()
+        RequestJumpToHouse(GetHousingPrimaryHouse(), false)
+    end
+
     if GAFE.SavedVars.developerMode then
         GAFE.LogLater('GAFE Developer Mode is enabled.')
         GAFE.Debug.SetIds()
