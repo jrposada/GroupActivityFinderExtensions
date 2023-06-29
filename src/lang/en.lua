@@ -65,14 +65,3 @@ GAFE_PLEDGE_NPC_NAME = {
     ["Glirion the Redbeard"] = true,
     ["Urgarlag Chief-bane"] = true,
 }
-
-GAFE_DIALY_NPC_NAME = {
-    -- Fargrave Dialies
-    ["Luna Beriel"] = true,
-    ["Vaveli Indavel"] = true,
-    --
-    ["Justiciar Farowel"] = true,
-    ["Justiciar Tanorian"] = true,
-    -- Battlegrounds
-    ["Battlemaster Rivyn"] = true,
-}

@@ -65,12 +65,3 @@ GAFE_PLEDGE_NPC_NAME = {
     ["Glirion Barbe-Rousse"] = true,
     ["Urgarlag l'Émasculatrice"] = true,
 }
-
--- TODO: translate
-GAFE_DIALY_NPC_NAME = {
-    -- Fargrave Dialies
-    ["Luna Beriel"] = true,
-    ["Vaveli Indavel"] = true,
-    --
-    ["Justiciar Farowel"] = true
-}
