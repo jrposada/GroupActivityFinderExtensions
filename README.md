@@ -1,18 +1,59 @@
-Adds a bit of extra functionality and info to the Group & Activity Finder UI
+**READ BEFORE INSTALL**
 
-[B]IMPORTANT:[/B] This addon use ZOS Dungeon Mode to decide which activities to choose. This means that if you have normal selected only normal activities will be selected. On the other hand if you have veteran selected only veteran activities will be selected. To change the Dungeon Mode go open the Group & Activity Finder, select the Group tab and on the top of the window you will see the Dungeon Mode selection UI
+The amount of time and effort I put into the addon is directly related to the amount of time I play the game. I am a casual player, meaning I can go for a long time without playing (years in fact) and the addon **will not be updated during those times**. This type of addon requires updates each patch to support new dungeons and stuff. If you still want to give it a try you are more than welcome to do so. Have fun!
 
-Currently it does not support controller.
+# Summary
 
-[SIZE="4"]Dependencies[/SIZE]
-[LIST]LibAddonMenu[/LIST]
-[LIST]LibScroll[/LIST]
+Adds a extra functionality around vanilla Group & Activity Finder and other in-game activities.
 
-[SIZE="4"]Supported languages[/SIZE]
-[LIST]English[/LIST]
-[LIST]French[/LIST]
-[LIST]German [/LIST]
-[LIST]Russian[/LIST]
+**Notice:** By default, when choosing between Normal and Veteran content, the group current group setting will be used (selected on the "Group" tab of the "Group & Activity Finder" panel). This behavior can be changed through the settings to always use Normal, Veteran or current group setting.
+
+**Notice:** Controller is not supported.
+
+## Dependencies
+
+* [LibAddonMenu-2.0](https://www.esoui.com/downloads/info7-LibAddonMenu.html)
+* [LibSavedVars](https://www.esoui.com/downloads/info2161-LibSavedVars.html)
+* [LibQuestData](https://www.esoui.com/downloads/info2625-LibQuestData.html)
+* [LibScroll](https://www.esoui.com/downloads/info1151-LibScroll.html)
+
+## Supported languages
+
+* English
+* French
+* German
+* Russian
+
+# Features
+
+## Activity Finder
+
+* Group
+* Random dungeon
+* Random battleground
+* Dungeons
+* Trials (Removed)
+* Schedules
+* Auto confirm
+
+## Map
+
+* Alliance capitals Wayshrines.
+
+    Added shortcuts to all three Alliance capitals to map view. Always visible on above filters panel.
+
+* TP to favorite Wayshrine on map hotkey.
+
+    Added new active binding to map view to TP to user selected Wayshrine. Favorite can be change in the addon settings.
+
+## Quest Automation
+
+Automatically accepts and complete any daily quests when interacting with the quest giver. This will also close the conversation at the end.
+
+**Notice:** to avoid conflicts with other addons it ignore daily writs.
+
+# Commands
+
 
 [SIZE="4"]Features[/SIZE]
 
@@ -114,16 +155,6 @@ Queue for all available pledges and log all the information.
 6. Add new dungeon sets to `set-id.lua`. To extract the set names and ids go to in-game sets panel and toggle the set you need. This will log the set name and id in the chat.
 7. Add new dungeon activity data to `dungeons-activity-data.lua`.
    1. Quests ids: http://esoitem.uesp.net/viewlog.php?record=uniqueQuest
-   2. Achievements: use debug mode.
+   2. Achievements: use debug mode to log ids to chat.
 
 ## Add new Trial
-TODO
-
-```
-TODO implement LibQuestData
-local LQD = LibQuestData
-function lib:get_quest_giver(id, lang)
-  lang = lang or lib.effective_lang
-  return lib.quest_givers[lang][id]
-end
-```

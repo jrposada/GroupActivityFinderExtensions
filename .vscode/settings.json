@@ -236,6 +236,18 @@
         "LibQuestData",
         "GetHousingPrimaryHouse",
         "RequestJumpToHouse",
-        "EVENT_CHATTER_END"
+        "EVENT_CHATTER_END",
+        "GetSetting",
+        "SETTING_TYPE_UI",
+        "UI_SETTING_PRIMARY_PLAYER_NAME_KEYBOARD",
+        "PRIMARY_PLAYER_NAME_SETTING_PREFER_USERID",
+        "ZO_GroupListRowCharacterName_OnMouseEnter",
+        "SetTooltipText",
+        "InformationTooltip",
+        "ZO_ScrollList_GetData"
+    ],
+    "cSpell.words": [
+        "Wayshrine",
+        "Wayshrines"
     ]
 }

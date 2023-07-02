@@ -4,7 +4,7 @@
 ## APIVersion: 101037
 ## AddOnVersion: 050700
 ## Version: 5.7
-## DependsOn: LibAddonMenu-2.0 LibScroll LibQuestData
+## DependsOn: LibSavedVars LibAddonMenu-2.0 LibQuestData LibScroll 
 ## SavedVariables: GroupActivityFinderExtensions_Vars
 
 ; DISCLAIMER:
