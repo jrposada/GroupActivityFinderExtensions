@@ -14,8 +14,15 @@ foreach ($line in [System.IO.File]::ReadLines($filePath)) {
         $patch = [int]$version.Substring(4, 2)
 
         switch ($mode) {
-            "major" { $major += 1 }
-            "minor" { $minor += 1 }
+            "major" {
+                $major += 1
+                $minor = 0
+                $patch = 0
+            }
+            "minor" {
+                $minor += 1 
+                $patch = 0 
+            }
             "patch" { $patch += 1 }
             Default {}
         }
@@ -34,8 +41,15 @@ foreach ($line in [System.IO.File]::ReadLines($filePath)) {
         $patch = [int]$version[2]
 
         switch ($mode) {
-            "major" { $major += 1 }
-            "minor" { $minor += 1 }
+            "major" {
+                $major += 1
+                $minor = 0
+                $patch = 0
+            }
+            "minor" {
+                $minor += 1 
+                $patch = 0 
+            }
             "patch" { $patch += 1 }
             Default {}
         }
