@@ -59,9 +59,3 @@ GAFE.Localization = {
     PledgesSchedule = "Serments",
     Available = "Disponible"
 }
-
-GAFE_PLEDGE_NPC_NAME = {
-    ["Maj al-Ragath"] = true,
-    ["Glirion Barbe-Rousse"] = true,
-    ["Urgarlag l'Émasculatrice"] = true,
-}

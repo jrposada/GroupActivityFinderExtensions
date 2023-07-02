@@ -59,9 +59,3 @@ GAFE.Localization = {
     PledgesSchedule = "Gelöbnisse",
     Available = "Verfügbar"
 }
-
-GAFE_PLEDGE_NPC_NAME = {
-    ["Maj al-Ragath"] = true,
-    ["Glirion der Rotbart"] = true,
-    ["Urgarlag Häuptlingsfluch"] = true,
-}

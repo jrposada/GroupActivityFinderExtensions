@@ -59,9 +59,3 @@ GAFE.Localization = {
     PledgesSchedule = "Pledges", -- TODO: translate
     Available = "Доступный"
 }
-
-GAFE_PLEDGE_NPC_NAME = {
-    ["Мадж аль-Рагат"] = true,
-    ["Глирион Рыжебородый"] = true,
-    ["Ургарлаг Бич Вождей"] = true,
-}

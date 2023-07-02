@@ -59,9 +59,3 @@ GAFE.Localization = {
     PledgesSchedule = "Pledges",
     Available = "Available"
 }
-
-GAFE_PLEDGE_NPC_NAME = {
-    ["Maj al-Ragath"] = true,
-    ["Glirion the Redbeard"] = true,
-    ["Urgarlag Chief-bane"] = true,
-}

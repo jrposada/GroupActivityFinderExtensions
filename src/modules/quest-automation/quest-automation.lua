@@ -2,8 +2,8 @@ local GAFE = GroupActivityFinderExtensions
 local LQD = LibQuestData
 local LQD_Internal = _G["LibQuestData_Internal"]
 
-
 GAFE_DIALY_NPC_NAME = {}
+GAFE_PLEDGE_NPC_NAME = {}
 
 GAFE_QUEST_AUTOMATION = {}
 
@@ -17,20 +17,32 @@ local function contains(data, value)
     return false
 end
 
+--- Helper to get if pledge id is from a pledge. Only checks for one quest per character name.
+--- Used to get the quest given name only.
+local function IsPledge(questId)
+    return questId == GAFE_PLEDGE_ID.EldenHollowII or questId == GAFE_PLEDGE_ID.Volenfell or questId == GAFE_PLEDGE_ID.ImperialCityPrison
+end
+
 function GAFE_QUEST_AUTOMATION.Init()
     for _, zone in pairs(LQD_Internal.quest_locations) do
         for _, questPinData in ipairs(zone) do
-            local questRepeat = LQD:get_quest_repeat(questPinData[LQD.quest_map_pin_index.quest_id])
+            local questId = questPinData[LQD.quest_map_pin_index.quest_id]
+            local questRepeat = LQD:get_quest_repeat(questId)
 
             if questRepeat == LQD.quest_data_repeat.quest_repeat_daily or questRepeat == LQD.quest_data_repeat.quest_repeat_repeatable then
                 local npcName = LQD:get_quest_giver(questPinData[LQD.quest_map_pin_index.quest_giver], GAFE.lang)
+                local isPledge = IsPledge(questId)
                 -- todo check for duplicates.
-                if not contains(GAFE_DIALY_NPC_NAME, npcName) then
+                if not isPledge and not contains(GAFE_DIALY_NPC_NAME, npcName) then
                     table.insert(GAFE_DIALY_NPC_NAME, npcName)
+                elseif isPledge and not contains(GAFE_PLEDGE_NPC_NAME, npcName) then
+                    table.insert(GAFE_PLEDGE_NPC_NAME, npcName)
                 end
             end
         end
     end
+
+    GAFE.LogLater(GAFE_PLEDGE_NPC_NAME)
 
     GAFE_QUEST_AUTOMATION.AutomaticallyHandleQuests(
         GAFE.SavedVars.dungeons.handlePledgeQuest
@@ -90,7 +102,7 @@ function GAFE_QUEST_AUTOMATION.AutomaticallyHandleQuests(enable)
                         questOffered = false
                         EVENT_MANAGER:RegisterForEvent(questOfferedEventName, EVENT_QUEST_OFFERED, HandleQuestOffered)
                         SelectChatterOption(optionIndex)
-                    elseif optionType == CHATTER_START_TALK and GAFE_PLEDGE_NPC_NAME[npcName] then
+                    elseif optionType == CHATTER_START_TALK and contains(GAFE_PLEDGE_NPC_NAME, npcName) then
                         -- For some reason pledges EVENT_QUEST_COMPLETE_DIALOG is hidden behind one chatter start.
                         questCompleted = false
                         EVENT_MANAGER:RegisterForEvent(conversationUpdatedEventName, EVENT_CONVERSATION_UPDATED, HandleConversationUpdated)
