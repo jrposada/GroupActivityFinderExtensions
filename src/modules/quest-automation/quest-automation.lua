@@ -77,8 +77,6 @@ function GAFE_QUEST_AUTOMATION.AutomaticallyHandleQuests(enable)
         local npcName = GetUnitName("interact")
 
         if questOffered or questCompleted then
-            questOffered = false
-            questCompleted = false
             EndInteraction(INTERACTION_CONVERSATION)
         end
 
@@ -89,7 +87,6 @@ function GAFE_QUEST_AUTOMATION.AutomaticallyHandleQuests(enable)
                     local optionString, optionType = GetChatterOption(optionIndex)
 
                     if optionType == CHATTER_START_NEW_QUEST_BESTOWAL then
-                        GAFE.LogLater("juan")
                         questOffered = false
                         EVENT_MANAGER:RegisterForEvent(questOfferedEventName, EVENT_QUEST_OFFERED, HandleQuestOffered)
                         SelectChatterOption(optionIndex)
@@ -108,14 +105,31 @@ function GAFE_QUEST_AUTOMATION.AutomaticallyHandleQuests(enable)
         end
     end
 
+    local function HandleChatterEnd()
+        questOffered = false
+        questCompleted = false
+    end
+
+    local chatterBeginName = GAFE.name .. "_QuestAutomation_ChatterBegin"
+    local chatterEndName = GAFE.name .. "_QuestAutomation_ChatterEnd"
+
     if enable then
         EVENT_MANAGER:RegisterForEvent(
-            GAFE.name .. "_QuestAutomation_ChatterBegin",
+            chatterBeginName,
             EVENT_CHATTER_BEGIN,
             HandleChatterBegin
         )
+        EVENT_MANAGER:RegisterForEvent(
+            chatterEndName,
+            EVENT_CHATTER_END,
+            HandleChatterEnd
+        )
     else
-        EVENT_MANAGER:UnregisterForEvent(GAFE.name .. "_QuestAutomation_ChatterBegin")
+        EVENT_MANAGER:UnregisterForEvent(chatterBeginName, EVENT_CHATTER_BEGIN)
+        EVENT_MANAGER:UnregisterForEvent(chatterBeginName, EVENT_CHATTER_END)
+        EVENT_MANAGER:UnregisterForEvent(questOfferedEventName, EVENT_QUEST_OFFERED)
+        EVENT_MANAGER:UnregisterForEvent(questCompletedEventName, EVENT_QUEST_COMPLETE_DIALOG)
+        EVENT_MANAGER:UnregisterForEvent(conversationUpdatedEventName, EVENT_QUEST_OFFERED)
     end
 
     GAFE.SavedVars.dungeons.handlePledgeQuest = enable

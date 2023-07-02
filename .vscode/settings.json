@@ -235,6 +235,7 @@
         "EVENT_END_FAST_TRAVEL_INTERACTION",
         "LibQuestData",
         "GetHousingPrimaryHouse",
-        "RequestJumpToHouse"
+        "RequestJumpToHouse",
+        "EVENT_CHATTER_END"
     ]
 }
