@@ -2,6 +2,9 @@ param (
     [Parameter(Mandatory = $true)][ValidateSet("major", "minor", "patch")][String]$mode
 )
 
+git add . > $null
+git stash > $null
+
 $filePath = "./GroupActivityFinderExtensions.txt";
 
 [System.Collections.ArrayList]$file = [System.Collections.ArrayList]::New();
@@ -61,3 +64,11 @@ foreach ($line in [System.IO.File]::ReadLines($filePath)) {
 }
 
 Set-Content -Path $filePath -Encoding UTF8 -Value $file
+
+$version = [String]::Join(".",$version)
+git add . > $null
+git commit -m "Version $version" > $null
+
+Write-Host "Update to version: $version"
+
+git stash pop > $null
