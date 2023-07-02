@@ -1,9 +1,9 @@
-## Title: Group & Activity Finder Extensions
+﻿## Title: Group & Activity Finder Extensions
 ## Description: Quality of life improvements for the Group & Activity Finder.
 ## Author: Panicida
 ## APIVersion: 101037
 ## AddOnVersion: 050700
-## Version: 5.7
+## Version: 5.7.0
 ## DependsOn: LibSavedVars LibAddonMenu-2.0 LibQuestData LibScroll 
 ## SavedVariables: GroupActivityFinderExtensions_Vars
 
