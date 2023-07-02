@@ -20,7 +20,11 @@ foreach ($line in [System.IO.File]::ReadLines($filePath)) {
             Default {}
         }
 
-        $line = "## AddOnVersion: " + $major.ToString().PadLeft(2, "0") + $minor.ToString().PadLeft(2, "0") + $patch.ToString().PadLeft(2, "0")
+        $major = $major.ToString().PadLeft(2, "0") 
+        $minor = $minor.ToString().PadLeft(2, "0") 
+        $patch = $patch.ToString().PadLeft(2, "0")
+
+        $line = "## AddOnVersion: $major$minor$patch" 
     }
     
     if ($line.StartsWith("## Version:")) {
@@ -36,7 +40,7 @@ foreach ($line in [System.IO.File]::ReadLines($filePath)) {
             Default {}
         }
 
-        $line = "## Version: " + [String]::Join(".", @($major, $minor, $patch))
+        $line = "## Version: $major.$minor.$patch"
     }
 
     $file.Add($line) > $null
