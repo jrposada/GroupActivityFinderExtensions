@@ -244,7 +244,10 @@
         "ZO_GroupListRowCharacterName_OnMouseEnter",
         "SetTooltipText",
         "InformationTooltip",
-        "ZO_ScrollList_GetData"
+        "ZO_ScrollList_GetData",
+        "ZO_ShouldPreferUserId",
+        "ZO_SocialListKeyboard",
+        "ZO_PostHook"
     ],
     "cSpell.words": [
         "Wayshrine",
