@@ -40,7 +40,7 @@ function GAFE_QUEST_AUTOMATION.Init()
             local questId = questPinData[LQD.quest_map_pin_index.quest_id]
             local questRepeat = LQD:get_quest_repeat(questId)
 
-            if questRepeat == LQD.quest_data_repeat.quest_repeat_daily or questRepeat == LQD.quest_data_repeat.quest_repeat_repeatable then
+            if questRepeat == QUEST_REPEAT_DAILY or questRepeat == QUEST_REPEAT_REPEATABLE then
                 local npcName = LQD:get_quest_giver(questPinData[LQD.quest_map_pin_index.quest_giver], GAFE.lang)
                 local isPledge = IsPledge(questId)
                 local isCraftingWrit = IsCraftingWrit(questId)

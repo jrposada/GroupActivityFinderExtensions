@@ -247,7 +247,21 @@
         "ZO_ScrollList_GetData",
         "ZO_ShouldPreferUserId",
         "ZO_SocialListKeyboard",
-        "ZO_PostHook"
+        "ZO_PostHook",
+        "ZO_RamHealth",
+        "ZO_StatusBar_SetGradientColor",
+        "ZO_POWER_BAR_GRADIENT_COLORS",
+        "COMBAT_MECHANIC_FLAGS_HEALTH",
+        "EVENT_RAM_ESCORT_COUNT_UPDATE",
+        "EVENT_LEAVE_RAM_ESCORT",
+        "SI_SIEGE_BAR_NAME",
+        "GetRawUnitName",
+        "GetNumPlayersEscortingRam",
+        "GetMinMaxRamEscorts",
+        "IsPlayerEscortingRam",
+        "CreateControlFromVirtual",
+        "QUEST_REPEAT_DAILY",
+        "QUEST_REPEAT_REPEATABLE"
     ],
     "cSpell.words": [
         "Wayshrine",
