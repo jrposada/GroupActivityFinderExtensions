@@ -29,7 +29,6 @@ local function OnAddOnLoaded(eventCode, addonName)
     GAFE_MAP.Init()
     GAFE_QUEST_AUTOMATION.Init()
 
-    -- GAFE.QueueManager.Init()
     -- GAFE.TrialChestTimer.Init()
     -- GAFE.TrialFinder.Init()
 

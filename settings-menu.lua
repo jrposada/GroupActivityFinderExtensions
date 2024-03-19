@@ -97,12 +97,6 @@ function GAFE.SettingsMenu.Init()
             getFunc = function() return fastTravelNodesById[saveData.map.favourite] end,
             setFunc = function(value) saveData.map.favourite = fastTravelNodesByName[value] end
         },
-        -- {
-        --     type = "checkbox",
-        --     name = GAFE.Loc("Settings_AutoInvite"),
-        --     getFunc = function() return saveData.autoInvite.enabled end,
-        --     setFunc = function(value) GAFE.QueueManager.Enable(value) end
-        -- },
         {
             type = "checkbox",
             name = GAFE.Loc("Settings_HandleQuest"),
