@@ -26,8 +26,6 @@ src/infrastructure/debug.lua
 src/infrastructure/chat.lua
 
 src/ui/button.xml
-src/ui/counter.xml
-src/ui/texture.xml
 
 
 
