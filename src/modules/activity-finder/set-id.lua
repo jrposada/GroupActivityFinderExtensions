@@ -177,6 +177,12 @@ GAFE_SET_ID = {
     NixHoundsHowl = 681,
     RitemastersBond = 680,
     TelvanniEnforcer = 682,
+    BlackGloveGrounding = 732,
+    CindersOfAnthelmir = 730,
+    SluthrugsHunger = 731,
+    BlindPathInduction = 735,
+    ReflectedFury = 737,
+    TarnishedNightmare = 736,
     -- Trial Sets
     DefendingWarrior = 138,
     HealingMage = 141,

@@ -75,6 +75,9 @@ GAFE_ACTIVITY_ID = {
     NormalBalSunnar  = 613,
     VeteranBalSunnar = 614,
 
+    NormalBedlamVeil = 640,
+    VeteranBedlamVeil = 641,
+
     NormalBlackDrakeVilla  = 591,
     VeteranBlackDrakeVilla = 592,
 
@@ -119,6 +122,9 @@ GAFE_ACTIVITY_ID = {
 
     NormalMoongraveFane  = 494,
     VeteranMoongraveFane = 495,
+
+    NormalOathswornPit = 638,
+    VeteranOathswornPit = 639,
 
     NormalRedPetalBastion  = 595,
     VeteranRedPetalBastion = 596,

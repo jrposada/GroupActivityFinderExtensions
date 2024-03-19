@@ -58,6 +58,8 @@ GAFE_PLEDGE_LIST = {
 		GAFE_PLEDGE_ID.GravenDeep, -- Last
 		GAFE_PLEDGE_ID.BalSunnar, -- sort
 		GAFE_PLEDGE_ID.ScrivenersHall, -- sort
-		shift=7
+        GAFE_PLEDGE_ID.BedlamVeil, -- sort
+        GAFE_PLEDGE_ID.OathswornPit, -- sort
+		shift=13
 	},
 }

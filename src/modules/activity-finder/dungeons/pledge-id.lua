@@ -36,6 +36,7 @@ GAFE_PLEDGE_ID = {
     MarchOfSacrifices   = 6189,
     MoonHunterKeep      = 6187,
     MoongraveFane       = 6350,
+    OathswornPit        = -1, -- TODO: review
     RuinsOfMazzatun     = 5636,
     ScalecallerPeak     = 6154,
     StoneGarden         = 6506,
@@ -50,5 +51,6 @@ GAFE_PLEDGE_ID = {
     EarthenRootEnclave  = 6836,
     GravenDeep          = 6838,
     BalSunnar           = 6897,
+    BedlamVeil          = 7156,
     ScrivenersHall      = 7028,
 }
