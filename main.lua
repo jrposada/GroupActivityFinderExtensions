@@ -16,21 +16,17 @@ local function OnAddOnLoaded(eventCode, addonName)
     -- Load saved variables
     GAFE.SavedVars = ZO_SavedVars:NewAccountWide(GAFE.name .. "_Vars", GAFE.varsVersion, nil, GAFE.DefaultVars, GetWorldName())
 
-    -- Initialize stuff
+    -- Initialize modules
     GAFE_TRIALS_CHESTS.Init()
 
     GAFE_GROUP_EXTENSIONS.Init()
     GAFE_DUNGEON_EXTENSIONS.Init()
     GAFE_DUNGEON_COMMANDS.Init()
-    GAFE_TRIALS_EXTENSIONS.Init()
     GAFE_BATTLEGROUNDS_EXTENSIONS.Init()
     GAFE_QUEUE_EXTENSIONS.Init()
     GAFE_SCHEDULE.Init()
     GAFE_MAP.Init()
     GAFE_QUEST_AUTOMATION.Init()
-
-    -- GAFE.TrialChestTimer.Init()
-    -- GAFE.TrialFinder.Init()
 
     -- Init settings menu
     GAFE.SettingsMenu.Init()

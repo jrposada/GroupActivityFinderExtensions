@@ -1,4 +1,5 @@
 {
+    "editor.formatOnSave": true,
     "Lua.diagnostics.globals": [
         "EVENT_ADD_ON_LOADED",
         "ZO_PreHookHandler",

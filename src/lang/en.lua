@@ -57,5 +57,7 @@ GAFE.Localization = {
     ActivitySchedule = "Schedule",
     DailiesSchedule = "Dailies Random",
     PledgesSchedule = "Pledges",
+    TrialsSchedule = "Trials Schedule", -- TODO: translate
+    QuestsSchedule = "Repetable Quests", -- TODO: translate
     Available = "Available"
 }

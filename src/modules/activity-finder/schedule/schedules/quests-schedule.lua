@@ -1,43 +1,19 @@
 local GAFE = GroupActivityFinderExtensions
 local libScroll = LibScroll
+local LQD = LibQuestData
+local LQD_Internal = _G["LibQuestData_Internal"]
 
-local ORDERED_TRIALS_ID = {
-    AetherianArchive = 1,
-    HelRaCitadel = 2,
-    SanctumOphidia = 3,
-    MawOfLorkhaj = 4,
-    HallsOfFabrication = 5,
-    AsylumSanctorium = 6,
-    Cloudrest = 7,
-    Sunspire = 8,
-    KynesAegis = 9,
-    Rockgrove = 10,
-    DreadsailReef = 11,
-}
+local dataItems = {}
 
-local dataItems = {
-    [ORDERED_TRIALS_ID.AetherianArchive] = {label=GAFE.Loc("TrialAetherianArchive"), activityId=GAFE_ACTIVITY_ID.NormalAetherianArchive},
-    [ORDERED_TRIALS_ID.HelRaCitadel] = {label=GAFE.Loc("TrialHelRaCitadel"), activityId=GAFE_ACTIVITY_ID.NormalHelRaCitadel},
-    [ORDERED_TRIALS_ID.SanctumOphidia] = {label=GAFE.Loc("TrialSanctumOphidia"), activityId=GAFE_ACTIVITY_ID.NormalSanctumOphidia},
-    [ORDERED_TRIALS_ID.MawOfLorkhaj] = {label=GAFE.Loc("TrialMawOfLorkhaj"), activityId=GAFE_ACTIVITY_ID.NormalMawOfLorkhaj},
-    [ORDERED_TRIALS_ID.HallsOfFabrication] = {label=GAFE.Loc("TrialHallsOfFabrication"), activityId=GAFE_ACTIVITY_ID.NormalHallsOfFabrication},
-    [ORDERED_TRIALS_ID.AsylumSanctorium] = {label=GAFE.Loc("TrialAsylumSanctorium"), activityId=GAFE_ACTIVITY_ID.NormalAsylumSanctorium},
-    [ORDERED_TRIALS_ID.Cloudrest] = {label=GAFE.Loc("TrialCloudrest"), activityId=GAFE_ACTIVITY_ID.NormalCloudrest},
-    [ORDERED_TRIALS_ID.Sunspire] = {label=GAFE.Loc("TrialSunspire"), activityId=GAFE_ACTIVITY_ID.NormalSunspire},
-    [ORDERED_TRIALS_ID.KynesAegis] = {label=GAFE.Loc("TrialKynesAegis"), activityId=GAFE_ACTIVITY_ID.NormalKynesAegis},
-    [ORDERED_TRIALS_ID.Rockgrove] = {label=GAFE.Loc("TrialRockgrove"), activityId=GAFE_ACTIVITY_ID.NormalRockgrove},
-    [ORDERED_TRIALS_ID.DreadsailReef] = {label=GAFE.Loc("TrialDreadsailReef"), activityId=GAFE_ACTIVITY_ID.NormalDreadsailReef}
-}
+GAFE_QuestsSchedule = ZO_Object:Subclass()
 
-GAFE_TrialsSchedule = ZO_Object:Subclass()
-
-function GAFE_TrialsSchedule:New (...)
+function GAFE_QuestsSchedule:New(...)
     local instance = ZO_Object.New(self)
     instance:Initialize(...)
     return instance
 end
 
-function GAFE_TrialsSchedule:Initialize(control)
+function GAFE_QuestsSchedule:Initialize(control)
     self.control = control
 
     self.filter = self.control:GetNamedChild("Filter")
@@ -46,15 +22,32 @@ function GAFE_TrialsSchedule:Initialize(control)
 
     self.characterId = GetCurrentCharacterId()
 
+    self:InitializeData()
     self:InitializeControls()
 end
 
-function GAFE_TrialsSchedule:InitializeControls()
+function GAFE_QuestsSchedule:InitializeData()
+    for zoneName, zone in pairs(LQD_Internal.quest_locations) do
+        local quests = {}
+        for _, questPinData in ipairs(zone) do
+            local questId = questPinData[LQD.quest_map_pin_index.quest_id]
+            local npcName = LQD:get_quest_giver(questPinData[LQD.quest_map_pin_index.quest_giver], GAFE.lang)
+
+            table.insert(quests, { questId = questId, npcName = npcName })
+        end
+        table.insert(dataItems, { zoneName = zoneName, quests = quests })
+    end
+    table.sort(dataItems, function(a, b)
+        return a.zoneName < b.zoneName
+    end)
+end
+
+function GAFE_QuestsSchedule:InitializeControls()
     self:InitializeFragment()
     self:InitializeFilter()
 end
 
-function GAFE_TrialsSchedule:InitializeFilter()
+function GAFE_QuestsSchedule:InitializeFilter()
     local function OnFilterChanged(...)
         self:OnFilterChanged(...)
     end
@@ -81,7 +74,7 @@ function GAFE_TrialsSchedule:InitializeFilter()
     self.filterComboBox:SelectItem(currentCharacterEntry)
 end
 
-function GAFE_TrialsSchedule:InitializeFragment()
+function GAFE_QuestsSchedule:InitializeFragment()
     local function SetupDataRow(rowControl, data, scrollList)
         local trialsData = GAFE_TRIALS_ACTIVITY_DATA
 
@@ -99,7 +92,7 @@ function GAFE_TrialsSchedule:InitializeFragment()
         state:SetDimensions(pledgeWidth, height)
         state:SetAnchor(TOPRIGHT, control, TOPRIGHT, 0, 0)
 
-        label:SetText(data.label)
+        label:SetText(data.zoneName)
         local activityData = trialsData[data.activityId]
         if activityData and GAFE_TRIALS_CHESTS ~= nil then
             local chestAvailable = GAFE_TRIALS_CHESTS.GetTimeUntilNextChest(self.characterId, activityData.q) <= 0
@@ -117,11 +110,11 @@ function GAFE_TrialsSchedule:InitializeFragment()
 
     -- Create the scroll list
     local scrollData = {
-        name    = "GAFE_TrialsWindowScrollList",
-        parent  = parent,
-        rowHeight       = 30,
-        rowTemplate     = "GAFE_TrialsScheduleRow",
-        setupCallback   = SetupDataRow,
+        name          = "GAFE_QuestsWindowScrollList",
+        parent        = parent,
+        rowHeight     = 30,
+        rowTemplate   = "GAFE_QuestsScheduleRow",
+        setupCallback = SetupDataRow,
     }
 
     local scrollList = libScroll:CreateScrollList(scrollData)
@@ -135,12 +128,12 @@ function GAFE_TrialsSchedule:InitializeFragment()
     ZO_PreHookHandler(ZO_SearchingForGroup, 'OnEffectivelyShown', function() self.scrollList:Update(dataItems) end)
 end
 
-function GAFE_TrialsSchedule:OnFilterChanged(comboBox, entryText, entry)
+function GAFE_QuestsSchedule:OnFilterChanged(comboBox, entryText, entry)
     self.characterId = entry.data
     self.scrollList:Update(dataItems)
 end
 
-function GAFE_TrialsSchedule:UpdateChestLabel(label, questId)
+function GAFE_QuestsSchedule:UpdateChestLabel(label, questId)
     local chestText = ""
     local timeUntilNextChest = GAFE_TRIALS_CHESTS.GetTimeUntilNextChest(self.characterId, questId)
     if timeUntilNextChest > 0 then
@@ -149,6 +142,6 @@ function GAFE_TrialsSchedule:UpdateChestLabel(label, questId)
     label:SetText(chestText)
 end
 
-function GAFE_TrialsSchedule_Init(control)
-    GAFE.ActivitySchedule = GAFE_TrialsSchedule:New(control)
+function GAFE_QuestsSchedule_Init(control)
+    GAFE.ActivitySchedule = GAFE_QuestsSchedule:New(control)
 end

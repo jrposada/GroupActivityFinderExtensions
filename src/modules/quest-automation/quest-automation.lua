@@ -2,11 +2,11 @@ local GAFE = GroupActivityFinderExtensions
 local LQD = LibQuestData
 local LQD_Internal = _G["LibQuestData_Internal"]
 
-GAFE_DIALY_NPC_NAME = {}
-GAFE_PLEDGE_NPC_NAME = {}
-GAFE_CRAFTING_WRITS_NPC_NAME = {}
-
-GAFE_QUEST_AUTOMATION = {}
+GAFE_QUEST_AUTOMATION = {
+    dialyNpcName = {},
+    pledgeNpcName = {},
+    craftingWritNpcName = {}
+}
 
 local function contains(data, value)
     for _, item in ipairs(data) do
@@ -45,12 +45,12 @@ function GAFE_QUEST_AUTOMATION.Init()
                 local isPledge = IsPledge(questId)
                 local isCraftingWrit = IsCraftingWrit(questId)
 
-                if isPledge and not contains(GAFE_PLEDGE_NPC_NAME, npcName) then
-                    table.insert(GAFE_PLEDGE_NPC_NAME, npcName)
-                elseif isCraftingWrit and not contains(GAFE_CRAFTING_WRITS_NPC_NAME, npcName) then
-                    table.insert(GAFE_CRAFTING_WRITS_NPC_NAME, npcName)
-                elseif not contains(GAFE_DIALY_NPC_NAME, npcName) then
-                    table.insert(GAFE_DIALY_NPC_NAME, npcName)
+                if isPledge and not contains(GAFE_QUEST_AUTOMATION.pledgeNpcName, npcName) then
+                    table.insert(GAFE_QUEST_AUTOMATION.pledgeNpcName, npcName)
+                elseif isCraftingWrit and not contains(GAFE_QUEST_AUTOMATION.craftingWritNpcName, npcName) then
+                    table.insert(GAFE_QUEST_AUTOMATION.craftingWritNpcName, npcName)
+                elseif not contains(GAFE_QUEST_AUTOMATION.dialyNpcName, npcName) then
+                    table.insert(GAFE_QUEST_AUTOMATION.dialyNpcName, npcName)
                 end
             end
         end
@@ -104,7 +104,7 @@ function GAFE_QUEST_AUTOMATION.AutomaticallyHandleQuests(enable)
             EndInteraction(INTERACTION_CONVERSATION)
         end
 
-        if contains(GAFE_DIALY_NPC_NAME, npcName) and not contains(GAFE_CRAFTING_WRITS_NPC_NAME, npcName) then
+        if contains(GAFE_QUEST_AUTOMATION.dialyNpcName, npcName) and not contains(GAFE_QUEST_AUTOMATION.craftingWritNpcName, npcName) then
             if optionCount ~= 0 then
                 for optionIndex = 1, optionCount + 1 do
                     local optionString, optionType = GetChatterOption(optionIndex)
@@ -113,7 +113,7 @@ function GAFE_QUEST_AUTOMATION.AutomaticallyHandleQuests(enable)
                         questOffered = false
                         EVENT_MANAGER:RegisterForEvent(questOfferedEventName, EVENT_QUEST_OFFERED, HandleQuestOffered)
                         SelectChatterOption(optionIndex)
-                    elseif optionType == CHATTER_START_TALK and contains(GAFE_PLEDGE_NPC_NAME, npcName) then
+                    elseif optionType == CHATTER_START_TALK and contains(GAFE_QUEST_AUTOMATION.pledgeNpcName, npcName) then
                         -- For some reason pledges EVENT_QUEST_COMPLETE_DIALOG is hidden behind one chatter start.
                         questCompleted = false
                         EVENT_MANAGER:RegisterForEvent(conversationUpdatedEventName, EVENT_CONVERSATION_UPDATED, HandleConversationUpdated)
