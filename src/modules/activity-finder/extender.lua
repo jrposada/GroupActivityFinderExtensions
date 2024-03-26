@@ -10,7 +10,7 @@ end
 function GAFE_ActivityFinderExtender:Initialize(_root_, _data_, _treeEntry_, _customExtensions_, _rewardsVars_,
                                                 _keybindStripGroup_, _onShown_)
     local root, data, treeEntry, customExtensions, rewardsVars, keybindStripGroup, onShown =
-    _root_, _data_, _treeEntry_, _customExtensions_, _rewardsVars_, _keybindStripGroup_, _onShown_
+        _root_, _data_, _treeEntry_, _customExtensions_, _rewardsVars_, _keybindStripGroup_, _onShown_
 
     self.characterId = GetCurrentCharacterId()
     self.root = root
@@ -98,7 +98,8 @@ function GAFE_ActivityFinderExtender:InitializeSetupFunction(_treeEntry_)
             self:AddWayshrine(activityData.node, control)
         elseif GAFE.SavedVars.developerMode then
             -- TODO:
-            GAFE.UI.Label(control:GetName() .. "TODO", control, { 125, 20 }, { LEFT, control, LEFT, 420, 0 }, "ZoFontGameLarge", nil, { 0, 1 }, "TODO " .. activityId)
+            GAFE.UI.Label(control:GetName() .. "TODO", control, { 125, 20 }, { LEFT, control, LEFT, 420, 0 },
+                "ZoFontGameLarge", nil, { 0, 1 }, "TODO " .. activityId)
         end
 
         if (self.customExtensions) then self.customExtensions(node, control, data, open) end
@@ -157,6 +158,15 @@ function GAFE_ActivityFinderExtender:InitializeEvents()
         KEYBIND_STRIP:RemoveKeybindButtonGroup(self.leaveGroupKeybindStripGroup)
     end
 
+    local function OnUpdateGroupStatus()
+        if isKeyboardListSectionVisible or isSingularSectionVisible then
+            if self.keybindStripGroup then
+                KEYBIND_STRIP:AddKeybindButtonGroup(self.keybindStripGroup)
+            end
+            KEYBIND_STRIP:AddKeybindButtonGroup(self.leaveGroupKeybindStripGroup)
+        end
+    end
+
     local keyboardSection = _G[self.root .. 'Finder_KeyboardListSection']
     if keyboardSection then
         ZO_PreHookHandler(keyboardSection, 'OnEffectivelyShown', OnKeyboardListSectionShown)
@@ -168,6 +178,9 @@ function GAFE_ActivityFinderExtender:InitializeEvents()
         ZO_PreHookHandler(singularSection, 'OnEffectivelyShown', OnSingularSectionShown)
         ZO_PreHookHandler(singularSection, 'OnEffectivelyHidden', OnSingularSectionHidden)
     end
+
+
+    ZO_ACTIVITY_FINDER_ROOT_MANAGER:RegisterCallback("OnUpdateGroupStatus", OnUpdateGroupStatus)
 
     if self.singularSectionRewards then
         local eventName = self.root .. '_RandomEvent'
@@ -191,7 +204,7 @@ end
 
 function GAFE_ActivityFinderExtender:AddAchievement(_achivementId_, _controlName_, _parent_, _texture_)
     local achievementId, controlName, parent, texture =
-    _achivementId_, _controlName_, _parent_, _texture_
+        _achivementId_, _controlName_, _parent_, _texture_
     local sceneManager = SCENE_MANAGER
     local achievements = ACHIEVEMENTS
 
@@ -288,7 +301,7 @@ end
 
 function GAFE_ActivityFinderExtender:AddIcon(_controlName_, _parent_, _text_, _func_, _tooltip_, _hidden_)
     local controlName, parent, text, func, tooltip, hidden =
-    _controlName_, _parent_, _text_, _func_, _tooltip_, _hidden_
+        _controlName_, _parent_, _text_, _func_, _tooltip_, _hidden_
 
     local position = self.position
     self.position = position - self.textureSize
@@ -311,8 +324,8 @@ function GAFE_ActivityFinderExtender:Collapse()
         self:RefreshDungeonDifficulty()
         for c = 2, 3 do
             local header = _G[
-                self.root ..
-                    "Finder_KeyboardListSectionScrollChildZO_ActivityFinderTemplateNavigationHeader_Keyboard" .. c - 1]
+            self.root ..
+            "Finder_KeyboardListSectionScrollChildZO_ActivityFinderTemplateNavigationHeader_Keyboard" .. c - 1]
             if header then
                 local state = header.text:GetColor()
                 if ((self.dungeonDifficulty ~= c) == (state == 1)) then header:OnMouseUp(true) end
@@ -378,7 +391,7 @@ function GAFE_ActivityFinderExtender:RefreshDungeonDifficulty()
     local savedVars = GAFE.SavedVars
     self.dungeonDifficulty = savedVars.collapse == GAFE_COLLAPSE_MODE.Group and
         (
-        ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and LFG_ACTIVITY_DUNGEON or
+            ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and LFG_ACTIVITY_DUNGEON or
             LFG_ACTIVITY_MASTER_DUNGEON) -- Normal => 2, Veteran => 3
         or (savedVars.collapse == GAFE_COLLAPSE_MODE.Normal and LFG_ACTIVITY_DUNGEON or LFG_ACTIVITY_MASTER_DUNGEON)
 end
@@ -390,7 +403,7 @@ function GAFE_ActivityFinderExtender.GetTimeUntilNextReward(characterId, rewards
 
     local nextReset = (today + 1) * 86400 + GAFE.baseResetTimesamp -- 86400 = 1 day
 
-    if GAFE.GetDay(completedTimeStamp or 0) >= today  then
+    if GAFE.GetDay(completedTimeStamp or 0) >= today then
         result = nextReset - GetTimeStamp() -- 72000 = 20 hours
     end
 

@@ -87,6 +87,29 @@ local function CheckPledges()
     extender:CheckAllWhere(checkFunc)
 end
 
+local function CheckRandomDungeon()
+    if IsCurrentlySearchingForGroup() then
+        return
+    end
+    extender:RefreshDungeonDifficulty()
+
+    ClearGroupFinderSearch()
+    local activitySetId = GetActivitySetIdByTypeAndIndex(extender.dungeonDifficulty, 1)
+    AddActivityFinderSetSearchEntry(activitySetId)
+
+    local result = StartGroupFinderSearch()
+    if result ~= ACTIVITY_QUEUE_RESULT_SUCCESS then
+        ZO_AlertEvent(EVENT_ACTIVITY_QUEUE_RESULT, result)
+    else
+        GAFE.LogLater(zo_strformat(GAFE.Loc("QueueForActivity"),
+            extender.dungeonDifficulty == LFG_ACTIVITY_DUNGEON
+            and GetString(SI_DUNGEONDIFFICULTY1)
+            or GetString(SI_DUNGEONDIFFICULTY2),
+            GetString(SI_GROUPFINDERCATEGORY_SINGLESELECTDEFAULT0)
+        )) -- TODO: translate
+    end
+end
+
 local function OnQuestAdded(_, _journalIndex_, _questName_, _objectiveName_)
     UpdateTodayPledges()
     UpdatePledgesInJournal()
@@ -114,7 +137,7 @@ GAFE_DUNGEON_EXTENSIONS = {}
 
 function GAFE_DUNGEON_EXTENSIONS.Init()
     local treeEntry = DUNGEON_FINDER_KEYBOARD.navigationTree.templateInfo.
-        ZO_ActivityFinderTemplateNavigationEntry_Keyboard
+    ZO_ActivityFinderTemplateNavigationEntry_Keyboard
 
     local keybindStripGroup = {
         {
@@ -163,6 +186,13 @@ function GAFE_DUNGEON_EXTENSIONS.Init()
 
                 return true
             end
+        },
+        {
+            alignment = KEYBIND_STRIP_ALIGN_CENTER,
+            name = GAFE.Loc("CheckRandomDungeon"),
+            keybind = "UI_SHORTCUT_PRIMARY",
+            callback = function() CheckRandomDungeon() end,
+            visible = function() return not IsCurrentlySearchingForGroup() end,
         },
     }
 
@@ -218,7 +248,6 @@ function GAFE_DUNGEON_EXTENSIONS.GetPledgesInJournal()
         local questName, _, _, stepType, _, completed, _, _, _, questType, instanceType = GetJournalQuestInfo(i)
         if questName and questName ~= "" and not completed and questType == QUEST_TYPE_UNDAUNTED_PLEDGE and
             instanceType == INSTANCE_TYPE_GROUP then
-
             local pledgeId = QuestNameToPledgeId(questName)
 
             if pledgeId then
