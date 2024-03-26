@@ -2,10 +2,10 @@
     <Controls>
         <Control name="GAFE_QuestsScheduleRow" virtual="true">
             <Controls>
-                <Label name="$(parent)Label" font="ZoFontWinH4" color="INTERFACE_COLOR_TYPE_TEXT_COLORS:INTERFACE_TEXT_COLOR_NORMAL" horizontalAlignment="LEFT" verticalAlignment="CENTER">
+                <Label name="$(parent)ZoneName" font="ZoFontGame" color="INTERFACE_COLOR_TYPE_TEXT_COLORS:INTERFACE_TEXT_COLOR_NORMAL" horizontalAlignment="LEFT" verticalAlignment="CENTER">
                 </Label>
-                <Label name="$(parent)State"  font="ZoFontWinH4" color="INTERFACE_COLOR_TYPE_TEXT_COLORS:INTERFACE_TEXT_COLOR_NORMAL" horizontalAlignment="RIGHT" verticalAlignment="CENTER">
-                </Label>
+                <Control name="$(parent)Quests">
+                </Control>
             </Controls>
         </Control>
     </Controls>

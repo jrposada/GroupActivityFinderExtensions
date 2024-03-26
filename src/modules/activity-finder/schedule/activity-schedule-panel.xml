@@ -1,5 +1,5 @@
 <GuiXml>
-  <Controls >
+  <Controls>
     <TopLevelControl name="GAFE_ActivitySchedulePanel" virtual="true" inherits="ZO_GroupMenuKeyboard_ContentAnchors" hidden="true">
       <OnInitialized>
         GAFE_ActivitySchedulePanel_OnInitialized(self)
@@ -11,14 +11,18 @@
             GAFE_QuestsSchedule_Init(self)
           </OnInitialized>
           <Controls>
-            <Control name="$(parent)Filter" inherits="ZO_ComboBox">
+            <Control name="$(parent)CharacterFilter" inherits="ZO_ComboBox">
               <Dimensions x="300" y="33" />
               <Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" offsetX="2" offsetY="-7" />
+            </Control>
+            <Control name="$(parent)ZoneFilter" inherits="ZO_ComboBox">
+              <Dimensions x="300" y="33" />
+              <Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" offsetX="-307" offsetY="-7" />
             </Control>
             <Control name="$(parent)Container">
               <AnchorFill />
 
-              <Controls >
+              <Controls>
                 <Control name="$(parent)ListContainer">
                   <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetY="30"/>
                   <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" />
@@ -41,7 +45,7 @@
             <Control name="$(parent)Container">
               <AnchorFill />
 
-              <Controls >
+              <Controls>
                 <Control name="$(parent)ListContainer">
                   <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetY="30"/>
                   <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" />
@@ -64,7 +68,7 @@
             <Control name="$(parent)Today" hidden="true">
               <AnchorFill />
 
-              <Controls >
+              <Controls>
                 <Control name="$(parent)Header" inherits="GAFE_PledgesScheduleRow">
                   <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" />
                   <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" />
@@ -80,7 +84,7 @@
             <Control name="$(parent)Upcoming" hidden="true">
               <AnchorFill />
 
-              <Controls >
+              <Controls>
                 <Control name="$(parent)Header" inherits="GAFE_PledgesScheduleRow">
                   <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" />
                   <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" />
@@ -114,18 +118,18 @@
         </Control>
 
         <!-- Menu bar -->
-        <Control name="$(parent)MenuBar" inherits="ZO_DefaultMenuBar" hidden="false"> 
-          <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetY="-120" offsetX="400"/> 
-          <Controls> 
-            <Label name="$(parent)Label" font="$(BOLD_FONT)|$(KB_28)|soft-shadow-thick" color="aaaa85" wrapMode="ELLIPSIS" horizontalAlignment="RIGHT" > 
-              <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="-20" offsetY="10"/> 
-              <Dimensions x="400" y="50"/> 
-            </Label> 
+        <Control name="$(parent)MenuBar" inherits="ZO_DefaultMenuBar" hidden="false">
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetY="-120" offsetX="400"/>
+          <Controls>
+            <Label name="$(parent)Label" font="$(BOLD_FONT)|$(KB_28)|soft-shadow-thick" color="aaaa85" wrapMode="ELLIPSIS" horizontalAlignment="RIGHT">
+              <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="-20" offsetY="10"/>
+              <Dimensions x="400" y="50"/>
+            </Label>
 
-          </Controls> 
+          </Controls>
         </Control>
 
       </Controls>
     </TopLevelControl>
-  </Controls>    
+  </Controls>
 </GuiXml>

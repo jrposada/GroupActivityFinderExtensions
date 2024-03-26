@@ -16,7 +16,8 @@ end
 function GAFE_QuestsSchedule:Initialize(control)
     self.control = control
 
-    self.filter = self.control:GetNamedChild("Filter")
+    self.characterFilter = self.control:GetNamedChild("CharacterFilter")
+    self.zoneFilter = self.control:GetNamedChild("ZoneFilter")
 
     self.listContainer = self.control:GetNamedChild("ContainerListContainer")
 
@@ -44,19 +45,24 @@ end
 
 function GAFE_QuestsSchedule:InitializeControls()
     self:InitializeFragment()
-    self:InitializeFilter()
+    self:InitializeFilters()
 end
 
-function GAFE_QuestsSchedule:InitializeFilter()
+function GAFE_QuestsSchedule:InitializeFilters()
+    self:InitializeCharacterFilter()
+    self:InitializeZoneFilter()
+end
+
+function GAFE_QuestsSchedule:InitializeCharacterFilter()
     local function OnFilterChanged(...)
-        self:OnFilterChanged(...)
+        self:OnCharacterFilterChanged(...)
     end
 
-    local filterComboBox = ZO_ComboBox_ObjectFromContainer(self.filter)
+    local filterComboBox = ZO_ComboBox_ObjectFromContainer(self.characterFilter)
     filterComboBox:SetSortsItems(false)
     filterComboBox:SetFont("ZoFontWinT1")
     filterComboBox:SetSpacing(4)
-    self.filterComboBox = filterComboBox
+    self.characterFilterComboBox = filterComboBox
 
     local currentCharacterEntry
     local numCharacters = GetNumCharacters()
@@ -68,42 +74,63 @@ function GAFE_QuestsSchedule:InitializeFilter()
         if id == self.characterId then
             currentCharacterEntry = entry
         end
-        self.filterComboBox:AddItem(entry, ZO_COMBOBOX_SUPPRESS_UPDATE)
+        self.characterFilterComboBox:AddItem(entry, ZO_COMBOBOX_SUPPRESS_UPDATE)
     end
 
-    self.filterComboBox:SelectItem(currentCharacterEntry)
+    self.characterFilterComboBox:SelectItem(currentCharacterEntry)
+end
+
+function GAFE_QuestsSchedule:InitializeZoneFilter()
+    local function OnFilterChanged(...)
+        self:OnZoneFilterChanged(...)
+    end
+
+    local filterComboBox = ZO_ComboBox_ObjectFromContainer(self.zoneFilter)
+    filterComboBox:SetSortsItems(false)
+    filterComboBox:SetFont("ZoFontWinT1")
+    filterComboBox:SetSpacing(4)
+    self.zoneFilterComboBox = filterComboBox
+
+    local favouritesEntry = ZO_ComboBox:CreateItemEntry(zo_strformat("<<1>>", "Favourites"), OnFilterChanged)
+    favouritesEntry.data = "favourites"
+    self.zoneFilterComboBox:AddItem(favouritesEntry, ZO_COMBOBOX_SUPPRESS_UPDATE)
+    local allEntry = ZO_ComboBox:CreateItemEntry(zo_strformat("<<1>>", "All"), OnFilterChanged)
+    allEntry.data = "all"
+    self.zoneFilterComboBox:AddItem(allEntry, ZO_COMBOBOX_SUPPRESS_UPDATE)
+
+    self.zoneFilterComboBox:SelectItem(favouritesEntry)
 end
 
 function GAFE_QuestsSchedule:InitializeFragment()
     local function SetupDataRow(rowControl, data, scrollList)
-        local trialsData = GAFE_TRIALS_ACTIVITY_DATA
-
         -- Do whatever you want/need to setup the control
         local control = rowControl
-        local label = control:GetNamedChild("Label")
-        local state = control:GetNamedChild("State")
+        local zoneName = control:GetNamedChild("ZoneName")
+        local questsContainer = control:GetNamedChild("Quests")
 
         local height = 30
         local labelWidth = 350
-        local pledgeWidth = 165
+        local statusWidth = 165
 
-        label:SetDimensions(labelWidth, height)
-        label:SetAnchor(TOPLEFT, control, TOPLEFT, 0, 0)
-        state:SetDimensions(pledgeWidth, height)
-        state:SetAnchor(TOPRIGHT, control, TOPRIGHT, 0, 0)
+        zoneName:SetDimensions(labelWidth, height)
+        zoneName:SetAnchor(TOPLEFT, control, TOPLEFT, 0, 0)
 
-        label:SetText(data.zoneName)
-        local activityData = trialsData[data.activityId]
-        if activityData and GAFE_TRIALS_CHESTS ~= nil then
-            local chestAvailable = GAFE_TRIALS_CHESTS.GetTimeUntilNextChest(self.characterId, activityData.q) <= 0
-            if chestAvailable == true then
-                state:SetHandler("OnUpdate", nil)
-                state:SetText("|cFFD700" .. GAFE.Loc("Available") .. "|r")
-            else
-                self:UpdateChestLabel(state, activityData.q)
-                state:SetHandler("OnUpdate", function() self:UpdateChestLabel(state, activityData.q) end)
-            end
+        local questsCount = 0
+        for _, questData in ipairs(data.quests) do
+            local name = control:GetName() .. "Quest" .. (questsCount + 1)
+            local quest = _G[name] or WINDOW_MANAGER:CreateControl(name, questsContainer, CT_LABEL)
+            quest:SetDimensions(labelWidth, height)
+            quest:ClearAnchors()
+            quest:SetAnchor(TOPLEFT, control, TOPLEFT, 0, 0)
+            quest:SetText(questData.npcName)
+            quest:SetHidden(false)
+            questsCount = questsCount + 1
         end
+
+        questsContainer:SetDimensions(labelWidth + statusWidth, height * questsCount + 1)
+        questsContainer:SetAnchor(TOPLEFT, control, TOPLEFT, 0, 0)
+
+        zoneName:SetText(data.zoneName)
     end
 
     local parent = self.listContainer
@@ -128,18 +155,15 @@ function GAFE_QuestsSchedule:InitializeFragment()
     ZO_PreHookHandler(ZO_SearchingForGroup, 'OnEffectivelyShown', function() self.scrollList:Update(dataItems) end)
 end
 
-function GAFE_QuestsSchedule:OnFilterChanged(comboBox, entryText, entry)
+function GAFE_QuestsSchedule:OnCharacterFilterChanged(comboBox, entryText, entry)
     self.characterId = entry.data
     self.scrollList:Update(dataItems)
 end
 
-function GAFE_QuestsSchedule:UpdateChestLabel(label, questId)
-    local chestText = ""
-    local timeUntilNextChest = GAFE_TRIALS_CHESTS.GetTimeUntilNextChest(self.characterId, questId)
-    if timeUntilNextChest > 0 then
-        chestText = GAFE.ParseTimeStamp(timeUntilNextChest)
-    end
-    label:SetText(chestText)
+function GAFE_QuestsSchedule:OnZoneFilterChanged(comboBox, entryText, entry)
+    -- TODO: implement
+    -- self.characterId = entry.data
+    -- self.scrollList:Update(dataItems)
 end
 
 function GAFE_QuestsSchedule_Init(control)

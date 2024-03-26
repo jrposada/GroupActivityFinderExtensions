@@ -16,22 +16,22 @@ local ORDERED_TRIALS_ID = {
 }
 
 local dataItems = {
-    [ORDERED_TRIALS_ID.AetherianArchive] = {label=GAFE.Loc("TrialAetherianArchive"), activityId=GAFE_ACTIVITY_ID.NormalAetherianArchive},
-    [ORDERED_TRIALS_ID.HelRaCitadel] = {label=GAFE.Loc("TrialHelRaCitadel"), activityId=GAFE_ACTIVITY_ID.NormalHelRaCitadel},
-    [ORDERED_TRIALS_ID.SanctumOphidia] = {label=GAFE.Loc("TrialSanctumOphidia"), activityId=GAFE_ACTIVITY_ID.NormalSanctumOphidia},
-    [ORDERED_TRIALS_ID.MawOfLorkhaj] = {label=GAFE.Loc("TrialMawOfLorkhaj"), activityId=GAFE_ACTIVITY_ID.NormalMawOfLorkhaj},
-    [ORDERED_TRIALS_ID.HallsOfFabrication] = {label=GAFE.Loc("TrialHallsOfFabrication"), activityId=GAFE_ACTIVITY_ID.NormalHallsOfFabrication},
-    [ORDERED_TRIALS_ID.AsylumSanctorium] = {label=GAFE.Loc("TrialAsylumSanctorium"), activityId=GAFE_ACTIVITY_ID.NormalAsylumSanctorium},
-    [ORDERED_TRIALS_ID.Cloudrest] = {label=GAFE.Loc("TrialCloudrest"), activityId=GAFE_ACTIVITY_ID.NormalCloudrest},
-    [ORDERED_TRIALS_ID.Sunspire] = {label=GAFE.Loc("TrialSunspire"), activityId=GAFE_ACTIVITY_ID.NormalSunspire},
-    [ORDERED_TRIALS_ID.KynesAegis] = {label=GAFE.Loc("TrialKynesAegis"), activityId=GAFE_ACTIVITY_ID.NormalKynesAegis},
-    [ORDERED_TRIALS_ID.Rockgrove] = {label=GAFE.Loc("TrialRockgrove"), activityId=GAFE_ACTIVITY_ID.NormalRockgrove},
-    [ORDERED_TRIALS_ID.DreadsailReef] = {label=GAFE.Loc("TrialDreadsailReef"), activityId=GAFE_ACTIVITY_ID.NormalDreadsailReef}
+    [ORDERED_TRIALS_ID.AetherianArchive] = { label = GAFE.Loc("TrialAetherianArchive"), activityId = GAFE_ACTIVITY_ID.NormalAetherianArchive },
+    [ORDERED_TRIALS_ID.HelRaCitadel] = { label = GAFE.Loc("TrialHelRaCitadel"), activityId = GAFE_ACTIVITY_ID.NormalHelRaCitadel },
+    [ORDERED_TRIALS_ID.SanctumOphidia] = { label = GAFE.Loc("TrialSanctumOphidia"), activityId = GAFE_ACTIVITY_ID.NormalSanctumOphidia },
+    [ORDERED_TRIALS_ID.MawOfLorkhaj] = { label = GAFE.Loc("TrialMawOfLorkhaj"), activityId = GAFE_ACTIVITY_ID.NormalMawOfLorkhaj },
+    [ORDERED_TRIALS_ID.HallsOfFabrication] = { label = GAFE.Loc("TrialHallsOfFabrication"), activityId = GAFE_ACTIVITY_ID.NormalHallsOfFabrication },
+    [ORDERED_TRIALS_ID.AsylumSanctorium] = { label = GAFE.Loc("TrialAsylumSanctorium"), activityId = GAFE_ACTIVITY_ID.NormalAsylumSanctorium },
+    [ORDERED_TRIALS_ID.Cloudrest] = { label = GAFE.Loc("TrialCloudrest"), activityId = GAFE_ACTIVITY_ID.NormalCloudrest },
+    [ORDERED_TRIALS_ID.Sunspire] = { label = GAFE.Loc("TrialSunspire"), activityId = GAFE_ACTIVITY_ID.NormalSunspire },
+    [ORDERED_TRIALS_ID.KynesAegis] = { label = GAFE.Loc("TrialKynesAegis"), activityId = GAFE_ACTIVITY_ID.NormalKynesAegis },
+    [ORDERED_TRIALS_ID.Rockgrove] = { label = GAFE.Loc("TrialRockgrove"), activityId = GAFE_ACTIVITY_ID.NormalRockgrove },
+    [ORDERED_TRIALS_ID.DreadsailReef] = { label = GAFE.Loc("TrialDreadsailReef"), activityId = GAFE_ACTIVITY_ID.NormalDreadsailReef }
 }
 
 GAFE_TrialsSchedule = ZO_Object:Subclass()
 
-function GAFE_TrialsSchedule:New (...)
+function GAFE_TrialsSchedule:New(...)
     local instance = ZO_Object.New(self)
     instance:Initialize(...)
     return instance
@@ -117,11 +117,11 @@ function GAFE_TrialsSchedule:InitializeFragment()
 
     -- Create the scroll list
     local scrollData = {
-        name    = "GAFE_TrialsWindowScrollList",
-        parent  = parent,
-        rowHeight       = 30,
-        rowTemplate     = "GAFE_TrialsScheduleRow",
-        setupCallback   = SetupDataRow,
+        name          = "GAFE_TrialsWindowScrollList",
+        parent        = parent,
+        rowHeight     = 30,
+        rowTemplate   = "GAFE_TrialsScheduleRow",
+        setupCallback = SetupDataRow,
     }
 
     local scrollList = libScroll:CreateScrollList(scrollData)

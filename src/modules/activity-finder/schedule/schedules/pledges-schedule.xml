@@ -1,5 +1,5 @@
 <GuiXml>
-    <Controls >
+    <Controls>
         <Control name="GAFE_PledgesScheduleRow" virtual="true">
             <Controls>
                 <Label name="$(parent)Label" font="ZoFontWinH4" color="INTERFACE_COLOR_TYPE_TEXT_COLORS:INTERFACE_TEXT_COLOR_NORMAL" horizontalAlignment="CENTER" verticalAlignment="CENTER">
@@ -12,5 +12,5 @@
                 </Label>
             </Controls>
         </Control>
-    </Controls>    
+    </Controls>
 </GuiXml>
