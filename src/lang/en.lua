@@ -1,11 +1,5 @@
 local GAFE = GroupActivityFinderExtensions
 
--- List header text in activity finder are set by zo with GetString("SI_LFGACTIVITY", activityType).
--- This means we have the same prefix plus our custom activity type id.
--- Since we use LFG_ACTIVITY_ITERATION_END + 1 it should never overwrite and actual zo string.
-ZO_CreateStringId("SI_LFGACTIVITY" .. GAFE_LFG_ACTIVITY_TRIAL, "Normal")
-ZO_CreateStringId("SI_LFGACTIVITY" .. GAFE_LFG_ACTIVITY_MASTER_TRIAL, "Veteran")
-
 GAFE.lang = "en"
 GAFE.Localization = {
     Settings_Description = "Adds a bit of extra functionality and information to the Group & Activity Finder UI",
@@ -61,5 +55,5 @@ GAFE.Localization = {
     TrialsSchedule = "Trials Schedule",  -- TODO: translate
     QuestsSchedule = "Repetable Quests", -- TODO: translate
     Available = "Available",
-    QueueForActivity = "Queued for <<1>> <<2>",
+    QueueForActivity = "Queued for <<1>> <<2>>",
 }

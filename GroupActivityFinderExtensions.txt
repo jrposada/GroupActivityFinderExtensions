@@ -23,7 +23,6 @@ src/infrastructure/constants.lua
 src/infrastructure/utils.lua
 src/infrastructure/controls.lua
 src/infrastructure/debug.lua
-src/infrastructure/chat.lua
 
 src/ui/button.xml
 

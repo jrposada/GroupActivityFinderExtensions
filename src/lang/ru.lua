@@ -1,14 +1,9 @@
 local GAFE = GroupActivityFinderExtensions
 
-
-
-
-ZO_CreateStringId("SI_LFGACTIVITY" .. GAFE_LFG_ACTIVITY_TRIAL, "Обычный режим")
-ZO_CreateStringId("SI_LFGACTIVITY" .. GAFE_LFG_ACTIVITY_MASTER_TRIAL, "Ветеранский режим")
-
 GAFE.lang = "ru"
 GAFE.Localization = {
-    Settings_Description = "Добавляет дополнительные функции и информацию в пользовательский интерфейс Группа и Поиск активностей.",
+    Settings_Description =
+    "Добавляет дополнительные функции и информацию в пользовательский интерфейс Группа и Поиск активностей.",
     Settings_AutoConfirm = "Кнопка автопринятия",
     Settings_AutoConfirmDelay = "задержка автоматического принятия",
     Settings_Difficulty = "Сложность",
