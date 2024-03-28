@@ -33,14 +33,26 @@ function GAFE_QuestsSchedule:InitializeData()
         for _, questPinData in ipairs(zone) do
             local questId = questPinData[LQD.quest_map_pin_index.quest_id]
             local npcName = LQD:get_quest_giver(questPinData[LQD.quest_map_pin_index.quest_giver], GAFE.lang)
+            local questRepeat = LQD:get_quest_repeat(questId)
+            -- questRepeat == QUEST_REPEAT_REPEATABLE
 
-            table.insert(quests, { questId = questId, npcName = npcName })
+            if npcName and questRepeat == QUEST_REPEAT_DAILY then
+                table.insert(quests, { questId = questId, npcName = npcName })
+            end
         end
-        table.insert(dataItems, { zoneName = zoneName, quests = quests })
+
+        if #quests > 0 then
+            table.sort(quests, function(a, b)
+                return a.npcName < b.npcName
+            end)
+            table.insert(dataItems, { zoneName = zoneName, quests = quests })
+        end
     end
     table.sort(dataItems, function(a, b)
         return a.zoneName < b.zoneName
     end)
+
+    GAFE.LogLater("all: " .. #dataItems)
 end
 
 function GAFE_QuestsSchedule:InitializeControls()
