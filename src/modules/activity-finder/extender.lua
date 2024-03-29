@@ -27,19 +27,6 @@ function GAFE_ActivityFinderExtender:Initialize(params)
     self.root = params.root
     self.textureSize = GroupActivityFinderExtensions.SavedVars.textureSize
 
-    -- Add join queue instance entry
-    -- table.insert(self.keybindStripGroup,
-    --     -- Leave Instance
-    --     {
-    --         alignment = KEYBIND_STRIP_ALIGN_CENTER,
-    --         name = GetString(SI_GROUP_MENU_LEAVE_INSTANCE_KEYBIND),
-    --         keybind = "UI_SHORTCUT_QUATERNARY",
-    --         callback = function()
-    --             ZO_Dialogs_ShowDialog("INSTANCE_LEAVE_DIALOG")
-    --         end,
-    --         visible = CanExitInstanceImmediately
-    --     })
-
     -- Leave Group
     table.insert(self.keybindStripGroup,
         {
