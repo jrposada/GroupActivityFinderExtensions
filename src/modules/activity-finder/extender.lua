@@ -359,7 +359,7 @@ function GAFE_ActivityFinderExtender:UpdatePurpleRewardTimer()
     end
 end
 
-function GAFE_ActivityFinderExtender:CheckMissingQuests()
+function GAFE_ActivityFinderExtender:QueueForMissingQuests()
     local function checkFunc(_obj_)
         local obj = _obj_
 
@@ -368,9 +368,11 @@ function GAFE_ActivityFinderExtender:CheckMissingQuests()
 
     self:RefreshDungeonDifficulty()
     self:CheckAllWhere(checkFunc)
+
+    ZO_ACTIVITY_FINDER_ROOT_MANAGER:StartSearch()
 end
 
-function GAFE_ActivityFinderExtender:CheckMissingSets()
+function GAFE_ActivityFinderExtender:QueueForMissingSets()
     local function checkFunc(_obj_)
         local obj = _obj_
 
@@ -379,6 +381,8 @@ function GAFE_ActivityFinderExtender:CheckMissingSets()
 
     self:RefreshDungeonDifficulty()
     self:CheckAllWhere(checkFunc)
+
+    ZO_ACTIVITY_FINDER_ROOT_MANAGER:StartSearch()
 end
 
 function GAFE_ActivityFinderExtender:CheckAllWhere(_checkFunc_)

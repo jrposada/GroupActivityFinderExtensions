@@ -76,7 +76,7 @@ local function AddPledge(_pledgeId_, _control_)
     control.gafePledge = pledgesInJournal[pledgeId] == false
 end
 
-local function CheckPledges()
+local function QueueForPledges()
     local function checkFunc(_obj_)
         local obj = _obj_
 
@@ -85,9 +85,11 @@ local function CheckPledges()
 
     extender:RefreshDungeonDifficulty()
     extender:CheckAllWhere(checkFunc)
+
+    ZO_ACTIVITY_FINDER_ROOT_MANAGER:StartSearch()
 end
 
-local function CheckRandomDungeon()
+local function QueueForRandomDungeon()
     if IsCurrentlySearchingForGroup() then
         return
     end
@@ -145,7 +147,7 @@ function GAFE_DUNGEON_EXTENSIONS.Init()
             alignment = KEYBIND_STRIP_ALIGN_CENTER,
             name = GAFE.Loc("CheckActivePledges"),
             keybind = "UI_SHORTCUT_PRIMARY",
-            callback = function() CheckPledges() end,
+            callback = function() QueueForPledges() end,
             visible = function()
                 if not extender.isKeyboardListSectionVisible then
                     return false
@@ -167,7 +169,7 @@ function GAFE_DUNGEON_EXTENSIONS.Init()
             alignment = KEYBIND_STRIP_ALIGN_CENTER,
             name = GAFE.Loc("CheckMissingQuests"),
             keybind = "UI_SHORTCUT_SECONDARY",
-            callback = function() extender:CheckMissingQuests() end,
+            callback = function() extender:QueueForMissingQuests() end,
             enabled = true, -- TODO:
             visible = function()
                 return extender.isKeyboardListSectionVisible
@@ -178,7 +180,7 @@ function GAFE_DUNGEON_EXTENSIONS.Init()
             alignment = KEYBIND_STRIP_ALIGN_CENTER,
             name = GAFE.Loc("CheckMissingSets"),
             keybind = "UI_SHORTCUT_TERTIARY",
-            callback = function() extender:CheckMissingSets() end,
+            callback = function() extender:QueueForMissingSets() end,
             visible = function()
                 if not extender.isKeyboardListSectionVisible then
                     return false
@@ -206,7 +208,7 @@ function GAFE_DUNGEON_EXTENSIONS.Init()
             alignment = KEYBIND_STRIP_ALIGN_CENTER,
             name = GAFE.Loc("CheckRandomDungeon"),
             keybind = "UI_SHORTCUT_QUINARY",
-            callback = function() CheckRandomDungeon() end,
+            callback = function() QueueForRandomDungeon() end,
             visible = function() return not IsCurrentlySearchingForGroup() end,
         },
     }
@@ -222,7 +224,7 @@ function GAFE_DUNGEON_EXTENSIONS.Init()
 
     local function OnShown()
         if GAFE.SavedVars.dungeons.autoMarkPledges then
-            CheckPledges()
+            QueueForPledges()
         end
     end
 
