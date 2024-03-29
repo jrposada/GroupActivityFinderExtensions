@@ -14,7 +14,8 @@ local function OnAddOnLoaded(eventCode, addonName)
     end
 
     -- Load saved variables
-    GAFE.SavedVars = ZO_SavedVars:NewAccountWide(GAFE.name .. "_Vars", GAFE.varsVersion, nil, GAFE.DefaultVars, GetWorldName())
+    GAFE.SavedVars = ZO_SavedVars:NewAccountWide(GAFE.name .. "_Vars", GAFE.varsVersion, nil, GAFE.DefaultVars,
+        GetWorldName())
 
     -- Initialize modules
     GAFE_TRIALS_CHESTS.Init()
@@ -30,6 +31,8 @@ local function OnAddOnLoaded(eventCode, addonName)
 
     -- Init settings menu
     GAFE.SettingsMenu.Init()
+
+    LibPanicida.Controls.Debug()
 end
 
 -- Finally, we'll register our event handler function to be called when the proper event occurs.

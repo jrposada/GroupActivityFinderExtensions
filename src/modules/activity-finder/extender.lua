@@ -7,21 +7,42 @@ function GAFE_ActivityFinderExtender:New()
     return activityFinderExtender
 end
 
-function GAFE_ActivityFinderExtender:Initialize(_root_, _data_, _treeEntry_, _customExtensions_, _rewardsVars_,
-                                                _keybindStripGroup_, _onShown_)
-    local root, data, treeEntry, customExtensions, rewardsVars, keybindStripGroup, onShown =
-        _root_, _data_, _treeEntry_, _customExtensions_, _rewardsVars_, _keybindStripGroup_, _onShown_
-
+---@class initialize_params
+---@field customExtensions any
+---@field data any
+---@field keybindStripGroup table
+---@field onShown any
+---@field rewardsVars any
+---@field root string
+---@field treeEntry any
+---Initialize object
+---@param params initialize_params
+function GAFE_ActivityFinderExtender:Initialize(params)
     self.characterId = GetCurrentCharacterId()
-    self.root = root
-    self.data = data
-    self.customExtensions = customExtensions
-    self.rewardsVars = rewardsVars
-    self.onShown = onShown
+    self.customExtensions = params.customExtensions
+    self.data = params.data
+    self.keybindStripGroup = params.keybindStripGroup or {}
+    self.onShown = params.onShown
+    self.rewardsVars = params.rewardsVars
+    self.root = params.root
     self.textureSize = GroupActivityFinderExtensions.SavedVars.textureSize
-    self.leaveGroupKeybindStripGroup = {
+
+    -- Add join queue instance entry
+    -- table.insert(self.keybindStripGroup,
+    --     -- Leave Instance
+    --     {
+    --         alignment = KEYBIND_STRIP_ALIGN_CENTER,
+    --         name = GetString(SI_GROUP_MENU_LEAVE_INSTANCE_KEYBIND),
+    --         keybind = "UI_SHORTCUT_QUATERNARY",
+    --         callback = function()
+    --             ZO_Dialogs_ShowDialog("INSTANCE_LEAVE_DIALOG")
+    --         end,
+    --         visible = CanExitInstanceImmediately
+    --     })
+
+    -- Leave Group
+    table.insert(self.keybindStripGroup,
         {
-            -- Leave Group
             alignment = KEYBIND_STRIP_ALIGN_CENTER,
             name = GetString(SI_GROUP_LEAVE),
             keybind = "UI_SHORTCUT_NEGATIVE",
@@ -31,11 +52,21 @@ function GAFE_ActivityFinderExtender:Initialize(_root_, _data_, _treeEntry_, _cu
             visible = function()
                 return GROUP_LIST.groupSize and GROUP_LIST.groupSize > 0
             end
-        }
-    }
-    self.keybindStripGroup = keybindStripGroup
+        })
 
-    if treeEntry then self:InitializeSetupFunction(treeEntry) end
+    -- Leave Instance
+    table.insert(self.keybindStripGroup,
+        {
+            alignment = KEYBIND_STRIP_ALIGN_CENTER,
+            name = GetString(SI_GROUP_MENU_LEAVE_INSTANCE_KEYBIND),
+            keybind = "UI_SHORTCUT_QUATERNARY",
+            callback = function()
+                ZO_Dialogs_ShowDialog("INSTANCE_LEAVE_DIALOG")
+            end,
+            visible = CanExitInstanceImmediately
+        })
+
+    if params.treeEntry then self:InitializeSetupFunction(params.treeEntry) end
     self:InitializeRandomReward()
     self:InitializeEvents()
 end
@@ -118,52 +149,43 @@ function GAFE_ActivityFinderExtender:InitializeRandomReward()
 end
 
 function GAFE_ActivityFinderExtender:InitializeEvents()
-    local isKeyboardListSectionVisible = false
-    local isSingularSectionVisible = false
+    self.isKeyboardListSectionVisible = false
+    self.isSingularSectionVisible = false
 
     local function OnKeyboardListSectionShown()
-        isKeyboardListSectionVisible = true
+        self.isKeyboardListSectionVisible = true
+        KEYBIND_STRIP:AddKeybindButtonGroup(self.keybindStripGroup)
 
-        if self.keybindStripGroup then
-            KEYBIND_STRIP:AddKeybindButtonGroup(self.keybindStripGroup)
-        end
-        KEYBIND_STRIP:AddKeybindButtonGroup(self.leaveGroupKeybindStripGroup)
         self:Collapse()
         if self.onShown then self.onShown() end
     end
 
     local function OnKeyboardListSectionHidden()
-        isKeyboardListSectionVisible = false
+        self.isKeyboardListSectionVisible = false
 
-        if self.keybindStripGroup then
+        if not self.isSingularSectionVisible then
             KEYBIND_STRIP:RemoveKeybindButtonGroup(self.keybindStripGroup)
-        end
-        if not isSingularSectionVisible then
-            KEYBIND_STRIP:RemoveKeybindButtonGroup(self.leaveGroupKeybindStripGroup)
         end
     end
 
     local function OnSingularSectionShown()
-        isSingularSectionVisible = true
+        self.isSingularSectionVisible = true
+        KEYBIND_STRIP:AddKeybindButtonGroup(self.keybindStripGroup)
 
-        KEYBIND_STRIP:AddKeybindButtonGroup(self.leaveGroupKeybindStripGroup)
         if self.onShown then self.onShown() end
     end
 
     local function OnSingularSectionHidden()
-        isSingularSectionVisible = false
+        self.isSingularSectionVisible = false
 
-        if isKeyboardListSectionVisible then return end
-
-        KEYBIND_STRIP:RemoveKeybindButtonGroup(self.leaveGroupKeybindStripGroup)
+        if not self.isKeyboardListSectionVisible then
+            KEYBIND_STRIP:RemoveKeybindButtonGroup(self.keybindStripGroup)
+        end
     end
 
     local function OnUpdateGroupStatus()
-        if isKeyboardListSectionVisible or isSingularSectionVisible then
-            if self.keybindStripGroup then
-                KEYBIND_STRIP:AddKeybindButtonGroup(self.keybindStripGroup)
-            end
-            KEYBIND_STRIP:AddKeybindButtonGroup(self.leaveGroupKeybindStripGroup)
+        if self.isKeyboardListSectionVisible or self.isSingularSectionVisible then
+            KEYBIND_STRIP:UpdateKeybindButtonGroup(self.keybindStripGroup)
         end
     end
 

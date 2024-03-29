@@ -266,7 +266,9 @@
     "GetActivitySetIdByTypeAndIndex",
     "SI_GROUPFINDERCATEGORY_SINGLESELECTDEFAULT0",
     "SI_DUNGEONDIFFICULTY1",
-    "SI_DUNGEONDIFFICULTY2"
+    "SI_DUNGEONDIFFICULTY2",
+    "CanExitInstanceImmediately",
+    "SI_GROUP_MENU_LEAVE_INSTANCE_KEYBIND"
   ],
   "cSpell.words": ["Wayshrine", "Wayshrines"]
 }

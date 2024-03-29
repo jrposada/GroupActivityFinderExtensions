@@ -140,19 +140,50 @@ function GAFE_DUNGEON_EXTENSIONS.Init()
     ZO_ActivityFinderTemplateNavigationEntry_Keyboard
 
     local keybindStripGroup = {
+        -- Active pledges
+        {
+            alignment = KEYBIND_STRIP_ALIGN_CENTER,
+            name = GAFE.Loc("CheckActivePledges"),
+            keybind = "UI_SHORTCUT_PRIMARY",
+            callback = function() CheckPledges() end,
+            visible = function()
+                if not extender.isKeyboardListSectionVisible then
+                    return false
+                end
+
+                local donePledges = GAFE.SavedVars.dungeons.donePledges[characterId];
+
+                for _, pledgeId in ipairs(todayPledges) do
+                    if not GAFE.ContainsKey(donePledges, pledgeId) then
+                        return false
+                    end
+                end
+
+                return true
+            end
+        },
+        -- Missing quests
         {
             alignment = KEYBIND_STRIP_ALIGN_CENTER,
             name = GAFE.Loc("CheckMissingQuests"),
-            keybind = "UI_SHORTCUT_TERTIARY",
+            keybind = "UI_SHORTCUT_SECONDARY",
             callback = function() extender:CheckMissingQuests() end,
             enabled = true, -- TODO:
+            visible = function()
+                return extender.isKeyboardListSectionVisible
+            end
         },
+        -- Missing sets
         {
             alignment = KEYBIND_STRIP_ALIGN_CENTER,
             name = GAFE.Loc("CheckMissingSets"),
-            keybind = "UI_SHORTCUT_QUATERNARY",
+            keybind = "UI_SHORTCUT_TERTIARY",
             callback = function() extender:CheckMissingSets() end,
             visible = function()
+                if not extender.isKeyboardListSectionVisible then
+                    return false
+                end
+
                 local hasAllSets = true
                 for _, activityData in pairs(extender.data) do
                     for _, setId in pairs(activityData.sets) do
@@ -170,27 +201,11 @@ function GAFE_DUNGEON_EXTENSIONS.Init()
                 return not hasAllSets
             end,
         },
-        {
-            alignment = KEYBIND_STRIP_ALIGN_CENTER,
-            name = GAFE.Loc("CheckActivePledges"),
-            keybind = "UI_SHORTCUT_SECONDARY",
-            callback = function() CheckPledges() end,
-            visible = function()
-                local donePledges = GAFE.SavedVars.dungeons.donePledges[characterId];
-
-                for _, pledgeId in ipairs(todayPledges) do
-                    if not GAFE.ContainsKey(donePledges, pledgeId) then
-                        return false
-                    end
-                end
-
-                return true
-            end
-        },
+        -- Random dungeon
         {
             alignment = KEYBIND_STRIP_ALIGN_CENTER,
             name = GAFE.Loc("CheckRandomDungeon"),
-            keybind = "UI_SHORTCUT_PRIMARY",
+            keybind = "UI_SHORTCUT_QUINARY",
             callback = function() CheckRandomDungeon() end,
             visible = function() return not IsCurrentlySearchingForGroup() end,
         },
@@ -224,8 +239,16 @@ function GAFE_DUNGEON_EXTENSIONS.Init()
         end, 1000)
     end
 
-    extender:Initialize("ZO_Dungeon", dungeonData, treeEntry, customExtensions, GAFE.SavedVars.dungeons,
-        keybindStripGroup, OnShown)
+    extender:Initialize(
+        {
+            customExtensions = customExtensions,
+            data = dungeonData,
+            keybindStripGroup = keybindStripGroup,
+            onShown = OnShown,
+            rewardsVars = GAFE.SavedVars.dungeons,
+            root = "ZO_Dungeon",
+            treeEntry = treeEntry,
+        })
 
     EVENT_MANAGER:RegisterForEvent(
         GAFE.name .. "_DungonExtension_PlayerReady",
