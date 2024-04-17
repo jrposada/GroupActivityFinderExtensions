@@ -65,7 +65,7 @@ foreach ($line in [System.IO.File]::ReadLines($filePath)) {
 
 Set-Content -Path $filePath -Encoding UTF8 -Value $file
 
-$version = [String]::Join(".",$version)
+$version = [String]::Join(".", $version)
 git add . > $null
 git commit -m "Version $version" > $null
 

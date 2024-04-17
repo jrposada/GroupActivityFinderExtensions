@@ -23,7 +23,8 @@ end
 ---@param questId any
 ---@return boolean
 local function IsPledge(questId)
-    return questId == GAFE_PLEDGE_ID.EldenHollowII or questId == GAFE_PLEDGE_ID.Volenfell or questId == GAFE_PLEDGE_ID.ImperialCityPrison
+    return questId == GAFE_PLEDGE_ID.EldenHollowII or questId == GAFE_PLEDGE_ID.Volenfell or
+    questId == GAFE_PLEDGE_ID.ImperialCityPrison
 end
 
 --- Check if quest id is one of the crafting writs. Only checks for one of each type.
@@ -90,7 +91,8 @@ function GAFE_QUEST_AUTOMATION.AutomaticallyHandleQuests(enable)
                 local optionString, optionType = GetChatterOption(optionIndex)
                 if optionType == CHATTER_TALK_CHOICE then
                     questCompleted = false
-                    EVENT_MANAGER:RegisterForEvent(questCompletedEventName, EVENT_QUEST_COMPLETE_DIALOG, HandleQuestCompleted)
+                    EVENT_MANAGER:RegisterForEvent(questCompletedEventName, EVENT_QUEST_COMPLETE_DIALOG,
+                        HandleQuestCompleted)
                     SelectChatterOption(optionIndex)
                 end
             end
@@ -116,11 +118,13 @@ function GAFE_QUEST_AUTOMATION.AutomaticallyHandleQuests(enable)
                     elseif optionType == CHATTER_START_TALK and contains(GAFE_QUEST_AUTOMATION.pledgeNpcName, npcName) then
                         -- For some reason pledges EVENT_QUEST_COMPLETE_DIALOG is hidden behind one chatter start.
                         questCompleted = false
-                        EVENT_MANAGER:RegisterForEvent(conversationUpdatedEventName, EVENT_CONVERSATION_UPDATED, HandleConversationUpdated)
+                        EVENT_MANAGER:RegisterForEvent(conversationUpdatedEventName, EVENT_CONVERSATION_UPDATED,
+                            HandleConversationUpdated)
                         SelectChatterOption(optionIndex)
                     elseif optionType == CHATTER_START_COMPLETE_QUEST then
                         questCompleted = false
-                        EVENT_MANAGER:RegisterForEvent(questCompletedEventName, EVENT_QUEST_COMPLETE_DIALOG, HandleQuestCompleted)
+                        EVENT_MANAGER:RegisterForEvent(questCompletedEventName, EVENT_QUEST_COMPLETE_DIALOG,
+                            HandleQuestCompleted)
                         SelectChatterOption(optionIndex)
                     end
                 end
@@ -157,4 +161,3 @@ function GAFE_QUEST_AUTOMATION.AutomaticallyHandleQuests(enable)
 
     GAFE.SavedVars.dungeons.handlePledgeQuest = enable
 end
-

@@ -20,7 +20,7 @@ local stringToCollapseMode = {
 local fastTravelNodesByName = {}
 local fastTravelNodesById = {}
 local fastTravelOptions = {}
-for id=1, GetNumFastTravelNodes() do
+for id = 1, GetNumFastTravelNodes() do
     local _, name = GetFastTravelNodeInfo(id)
     if name ~= "" then
         fastTravelNodesByName[name] = id
@@ -31,8 +31,9 @@ end
 table.sort(fastTravelOptions)
 
 function GAFE.SettingsMenu.Init()
-    local saveData = GAFE.SavedVars -- This should be a reference to your actual saved variables table
-    local panelName = GAFE.name .. "_SettingsPanel" -- The name will be used to create a global variable, pick something unique or you may overwrite an existing variable!
+    local saveData = GAFE.SavedVars                 -- This should be a reference to your actual saved variables table
+    local panelName = GAFE.name ..
+    "_SettingsPanel"                                -- The name will be used to create a global variable, pick something unique or you may overwrite an existing variable!
 
     local panelData = {
         type = "panel",
@@ -151,8 +152,9 @@ function GAFE.SettingsMenu.Init()
                 {
                     type = "button",
                     name = GAFE.Loc("TrialAetherianArchive"),
-                    func = function() return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
-                            GAFE_ACTIVITY_ID.NormalAetherianArchive].q)
+                    func = function()
+                        return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
+                        GAFE_ACTIVITY_ID.NormalAetherianArchive].q)
                     end,
                     width = "half",
                     warning = GAFE.Loc("Settings_ResetChestWarning"),
@@ -161,8 +163,9 @@ function GAFE.SettingsMenu.Init()
                 {
                     type = "button",
                     name = GAFE.Loc("TrialHelRaCitadel"),
-                    func = function() return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
-                            GAFE_ACTIVITY_ID.NormalHelRaCitadel].q)
+                    func = function()
+                        return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
+                        GAFE_ACTIVITY_ID.NormalHelRaCitadel].q)
                     end,
                     width = "half",
                     warning = GAFE.Loc("Settings_ResetChestWarning"),
@@ -171,8 +174,9 @@ function GAFE.SettingsMenu.Init()
                 {
                     type = "button",
                     name = GAFE.Loc("TrialSanctumOphidia"),
-                    func = function() return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
-                            GAFE_ACTIVITY_ID.NormalSanctumOphidia].q)
+                    func = function()
+                        return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
+                        GAFE_ACTIVITY_ID.NormalSanctumOphidia].q)
                     end,
                     width = "half",
                     warning = GAFE.Loc("Settings_ResetChestWarning"),
@@ -181,8 +185,9 @@ function GAFE.SettingsMenu.Init()
                 {
                     type = "button",
                     name = GAFE.Loc("TrialMawOfLorkhaj"),
-                    func = function() return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
-                            GAFE_ACTIVITY_ID.NormalMawOfLorkhaj].q)
+                    func = function()
+                        return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
+                        GAFE_ACTIVITY_ID.NormalMawOfLorkhaj].q)
                     end,
                     width = "half",
                     warning = GAFE.Loc("Settings_ResetChestWarning"),
@@ -191,8 +196,9 @@ function GAFE.SettingsMenu.Init()
                 {
                     type = "button",
                     name = GAFE.Loc("TrialHallsOfFabrication"),
-                    func = function() return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
-                            GAFE_ACTIVITY_ID.NormalHallsOfFabrication].q)
+                    func = function()
+                        return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
+                        GAFE_ACTIVITY_ID.NormalHallsOfFabrication].q)
                     end,
                     width = "half",
                     warning = GAFE.Loc("Settings_ResetChestWarning"),
@@ -201,8 +207,9 @@ function GAFE.SettingsMenu.Init()
                 {
                     type = "button",
                     name = GAFE.Loc("TrialAsylumSanctorium"),
-                    func = function() return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
-                            GAFE_ACTIVITY_ID.NormalAsylumSanctorium].q)
+                    func = function()
+                        return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
+                        GAFE_ACTIVITY_ID.NormalAsylumSanctorium].q)
                     end,
                     width = "half",
                     warning = GAFE.Loc("Settings_ResetChestWarning"),
@@ -211,8 +218,9 @@ function GAFE.SettingsMenu.Init()
                 {
                     type = "button",
                     name = GAFE.Loc("TrialCloudrest"),
-                    func = function() return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
-                            GAFE_ACTIVITY_ID.NormalCloudrest].q)
+                    func = function()
+                        return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
+                        GAFE_ACTIVITY_ID.NormalCloudrest].q)
                     end,
                     width = "half",
                     warning = GAFE.Loc("Settings_ResetChestWarning"),
@@ -221,8 +229,9 @@ function GAFE.SettingsMenu.Init()
                 {
                     type = "button",
                     name = GAFE.Loc("TrialSunspire"),
-                    func = function() return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
-                            GAFE_ACTIVITY_ID.NormalSunspire].q)
+                    func = function()
+                        return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
+                        GAFE_ACTIVITY_ID.NormalSunspire].q)
                     end,
                     width = "half",
                     warning = GAFE.Loc("Settings_ResetChestWarning"),
@@ -231,8 +240,9 @@ function GAFE.SettingsMenu.Init()
                 {
                     type = "button",
                     name = GAFE.Loc("TrialKynesAegis"),
-                    func = function() return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
-                            GAFE_ACTIVITY_ID.NormalKynesAegis].q)
+                    func = function()
+                        return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
+                        GAFE_ACTIVITY_ID.NormalKynesAegis].q)
                     end,
                     width = "half",
                     warning = GAFE.Loc("Settings_ResetChestWarning"),
@@ -241,8 +251,9 @@ function GAFE.SettingsMenu.Init()
                 {
                     type = "button",
                     name = GAFE.Loc("TrialDreadsailReef"),
-                    func = function() return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
-                            GAFE_ACTIVITY_ID.NormalDreadsailReef].q)
+                    func = function()
+                        return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
+                        GAFE_ACTIVITY_ID.NormalDreadsailReef].q)
                     end,
                     width = "half",
                     warning = GAFE.Loc("Settings_ResetChestWarning"),

@@ -36,8 +36,8 @@ function GAFE_ActivitySchedule:InitializeMenuBar()
 
         self.pledgesWindow:SetHidden(data.descriptor ~= name .. "ButtonPledges")
         self.dailiesWindow:SetHidden(data.descriptor ~= name .. "DailiesWindow")
-        self.trialsWindow:SetHidden(data.descriptor ~= name.."ButtonTrials")
-        self.questsWindow:SetHidden(data.descriptor ~= name.."ButtonQuests")
+        self.trialsWindow:SetHidden(data.descriptor ~= name .. "ButtonTrials")
+        self.questsWindow:SetHidden(data.descriptor ~= name .. "ButtonQuests")
         self.menuBarLabel:SetText(data.label)
     end
 
@@ -59,7 +59,7 @@ function GAFE_ActivitySchedule:InitializeMenuBar()
         callback = MenuSelector,
     })
     ZO_MenuBar_AddButton(self.menuBar, {
-        descriptor = name.."ButtonTrials",
+        descriptor = name .. "ButtonTrials",
         normal = "/esoui/art/lfg/lfg_indexicon_trial_up.dds",
         pressed = "/esoui/art/lfg/lfg_indexicon_trial_down.dds",
         highlight = "/esoui/art/lfg/lfg_indexicon_trial_over.dds",
@@ -67,7 +67,7 @@ function GAFE_ActivitySchedule:InitializeMenuBar()
         callback = MenuSelector,
     })
     ZO_MenuBar_AddButton(self.menuBar, {
-        descriptor = name.."ButtonQuests",
+        descriptor = name .. "ButtonQuests",
         normal = "/esoui/art/journal/journal_tabicon_quest_up.dds",
         pressed = "/esoui/art/journal/journal_tabicon_quest_down.dds",
         highlight = "/esoui/art/journal/journal_tabicon_quest_over.dds",

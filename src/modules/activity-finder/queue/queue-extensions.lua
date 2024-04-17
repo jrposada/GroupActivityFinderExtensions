@@ -5,8 +5,8 @@ local timerLabel
 
 local function RefreshAutoConfirmEvents()
     local savedVars = GAFE.SavedVars
-    local eventName = GAFE.name.."_QueueExtensions_AutoConfirm"
-    local loopSoundEventName = GAFE.name.."_QueueExtensions_LoopSound"
+    local eventName = GAFE.name .. "_QueueExtensions_AutoConfirm"
+    local loopSoundEventName = GAFE.name .. "_QueueExtensions_LoopSound"
 
     local function LoopSound()
         if GetActivityFinderStatus() ~= ACTIVITY_FINDER_STATUS_READY_CHECK or HasAcceptedLFGReadyCheck() then
@@ -17,7 +17,7 @@ local function RefreshAutoConfirmEvents()
     end
 
     local function OnActivityFinderStatusChange(_, status)
-        if status==ACTIVITY_FINDER_STATUS_READY_CHECK and not IsActiveWorldBattleground() then
+        if status == ACTIVITY_FINDER_STATUS_READY_CHECK and not IsActiveWorldBattleground() then
             if savedVars.autoConfirm.enabled and savedVars.autoConfirm.value then
                 GAFE.CallLater("ReadyCheck", GAFE.SavedVars.autoConfirm.delay, AcceptLFGReadyCheckNotification)
             end
@@ -55,9 +55,11 @@ function GAFE_QUEUE_EXTENSIONS.Init()
         end
 
         -- Create control
-        local parent=ZO_SearchingForGroupStatus
+        local parent = ZO_SearchingForGroupStatus
         if parent then
-            autoConfirmCheckbox=GAFE.UI.Checkbox("GAFE_AutoConfirmActivity", parent, {200,28}, {BOTTOM,parent,TOP,0,0}, GAFE.Loc("AutoConfirm"), ToggleAutoConfirm, true, savedVars.autoConfirm.value, not savedVars.autoConfirm.enabled)
+            autoConfirmCheckbox = GAFE.UI.Checkbox("GAFE_AutoConfirmActivity", parent, { 200, 28 },
+                { BOTTOM, parent, TOP, 0, 0 }, GAFE.Loc("AutoConfirm"), ToggleAutoConfirm, true,
+                savedVars.autoConfirm.value, not savedVars.autoConfirm.enabled)
         end
 
         -- Init events
@@ -72,25 +74,28 @@ function GAFE_QUEUE_EXTENSIONS.Init()
         local function UpdateTimer()
             local searchStartTimeMs = GetLFGSearchTimes()
             local timeSinceSearchStartMs = GetFrameTimeMilliseconds() - searchStartTimeMs
-            local textStartTime = ZO_FormatTimeMilliseconds(timeSinceSearchStartMs, TIME_FORMAT_STYLE_COLONS, TIME_FORMAT_PRECISION_TWELVE_HOUR)
+            local textStartTime = ZO_FormatTimeMilliseconds(timeSinceSearchStartMs, TIME_FORMAT_STYLE_COLONS,
+                TIME_FORMAT_PRECISION_TWELVE_HOUR)
 
-            timerLabel:SetText(zo_strformat(SI_ACTIVITY_QUEUE_STATUS_LABEL_FORMAT, ACTUAL_HEADER_TEXT, NO_ICON, textStartTime))
+            timerLabel:SetText(zo_strformat(SI_ACTIVITY_QUEUE_STATUS_LABEL_FORMAT, ACTUAL_HEADER_TEXT, NO_ICON,
+                textStartTime))
         end
 
         local function OnActivityFinderStatusUpdate(status)
             if (status == ACTIVITY_FINDER_STATUS_QUEUED and not registered) then
                 registered = true
                 UpdateTimer()
-                EVENT_MANAGER:RegisterForUpdate(GAFE.name.."_QueueExtensions_Timer", 1000, UpdateTimer)
+                EVENT_MANAGER:RegisterForUpdate(GAFE.name .. "_QueueExtensions_Timer", 1000, UpdateTimer)
             elseif status ~= ACTIVITY_FINDER_STATUS_QUEUED and registered then
                 registered = false
-                EVENT_MANAGER:UnregisterForUpdate(GAFE.name.."_QueueExtensions_Timer")
+                EVENT_MANAGER:UnregisterForUpdate(GAFE.name .. "_QueueExtensions_Timer")
             end
         end
 
         -- Create label control
         local parent = ZO_ActivityTrackerContainerSubLabel
-        timerLabel = GAFE.UI.Label("GAFE_ActivityTracker_QueueTimer", parent, {125,20}, {LEFT,parent,LEFT,0,20}, "ZoFontGameShadow", nil, {0,1})
+        timerLabel = GAFE.UI.Label("GAFE_ActivityTracker_QueueTimer", parent, { 125, 20 }, { LEFT, parent, LEFT, 0, 20 },
+            "ZoFontGameShadow", nil, { 0, 1 })
 
         ZO_ACTIVITY_FINDER_ROOT_MANAGER:RegisterCallback("OnActivityFinderStatusUpdate", OnActivityFinderStatusUpdate)
     end

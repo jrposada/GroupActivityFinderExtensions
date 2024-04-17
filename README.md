@@ -12,39 +12,39 @@ Adds a extra functionality around vanilla Group & Activity Finder and other in-g
 
 ## Dependencies
 
-* [LibAddonMenu-2.0](https://www.esoui.com/downloads/info7-LibAddonMenu.html)
-* [LibSavedVars](https://www.esoui.com/downloads/info2161-LibSavedVars.html)
-* [LibQuestData](https://www.esoui.com/downloads/info2625-LibQuestData.html)
-* [LibScroll](https://www.esoui.com/downloads/info1151-LibScroll.html)
+- [LibAddonMenu-2.0](https://www.esoui.com/downloads/info7-LibAddonMenu.html)
+- [LibSavedVars](https://www.esoui.com/downloads/info2161-LibSavedVars.html)
+- [LibQuestData](https://www.esoui.com/downloads/info2625-LibQuestData.html)
+- [LibScroll](https://www.esoui.com/downloads/info1151-LibScroll.html)
 
 ## Supported languages
 
-* English
-* French
-* German
-* Russian
+- English
+- French
+- German
+- Russian
 
 # Features
 
 ## Activity Finder
 
-* Group
-* Random dungeon
-* Random battleground
-* Dungeons
-* Trials (Removed)
-* Schedules
-* Auto confirm
+- Group
+- Random dungeon
+- Random battleground
+- Dungeons
+- Trials (Removed)
+- Schedules
+- Auto confirm
 
 ## Map
 
-* Alliance capitals Wayshrines.
+- Alliance capitals Wayshrines.
 
-    Added shortcuts to all three Alliance capitals to map view. Always visible on above filters panel.
+  Added shortcuts to all three Alliance capitals to map view. Always visible on above filters panel.
 
-* TP to favorite Wayshrine on map hotkey.
+- TP to favorite Wayshrine on map hotkey.
 
-    Added new active binding to map view to TP to user selected Wayshrine. Favorite can be change in the addon settings.
+  Added new active binding to map view to TP to user selected Wayshrine. Favorite can be change in the addon settings.
 
 ## Quest Automation
 
@@ -53,7 +53,6 @@ Automatically accepts and complete any daily quests when interacting with the qu
 **Notice:** to avoid conflicts with other addons it ignore daily writs.
 
 # Commands
-
 
 [SIZE="4"]Features[/SIZE]
 
@@ -146,7 +145,9 @@ Queue for all available pledges
 Queue for all available pledges and log all the information.
 
 # How to
+
 ## Add new Dungeon
+
 1. Enable addon developer mode on settings.
 2. Get the activity id from in-game dungeon finder. If the activity is unknown it should display a "TODO XXX" message on the specific activities list.
 3. Add new id to `activity-id.lua`. Each activity has two entries: normal and veteran. Keep the same order as in the in-game list in english for consistency.

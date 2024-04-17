@@ -5,9 +5,9 @@ local libScroll = LibScroll
 local function GetPledgesOfDay(day)
     local pledgeList = GAFE_PLEDGE_LIST
     local dayPledges = {}
-    for npc=1,3 do
-        local dpList=pledgeList[npc]
-        local n=1+(day+dpList.shift)%#dpList
+    for npc = 1, 3 do
+        local dpList = pledgeList[npc]
+        local n = 1 + (day + dpList.shift) % #dpList
         dayPledges[npc] = dpList[n]
     end
     return dayPledges
@@ -16,7 +16,7 @@ end
 GAFE_PledgesSchedule = ZO_Object:Subclass()
 
 
-function GAFE_PledgesSchedule:New (...)
+function GAFE_PledgesSchedule:New(...)
     local instance = ZO_Object.New(self)
     instance:Initialize(...)
     return instance
@@ -133,10 +133,10 @@ function GAFE_PledgesSchedule:InitializeTodayFragment()
     SetupHeaderRow(
         self.todayHeader,
         {
-            name='',
-            maj=GAFE.CleanPledgeQuestName(LQD:get_quest_name(self.todayPledges[1], GAFE.lang)),
-            glirion=GAFE.CleanPledgeQuestName(LQD:get_quest_name(self.todayPledges[2], GAFE.lang)),
-            urgarlag=GAFE.CleanPledgeQuestName(LQD:get_quest_name(self.todayPledges[3], GAFE.lang)),
+            name = '',
+            maj = GAFE.CleanPledgeQuestName(LQD:get_quest_name(self.todayPledges[1], GAFE.lang)),
+            glirion = GAFE.CleanPledgeQuestName(LQD:get_quest_name(self.todayPledges[2], GAFE.lang)),
+            urgarlag = GAFE.CleanPledgeQuestName(LQD:get_quest_name(self.todayPledges[3], GAFE.lang)),
         }
     )
 
@@ -144,11 +144,11 @@ function GAFE_PledgesSchedule:InitializeTodayFragment()
 
     -- Create the scroll list
     local scrollData = {
-        name    = "GAFE_PledgesWindowTodayScrollList",
-        parent  = parent,
-        rowHeight       = 30,
-        rowTemplate     = "GAFE_PledgesScheduleRow",
-        setupCallback   = SetupDataRow,
+        name          = "GAFE_PledgesWindowTodayScrollList",
+        parent        = parent,
+        rowHeight     = 30,
+        rowTemplate   = "GAFE_PledgesScheduleRow",
+        setupCallback = SetupDataRow,
     }
 
     local scrollList = libScroll:CreateScrollList(scrollData)
@@ -223,10 +223,10 @@ function GAFE_PledgesSchedule:InitializeUpcomingFragment()
     SetupHeaderRow(
         self.upcomingHeader,
         {
-            character='',
-            maj="Maj",
-            glirion="Glirion",
-            urgarlag="Urgarlag",
+            character = '',
+            maj = "Maj",
+            glirion = "Glirion",
+            urgarlag = "Urgarlag",
         }
     )
 
@@ -234,11 +234,11 @@ function GAFE_PledgesSchedule:InitializeUpcomingFragment()
 
     -- Create the scroll list
     local scrollData = {
-        name    = "GAFE_PledgesWindowUpcomingScrollList",
-        parent  = parent,
-        rowHeight       = 30,
-        rowTemplate     = "GAFE_PledgesScheduleRow",
-        setupCallback   = SetupDataRow,
+        name          = "GAFE_PledgesWindowUpcomingScrollList",
+        parent        = parent,
+        rowHeight     = 30,
+        rowTemplate   = "GAFE_PledgesScheduleRow",
+        setupCallback = SetupDataRow,
     }
 
     local scrollList = libScroll:CreateScrollList(scrollData)
@@ -249,13 +249,13 @@ function GAFE_PledgesSchedule:InitializeUpcomingFragment()
     local today = GAFE.GetDay()
 
     local dataItems = {}
-    for day=1,14 do
+    for day = 1, 14 do
         local pledges = GetPledgesOfDay(today + day)
         local data = {
-            day=day,
-            maj=GAFE.CleanPledgeQuestName(LQD:get_quest_name(pledges[1], GAFE.lang)),
-            glirion=GAFE.CleanPledgeQuestName(LQD:get_quest_name(pledges[2], GAFE.lang)),
-            urgarlag=GAFE.CleanPledgeQuestName(LQD:get_quest_name(pledges[3], GAFE.lang)),
+            day = day,
+            maj = GAFE.CleanPledgeQuestName(LQD:get_quest_name(pledges[1], GAFE.lang)),
+            glirion = GAFE.CleanPledgeQuestName(LQD:get_quest_name(pledges[2], GAFE.lang)),
+            urgarlag = GAFE.CleanPledgeQuestName(LQD:get_quest_name(pledges[3], GAFE.lang)),
         }
         dataItems[day] = data
     end
@@ -286,10 +286,10 @@ function GAFE_PledgesSchedule:RefreshTodayPledges()
 
         local donePledges = GAFE.SavedVars.dungeons.donePledges[characterId] or {};
         local data = {
-            character=zo_strformat("<<1>>", characterName),
-            maj=GAFE.ContainsKey(donePledges, self.todayPledges[1]) and 'Done' or "|cFFD700Available|r",
-            glirion=GAFE.ContainsKey(donePledges, self.todayPledges[2]) and 'Done' or "|cFFD700Available|r",
-            urgarlag=GAFE.ContainsKey(donePledges, self.todayPledges[3]) and 'Done' or "|cFFD700Available|r"
+            character = zo_strformat("<<1>>", characterName),
+            maj = GAFE.ContainsKey(donePledges, self.todayPledges[1]) and 'Done' or "|cFFD700Available|r",
+            glirion = GAFE.ContainsKey(donePledges, self.todayPledges[2]) and 'Done' or "|cFFD700Available|r",
+            urgarlag = GAFE.ContainsKey(donePledges, self.todayPledges[3]) and 'Done' or "|cFFD700Available|r"
         }
         dataItems[i] = data
     end

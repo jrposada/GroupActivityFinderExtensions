@@ -19,9 +19,10 @@ function GAFE_Ram:Initialize(control)
 
     local prevControl
     for i = 1, MAX_ESCORTS_SHOWN do
-        local currentControl = CreateControlFromVirtual("GAFE_RamIndicators", self.indicatorsControl, "ZO_RamIndicator", i)
+        local currentControl = CreateControlFromVirtual("GAFE_RamIndicators", self.indicatorsControl, "ZO_RamIndicator",
+            i)
         self.indicatorsList[i] = currentControl
-        if(prevControl) then
+        if (prevControl) then
             currentControl:SetAnchor(TOPLEFT, prevControl, TOPRIGHT)
         else
             currentControl:SetAnchor(TOPLEFT, nil, TOPLEFT)
@@ -63,9 +64,9 @@ function GAFE_Ram:UpdateNumEscorts(numEscorts)
 
     for i = 1, MAX_ESCORTS_SHOWN do
         local control = self.indicatorsList[i]
-        if(i <= maxPossibleEscorts) then
+        if (i <= maxPossibleEscorts) then
             control:SetHidden(false)
-            if(i <= numEscorts) then
+            if (i <= numEscorts) then
                 control:SetTexture(spotFilledTexture)
             else
                 control:SetTexture(SPOT_NOT_FILLED_TEXTURE)

@@ -8,7 +8,7 @@ local function battleground()
 end
 
 local commandsList = {
-    {name="/bg", func=battleground},
+    { name = "/bg", func = battleground },
 }
 
 GAFE_BATTLEGROUND_COMMANDS = {}

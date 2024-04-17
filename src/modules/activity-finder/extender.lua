@@ -50,9 +50,9 @@ function GAFE_ActivityFinderExtender:Initialize(params)
             callback = function()
                 ZO_Dialogs_ShowDialog("INSTANCE_LEAVE_DIALOG")
             end,
-            visible = CanExitInstanceImmediately and (! GROUP_LIST.groupSize or GROUP_LIST.groupSize == 0)
+            visible = CanExitInstanceImmediately
+            -- and (not GROUP_LIST.groupSize or GROUP_LIST.groupSize == 0)
         })
-
     if params.treeEntry then self:InitializeSetupFunction(params.treeEntry) end
     self:InitializeRandomReward()
     self:InitializeEvents()

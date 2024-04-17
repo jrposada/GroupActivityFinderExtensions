@@ -36,7 +36,8 @@ local function queue(condition, verbose)
     local queuedLocations = {}
     local isGroupRelevant = IsUnitGrouped("player")
     local isLeader = IsUnitGroupLeader("player")
-    local activityType = ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and LFG_ACTIVITY_DUNGEON or LFG_ACTIVITY_MASTER_DUNGEON
+    local activityType = ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL and LFG_ACTIVITY_DUNGEON or
+        LFG_ACTIVITY_MASTER_DUNGEON
     local activityRequiresRoles = ZO_DoesActivityTypeRequireRoles(activityType)
     local sortedLocationsData = ZO_AFRM.specificLocationsLookupData[activityType]
     for _, location in pairs(sortedLocationsData) do
@@ -69,7 +70,8 @@ local function queue(condition, verbose)
             else
                 lockReasonStringId = SI_LFG_LOCK_REASON_COLLECTIBLE_NOT_UNLOCKED
             end
-            local lockReasonText = zo_strformat(lockReasonStringId, collectibleData:GetName(), collectibleData:GetCategoryData():GetName())
+            local lockReasonText = zo_strformat(lockReasonStringId, collectibleData:GetName(),
+                collectibleData:GetCategoryData():GetName())
             location:SetLockReasonText(lockReasonText)
             location:SetCountsForAverageRoleTime(false)
         else
@@ -80,7 +82,8 @@ local function queue(condition, verbose)
             elseif not location:DoesPlayerMeetLevelRequirements() then
                 local levelMin, levelMax = location:GetLevelRange()
                 local championPointsMin, championPointsMax = location:GetChampionPointsRange()
-                location:SetLockReasonText(GetLevelOrChampionPointsRequirementText(levelMin, levelMax, championPointsMin, championPointsMax))
+                location:SetLockReasonText(GetLevelOrChampionPointsRequirementText(levelMin, levelMax, championPointsMin,
+                    championPointsMax))
                 location:SetCountsForAverageRoleTime(false)
             elseif isGroupRelevant and not location:DoesGroupMeetLevelRequirements() then
                 location:SetLockReasonText(SI_LFG_LOCK_REASON_GROUP_LOCATION_LEVEL_REQUIREMENTS)
@@ -134,8 +137,8 @@ local function pledges(verbose)
 end
 
 local commandsList = {
-    {name="/quests", func=quests},
-    {name="/pledges", func=pledges}
+    { name = "/quests",  func = quests },
+    { name = "/pledges", func = pledges }
 }
 
 local function help()
@@ -159,9 +162,13 @@ function GAFE_DUNGEON_COMMANDS.Init()
     end
 
     if GAFE.SavedVars.developerMode then
+        local LQD = LibQuestData
+
+        GAFE.LogLater(LQD:get_quest_name(7156, GAFE.lang))
         GAFE.LogLater('GAFE Developer Mode is enabled.')
         GAFE.Debug.SetIds()
         GAFE.Debug.AchievementIds()
+        GAFE.Debug.DebugQuests()
 
         GAFE.LogLater('The following commands have been added:')
         GAFE.LogLater('/gafenodeids -- will log all node ids')

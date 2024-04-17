@@ -1,13 +1,13 @@
 {
-	"folders": [
-		{
-			"path": "."
-		},
-		{
-			"path": "..\\..\\SavedVariables"
-		}
-	],
-	"settings": {
-		"editor.formatOnSave": false,
-	}
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "..\\..\\SavedVariables"
+    }
+  ],
+  "settings": {
+    "editor.formatOnSave": false
+  }
 }
