@@ -31,9 +31,9 @@ end
 table.sort(fastTravelOptions)
 
 function GAFE.SettingsMenu.Init()
-    local saveData = GAFE.SavedVars                 -- This should be a reference to your actual saved variables table
+    local saveData = GAFE.SavedVars -- This should be a reference to your actual saved variables table
     local panelName = GAFE.name ..
-    "_SettingsPanel"                                -- The name will be used to create a global variable, pick something unique or you may overwrite an existing variable!
+        "_SettingsPanel"            -- The name will be used to create a global variable, pick something unique or you may overwrite an existing variable!
 
     local panelData = {
         type = "panel",
@@ -103,6 +103,12 @@ function GAFE.SettingsMenu.Init()
             name = GAFE.Loc("Settings_HandleQuest"),
             getFunc = function() return saveData.dungeons.handlePledgeQuest end,
             setFunc = function(value) GAFE_QUEST_AUTOMATION.AutomaticallyHandleQuests(value) end
+        },
+        {
+            type = "checkbox",
+            name = GAFE.Loc("Settings_AutoBind"),
+            getFunc = function() return saveData.autoBind.enabled end,
+            setFunc = function(value) GAFE_AUTO_BIND.Enable(value) end
         },
         {
             type = "submenu",
