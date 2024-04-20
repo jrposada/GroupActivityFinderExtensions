@@ -22,6 +22,9 @@ local defaultVars = {
         delay = 1000,
         loopSound = true
     },
+    autoBind = {
+        enabled = false
+    },
     trials = {
         chests = {}
     },

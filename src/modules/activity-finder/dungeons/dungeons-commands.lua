@@ -162,9 +162,6 @@ function GAFE_DUNGEON_COMMANDS.Init()
     end
 
     if GAFE.SavedVars.developerMode then
-        local LQD = LibQuestData
-
-        GAFE.LogLater(LQD:get_quest_name(7156, GAFE.lang))
         GAFE.LogLater('GAFE Developer Mode is enabled.')
         GAFE.Debug.SetIds()
         GAFE.Debug.AchievementIds()

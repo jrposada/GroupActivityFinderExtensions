@@ -51,8 +51,6 @@ function GAFE_QuestsSchedule:InitializeData()
     table.sort(dataItems, function(a, b)
         return a.zoneName < b.zoneName
     end)
-
-    GAFE.LogLater("all: " .. #dataItems)
 end
 
 function GAFE_QuestsSchedule:InitializeControls()
