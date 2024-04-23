@@ -15,6 +15,7 @@ GAFE.Localization = {
     Settings_TextureSize = "Icon size",
     Settings_AutoInvite = "BETA Auto invite",
     Settings_HandleQuest = "Automate supported quests",
+    Settings_AutoBind = "Auto bind uncollected items", -- TODO: translate
     Settings_CompatibilityTitle = "Compatibility",
     Settings_PerfectPixelAddon = "PerfectPixel",
     Settings_ResetPremiumRewards = "Reset premium reward timers",

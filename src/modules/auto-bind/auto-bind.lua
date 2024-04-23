@@ -33,7 +33,7 @@ local function OnInventoryChanged(_, bagId, slotIndex, _isNewItem_, _itemSoundCa
         BindItem(bagId, slotIndex)
 
         local texture = GetItemLinkIcon(link)
-        ChatMessage:New("[IE:Bind] " .. zo_strformat(" |t18:18:<<2>>|t <<t:1>>", link, texture)):Submit()
+        ChatMessage:New("[GAFE:Bind] " .. zo_strformat(" |t18:18:<<2>>|t <<t:1>>", link, texture)):Submit()
     end
 end
 

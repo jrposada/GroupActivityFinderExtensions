@@ -28,6 +28,7 @@ local function OnAddOnLoaded(eventCode, addonName)
     GAFE_SCHEDULE.Init()
     GAFE_MAP.Init()
     GAFE_QUEST_AUTOMATION.Init()
+    GAFE_AUTO_BIND.Init()
 
     -- Init settings menu
     GAFE.SettingsMenu.Init()
