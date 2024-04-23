@@ -149,7 +149,7 @@ function GAFE_DUNGEON_EXTENSIONS.Init()
             keybind = "UI_SHORTCUT_PRIMARY",
             callback = function() QueueForPledges() end,
             visible = function()
-                if not extender.isKeyboardListSectionVisible then
+                if IsCurrentlySearchingForGroup() then
                     return false
                 end
 
@@ -171,9 +171,7 @@ function GAFE_DUNGEON_EXTENSIONS.Init()
             keybind = "UI_SHORTCUT_SECONDARY",
             callback = function() extender:QueueForMissingQuests() end,
             enabled = true, -- TODO:
-            visible = function()
-                return extender.isKeyboardListSectionVisible
-            end
+            visible = function() return not IsCurrentlySearchingForGroup() end
         },
         -- Missing sets
         {
@@ -182,7 +180,7 @@ function GAFE_DUNGEON_EXTENSIONS.Init()
             keybind = "UI_SHORTCUT_TERTIARY",
             callback = function() extender:QueueForMissingSets() end,
             visible = function()
-                if not extender.isKeyboardListSectionVisible then
+                if IsCurrentlySearchingForGroup() then
                     return false
                 end
 
