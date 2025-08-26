@@ -1,3 +1,5 @@
+**DISCONTINUED**
+
 **READ BEFORE INSTALL**
 
 The amount of time and effort I put into the addon is directly related to the amount of time I play the game. I am a casual player, meaning I can go for a long time without playing (years in fact) and the addon **will not be updated during those times**. This type of addon requires updates each patch to support new dungeons and stuff. If you still want to give it a try you are more than welcome to do so. Have fun!
