@@ -30,7 +30,7 @@ local function queue(condition, verbose)
         return
     end
 
-    ClearGroupFinderSearch()
+    ClearActivityFinderSearch()
 
     local lockedLocations = {}
     local queuedLocations = {}
@@ -107,7 +107,7 @@ local function queue(condition, verbose)
         end
     end
 
-    local result = StartGroupFinderSearch()
+    local result = StartActivityFinderSearch()
     if result ~= ACTIVITY_QUEUE_RESULT_SUCCESS then
         ZO_AlertEvent(EVENT_ACTIVITY_QUEUE_RESULT, result)
     else
@@ -136,9 +136,53 @@ local function pledges(verbose)
     queue(condition, verbose)
 end
 
+local function random()
+    if IsCurrentlySearchingForGroup() then
+        return
+    end
+
+    ClearActivityFinderSearch()
+
+    local activityType = ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL
+        and LFG_ACTIVITY_DUNGEON
+        or LFG_ACTIVITY_MASTER_DUNGEON
+
+    local location = nil
+    local locationSetsData = ZO_AFRM.locationSetsLookupData[activityType]
+    if locationSetsData then
+        for _, setLocation in pairs(locationSetsData) do
+            if setLocation:DoesPlayerMeetLevelRequirements() and not setLocation:IsLocked() then
+                location = setLocation
+                break
+            end
+        end
+    end
+
+    if not location then
+        LibPanicida.Debug.LogLater("No eligible random dungeon found")
+        return
+    end
+
+    ZO_AFRM:SetLocationSelected(location, true)
+    location:AddActivitySearchEntry()
+
+    local result = StartActivityFinderSearch()
+    if result ~= ACTIVITY_QUEUE_RESULT_SUCCESS then
+        ZO_AlertEvent(EVENT_ACTIVITY_QUEUE_RESULT, result)
+    else
+        LibPanicida.Debug.LogLater(zo_strformat(GAFE.Loc("QueueForActivity"),
+            activityType == LFG_ACTIVITY_DUNGEON
+            and GetString(SI_DUNGEONDIFFICULTY1)
+            or GetString(SI_DUNGEONDIFFICULTY2),
+            GetString(SI_GROUPFINDERCATEGORY_SINGLESELECTDEFAULT0)
+        ))
+    end
+end
+
 local commandsList = {
     { name = "/quests",  func = quests },
-    { name = "/pledges", func = pledges }
+    { name = "/pledges", func = pledges },
+    { name = "/random",  func = random },
 }
 
 local function help()
