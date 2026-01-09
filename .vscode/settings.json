@@ -163,6 +163,7 @@
     "LibAddonMenu2",
     "LibPanicida",
     "LibQuestData",
+    "LibQuestData_GetAllZones",
     "LibScroll",
     "MAIN_MENU_KEYBOARD",
     "MAX_JOURNAL_QUESTS",
