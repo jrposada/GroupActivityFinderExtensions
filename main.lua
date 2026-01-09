@@ -10,7 +10,7 @@ local function OnAddOnLoaded(eventCode, addonName)
 
     -- Migrate old saved vars versions
     if not pcall(GAFE.Vars.Migrate) then
-        GAFE.LogLater("Could not migrate Group & Activity Finder Extensions settings. Reset to default.")
+        LibPanicida.Debug.LogLater("Could not migrate Group & Activity Finder Extensions settings. Reset to default.")
     end
 
     -- Load saved variables
@@ -19,7 +19,6 @@ local function OnAddOnLoaded(eventCode, addonName)
 
     -- Initialize modules
     GAFE_TRIALS_CHESTS.Init()
-
     GAFE_GROUP_EXTENSIONS.Init()
     GAFE_DUNGEON_EXTENSIONS.Init()
     GAFE_DUNGEON_COMMANDS.Init()
@@ -31,8 +30,6 @@ local function OnAddOnLoaded(eventCode, addonName)
 
     -- Init settings menu
     GAFE.SettingsMenu.Init()
-
-    -- LibPanicida.Controls.Debug()
 end
 
 -- Finally, we'll register our event handler function to be called when the proper event occurs.

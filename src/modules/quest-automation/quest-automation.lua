@@ -1,6 +1,5 @@
 local GAFE = GroupActivityFinderExtensions
 local LQD = LibQuestData
-local LQD_Internal = _G["LibQuestData_Internal"]
 
 GAFE_QUEST_AUTOMATION = {
     dialyNpcName = {},
@@ -36,7 +35,8 @@ local function IsCraftingWrit(questId)
 end
 
 function GAFE_QUEST_AUTOMATION.Init()
-    for _, zone in pairs(LQD_Internal.quest_locations) do
+    local allZones = LibQuestData_GetAllZones()
+    for _, zone in pairs(allZones) do
         for _, questPinData in ipairs(zone) do
             local questId = questPinData[LQD.quest_map_pin_index.quest_id]
             local questRepeat = LQD:get_quest_repeat(questId)
