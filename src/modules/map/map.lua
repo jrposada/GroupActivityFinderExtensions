@@ -23,10 +23,17 @@ function GAFE_MAP.Init()
 
             if knownNode then
                 if isFastTravel then
-                    ZO_Dialogs_ShowPlatformDialog("FAST_TRAVEL_CONFIRM", { nodeIndex = nodeIndex },
-                        { mainTextParams = { name } })
+                    ZO_Dialogs_ShowPlatformDialog(
+                        "FAST_TRAVEL_CONFIRM",
+                        { nodeIndex = nodeIndex },
+                        { mainTextParams = { name } }
+                    )
                 else
-                    ZO_Dialogs_ShowPlatformDialog("RECALL_CONFIRM", { nodeIndex = nodeIndex }, { mainTextParams = { name } })
+                    ZO_Dialogs_ShowPlatformDialog(
+                        "RECALL_CONFIRM",
+                        { nodeIndex = nodeIndex },
+                        { mainTextParams = { name } }
+                    )
                 end
             end
         end
@@ -44,16 +51,28 @@ function GAFE_MAP.Init()
         -- Add Fast travel to alliances
         local function FastTravelToAllianceCity(params)
             local nodeIndex, parent, position, texture = params.nodeIndex, params.parent, params.position, params
-            .texture
+                .texture
             local size = 30
 
             local knownNode, name = GetFastTravelNodeInfo(nodeIndex)
             local xOffset = 4
-            GAFE.UI.Texture(parent:GetName() .. "GAFE_Label" .. nodeIndex, parent, { size, size * 2 },
-                { TOPLEFT, parent, TOPLEFT, position * size + xOffset, -45 }, texture)
-            local button = GAFE.UI.Button(parent:GetName() .. "GAFE_Button" .. nodeIndex, parent, { size * 1.2, size *
-            1.2 }, { TOPLEFT, parent, TOPLEFT, position * size + xOffset + size - 10, -47 }, nil,
-                function() TeleportTo(nodeIndex) end, true, name)
+            LibPanicida.Controls.Texture(
+                parent:GetName() .. "GAFE_Label" .. nodeIndex,
+                parent,
+                { size, size * 2 },
+                { TOPLEFT, parent, TOPLEFT, position * size + xOffset, -45 },
+                texture
+            )
+            local button = LibPanicida.Controls.Button(
+                parent:GetName() .. "GAFE_Button" .. nodeIndex,
+                parent,
+                { size * 1.2, size * 1.2 },
+                { TOPLEFT, parent, TOPLEFT, position * size + xOffset + size - 10, -47 },
+                nil,
+                function() TeleportTo(nodeIndex) end,
+                true,
+                { name }
+            )
             if knownNode then
                 button:SetNormalTexture("/esoui/art/icons/poi/poi_wayshrine_complete.dds")
                 button:SetMouseOverTexture("/esoui/art/icons/poi/poi_wayshrine_glow.dds")
@@ -63,13 +82,27 @@ function GAFE_MAP.Init()
         end
 
         local parent = ZO_WorldMapInfo
-        FastTravelToAllianceCity({ nodeIndex = 214, parent = parent, position = 0, texture =
-        "/esoui/art/ava/ava_allianceflag_aldmeri.dds" })
-        FastTravelToAllianceCity({ nodeIndex = 56, parent = parent, position = 2, texture =
-        "/esoui/art/ava/ava_allianceflag_daggerfall.dds" })
-        FastTravelToAllianceCity({ nodeIndex = 28, parent = parent, position = 4, texture =
-        "/esoui/art/ava/ava_allianceflag_ebonheart.dds" })
-        -- FastTravelToAllianceCity({nodeIndex=220, parent=parent, position=6, texture=}) -- Craglorn
+        FastTravelToAllianceCity({
+            nodeIndex = 214,
+            parent = parent,
+            position = 0,
+            texture =
+            "/esoui/art/ava/ava_allianceflag_aldmeri.dds"
+        })
+        FastTravelToAllianceCity({
+            nodeIndex = 56,
+            parent = parent,
+            position = 2,
+            texture =
+            "/esoui/art/ava/ava_allianceflag_daggerfall.dds"
+        })
+        FastTravelToAllianceCity({
+            nodeIndex = 28,
+            parent = parent,
+            position = 4,
+            texture =
+            "/esoui/art/ava/ava_allianceflag_ebonheart.dds"
+        })
     end
 
     local function OnHidden()
