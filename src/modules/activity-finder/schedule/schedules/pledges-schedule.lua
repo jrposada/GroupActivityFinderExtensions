@@ -35,7 +35,7 @@ function GAFE_PledgesSchedule:Initialize(control)
     self.upcomingHeader = self.upcoming:GetNamedChild("Header")
     self.upcomingListContainer = self.upcoming:GetNamedChild("ListContainer")
 
-    local today = GAFE.GetDay()
+    local today = LibPanicida.Utils.GetDailyResetDay()
     self.todayPledges = GetPledgesOfDay(today)
 
     self:InitializeControls()
@@ -134,9 +134,9 @@ function GAFE_PledgesSchedule:InitializeTodayFragment()
         self.todayHeader,
         {
             name = '',
-            maj = GAFE.CleanPledgeQuestName(LQD:get_quest_name(self.todayPledges[1], GAFE.lang)),
-            glirion = GAFE.CleanPledgeQuestName(LQD:get_quest_name(self.todayPledges[2], GAFE.lang)),
-            urgarlag = GAFE.CleanPledgeQuestName(LQD:get_quest_name(self.todayPledges[3], GAFE.lang)),
+            maj = LibPanicida.Utils.CleanPledgeQuestName(LQD:get_quest_name(self.todayPledges[1], GAFE.lang)),
+            glirion = LibPanicida.Utils.CleanPledgeQuestName(LQD:get_quest_name(self.todayPledges[2], GAFE.lang)),
+            urgarlag = LibPanicida.Utils.CleanPledgeQuestName(LQD:get_quest_name(self.todayPledges[3], GAFE.lang)),
         }
     )
 
@@ -246,16 +246,16 @@ function GAFE_PledgesSchedule:InitializeUpcomingFragment()
     scrollList:SetAnchor(BOTTOMRIGHT, parent, BOTTOMRIGHT, 0, 0)
 
     -- Add data to scroll list.
-    local today = GAFE.GetDay()
+    local today = LibPanicida.Utils.GetDailyResetDay()
 
     local dataItems = {}
     for day = 1, 14 do
         local pledges = GetPledgesOfDay(today + day)
         local data = {
             day = day,
-            maj = GAFE.CleanPledgeQuestName(LQD:get_quest_name(pledges[1], GAFE.lang)),
-            glirion = GAFE.CleanPledgeQuestName(LQD:get_quest_name(pledges[2], GAFE.lang)),
-            urgarlag = GAFE.CleanPledgeQuestName(LQD:get_quest_name(pledges[3], GAFE.lang)),
+            maj = LibPanicida.Utils.CleanPledgeQuestName(LQD:get_quest_name(pledges[1], GAFE.lang)),
+            glirion = LibPanicida.Utils.CleanPledgeQuestName(LQD:get_quest_name(pledges[2], GAFE.lang)),
+            urgarlag = LibPanicida.Utils.CleanPledgeQuestName(LQD:get_quest_name(pledges[3], GAFE.lang)),
         }
         dataItems[day] = data
     end
@@ -287,9 +287,18 @@ function GAFE_PledgesSchedule:RefreshTodayPledges()
         local donePledges = GAFE.SavedVars.dungeons.donePledges[characterId] or {};
         local data = {
             character = zo_strformat("<<1>>", characterName),
-            maj = GAFE.ContainsKey(donePledges, self.todayPledges[1]) and 'Done' or "|cFFD700Available|r",
-            glirion = GAFE.ContainsKey(donePledges, self.todayPledges[2]) and 'Done' or "|cFFD700Available|r",
-            urgarlag = GAFE.ContainsKey(donePledges, self.todayPledges[3]) and 'Done' or "|cFFD700Available|r"
+            maj = LibPanicida.Utils.TableContainsKey(
+                donePledges,
+                self.todayPledges[1]
+            ) and 'Done' or "|cFFD700Available|r",
+            glirion = LibPanicida.Utils.TableContainsKey(
+                donePledges,
+                self.todayPledges[2]
+            ) and 'Done' or "|cFFD700Available|r",
+            urgarlag = LibPanicida.Utils.TableContainsKey(
+                donePledges,
+                self.todayPledges[3]
+            ) and 'Done' or "|cFFD700Available|r"
         }
         dataItems[i] = data
     end

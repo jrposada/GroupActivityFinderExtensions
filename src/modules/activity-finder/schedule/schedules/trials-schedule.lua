@@ -144,7 +144,7 @@ function GAFE_TrialsSchedule:UpdateChestLabel(label, questId)
     local chestText = ""
     local timeUntilNextChest = GAFE_TRIALS_CHESTS.GetTimeUntilNextChest(self.characterId, questId)
     if timeUntilNextChest > 0 then
-        chestText = GAFE.ParseTimeStamp(timeUntilNextChest)
+        chestText = LibPanicida.Utils.ParseTimeStamp(timeUntilNextChest)
     end
     label:SetText(chestText)
 end

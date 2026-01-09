@@ -111,10 +111,10 @@ local function queue(condition, verbose)
     if result ~= ACTIVITY_QUEUE_RESULT_SUCCESS then
         ZO_AlertEvent(EVENT_ACTIVITY_QUEUE_RESULT, result)
     else
-        GAFE.LogLater(GAFE.Loc("Debug_QueuedList") .. ZO_GenerateCommaSeparatedList(queuedLocations))
+        LibPanicida.Debug.LogLater(GAFE.Loc("Debug_QueuedList") .. ZO_GenerateCommaSeparatedList(queuedLocations))
 
         if verbose == "verbose" then
-            GAFE.LogLater(GAFE.Loc("Debug_NotQueuedList") .. ZO_GenerateCommaSeparatedList(lockedLocations))
+            LibPanicida.Debug.LogLater(GAFE.Loc("Debug_NotQueuedList") .. ZO_GenerateCommaSeparatedList(lockedLocations))
         end
     end
 end
@@ -143,7 +143,7 @@ local commandsList = {
 
 local function help()
     for _, param in pairs(commandsList) do
-        GAFE.LogLater(param)
+        LibPanicida.Debug.LogLater(param)
     end
 end
 
@@ -154,23 +154,5 @@ function GAFE_DUNGEON_COMMANDS.Init()
 
     for _, param in pairs(commandsList) do
         SLASH_COMMANDS[param.name] = param.func
-    end
-
-    -- todo: move to elsewere
-    SLASH_COMMANDS['/home'] = function()
-        RequestJumpToHouse(GetHousingPrimaryHouse(), false)
-    end
-
-    if GAFE.SavedVars.developerMode then
-        GAFE.LogLater('GAFE Developer Mode is enabled.')
-        GAFE.Debug.SetIds()
-        GAFE.Debug.AchievementIds()
-        GAFE.Debug.DebugQuests()
-
-        GAFE.LogLater('The following commands have been added:')
-        GAFE.LogLater('/gafenodeids -- will log all node ids')
-
-        SLASH_COMMANDS["/gafenodeids"] = function() GAFE.Debug.LogNodeIds() end
-        -- GAFE.Debug.LogControlShown()
     end
 end

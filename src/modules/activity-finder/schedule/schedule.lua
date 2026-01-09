@@ -5,10 +5,10 @@ GAFE_SCHEDULE = {}
 
 function GAFE_SCHEDULE.Init()
     local control = _G["GAFE_ActivitySchedulePanel"] or
-    WM:CreateControlFromVirtual('GAFE_ActivitySchedulePanel', GuiRoot, "GAFE_ActivitySchedulePanel")
+        WM:CreateControlFromVirtual('GAFE_ActivitySchedulePanel', GuiRoot, "GAFE_ActivitySchedulePanel")
     local fragment = ZO_FadeSceneFragment:New(control)
 
-    local priority = GAFE_ACTIVITY_FINDER_SORT_PRIORITY.ACTIVITY_SCHEDULE
+    local priority = LibPanicida.Constants.ACTIVITY_FINDER_SORT_PRIORITY.ACTIVITY_SCHEDULE
     GROUP_MENU_KEYBOARD:AddCategory({
         priority = priority,
         name = GAFE.Loc("ActivitySchedule"),

@@ -115,8 +115,7 @@ function GAFE_ActivityFinderExtender:InitializeSetupFunction(_treeEntry_)
             -- Wayshrine
             self:AddWayshrine(activityData.node, control)
         elseif GAFE.SavedVars.developerMode then
-            -- TODO:
-            GAFE.UI.Label(control:GetName() .. "TODO", control, { 125, 20 }, { LEFT, control, LEFT, 420, 0 },
+            LibPanicida.Controls.Label(control:GetName() .. "TODO", control, { 125, 20 }, { LEFT, control, LEFT, 420, 0 },
                 "ZoFontGameLarge", nil, { 0, 1 }, "TODO " .. activityId)
         end
 
@@ -130,7 +129,8 @@ function GAFE_ActivityFinderExtender:InitializeRandomReward()
     -- Initialize control.
     self.singularSectionRewards = _G[self.root .. "Finder_Keyboard" .. "SingularSectionRewardsSectionHeader"]
     if self.singularSectionRewards then
-        self.premiumRewardTimerControl = GAFE.UI.Label(self.root .. "_RandomReward", self.singularSectionRewards,
+        self.premiumRewardTimerControl = LibPanicida.Controls.Label(self.root .. "_RandomReward",
+            self.singularSectionRewards,
             { 125, 20 }, { TOPLEFT, self.parent, TOPRIGHT, 10, 2 }, "ZoFontGameShadow", nil, { 0, 1 })
     end
 end
@@ -256,30 +256,32 @@ end
 
 function GAFE_ActivityFinderExtender:AddWayshrine(_nodeIndex_, _parent_)
     local nodeIndex, parent = _nodeIndex_, _parent_
-    local text, knownNode, name = nil, nil, nil
+    local knownNode, name = nil, nil
 
     local function FastTravel()
         ZO_Dialogs_ShowPlatformDialog("RECALL_CONFIRM", { nodeIndex = nodeIndex }, { mainTextParams = { name } })
     end
 
     if nodeIndex then
-        knownNode, name = GetFastTravelNodeInfo(nodeIndex)
-        text = knownNode and self:FormatTexture("/esoui/art/icons/poi/poi_wayshrine_complete.dds") or ""
-    elseif GAFE.SavedVars.developerMode then
-        text = "-"
+        knownNode = GetFastTravelNodeInfo(nodeIndex)
     end
 
-    return GAFE.UI.Button(
+    local button = LibPanicida.Controls.Button(
         parent:GetName() .. "t",
         parent,
         { self.textureSize, self.textureSize },
         { RIGHT, parent, LEFT, -5, 0 },
-        text,
+        nil,
         FastTravel,
         true,
         nil,
         not knownNode
     )
+
+    button:SetNormalTexture("/esoui/art/icons/poi/poi_wayshrine_complete.dds")
+    button:SetMouseOverTexture("/esoui/art/icons/poi/poi_wayshrine_glow.dds")
+
+    return button
 end
 
 function GAFE_ActivityFinderExtender:AddSets(_setsIds_, _parent_)
@@ -315,7 +317,7 @@ function GAFE_ActivityFinderExtender:AddIcon(_controlName_, _parent_, _text_, _f
     local position = self.position
     self.position = position - self.textureSize
 
-    return GAFE.UI.Button(
+    return LibPanicida.Controls.Button(
         controlName,
         parent,
         { self.textureSize, self.textureSize },
@@ -323,7 +325,7 @@ function GAFE_ActivityFinderExtender:AddIcon(_controlName_, _parent_, _text_, _f
         text,
         func,
         true,
-        tooltip,
+        { tooltip },
         hidden
     )
 end
@@ -342,7 +344,7 @@ function GAFE_ActivityFinderExtender:Collapse()
         end
     end
 
-    GAFE.CallLater(GAFE.name .. self.root .. "_Extensions", 200, collapse)
+    LibPanicida.Utils.CallLater(GAFE.name .. self.root .. "_Extensions", 200, collapse)
 end
 
 function GAFE_ActivityFinderExtender:UpdatePurpleRewardTimer()
@@ -412,12 +414,12 @@ end
 function GAFE_ActivityFinderExtender.GetTimeUntilNextReward(characterId, rewardsVars)
     local result = 0
     local completedTimeStamp = rewardsVars.randomRewards[characterId]
-    local today = GAFE.GetDay()
+    local today = LibPanicida.Utils.GetDailyResetDay()
 
-    local nextReset = (today + 1) * 86400 + GAFE.baseResetTimesamp -- 86400 = 1 day
+    local nextReset = (today + 1) * 86400 + LibPanicida.Utils.GetDailyRestBase() -- 86400 = 1 day
 
-    if GAFE.GetDay(completedTimeStamp or 0) >= today then
-        result = nextReset - GetTimeStamp() -- 72000 = 20 hours
+    if LibPanicida.Utils.GetDailyResetDay(completedTimeStamp or 0) >= today then
+        result = nextReset - GetTimeStamp()
     end
 
     return result

@@ -1,7 +1,6 @@
 local GAFE = GroupActivityFinderExtensions
 local libScroll = LibScroll
 local LQD = LibQuestData
-local LQD_Internal = _G["LibQuestData_Internal"]
 
 local dataItems = {}
 
@@ -28,7 +27,8 @@ function GAFE_QuestsSchedule:Initialize(control)
 end
 
 function GAFE_QuestsSchedule:InitializeData()
-    for zoneName, zone in pairs(LQD_Internal.quest_locations) do
+    local allZones = LibQuestData_GetAllZones()
+    for zoneName, zone in pairs(allZones) do
         local quests = {}
         for _, questPinData in ipairs(zone) do
             local questId = questPinData[LQD.quest_map_pin_index.quest_id]
