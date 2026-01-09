@@ -17,7 +17,7 @@ local function UpdateTodayPledges()
         day = nil
     }
 
-    todayPledges.day = GAFE.GetDay()
+    todayPledges.day = LibPanicida.Utils.GetDailyResetDay()
 
     for npc = 1, 3 do
         local dpList = GAFE_PLEDGE_LIST[npc]
@@ -103,12 +103,12 @@ local function QueueForRandomDungeon()
     if result ~= ACTIVITY_QUEUE_RESULT_SUCCESS then
         ZO_AlertEvent(EVENT_ACTIVITY_QUEUE_RESULT, result)
     else
-        GAFE.LogLater(zo_strformat(GAFE.Loc("QueueForActivity"),
+        LibPanicida.Debug.LogLater(zo_strformat(GAFE.Loc("QueueForActivity"),
             extender.dungeonDifficulty == LFG_ACTIVITY_DUNGEON
             and GetString(SI_DUNGEONDIFFICULTY1)
             or GetString(SI_DUNGEONDIFFICULTY2),
             GetString(SI_GROUPFINDERCATEGORY_SINGLESELECTDEFAULT0)
-        )) -- TODO: translate
+        ))
     end
 end
 
@@ -156,7 +156,7 @@ function GAFE_DUNGEON_EXTENSIONS.Init()
                 local donePledges = GAFE.SavedVars.dungeons.donePledges[characterId];
 
                 for _, pledgeId in ipairs(todayPledges) do
-                    if not GAFE.ContainsKey(donePledges, pledgeId) then
+                    if not LibPanicida.Utils.TableContainsKey(donePledges, pledgeId) then
                         return false
                     end
                 end
@@ -276,7 +276,8 @@ function GAFE_DUNGEON_EXTENSIONS.GetPledgesInJournal()
             if pledgeId then
                 result[pledgeId] = stepType ~= QUEST_STEP_TYPE_AND
             else
-                GAFE.LogLater("Group & Activity Finder Extensions has encounter an unknown pledge quest name: " ..
+                LibPanicida.Debug.LogLater(
+                    "Group & Activity Finder Extensions has encounter an unknown pledge quest name: " ..
                     questName)
             end
         end

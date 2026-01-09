@@ -19,7 +19,8 @@ local function RefreshAutoConfirmEvents()
     local function OnActivityFinderStatusChange(_, status)
         if status == ACTIVITY_FINDER_STATUS_READY_CHECK and not IsActiveWorldBattleground() then
             if savedVars.autoConfirm.enabled and savedVars.autoConfirm.value then
-                GAFE.CallLater("ReadyCheck", GAFE.SavedVars.autoConfirm.delay, AcceptLFGReadyCheckNotification)
+                LibPanicida.Utils.CallLater("ReadyCheck", GAFE.SavedVars.autoConfirm.delay,
+                    AcceptLFGReadyCheckNotification)
             end
 
             if savedVars.autoConfirm.loopSound then
@@ -57,9 +58,16 @@ function GAFE_QUEUE_EXTENSIONS.Init()
         -- Create control
         local parent = ZO_SearchingForGroupStatus
         if parent then
-            autoConfirmCheckbox = GAFE.UI.Checkbox("GAFE_AutoConfirmActivity", parent, { 200, 28 },
-                { BOTTOM, parent, TOP, 0, 0 }, GAFE.Loc("AutoConfirm"), ToggleAutoConfirm, true,
-                savedVars.autoConfirm.value, not savedVars.autoConfirm.enabled)
+            autoConfirmCheckbox = LibPanicida.Controls.Checkbox(
+                "GAFE_AutoConfirmActivity",
+                parent,
+                { 200, 28 },
+                { BOTTOM, parent, TOP, 0, 0 },
+                GAFE.Loc("AutoConfirm"),
+                ToggleAutoConfirm, true,
+                savedVars.autoConfirm.value,
+                not savedVars.autoConfirm.enabled
+            )
         end
 
         -- Init events
@@ -94,8 +102,15 @@ function GAFE_QUEUE_EXTENSIONS.Init()
 
         -- Create label control
         local parent = ZO_ActivityTrackerContainerSubLabel
-        timerLabel = GAFE.UI.Label("GAFE_ActivityTracker_QueueTimer", parent, { 125, 20 }, { LEFT, parent, LEFT, 0, 20 },
-            "ZoFontGameShadow", nil, { 0, 1 })
+        timerLabel = LibPanicida.Controls.Label(
+            "GAFE_ActivityTracker_QueueTimer",
+            parent,
+            { 125, 20 },
+            { LEFT, parent, LEFT, 0, 20 },
+            "ZoFontGameShadow",
+            nil,
+            { 0, 1 }
+        )
 
         ZO_ACTIVITY_FINDER_ROOT_MANAGER:RegisterCallback("OnActivityFinderStatusUpdate", OnActivityFinderStatusUpdate)
     end
