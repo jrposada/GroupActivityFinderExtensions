@@ -19,11 +19,11 @@
 
 vars.lua
 
-src/infrastructure/constants.lua
-src/infrastructure/utils.lua
-src/infrastructure/controls.lua
-src/infrastructure/debug.lua
-src/infrastructure/chat-message.lua
+src/common/constants.lua
+src/common/utils.lua
+src/common/controls.lua
+src/common/debug.lua
+src/common/chat-message.lua
 
 src/ui/button.xml
 
@@ -43,8 +43,6 @@ src/modules/activity-finder/trials/trials-chests.lua
 
 src/lang/en.lua
 src/lang/$(language).lua
-
-src/modules/auto-bind/auto-bind.lua
 
 src/modules/quest-automation/quest-automation.lua
 
