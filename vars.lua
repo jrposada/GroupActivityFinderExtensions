@@ -83,7 +83,7 @@ local function migration3()
     local newVersion = 3
     local newDefault = {
         textureSize = 25,
-        collapse = GAFE.Constants.CollapseMode.Group,
+        collapse = GAFE.Constants.CollapseMode.Group, -- FIXME
         autoInvite = {
             enabled = false
         },

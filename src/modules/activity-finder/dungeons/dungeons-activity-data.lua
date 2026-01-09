@@ -1,4 +1,5 @@
 -- https://esoitem.uesp.net/viewlog.php
+-- id: Vanquisher/Conqueror Achievement ID, node: Wayshrine node IDs, q: Skill point quest ID, p: Pledge ID, hm: Hard Mode Achievement ID, tt: Trial Tracker Achievement ID, nd: No Death Achievement ID, sets: Set IDs
 GAFE_DUNGEONS_ACTIVITY_DATA = {
     --Normal
     [GAFE_ACTIVITY_ID.NormalFungalGrottoI]       = { id = 294, node = 98, q = 3993, p = GAFE_PLEDGE_ID.FungalGrottoI, hm = false, tt = false, nd = false, sets = { GAFE_SET_ID.DreughKingSlayer, GAFE_SET_ID.SpiderCultistCowl, GAFE_SET_ID.VipersSting } },
@@ -35,6 +36,7 @@ GAFE_DUNGEONS_ACTIVITY_DATA = {
     [GAFE_ACTIVITY_ID.NormalCradleOfShadows]     = { id = 1522, node = 261, q = 5702, p = GAFE_PLEDGE_ID.CradleOfShadows, hm = false, tt = false, nd = false, sets = { GAFE_SET_ID.Gossamer, GAFE_SET_ID.HandofMephala, GAFE_SET_ID.Widowmaker } },
     [GAFE_ACTIVITY_ID.NormalDepthsOfMalatar]     = { id = 2270, node = 390, q = 6251, p = GAFE_PLEDGE_ID.DepthsOfMalatar, hm = false, tt = false, nd = false, sets = { GAFE_SET_ID.AuroransThunder, GAFE_SET_ID.FrozenWatcher, GAFE_SET_ID.ScavengingDemise } },
     [GAFE_ACTIVITY_ID.NormalEarthenRootEnclave]  = { id = 3375, node = 520, q = 6835, p = GAFE_PLEDGE_ID.EarthenRootEnclave, hm = false, tt = false, nd = false, sets = { GAFE_SET_ID.DeeprootZeal, GAFE_SET_ID.RageOfTheUrsauk, GAFE_SET_ID.StonesAccord } },
+    [GAFE_ACTIVITY_ID.NormalExiledRedbout]       = { id = 4109, node = 581, q = 7235, p = GAFE_PLEDGE_ID.ExiledRedbout, hm = false, tt = false, nd = false, sets = { GAFE_SET_ID.JerensisBladestorm, GAFE_SET_ID.LucillasWindshield, GAFE_SET_ID.VandorallensResonance } },
     [GAFE_ACTIVITY_ID.NormalFalkreathHold]       = { id = 1698, node = 332, q = 5891, p = GAFE_PLEDGE_ID.FalkreathHold, hm = false, tt = false, nd = false, sets = { GAFE_SET_ID.DraugrsRest, GAFE_SET_ID.Ironblood, GAFE_SET_ID.PillarofNirn } },
     [GAFE_ACTIVITY_ID.NormalFangLair]            = { id = 1959, node = 341, q = 6064, p = GAFE_PLEDGE_ID.FangLair, hm = false, tt = false, nd = false, sets = { GAFE_SET_ID.CaluurionsLegacy, GAFE_SET_ID.TrappingsofInvigoration, GAFE_SET_ID.UlfnorsFavor } },
     [GAFE_ACTIVITY_ID.NormalFrostvault]          = { id = 2260, node = 389, q = 6249, p = GAFE_PLEDGE_ID.Frostvault, hm = false, tt = false, nd = false, sets = { GAFE_SET_ID.IcyConjuror, GAFE_SET_ID.MightyGlacier, GAFE_SET_ID.TzogvinsWarband } },
@@ -42,6 +44,7 @@ GAFE_DUNGEONS_ACTIVITY_DATA = {
     [GAFE_ACTIVITY_ID.NormalIcereach]            = { id = 2539, node = 424, q = 6414, p = GAFE_PLEDGE_ID.Icereach, hm = false, tt = false, nd = false, sets = { GAFE_SET_ID.BanisTorment, GAFE_SET_ID.HitisHearth, GAFE_SET_ID.TitanbornStrength } },
     [GAFE_ACTIVITY_ID.NormalImperialCityPrison]  = { id = 1345, node = 236, q = 5136, p = GAFE_PLEDGE_ID.ImperialCityPrison, hm = false, tt = false, nd = false, sets = { GAFE_SET_ID.LeechingPlate, GAFE_SET_ID.ScathingMage, GAFE_SET_ID.SheerVenom } },
     [GAFE_ACTIVITY_ID.NormalLairOfMaarselok]     = { id = 2425, node = 398, q = 6351, p = GAFE_PLEDGE_ID.LairOfMaarselok, hm = false, tt = false, nd = false, sets = { GAFE_SET_ID.AzureblightReaper, GAFE_SET_ID.DragonsDefilement, GAFE_SET_ID.ZensRedress } },
+    [GAFE_ACTIVITY_ID.NormalLepScluse]           = { id = 4128, node = 582, q = 7237, p = GAFE_PLEDGE_ID.LepScluse, hm = false, tt = false, nd = false, sets = { GAFE_SET_ID.FledglingsNest, GAFE_SET_ID.HeroicUnity, GAFE_SET_ID.NoxiousBoulder } },
     [GAFE_ACTIVITY_ID.NormalMarchOfSacrifices]   = { id = 2162, node = 370, q = 6188, p = GAFE_PLEDGE_ID.MarchOfSacrifices, hm = false, tt = false, nd = false, sets = { GAFE_SET_ID.BloodMoon, GAFE_SET_ID.HanusCompassion, GAFE_SET_ID.HavenofUrsus } },
     [GAFE_ACTIVITY_ID.NormalMoonHunterKeep]      = { id = 2152, node = 371, q = 6186, p = GAFE_PLEDGE_ID.MoonHunterKeep, hm = false, tt = false, nd = false, sets = { GAFE_SET_ID.JailersTenacity, GAFE_SET_ID.MoonHunter, GAFE_SET_ID.SavageWerewolf } },
     [GAFE_ACTIVITY_ID.NormalMoongraveFane]       = { id = 2415, node = 391, q = 6349, p = GAFE_PLEDGE_ID.MoongraveFane, hm = false, tt = false, nd = false, sets = { GAFE_SET_ID.DroZakarsClaws, GAFE_SET_ID.HollowfangThirst, GAFE_SET_ID.RenaldsResolve } },

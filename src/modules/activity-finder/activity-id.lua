@@ -162,6 +162,12 @@ GAFE_ACTIVITY_ID = {
     NormalGravenDeep          = 610,
     VeteranGravenDeep         = 611,
 
+    NormalExiledRedbout       = 855,
+    VeteranExiledRedbout      = 856,
+
+    NormalLepScluse           = 857,
+    VeteranLepScluse          = 858,
+
     -- Custom ids. For safety start from 1000
     NormalAetherianArchive    = 1001,
     VeteranAetherianArchive   = 1002,

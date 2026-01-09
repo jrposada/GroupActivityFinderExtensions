@@ -183,7 +183,6 @@ GAFE_SET_ID = {
     BlindPathInduction = 735,
     ReflectedFury = 737,
     TarnishedNightmare = 736,
-    -- Trial Sets
     DefendingWarrior = 138,
     HealingMage = 141,
     InfallibleMage = 172,
@@ -256,4 +255,10 @@ GAFE_SET_ID = {
     InventorsGuard = 333,
     MasterArchitect = 332,
     WarMachine = 331,
+    FledglingsNest = 799,
+    HeroicUnity = 798,
+    NoxiousBoulder = 800,
+    JerensisBladestorm = 795,
+    LucillasWindshield = 796,
+    VandorallensResonance = 794,
 }

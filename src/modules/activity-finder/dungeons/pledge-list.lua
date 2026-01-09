@@ -55,11 +55,13 @@ GAFE_PLEDGE_LIST = {
         GAFE_PLEDGE_ID.CoralAerie,
         GAFE_PLEDGE_ID.ShipwrightsRegret,
         GAFE_PLEDGE_ID.EarthenRootEnclave,
-        GAFE_PLEDGE_ID.GravenDeep,   -- Last
-        GAFE_PLEDGE_ID.BalSunnar,    -- sort
+        GAFE_PLEDGE_ID.GravenDeep,     -- Last
+        GAFE_PLEDGE_ID.BalSunnar,      -- sort
         GAFE_PLEDGE_ID.ScrivenersHall, -- sort
-        GAFE_PLEDGE_ID.BedlamVeil,   -- sort
-        GAFE_PLEDGE_ID.OathswornPit, -- sort
-        shift = 13
+        GAFE_PLEDGE_ID.BedlamVeil,     -- sort
+        GAFE_PLEDGE_ID.OathswornPit,   -- sort
+        GAFE_PLEDGE_ID.LepScluse,      -- sort
+        GAFE_PLEDGE_ID.ExiledRedbout,  -- sort
+        shift = 27
     },
 }
