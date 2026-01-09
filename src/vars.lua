@@ -34,6 +34,9 @@ local defaultVars = {
     developerMode = false,
     map = {
         favourite = 284
+    },
+    armory = {
+        currentBuildIndex = {}
     }
 }
 

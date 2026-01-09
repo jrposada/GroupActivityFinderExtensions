@@ -3,7 +3,7 @@
 ## Author: Panicida
 ## Version: 5.7.0
 ## APIVersion: 101048
-## DependsOn: LibPanicida LibSavedVars LibAddonMenu-2.0 LibQuestData LibScroll 
+## DependsOn: LibPanicida LibSavedVars LibAddonMenu-2.0 LibQuestData LibScroll
 ## SavedVariables: GroupActivityFinderExtensions_Vars
 
 ; DISCLAIMER:
@@ -16,7 +16,7 @@
 ; You can read the full terms at:
 ; https://account.elderscrollsonline.com/add-on-terms
 
-vars.lua
+src/vars.lua
 
 src/modules/activity-finder/activity-id.lua
 src/modules/activity-finder/collapse-mode.lua
@@ -59,8 +59,10 @@ src/modules/activity-finder/schedule/schedule.lua
 
 src/modules/map/map.lua
 
+src/modules/inventory/inventory.lua
+
 src/modules/pvp/ram/ram.lua
 src/modules/pvp/ram/ram.xml
 
-settings-menu.lua
-main.lua
+src/settings-menu.lua
+src/main.lua
