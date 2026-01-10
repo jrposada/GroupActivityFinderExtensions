@@ -1,38 +1,70 @@
--- First, we create a namespace for our addon by declaring a top-level table that will hold everything else.
+-- ============================================================================
+-- LOCALIZED GLOBALS
+-- ============================================================================
+local EVENT_MANAGER = EVENT_MANAGER
+local ZO_SavedVars = ZO_SavedVars
+local GetWorldName = GetWorldName
+local pcall = pcall
+local EVENT_ADD_ON_LOADED = EVENT_ADD_ON_LOADED
+
+-- ============================================================================
+-- CONSTANTS
+-- ============================================================================
+local ADDON_EVENT_NAMESPACE = "GroupActivityFinderExtensions_Event"
+
+-- ============================================================================
+-- MODULE DECLARATION
+-- ============================================================================
 local GAFE = GroupActivityFinderExtensions
 
--- Then we create an event handler function which will be called when the "addon loaded" event
--- occurs. We'll use this to initialize our addon after all of its resources are fully loaded.
-local function OnAddOnLoaded(eventCode, addonName)
-    -- The event fires each time *any* addon loads - but we only care about when our own addon loads.
-    if addonName ~= GAFE.name then return end
-    EVENT_MANAGER:UnregisterForEvent(GAFE.name .. "_Event", EVENT_ADD_ON_LOADED)
+-- ============================================================================
+-- PRIVATE FUNCTIONS
+-- ============================================================================
 
-    -- Migrate old saved vars versions
-    if not pcall(GAFE.Vars.Migrate) then
-        LibPanicida.Debug.LogLater("Could not migrate Group & Activity Finder Extensions settings. Reset to default.")
-    end
-
-    -- Load saved variables
-    GAFE.SavedVars = ZO_SavedVars:NewAccountWide(GAFE.name .. "_Vars", GAFE.varsVersion, nil, GAFE.DefaultVars,
-        GetWorldName())
-
-    -- Initialize modules
-    GAFE_TRIALS_CHESTS.Init()
-    GAFE_GROUP_EXTENSIONS.Init()
-    GAFE_DUNGEON_EXTENSIONS.Init()
-    GAFE_DUNGEON_COMMANDS.Init()
-    GAFE_BATTLEGROUNDS_EXTENSIONS.Init()
-    GAFE_BATTLEGROUND_COMMANDS.Init()
-    GAFE_QUEUE_EXTENSIONS.Init()
-    GAFE_SCHEDULE.Init()
-    GAFE_MAP.Init()
-    GAFE_QUEST_AUTOMATION.Init()
-    GAFE_INVENTORY.Init()
-
-    -- Init settings menu
-    GAFE.SettingsMenu.Init()
+--- Initializes all addon modules after saved variables are loaded.
+local function initializeModules()
+  GAFE_TRIALS_CHESTS.Init()
+  GAFE_GROUP_EXTENSIONS.Init()
+  GAFE_DUNGEON_EXTENSIONS.Init()
+  GAFE_DUNGEON_COMMANDS.Init()
+  GAFE_BATTLEGROUNDS_EXTENSIONS.Init()
+  GAFE_BATTLEGROUND_COMMANDS.Init()
+  GAFE_QUEUE_EXTENSIONS.Init()
+  GAFE_SCHEDULE.Init()
+  GAFE_MAP.Init()
+  GAFE_QUEST_AUTOMATION.Init()
+  GAFE_INVENTORY.Init()
+  GAFE.SettingsMenu.Init()
 end
 
--- Finally, we'll register our event handler function to be called when the proper event occurs.
-EVENT_MANAGER:RegisterForEvent(GAFE.name .. "_Event", EVENT_ADD_ON_LOADED, OnAddOnLoaded)
+--- Event handler for addon loaded event.
+--- Initializes the addon when it is fully loaded.
+--- @param _ number The event code (unused)
+--- @param addonName string The name of the addon that was loaded
+local function onAddOnLoaded(_, addonName)
+  if addonName ~= GAFE.name then return end
+  EVENT_MANAGER:UnregisterForEvent(ADDON_EVENT_NAMESPACE, EVENT_ADD_ON_LOADED)
+
+  -- Migrate old saved vars versions
+  if not pcall(GAFE.Vars.Migrate) then
+    LibPanicida.Debug.LogLater(
+      "Could not migrate Group & Activity Finder Extensions settings. Reset to default.")
+  end
+
+  -- Load saved variables
+  GAFE.SavedVars = ZO_SavedVars:NewAccountWide(
+    GAFE.name .. "_Vars",
+    GAFE.varsVersion,
+    nil,
+    GAFE.DefaultVars,
+    GetWorldName()
+  )
+
+  initializeModules()
+end
+
+-- ============================================================================
+-- MODULE REGISTRATION
+-- ============================================================================
+EVENT_MANAGER:RegisterForEvent(ADDON_EVENT_NAMESPACE, EVENT_ADD_ON_LOADED,
+  onAddOnLoaded)
