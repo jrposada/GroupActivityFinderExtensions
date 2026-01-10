@@ -33,7 +33,7 @@ local function initializeModules()
   GAFE_SCHEDULE.Init()
   GAFE_MAP.Init()
   GAFE_QUEST_AUTOMATION.Init()
-  GAFE_INVENTORY.Init()
+  GAFE.Inventory.Init()
   GAFE.SettingsMenu.Init()
 end
 
