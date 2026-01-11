@@ -117,7 +117,7 @@ function ActivityFinderExtender:InitializeSetupFunction(_treeEntry_)
     elseif GAFE.SavedVars.developerMode then
       LibPanicida.Controls.Label(control:GetName() .. "TODO", control,
         { 125, 20 }, { LEFT, control, LEFT, 420, 0 },
-        "ZoFontGameLarge", nil, { 0, 1 }, "TODO " .. activityId)
+        "ZoFontGameLarge", nil, { 0, 1 }, "ACTIVITY_ID " .. activityId)
     end
 
     if (self.customExtensions) then

@@ -1,204 +1,210 @@
 GAFE_ACTIVITY_ID = {
-    -- ZOs
-    NormalFungalGrottoI       = 2,
-    VeteranFungalGrottoI      = 299,
+  -- ZOs
+  NormalFungalGrottoI       = 2,
+  VeteranFungalGrottoI      = 299,
 
-    NormalFungalGrottoII      = 18,
-    VeteranFungalGrottoII     = 312,
+  NormalFungalGrottoII      = 18,
+  VeteranFungalGrottoII     = 312,
 
-    NormalSpindleclutchI      = 3,
-    VeteranSpindleclutchI     = 315,
+  NormalSpindleclutchI      = 3,
+  VeteranSpindleclutchI     = 315,
 
-    NormalSpindleclutchII     = 316,
-    VeteranSpindleclutchII    = 19,
+  NormalSpindleclutchII     = 316,
+  VeteranSpindleclutchII    = 19,
 
-    NormalBanishedCellsI      = 4,
-    VeteranBanishedCellsI     = 20,
+  NormalBanishedCellsI      = 4,
+  VeteranBanishedCellsI     = 20,
 
-    NormalBanishedCellsII     = 300,
-    VeteranBanishedCellsII    = 301,
+  NormalBanishedCellsII     = 300,
+  VeteranBanishedCellsII    = 301,
 
-    NormalDarkshadeCavernsI   = 5,
-    VeteranDarkshadeCavernsI  = 309,
+  NormalDarkshadeCavernsI   = 5,
+  VeteranDarkshadeCavernsI  = 309,
 
-    NormalDarkshadeCavernsII  = 308,
-    VeteranDarkshadeCavernsII = 21,
+  NormalDarkshadeCavernsII  = 308,
+  VeteranDarkshadeCavernsII = 21,
 
-    NormalEldenHollowI        = 7,
-    VeteranEldenHollowI       = 23,
+  NormalEldenHollowI        = 7,
+  VeteranEldenHollowI       = 23,
 
-    NormalEldenHollowII       = 303,
-    VeteranEldenHollowII      = 302,
+  NormalEldenHollowII       = 303,
+  VeteranEldenHollowII      = 302,
 
-    NormalWayrestSewersI      = 6,
-    VeteranWayrestSewersI     = 306,
+  NormalWayrestSewersI      = 6,
+  VeteranWayrestSewersI     = 306,
 
-    NormalWayrestSewersII     = 22,
-    VeteranWayrestSewersII    = 307,
+  NormalWayrestSewersII     = 22,
+  VeteranWayrestSewersII    = 307,
 
-    NormalArxCorinium         = 8,
-    VeteranArxCorinium        = 305,
+  NormalArxCorinium         = 8,
+  VeteranArxCorinium        = 305,
 
-    NormalCityOfAshI          = 10,
-    VeteranCityOfAshI         = 310,
+  NormalCityOfAshI          = 10,
+  VeteranCityOfAshI         = 310,
 
-    NormalCityOfAshII         = 322,
-    VeteranCityOfAshII        = 267,
+  NormalCityOfAshII         = 322,
+  VeteranCityOfAshII        = 267,
 
-    NormalCryptOfHeartsI      = 9,
-    VeteranCryptOfHeartsI     = 261,
+  NormalCryptOfHeartsI      = 9,
+  VeteranCryptOfHeartsI     = 261,
 
-    NormalCryptOfHeartsII     = 317,
-    VeteranCryptOfHeartsII    = 318,
+  NormalCryptOfHeartsII     = 317,
+  VeteranCryptOfHeartsII    = 318,
 
-    NormalDirefrostKeep       = 11,
-    VeteranDirefrostKeep      = 319,
+  NormalDirefrostKeep       = 11,
+  VeteranDirefrostKeep      = 319,
 
-    NormalTempestIsland       = 13,
-    VeteranTempestIsland      = 311,
+  NormalTempestIsland       = 13,
+  VeteranTempestIsland      = 311,
 
-    NormalVolenfell           = 12,
-    VeteranVolenfell          = 304,
+  NormalVolenfell           = 12,
+  VeteranVolenfell          = 304,
 
-    NormalBlackheartHaven     = 15,
-    VeteranBlackheartHaven    = 321,
+  NormalBlackheartHaven     = 15,
+  VeteranBlackheartHaven    = 321,
 
-    NormalBlessedCrucible     = 14,
-    VeteranBlessedCrucible    = 320,
+  NormalBlessedCrucible     = 14,
+  VeteranBlessedCrucible    = 320,
 
-    NormalSelenesWeb          = 16,
-    VeteranSelenesWeb         = 313,
+  NormalSelenesWeb          = 16,
+  VeteranSelenesWeb         = 313,
 
-    NormalVaultsOfMadness     = 17,
-    VeteranVaultsOfMadness    = 314,
+  NormalVaultsOfMadness     = 17,
+  VeteranVaultsOfMadness    = 314,
 
-    NormalBalSunnar           = 613,
-    VeteranBalSunnar          = 614,
+  NormalBalSunnar           = 613,
+  VeteranBalSunnar          = 614,
 
-    NormalBedlamVeil          = 640,
-    VeteranBedlamVeil         = 641,
+  NormalBedlamVeil          = 640,
+  VeteranBedlamVeil         = 641,
 
-    NormalBlackDrakeVilla     = 591,
-    VeteranBlackDrakeVilla    = 592,
+  NormalBlackDrakeVilla     = 591,
+  VeteranBlackDrakeVilla    = 592,
 
-    NormalBloodrootForge      = 324,
-    VeteranBloodrootForge     = 325,
+  NormalBlackGemFoundry     = 1039,
+  VeteranBlackGemFoundry    = 1040,
 
-    NormalCastleThorn         = 509,
-    VeteranCastleThorn        = 510,
+  NormalBloodrootForge      = 324,
+  VeteranBloodrootForge     = 325,
 
-    NormalCoralAerie          = 599,
-    VeteranCoralAerie         = 600,
+  NormalCastleThorn         = 509,
+  VeteranCastleThorn        = 510,
 
-    NormalCradleOfShadows     = 295,
-    VeteranCradleOfShadows    = 296,
+  NormalCoralAerie          = 599,
+  VeteranCoralAerie         = 600,
 
-    NormalDepthsOfMalatar     = 435,
-    VeteranDepthsOfMalatar    = 436,
+  NormalCradleOfShadows     = 295,
+  VeteranCradleOfShadows    = 296,
 
-    NormalFalkreathHold       = 368,
-    VeteranFalkreathHold      = 369,
+  NormalDepthsOfMalatar     = 435,
+  VeteranDepthsOfMalatar    = 436,
 
-    NormalFangLair            = 420,
-    VeteranFangLair           = 421,
+  NormalFalkreathHold       = 368,
+  VeteranFalkreathHold      = 369,
 
-    NormalFrostvault          = 433,
-    VeteranFrostvault         = 434,
+  NormalFangLair            = 420,
+  VeteranFangLair           = 421,
 
-    NormalIcereach            = 503,
-    VeteranIcereach           = 504,
+  NormalFrostvault          = 433,
+  VeteranFrostvault         = 434,
 
-    NormalImperialCityPrison  = 289,
-    VeteranImperialCityPrison = 268,
+  NormalIcereach            = 503,
+  VeteranIcereach           = 504,
 
-    NormalLairOfMaarselok     = 496,
-    VeteranLairOfMaarselok    = 497,
+  NormalImperialCityPrison  = 289,
+  VeteranImperialCityPrison = 268,
 
-    NormalMarchOfSacrifices   = 428,
-    VeteranMarchOfSacrifices  = 429,
+  NormalLairOfMaarselok     = 496,
+  VeteranLairOfMaarselok    = 497,
 
-    NormalMoonHunterKeep      = 426,
-    VeteranMoonHunterKeep     = 427,
+  NormalMarchOfSacrifices   = 428,
+  VeteranMarchOfSacrifices  = 429,
 
-    NormalMoongraveFane       = 494,
-    VeteranMoongraveFane      = 495,
+  NormalMoonHunterKeep      = 426,
+  VeteranMoonHunterKeep     = 427,
 
-    NormalOathswornPit        = 638,
-    VeteranOathswornPit       = 639,
+  NormalNajCaldeesh         = 1037,
+  VeteranNajCaldeesh        = 1038,
 
-    NormalRedPetalBastion     = 595,
-    VeteranRedPetalBastion    = 596,
+  NormalMoongraveFane       = 494,
+  VeteranMoongraveFane      = 495,
 
-    NormalRuinsOfMazzatun     = 293,
-    VeteranRuinsOfMazzatun    = 294,
+  NormalOathswornPit        = 638,
+  VeteranOathswornPit       = 639,
 
-    NormalScalecallerPeak     = 418,
-    VeteranScalecallerPeak    = 419,
+  NormalRedPetalBastion     = 595,
+  VeteranRedPetalBastion    = 596,
 
-    NormalScrivenersHall      = 615,
-    VeteranScrivenersHall     = 616,
+  NormalRuinsOfMazzatun     = 293,
+  VeteranRuinsOfMazzatun    = 294,
 
-    NormalShipwrightsRegret   = 601,
-    VeteranShipwrightsRegret  = 602,
+  NormalScalecallerPeak     = 418,
+  VeteranScalecallerPeak    = 419,
 
-    NormalStoneGarden         = 507,
-    VeteranStoneGarden        = 508,
+  NormalScrivenersHall      = 615,
+  VeteranScrivenersHall     = 616,
 
-    NormalCauldron            = 593,
-    VeteranCauldron           = 594,
+  NormalShipwrightsRegret   = 601,
+  VeteranShipwrightsRegret  = 602,
 
-    NormalDreadCellar         = 597,
-    VeteranDreadCellar        = 598,
+  NormalStoneGarden         = 507,
+  VeteranStoneGarden        = 508,
 
-    NormalUnhallowedGrave     = 505,
-    VeteranUnhallowedGrave    = 506,
+  NormalCauldron            = 593,
+  VeteranCauldron           = 594,
 
-    NormalWhiteGoldTower      = 288,
-    VeteranWhiteGoldTower     = 287,
+  NormalDreadCellar         = 597,
+  VeteranDreadCellar        = 598,
 
-    NormalEarthenRootEnclave  = 608,
-    VeteranEarthenRootEnclave = 609,
+  NormalUnhallowedGrave     = 505,
+  VeteranUnhallowedGrave    = 506,
 
-    NormalGravenDeep          = 610,
-    VeteranGravenDeep         = 611,
+  NormalWhiteGoldTower      = 288,
+  VeteranWhiteGoldTower     = 287,
 
-    NormalExiledRedbout       = 855,
-    VeteranExiledRedbout      = 856,
+  NormalEarthenRootEnclave  = 608,
+  VeteranEarthenRootEnclave = 609,
 
-    NormalLepScluse           = 857,
-    VeteranLepScluse          = 858,
+  NormalGravenDeep          = 610,
+  VeteranGravenDeep         = 611,
 
-    -- Custom ids. For safety start from 1000
-    NormalAetherianArchive    = 1001,
-    VeteranAetherianArchive   = 1002,
+  NormalExiledRedbout       = 855,
+  VeteranExiledRedbout      = 856,
 
-    NormalHelRaCitadel        = 1003,
-    VeteranHelRaCitadel       = 1004,
+  NormalLepScluse           = 857,
+  VeteranLepScluse          = 858,
 
-    NormalSanctumOphidia      = 1005,
-    VeteranSanctumOphidia     = 1006,
+  -- Custom ids. For safety start from 10000
+  NormalAetherianArchive    = 10001,
+  VeteranAetherianArchive   = 10002,
 
-    NormalMawOfLorkhaj        = 1007,
-    VeteranMawOfLorkhaj       = 1008,
+  NormalHelRaCitadel        = 10003,
+  VeteranHelRaCitadel       = 10004,
 
-    NormalHallsOfFabrication  = 1009,
-    VeteranHallsOfFabrication = 1010,
+  NormalSanctumOphidia      = 10005,
+  VeteranSanctumOphidia     = 10006,
 
-    NormalAsylumSanctorium    = 1011,
-    VeteranAsylumSanctorium   = 1012,
+  NormalMawOfLorkhaj        = 10007,
+  VeteranMawOfLorkhaj       = 10008,
 
-    NormalCloudrest           = 1013,
-    VeteranCloudrest          = 1014,
+  NormalHallsOfFabrication  = 10009,
+  VeteranHallsOfFabrication = 10010,
 
-    NormalSunspire            = 1015,
-    VeteranSunspire           = 1016,
+  NormalAsylumSanctorium    = 10011,
+  VeteranAsylumSanctorium   = 10012,
 
-    NormalKynesAegis          = 1017,
-    VeteranKynesAegis         = 1018,
+  NormalCloudrest           = 10013,
+  VeteranCloudrest          = 10014,
 
-    NormalRockgrove           = 1019,
-    VeteranRockgrove          = 1020,
+  NormalSunspire            = 10015,
+  VeteranSunspire           = 10016,
 
-    NormalDreadsailReef       = 1021,
-    VeteranDreadsailReef      = 1022
+  NormalKynesAegis          = 10017,
+  VeteranKynesAegis         = 10018,
+
+  NormalRockgrove           = 10019,
+  VeteranRockgrove          = 10020,
+
+  NormalDreadsailReef       = 10021,
+  VeteranDreadsailReef      = 10022
 }
