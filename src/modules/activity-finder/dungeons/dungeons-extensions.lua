@@ -245,12 +245,6 @@ function DungeonsExtensions.Init()
     end
   end
 
-  local function onShown()
-    if GAFE.SavedVars.dungeons.autoMarkPledges then
-      queueForPledges()
-    end
-  end
-
   local onActivityFinderStatusUpdate = RewardTracker.CreateCompletionHandler({
     activityType = LFG_ACTIVITY_DUNGEON,
     completionState = ACTIVITY_FINDER_STATUS_COMPLETE,
@@ -262,7 +256,6 @@ function DungeonsExtensions.Init()
     customExtensions = customExtensions,
     data = dungeonData,
     keybindStripGroup = keybindStripGroup,
-    onShown = onShown,
     rewardsVars = GAFE.SavedVars.dungeons,
     root = "ZO_Dungeon",
     treeEntry = treeEntry,
