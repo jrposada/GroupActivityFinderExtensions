@@ -274,6 +274,15 @@ function GAFE.SettingsMenu.Init()
           setFunc = function(value) saveData.developerMode = value end,
           warning = "Intended only for developers",
           isDangerous = true
+        },
+        {
+          type = "checkbox",
+          name = 'Enable BETA features',
+          getFunc = function() return saveData.beta end,
+          setFunc = function(value) saveData.beta = value end,
+          warning = "Unestable features. Addon may crash or not work as intended",
+          isDangerous = true,
+          requiresReload = true
         }
       }
     },
