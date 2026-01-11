@@ -175,6 +175,7 @@
     "LibQuestData_GetAllZones",
     "LibQuestData",
     "LibScroll",
+    "LibUndauntedPledges",
     "MAIN_MENU_KEYBOARD",
     "MAX_JOURNAL_QUESTS",
     "MENU_CATEGORY_JOURNAL",
@@ -217,6 +218,7 @@
     "SI_LFG_LOCK_REASON_PLAYER_MAX_LEVEL_REQUIREMENT",
     "SI_LFG_LOCK_REASON_PLAYER_MIN_CHAMPION_REQUIREMENT",
     "SI_LFG_LOCK_REASON_PLAYER_MIN_LEVEL_REQUIREMENT",
+    "SI_LFGACTIVITY4",
     "SI_SIEGE_BAR_NAME",
     "SLASH_COMMANDS",
     "SOUNDS",
@@ -297,5 +299,12 @@
     "ZO_Tooltips_ShowTextTooltip",
     "ZO_WorldMapInfo"
   ],
-  "cSpell.words": ["GAFE", "Panicida", "Wayshrine", "Wayshrines"]
+  "cSpell.words": [
+    "GAFE",
+    "LFGACTIVITY",
+    "Panicida",
+    "strformat",
+    "Wayshrine",
+    "Wayshrines"
+  ]
 }
