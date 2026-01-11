@@ -4,7 +4,6 @@ local LUP = LibUndauntedPledges
 
 GAFE_QUEST_AUTOMATION = {
   dialyNpcName = {},
-  pledgeNpcName = {},
   craftingWritNpcName = {}
 }
 
@@ -18,11 +17,19 @@ local function contains(data, value)
   return false
 end
 
+--- Checks if an NPC is one of the three Undaunted pledge givers.
+--- @param npcName string The NPC name to check
+--- @return boolean isPledgeGiver True if the NPC is a pledge giver
+local function IsPledgeGiver(npcName)
+  return npcName == LUP.GetPledgeGiverName(LUP.BASE1)
+      or npcName == LUP.GetPledgeGiverName(LUP.BASE2)
+      or npcName == LUP.GetPledgeGiverName(LUP.DLC1)
+end
 
 --- Check if quest id is one of the crafting writs. Only checks for one of each type.
 --- Used to get the quest giver name.
----@param questId any
----@return boolean
+--- @param questId number The quest ID to check
+--- @return boolean isCraftingWrit True if the quest is a crafting writ
 local function IsCraftingWrit(questId)
   return questId == 5394 or questId == 5415
 end
@@ -39,12 +46,9 @@ function GAFE_QUEST_AUTOMATION.Init()
           questPinData[LQD.quest_map_pin_index.quest_giver],
           GAFE.lang
         )
-        local isPledge = LUP.IsPledge({ questId, LUP.TYPE_QUEST }, 0)
         local isCraftingWrit = IsCraftingWrit(questId)
 
-        if isPledge and not contains(GAFE_QUEST_AUTOMATION.pledgeNpcName, npcName) then
-          table.insert(GAFE_QUEST_AUTOMATION.pledgeNpcName, npcName)
-        elseif isCraftingWrit and not contains(GAFE_QUEST_AUTOMATION.craftingWritNpcName, npcName) then
+        if isCraftingWrit and not contains(GAFE_QUEST_AUTOMATION.craftingWritNpcName, npcName) then
           table.insert(GAFE_QUEST_AUTOMATION.craftingWritNpcName, npcName)
         elseif not contains(GAFE_QUEST_AUTOMATION.dialyNpcName, npcName) then
           table.insert(GAFE_QUEST_AUTOMATION.dialyNpcName, npcName)
@@ -116,7 +120,7 @@ function GAFE_QUEST_AUTOMATION.AutomaticallyHandleQuests(enable)
             EVENT_MANAGER:RegisterForEvent(questOfferedEventName,
               EVENT_QUEST_OFFERED, HandleQuestOffered)
             SelectChatterOption(optionIndex)
-          elseif optionType == CHATTER_START_TALK and contains(GAFE_QUEST_AUTOMATION.pledgeNpcName, npcName) then
+          elseif optionType == CHATTER_START_TALK and IsPledgeGiver(npcName) then
             -- For some reason pledges EVENT_QUEST_COMPLETE_DIALOG is hidden behind one chatter start.
             questCompleted = false
             EVENT_MANAGER:RegisterForEvent(conversationUpdatedEventName,
