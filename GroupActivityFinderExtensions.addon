@@ -3,7 +3,7 @@
 ## Author: Panicida
 ## Version: 5.7.0
 ## APIVersion: 101048
-## DependsOn: LibPanicida LibSavedVars LibAddonMenu-2.0 LibQuestData LibScroll
+## DependsOn: LibPanicida LibSavedVars LibAddonMenu-2.0 LibQuestData LibScroll LibUndauntedPledges
 ## SavedVariables: GroupActivityFinderExtensions_Vars
 
 ; DISCLAIMER:
@@ -23,8 +23,6 @@ src/modules/activity-finder/collapse-mode.lua
 src/modules/activity-finder/set-id.lua
 src/modules/map/alliance-id.lua
 
-src/modules/activity-finder/dungeons/pledge-id.lua
-src/modules/activity-finder/dungeons/pledge-list.lua
 src/modules/activity-finder/dungeons/dungeons-activity-data.lua
 
 src/modules/activity-finder/trials/trials-activity-data.lua
@@ -47,7 +45,11 @@ src/modules/activity-finder/schedule/schedules/quests-schedule.xml
 src/modules/activity-finder/schedule/activity-schedule-panel.lua
 src/modules/activity-finder/schedule/activity-schedule-panel.xml
 
-src/modules/activity-finder/extender.lua
+src/modules/activity-finder/core/queue-manager.lua
+src/modules/activity-finder/core/reward-tracker.lua
+src/modules/activity-finder/core/base-extender.lua
+
+src/modules/activity-finder/dungeons/pledge-tracker.lua
 
 src/modules/activity-finder/group/group-extensions.lua
 src/modules/activity-finder/dungeons/dungeons-extensions.lua

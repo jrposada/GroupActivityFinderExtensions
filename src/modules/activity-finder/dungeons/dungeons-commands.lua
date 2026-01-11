@@ -9,6 +9,7 @@ local ZO_GetEffectiveDungeonDifficulty = ZO_GetEffectiveDungeonDifficulty
 
 local GAFE = GroupActivityFinderExtensions
 local QueueManager = GAFE.QueueManager
+local PledgeTracker = GAFE.PledgeTracker
 local DungeonActivityData = GAFE_DUNGEONS_ACTIVITY_DATA
 
 -- =============================================================================
@@ -48,7 +49,7 @@ end
 --- @param verbose string|nil Pass "verbose" to show locked locations in output
 local function pledges(verbose)
   local function condition(activityData)
-    return GAFE_PledgeTracker.IsIncompletePledge(activityData.p)
+    return PledgeTracker.IsIncompletePledge(activityData.p)
   end
 
   local activityType = getCurrentDungeonActivityType()
