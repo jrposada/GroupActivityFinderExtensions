@@ -1,60 +1,64 @@
+-- =============================================================================
+-- Localized Globals
+-- =============================================================================
+local pairs = pairs
+local GetString = GetString
+
 local GAFE = GroupActivityFinderExtensions
-local ZO_AFRM = ZO_ACTIVITY_FINDER_ROOT_MANAGER
 
+-- =============================================================================
+-- Constants
+-- =============================================================================
+local BATTLEGROUND_ACTIVITY_TYPES = {
+  LFG_ACTIVITY_BATTLE_GROUND_CHAMPION,
+  LFG_ACTIVITY_BATTLE_GROUND_NON_CHAMPION,
+  LFG_ACTIVITY_BATTLE_GROUND_LOW_LEVEL,
+}
+
+-- =============================================================================
+-- Module Declaration
+-- =============================================================================
+local BattlegroundCommands = {}
+
+-- =============================================================================
+-- Private Functions
+-- =============================================================================
+
+--- Queues a random battleground based on player eligibility.
 local function battleground()
-    if IsCurrentlySearchingForGroup() then
-        return
-    end
+  if GAFE_QueueManager.IsSearching() then
+    return
+  end
 
-    ClearActivityFinderSearch()
+  GAFE_QueueManager.ClearSearch()
 
-    local battlegroundActivityTypes = {
-        LFG_ACTIVITY_BATTLE_GROUND_CHAMPION,
-        LFG_ACTIVITY_BATTLE_GROUND_NON_CHAMPION,
-        LFG_ACTIVITY_BATTLE_GROUND_LOW_LEVEL,
-    }
+  local location = GAFE_QueueManager.FindEligibleLocation(
+    BATTLEGROUND_ACTIVITY_TYPES)
 
-    local location = nil
-    for _, activityType in ipairs(battlegroundActivityTypes) do
-        local locationSetsData = ZO_AFRM.locationSetsLookupData[activityType]
-        if locationSetsData then
-            for _, setLocation in pairs(locationSetsData) do
-                if setLocation:DoesPlayerMeetLevelRequirements() and not setLocation:IsLocked() then
-                    location = setLocation
-                    break
-                end
-            end
-        end
-        if location then break end
-    end
+  if not location then
+    LibPanicida.Debug.LogLater("No eligible battleground found")
+    return
+  end
 
-    if not location then
-        LibPanicida.Debug.LogLater("No eligible battleground found")
-        return
-    end
-
-    ZO_AFRM:SetLocationSelected(location, true)
-    location:AddActivitySearchEntry()
-
-    local result = StartActivityFinderSearch()
-    if result ~= ACTIVITY_QUEUE_RESULT_SUCCESS then
-        ZO_AlertEvent(EVENT_ACTIVITY_QUEUE_RESULT, result)
-    else
-        LibPanicida.Debug.LogLater(zo_strformat(GAFE.Loc("QueueForActivity"),
-            GetString(SI_LFGACTIVITY4),
-            GetString(SI_GROUPFINDERCATEGORY_SINGLESELECTDEFAULT0)
-        ))
-    end
+  GAFE_QueueManager.QueueAndStart(location, GetString(SI_LFGACTIVITY4))
 end
 
 local commandsList = {
-    { name = "/bg", func = battleground },
+  { name = "/bg", func = battleground },
 }
 
-GAFE_BATTLEGROUND_COMMANDS = {}
+-- =============================================================================
+-- Public Functions
+-- =============================================================================
 
-function GAFE_BATTLEGROUND_COMMANDS.Init()
-    for _, param in pairs(commandsList) do
-        SLASH_COMMANDS[param.name] = param.func
-    end
+--- Initializes slash commands for battleground queuing.
+function BattlegroundCommands.Init()
+  for _, param in pairs(commandsList) do
+    SLASH_COMMANDS[param.name] = param.func
+  end
 end
+
+-- =============================================================================
+-- Module Registration
+-- =============================================================================
+GAFE.BattlegroundCommands = BattlegroundCommands
