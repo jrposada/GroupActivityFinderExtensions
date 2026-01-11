@@ -14,12 +14,14 @@ local BATTLEGROUND_REWARD_CHECK_DELAY_MS = 1000
 -- ============================================================================
 -- Module Declaration
 -- ============================================================================
-local BattlegroundsExtensions = {}
+local BattlegroundsExtensions = {
+  extender = GAFE.ActivityFinderExtender:New()
+}
+local extender = BattlegroundsExtensions.extender
 
 -- ============================================================================
 -- Private Functions
 -- ============================================================================
-local extender = GAFE.ActivityFinderExtender:New()
 
 -- ============================================================================
 -- Public Functions
