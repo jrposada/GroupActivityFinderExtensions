@@ -33,15 +33,6 @@ src/lang/$(language).lua
 
 src/modules/quest-automation/quest-automation.lua
 
-src/modules/activity-finder/schedule/schedules/dailies-schedule.lua
-src/modules/activity-finder/schedule/schedules/dailies-schedule.xml
-src/modules/activity-finder/schedule/schedules/pledges-schedule.lua
-src/modules/activity-finder/schedule/schedules/pledges-schedule.xml
-src/modules/activity-finder/schedule/schedules/trials-schedule.lua
-src/modules/activity-finder/schedule/schedules/trials-schedule.xml
-src/modules/activity-finder/schedule/schedules/quests-schedule.lua
-src/modules/activity-finder/schedule/schedules/quests-schedule.xml
-
 src/modules/activity-finder/schedule/activity-schedule-panel.lua
 src/modules/activity-finder/schedule/activity-schedule-panel.xml
 
@@ -65,6 +56,15 @@ src/modules/inventory/inventory.lua
 
 src/modules/pvp/ram/ram.lua
 src/modules/pvp/ram/ram.xml
+
+src/modules/activity-finder/schedule/schedules/dailies-schedule.lua
+src/modules/activity-finder/schedule/schedules/dailies-schedule.xml
+src/modules/activity-finder/schedule/schedules/pledges-schedule.lua
+src/modules/activity-finder/schedule/schedules/pledges-schedule.xml
+src/modules/activity-finder/schedule/schedules/trials-schedule.lua
+src/modules/activity-finder/schedule/schedules/trials-schedule.xml
+src/modules/activity-finder/schedule/schedules/quests-schedule.lua
+src/modules/activity-finder/schedule/schedules/quests-schedule.xml
 
 src/settings-menu.lua
 src/main.lua
