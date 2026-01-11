@@ -5,6 +5,7 @@ local pairs = pairs
 local GetString = GetString
 
 local GAFE = GroupActivityFinderExtensions
+local QueueManager = GAFE.QueueManager
 
 -- =============================================================================
 -- Constants
@@ -26,13 +27,13 @@ local BattlegroundCommands = {}
 
 --- Queues a random battleground based on player eligibility.
 local function battleground()
-  if GAFE_QueueManager.IsSearching() then
+  if QueueManager.IsSearching() then
     return
   end
 
-  GAFE_QueueManager.ClearSearch()
+  QueueManager.ClearSearch()
 
-  local location = GAFE_QueueManager.FindEligibleLocation(
+  local location = QueueManager.FindEligibleLocation(
     BATTLEGROUND_ACTIVITY_TYPES)
 
   if not location then
@@ -40,7 +41,7 @@ local function battleground()
     return
   end
 
-  GAFE_QueueManager.QueueAndStart(location, GetString(SI_LFGACTIVITY4))
+  QueueManager.QueueAndStart(location, GetString(SI_LFGACTIVITY4))
 end
 
 local commandsList = {

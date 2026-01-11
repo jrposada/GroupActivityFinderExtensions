@@ -3,11 +3,13 @@
 -- ============================================================================
 local EVENT_MANAGER = EVENT_MANAGER
 
+local GAFE = GroupActivityFinderExtensions
+local RewardTracker = GAFE.RewardTracker
+
 -- ============================================================================
 -- Constants
 -- ============================================================================
 local BATTLEGROUND_REWARD_CHECK_DELAY_MS = 1000
-local GAFE = GroupActivityFinderExtensions
 
 -- ============================================================================
 -- Module Declaration
@@ -17,7 +19,7 @@ local BattlegroundsExtensions = {}
 -- ============================================================================
 -- Private Functions
 -- ============================================================================
-local extender = GAFE_ActivityFinderExtender:New()
+local extender = GAFE.ActivityFinderExtender:New()
 
 -- ============================================================================
 -- Public Functions
@@ -31,13 +33,13 @@ function BattlegroundsExtensions.Init()
     root = "ZO_Battleground",
   })
 
-  local onActivityFinderStatusUpdate = GAFE_RewardTracker
-  .CreateCompletionHandler({
-    activityType = LFG_ACTIVITY_BATTLE_GROUND_NON_CHAMPION,
-    completionState = BATTLEGROUND_STATE_FINISHED,
-    extender = extender,
-    delayMs = BATTLEGROUND_REWARD_CHECK_DELAY_MS,
-  })
+  local onActivityFinderStatusUpdate = RewardTracker
+      .CreateCompletionHandler({
+        activityType = LFG_ACTIVITY_BATTLE_GROUND_NON_CHAMPION,
+        completionState = BATTLEGROUND_STATE_FINISHED,
+        extender = extender,
+        delayMs = BATTLEGROUND_REWARD_CHECK_DELAY_MS,
+      })
 
   EVENT_MANAGER:RegisterForEvent(
     extender.root .. "Activity_Update",
