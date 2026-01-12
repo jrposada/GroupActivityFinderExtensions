@@ -63,10 +63,6 @@ A dedicated panel accessible from the Group & Activity Finder showing:
 
 - Shows your currently active armory build on the character panel (Requires you to interact with the armory system to initialize. Just save or restore any build to get started)
 
-## Settings
-
-Customize the addon through the Settings menu.
-
 ## AI Assistance Notice
 
 This addon was developed with the assistance of AI coding tools. All code has been reviewed and tested by human developers to ensure proper functionality within ESO.
