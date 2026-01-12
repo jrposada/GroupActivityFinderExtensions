@@ -1,147 +1,72 @@
-# **DISCONTINUED**
+# Group & Activity Finder Extensions
 
-**READ BEFORE INSTALL**
-
-The amount of time and effort I put into the addon is directly related to the amount of time I play the game. I am a casual player, meaning I can go for a long time without playing (years in fact) and the addon **will not be updated during those times**. This type of addon requires updates each patch to support new dungeons and stuff. If you still want to give it a try you are more than welcome to do so. Have fun!
-
-# Summary
-
-Adds a extra functionality around vanilla Group & Activity Finder and other in-game activities.
-
-**Notice:** By default, when choosing between Normal and Veteran content, the group current group setting will be used (selected on the "Group" tab of the "Group & Activity Finder" panel). This behavior can be changed through the settings to always use Normal, Veteran or current group setting.
-
-**Notice:** Controller is not supported.
+Enhances the Group & Activity Finder with quality-of-life improvements for daily pledges, trials, battlegrounds, and more. Designed for keyboard-friendly navigation and reduced clicking.
 
 ## Dependencies
 
 - [LibAddonMenu-2.0](https://www.esoui.com/downloads/info7-LibAddonMenu.html)
-- [LibSavedVars](https://www.esoui.com/downloads/info2161-LibSavedVars.html)
+- [LibPanicida](https://www.esoui.com/downloads/info4349-LibPanicida.html)
 - [LibQuestData](https://www.esoui.com/downloads/info2625-LibQuestData.html)
+- [LibSavedVars](https://www.esoui.com/downloads/info2161-LibSavedVars.html)
 - [LibScroll](https://www.esoui.com/downloads/info1151-LibScroll.html)
+- [LibUndauntedPledges](https://www.esoui.com/downloads/info3946-LibUndauntedPledges.html)
 
-## Supported languages
+## Features
 
-- English
-- French
-- German
-- Russian
+### Dungeon Finder Enhancements
 
-# Features
+- **Pledge Tracking**: See which daily pledges you've completed directly in the dungeon finder
+- **Smart Queue Buttons**: Queue for dungeons based on:
+  - Incomplete pledges
+  - Missing dungeon quests
+  - Missing item set collection pieces
+  - Random dungeons at appropriate difficulty
+- **Auto-Collapse**: Automatically collapses Normal/Veteran dungeon lists based on your preference or current group difficulty
 
-## Activity Finder
+### Trial Tracking
 
-- Group
-- Random dungeon
-- Random battleground
-- Dungeons
-- Trials (Removed)
-- Schedules
-- Auto confirm
+- Track trial quest completion status
+- Monitor weekly chest availability with 7-day lockout timers
+- View trial information directly in the activity finder
 
-## Map
+### Battleground Tracking
 
-- Alliance capitals Wayshrines.
+- Track daily battleground reward eligibility
+- View completion status in the activity schedule
 
-  Added shortcuts to all three Alliance capitals to map view. Always visible on above filters panel.
+### Activity Schedule Panel
 
-- TP to favorite Wayshrine on map hotkey.
+A dedicated panel accessible from the Group & Activity Finder showing:
 
-  Added new active binding to map view to TP to user selected Wayshrine. Favorite can be change in the addon settings.
+- Daily activity completion status
+- Pledge quest progress
+- Trial availability and chest timers
 
-## Quest Automation
+### Queue Improvements
 
-Automatically accepts and complete any daily quests when interacting with the quest giver. This will also close the conversation at the end.
+- **Queue Timer**: See how long you've been waiting in queue
+- **Auto-Accept Ready Check**: Optionally auto-accept when a group is found (with configurable delay)
+- **Sound Loop**: Looping notification sound while waiting for ready checks
 
-**Notice:** to avoid conflicts with other addons it ignore daily writs.
+### Quest Automation
 
-# Commands
+- Auto-accept pledge quests from Undaunted NPCs
+- Auto-complete and turn in pledges after dungeon completion
+- Skip repetitive quest dialogue for daily content
 
-[SIZE="4"]Features[/SIZE]
+### Map & Fast Travel
 
-[LIST]
-Auto confirm
-[/LIST]
-Automatically accept activity finder queues. This option can be disabled in the setting menu.
-[LIST]
-Auto accept pledges quests
-[/LIST]
-Automatically takes and accept pledges quest when talking to the quest giver. NOTE: Finishing the quest still has to be done manually (work in progress)
-[LIST]
-Check Active Pledges
-[/LIST]
-Adds a button to check all dialy pledges for which the player has the mission. There is an option to remove this button and select them on menu open. Note: It uses the current dungeon mode to select either normal or veteran version of the dungeons.
-[LIST]
-Check missing quests
-[/LIST]
-Adds a button to check all the dungeons for which the user has not done the quest yet (and has not gotten the skill point).
-[LIST]
-Check missing sets
-[/LIST]
-Adds a button to check all the dungeons for which the user has not collected all drop sets.
-[LIST]
-Adds more info to the dungeons list:
-[LIST]
-Dungeon Wayshrine
-[/LIST]
-[LIST]
-All sets collected.
-[/LIST]
-[LIST]
-Dungeon Completion Achivement
-[/LIST]
-[LIST]
-Quest Completion
-[/LIST]
-[LIST]
-Hardmode Achivement
-[/LIST]
-[LIST]
-Speedrun Achivement
-[/LIST]
-[LIST]
-No Death Achivement
-[/LIST]
-[/LIST]
-[LIST]
-Trials Finder:
-New tab to help look for trials groups. It offers:
-[LIST]
-Trail wayshrine
-[/LIST]
-[LIST]
-Weekly chest timer
-[/LIST]
-[LIST]
-Achievements (only for AA, HRC and SO, rest is in progress)
-[/LIST]
-[LIST]
-Look for more button. Given the desire group roles set up, calculate the missing roles and writes them to chat with a LFM <trial> xT xH xDD pattern
-[/LIST]
-[LIST]
-Look for group button. Writes a message with the pattern <rol> LFG <trial>
-[/LIST]
-[LIST]
-Look for group and Look for more messages now support '+1-3' modifier.
-[/LIST]
-[/LIST]
-[LIST]
-Capitals waysrhine
-[/LIST]
-[LIST]
-Queue timer. Displays current queue time next to the status in the main window.
-[/LIST]
-[LIST]
-Dungeon and battleground premium reward timer. Shows how long until the next premium rewards is available. (Timer can be manually reset in settings).
-[/LIST]
-[LIST]
-Schedule:
-[/LIST]
-Shows tracked dailies and pledges for all characters.
+- Quick-travel buttons to major alliance cities on the world map
+- Set a favorite fast travel location accessible via hotkey
 
-[SIZE="4"]Commands[/SIZE]
-[LIST]/gafe[/LIST]
-Displays all available commands
-[LIST]/gafequests[/LIST]
-Queue for all available pledges
-[LIST]/gafequests verbose[/LIST]
-Queue for all available pledges and log all the information.
+### Armory Build Display
+
+- Shows your currently active armory build on the character panel (Requires you to interact with the armory system to initialize. Just save or restore any build to get started)
+
+## Settings
+
+Customize the addon through the Settings menu.
+
+## AI Assistance Notice
+
+This addon was developed with the assistance of AI coding tools. All code has been reviewed and tested by human developers to ensure proper functionality within ESO.

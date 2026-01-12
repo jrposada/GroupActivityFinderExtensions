@@ -5,8 +5,8 @@ set -e
 VERSION=${1:-"0.0.0"}
 ADDON_NAME="GroupActivityFinderExtensions"
 DIST_DIR="./dist"
-TEMP_DIR="${DIST_DIR}/tmp/${ADDON_NAME}"
-OUTPUT_ZIP="${DIST_DIR}/GroupActivityFinderExtensions_${VERSION}.zip"
+BUILD_DIR="${DIST_DIR}/${ADDON_NAME}"
+OUTPUT_ZIP="${ADDON_NAME}_${VERSION}.zip"
 
 FILES_TO_COPY=(
     "${ADDON_NAME}.addon"
@@ -14,16 +14,13 @@ FILES_TO_COPY=(
     "src/**/*"
 )
 
-echo "Creating temporary directory: ${TEMP_DIR}"
-mkdir -p "${TEMP_DIR}"
+echo "Creating temporary directory: ${BUILD_DIR}"
+mkdir -p "${BUILD_DIR}"
 
-if [ -f "$ADDON_FILE" ]; then
-    echo "Updating version to ${VERSION} in ${ADDON_FILE}"
-    sed -i.bak "s/^## Version:.*$/## Version: ${VERSION}/" "$ADDON_FILE"
-    rm -f "${ADDON_FILE}.bak"  # Remove backup file
-else
-    echo "Warning: ${ADDON_FILE} not found, skipping version update"
-fi
+ADDON_FILE="${ADDON_NAME}.addon"
+echo "Updating version to ${VERSION} in ${ADDON_FILE}"
+sed -i.bak "s/^## Version:.*$/## Version: ${VERSION}/" "$ADDON_FILE"
+rm -f "${ADDON_FILE}.bak"  # Remove backup file
 
 echo "Copying files..."
 shopt -s globstar nullglob
@@ -40,10 +37,10 @@ for pattern in "${FILES_TO_COPY[@]}"; do
         if [ -f "$file" ]; then
             file_dir=$(dirname "$file")
 
-            mkdir -p "${TEMP_DIR}/${file_dir}"
+            mkdir -p "${BUILD_DIR}/${file_dir}"
 
             echo "  Copying: $file"
-            cp "$file" "${TEMP_DIR}/${file}"
+            cp "$file" "${BUILD_DIR}/${file}"
         elif [ -d "$file" ]; then
             echo "  Skipping directory: $file"
         fi
@@ -54,8 +51,8 @@ shopt -u globstar nullglob
 
 # Create zip archive
 echo "Creating zip archive: ${OUTPUT_ZIP}"
-zip -r "${OUTPUT_ZIP}" "${TEMP_DIR}"
-cd - > /dev/null
+cd "${DIST_DIR}"
+zip -r "${OUTPUT_ZIP}" "${ADDON_NAME}"
 
 echo "Archive created successfully: ${DIST_DIR}/${OUTPUT_ZIP}"
 

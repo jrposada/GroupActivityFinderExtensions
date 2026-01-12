@@ -1,13 +1,21 @@
-# How to
+## Getting started
 
-## Add new Dungeon
+- Create a PR against `master`.
 
-1. Enable addon's developer mode.
-2. Get the activity id from in-game dungeon finder. If the activity is unknown it should display a "TODO XXX" message on the specific activities list.
-3. Add new id to `activity-id.lua`. Each activity has two entries: normal and veteran. Keep the same order as in the in-game list in english for consistency.
-4. Add new dungeon pledge to `pledge-id.lua`. Value is pledge quest id.
-5. Add new pledge id to `pledge-list.lua`. Add it to the end of the list corresponding npm list. Remember to adjust the shift value to match the calendar on [ESO-HUB](https://eso-hub.com/en/daily-undaunted-pledges).
-6. Add new dungeon sets to `set-id.lua`. To extract the set names and ids go to in-game sets panel and toggle the set you need. This will log the set name and id in the chat.
-7. Add new dungeon activity data to `dungeons-activity-data.lua`.
-   1. Quests ids: http://esoitem.uesp.net/viewlog.php?record=uniqueQuest
-   2. Achievements: use debug mode to log ids to chat.
+### Add dungeon data
+
+1. _In-game_ Get dungeon activity ID from Group & Activities Finder dungeon list.
+1. _In-game_ Enable Achievements debug mode `/lpd achievements on`. With it enable clicking on a achievement on the Journal will log the id to console.
+1. _In-game_ Enable Sets debug mode `/lpd sets on`. With it enable clicking on a set on the Collectables will log the id to console.
+1. Use https://esoitem.uesp.net/viewlog.php to find unique skill point quest.
+1. Add new activity IDs (normal and veteran) to `src/modules/activity-finder/activity-id.lua`
+1. Add new set IDs to `src/modules/activity-finder/set-id.lua`
+1. Add new entries to `src/modules/activity-finder/dungeons/dungeons-activity-data.lua`. You will need above data.
+
+### Localization
+
+Language files can be find at `src/lang`.
+
+### Add pledge information
+
+Not needed, this has been offloaded to LibUndauntedPledges library.
