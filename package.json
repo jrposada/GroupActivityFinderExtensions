@@ -1,0 +1,15 @@
+{
+  "name": "@jrposada/group-activity-finder-extensions",
+  "version": "0.0.0",
+  "author": {
+    "email": "jrposada.dev@gmail.com",
+    "name": "Javier Rodriguez Posada"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jrposada/GroupActivityFinderExtensions.git"
+  },
+  "devDependencies": {
+    "@semantic-release/exec": "^7.1.0"
+  }
+}

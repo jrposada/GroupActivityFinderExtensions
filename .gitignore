@@ -41,3 +41,6 @@ luac.out
 
 # Build
 dist/
+
+# NodeJS
+node_modules
