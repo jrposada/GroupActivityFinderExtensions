@@ -58,5 +58,5 @@ GAFE.Localization = {
   TrialsSchedule = "Épreuves",
   QuestsSchedule = "Quêtes répétables",
   Available = "Disponible",
-  QueueForActivity = "En file d'attente pour <<1>> <<2>>",
+  QueueForActivity = "En file d'attente pour <<1>>",
 }

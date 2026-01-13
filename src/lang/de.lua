@@ -57,5 +57,5 @@ GAFE.Localization = {
   TrialsSchedule = "Prüfungsplan",
   QuestsSchedule = "Wiederholbare Quests",
   Available = "Verfügbar",
-  QueueForActivity = "In der Warteschlange für <<1>> <<2>>",
+  QueueForActivity = "In der Warteschlange für <<1>>",
 }

@@ -20,22 +20,14 @@ local BattlegroundCommands = {}
 
 --- Queues a random battleground based on player eligibility.
 local function battleground()
-  if QueueManager.IsSearching() then
-    return
+  local activityType = nil
+  LibPanicida.Debug.LogLater("Player level: " .. GetUnitLevel("player"))
+  if GetUnitLevel("player") ~= 50 then
+    activityType = LFG_ACTIVITY_BATTLE_GROUND_LOW_LEVEL
+  else
+    activityType = LFG_ACTIVITY_BATTLE_GROUND_NON_CHAMPION
   end
-
-  QueueManager.ClearSearch()
-
-  local location = QueueManager.FindEligibleLocation(
-    BATTLEGROUND_FINDER_MANAGER)
-
-  if not location then
-    LibPanicida.Debug.LogLater("No eligible battleground found")
-    return
-  end
-
-  QueueManager.QueueAndStart(location,
-    location:GetNameKeyboard())
+  QueueManager.QueueByActivityType(activityType)
 end
 
 local commandsList = {

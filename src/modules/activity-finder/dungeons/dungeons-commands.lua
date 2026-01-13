@@ -4,9 +4,7 @@
 local pairs = pairs
 
 local GetCompletedQuestInfo = GetCompletedQuestInfo
-local GetString = GetString
 local ZO_GetEffectiveDungeonDifficulty = ZO_GetEffectiveDungeonDifficulty
-local DUNGEON_FINDER_MANAGER = DUNGEON_FINDER_MANAGER
 
 local GAFE = GroupActivityFinderExtensions
 local QueueManager = GAFE.QueueManager
@@ -26,14 +24,6 @@ local DungeonCommands = {}
 -- Private Functions
 -- =============================================================================
 
---- Gets the current dungeon activity type based on group difficulty.
---- @return number activityType LFG_ACTIVITY_DUNGEON or LFG_ACTIVITY_MASTER_DUNGEON
-local function getCurrentDungeonActivityType()
-  return ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL
-      and LFG_ACTIVITY_DUNGEON
-      or LFG_ACTIVITY_MASTER_DUNGEON
-end
-
 --- Queues dungeons where the associated quest has not been completed.
 --- @param verbose string|nil Pass "verbose" to show locked locations in output
 local function quests(verbose)
@@ -41,7 +31,7 @@ local function quests(verbose)
     return GetCompletedQuestInfo(activityData.q) == ""
   end
 
-  local activityType = getCurrentDungeonActivityType()
+  local activityType = DungeonCommands.GetCurrentDungeonActivityType()
   QueueManager.QueueWhere(activityType, DungeonActivityData, condition,
     verbose)
 end
@@ -53,33 +43,15 @@ local function pledges(verbose)
     return PledgeTracker.IsIncompletePledge(activityData.p)
   end
 
-  local activityType = getCurrentDungeonActivityType()
+  local activityType = DungeonCommands.GetCurrentDungeonActivityType()
   QueueManager.QueueWhere(activityType, DungeonActivityData, condition,
     verbose)
 end
 
 --- Queues a random dungeon at the current effective difficulty.
 local function dungeon()
-  if QueueManager.IsSearching() then
-    return
-  end
-
-  QueueManager.ClearSearch()
-
-  local activityType = getCurrentDungeonActivityType()
-  local location = QueueManager.FindEligibleLocation(DUNGEON_FINDER_MANAGER,
-    activityType)
-
-  if not location then
-    LibPanicida.Debug.LogLater("No eligible random dungeon found")
-    return
-  end
-
-  local activityName = activityType == LFG_ACTIVITY_DUNGEON
-      and GetString(SI_DUNGEONDIFFICULTY1)
-      or GetString(SI_DUNGEONDIFFICULTY2)
-
-  QueueManager.QueueAndStart(location, activityName)
+  local activityType = DungeonCommands.GetCurrentDungeonActivityType()
+  QueueManager.QueueByActivityType(activityType)
 end
 
 local commandsList = {
@@ -88,24 +60,33 @@ local commandsList = {
   { name = "/dungeon", func = dungeon },
 }
 
---- Displays help information for available slash commands.
-local function help()
-  for _, param in pairs(commandsList) do
-    LibPanicida.Debug.LogLater(param)
-  end
-end
-
 -- =============================================================================
 -- Public Functions
 -- =============================================================================
 
 --- Initializes slash commands for dungeon queuing.
 function DungeonCommands.Init()
-  SLASH_COMMANDS["/gafe"] = help
-
   for _, param in pairs(commandsList) do
     SLASH_COMMANDS[param.name] = param.func
   end
+end
+
+--- Gets the current dungeon activity type based on group difficulty.
+--- @return number activityType LFG_ACTIVITY_DUNGEON or LFG_ACTIVITY_MASTER_DUNGEON
+function DungeonCommands.GetCurrentDungeonActivityType()
+  local savedVars = GAFE.SavedVars
+  return savedVars.collapse == GAFE_COLLAPSE_MODE.Group and
+      (
+        ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL
+        and LFG_ACTIVITY_DUNGEON
+        or LFG_ACTIVITY_MASTER_DUNGEON
+      )
+      or
+      (
+        savedVars.collapse == GAFE_COLLAPSE_MODE.Normal
+        and LFG_ACTIVITY_DUNGEON
+        or LFG_ACTIVITY_MASTER_DUNGEON
+      )
 end
 
 -- =============================================================================

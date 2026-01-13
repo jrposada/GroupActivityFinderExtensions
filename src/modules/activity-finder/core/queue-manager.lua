@@ -41,7 +41,7 @@ local QueueManager = {}
 -- =============================================================================
 
 --- Generates a lock reason text based on level or champion point requirements.
---- Adapted from esoui/ingame/lfg/zo_activityfinderroot_manager.lua
+--- Adapted from https://github.com/esoui/esoui/blob/3c64472d9759568b001cde31c2b683231b194719/esoui/ingame/lfg/zo_activityfinderroot_manager.lua#L40
 --- @param levelMin number Minimum level required
 --- @param levelMax number Maximum level allowed
 --- @param pointsMin number Minimum champion points required
@@ -73,6 +73,7 @@ local function getLevelOrChampionPointsRequirementText(levelMin, levelMax,
 end
 
 --- Determines the lock reason text for a location based on collectible requirements.
+--- Adapted from https://github.com/esoui/esoui/blob/3c64472d9759568b001cde31c2b683231b194719/esoui/ingame/lfg/zo_activityfinderroot_manager.lua#L387
 --- @param location table The location data object
 --- @return string lockReasonText The formatted lock reason
 local function getCollectibleLockReasonText(location)
@@ -93,19 +94,15 @@ local function getCollectibleLockReasonText(location)
     collectibleData:GetCategoryData():GetName())
 end
 
--- =============================================================================
--- Public Functions
--- =============================================================================
-
 --- Updates the lock state and reason for a location.
---- Adapted from esoui/ingame/lfg/zo_activityfinderroot_manager.lua -> ActivityFinderRoot_Manager:UpdateLocationData()
+--- Adapted from https://github.com/esoui/esoui/blob/3c64472d9759568b001cde31c2b683231b194719/esoui/ingame/lfg/zo_activityfinderroot_manager.lua#L355
 --- @param location table The location data object
 --- @param activityRequiresRoles boolean Whether the activity requires role selection
 --- @param isGroupRelevant boolean Whether the player is in a group
 --- @param isLeader boolean Whether the player is the group leader
-function QueueManager.UpdateLocationLockState(location,
-                                              activityRequiresRoles,
-                                              isGroupRelevant, isLeader)
+local function UpdateLocationLockState(location,
+                                       activityRequiresRoles,
+                                       isGroupRelevant, isLeader)
   location:SetLocked(true)
   location:SetCountsForAverageRoleTime(activityRequiresRoles)
 
@@ -152,48 +149,33 @@ function QueueManager.UpdateLocationLockState(location,
   end
 end
 
---- Finds the first eligible location from a list of activity types.
---- @param activityManager
---- @param onlyActivity
---- @return table|nil location The first eligible location or nil if none found
-function QueueManager.FindEligibleLocation(activityManager, onlyActivity)
-  local modes = activityManager:GetFilterModeData()
-  local activityTypes = modes:GetActivityTypes()
+-- =============================================================================
+-- Public Functions
+-- =============================================================================
 
-  for _, activityType in ipairs(activityTypes) do
-    if not onlyActivity or LibPanicida.Utils.TableContainsValue(activityTypes, onlyActivity) then
-      local isActivityLocked = activityManager:GetKeyboardObject()
-          :GetLevelLockInfoByActivity(
-            activityType)
-      if not isActivityLocked then
-        local locationsData = ZO_ACTIVITY_FINDER_ROOT_MANAGER:GetLocationsData(
-          activityType)
-        for _, location in ipairs(locationsData) do
-          if modes:IsEntryTypeVisible(location:GetEntryType()) and location:IsActive() and location:DoesPlayerMeetLevelRequirements() then
-            return location
-          end
-        end
-      end
-    end
+function QueueManager.QueueByActivityType(activityType, index)
+  if IsCurrentlySearchingForGroup() then
+    return
   end
-  return nil
-end
 
---- Queues a single location and starts the search.
---- @param location table The location to queue
---- @param activityName string Display name for the activity type
-function QueueManager.QueueAndStart(location, activityName)
-  ZO_ACTIVITY_FINDER_ROOT_MANAGER:SetLocationSelected(location, true)
-  location:AddActivitySearchEntry()
+  ClearActivityFinderSearch()
+
+  local activitySetId = GetActivitySetIdByTypeAndIndex(activityType, 1)
+
+  AddActivityFinderSetSearchEntry(activitySetId)
 
   local result = StartActivityFinderSearch()
   if result ~= ACTIVITY_QUEUE_RESULT_SUCCESS then
     ZO_AlertEvent(EVENT_ACTIVITY_QUEUE_RESULT, result)
   else
-    LibPanicida.Debug.LogLater(zo_strformat(GAFE.Loc("QueueForActivity"),
-      activityName,
-      GetString(SI_GROUPFINDERCATEGORY_SINGLESELECTDEFAULT0)
-    ))
+    local activitySetName = GetActivitySetInfo(activityType)
+
+    LibPanicida.Debug.LogLater(
+      zo_strformat(
+        GAFE.Loc("QueueForActivity"),
+        activitySetName
+      )
+    )
   end
 end
 
@@ -219,7 +201,7 @@ function QueueManager.QueueWhere(activityType, activityData, condition,
       .specificLocationsLookupData[activityType]
 
   for _, location in pairs(sortedLocationsData) do
-    QueueManager.UpdateLocationLockState(location, activityRequiresRoles,
+    UpdateLocationLockState(location, activityRequiresRoles,
       isGroupRelevant, isLeader)
 
     if location:IsLocked() then
@@ -249,16 +231,21 @@ function QueueManager.QueueWhere(activityType, activityData, condition,
   end
 end
 
---- Checks if the player is currently searching for a group.
---- @return boolean isSearching True if currently searching
-function QueueManager.IsSearching()
-  return IsCurrentlySearchingForGroup()
-end
-
---- Clears the current activity finder search.
-function QueueManager.ClearSearch()
-  ClearActivityFinderSearch()
-end
-
 -- Module Registration
 GAFE.QueueManager = QueueManager
+
+
+-- Save the original method
+local originalAddActivitySearchEntry = ZO_ActivityFinderLocation_Set
+    .AddActivitySearchEntry
+
+-- Override with your modified version
+function ZO_ActivityFinderLocation_Set:AddActivitySearchEntry(...)
+  -- Add your debug here
+  d("AddActivitySearchEntry called")
+  d("Arguments:", ...)
+  d('ID: ' .. self:GetId())
+
+  -- Call the original method and return its result
+  return originalAddActivitySearchEntry(self, ...)
+end

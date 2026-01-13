@@ -37,7 +37,7 @@ GAFE.Localization = {
   TrialSunspire = "Солнечный Шпиль",
   TrialKynesAegis = "Эгида Кин",
   TrialRockgrove = "Каменная Роща",
-  TrialDreadsailReef = "Dreadsail Reef",   -- TODO: translate
+  TrialDreadsailReef = "Dreadsail Reef", -- TODO: translate
   LookForGroup = "Ищу группу (LFG)",
   LookForMore = "Ищу игроков (LFM)",
   LookForGroupDisabled = "Вы уже в группе",
@@ -56,5 +56,5 @@ GAFE.Localization = {
   TrialsSchedule = "Расписание испытаний",
   QuestsSchedule = "Повторяемые квесты",
   Available = "Доступный",
-  QueueForActivity = "В очереди на <<1>> <<2>>",
+  QueueForActivity = "В очереди на <<1>>",
 }

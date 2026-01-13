@@ -3,9 +3,10 @@
 -- =============================================================================
 local EVENT_MANAGER = EVENT_MANAGER
 local pairs = pairs
-local ZO_GetEffectiveDungeonDifficulty = ZO_GetEffectiveDungeonDifficulty
 
 local GAFE = GroupActivityFinderExtensions
+local DungeonCommands = GAFE.DungeonCommands
+local QueueManager = GAFE.QueueManager
 local RewardTracker = GAFE.RewardTracker
 local PledgeTracker = GAFE.PledgeTracker
 local dungeonData = GAFE_DUNGEONS_ACTIVITY_DATA
@@ -22,29 +23,17 @@ local extender = DungeonsExtensions.extender
 -- =============================================================================
 -- Private Functions - Dungeon Difficulty
 -- =============================================================================
-local dungeonDifficulty = nil
+local dungeonActivityType = nil
 
 --- Refreshes the dungeon difficulty based on settings and group difficulty.
-local function refreshDungeonDifficulty()
-  local savedVars = GAFE.SavedVars
-  dungeonDifficulty = savedVars.collapse == GAFE_COLLAPSE_MODE.Group and
-      (
-        ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL
-        and LFG_ACTIVITY_DUNGEON
-        or LFG_ACTIVITY_MASTER_DUNGEON
-      )
-      or
-      (
-        savedVars.collapse == GAFE_COLLAPSE_MODE.Normal
-        and LFG_ACTIVITY_DUNGEON
-        or LFG_ACTIVITY_MASTER_DUNGEON
-      )
+local function refreshDungeonActivityType()
+  dungeonActivityType = DungeonCommands.GetCurrentDungeonActivityType()
 end
 
 --- Collapses dungeon difficulty sections based on settings.
 local function collapse()
   local function doCollapse()
-    refreshDungeonDifficulty()
+    refreshDungeonActivityType()
     for c = 2, 3 do
       local header = _G[
       extender.root ..
@@ -52,7 +41,7 @@ local function collapse()
       c - 1]
       if header then
         local state = header.text:GetColor()
-        if ((dungeonDifficulty ~= c) == (state == 1)) then
+        if ((dungeonActivityType ~= c) == (state == 1)) then
           header:OnMouseUp(true)
         end
       end
@@ -72,10 +61,10 @@ local function queueForPledges()
   local function checkFunc(_obj_)
     local obj = _obj_
     return obj.gafePledge and
-        obj.node.data:GetActivityType() == dungeonDifficulty
+        obj.node.data:GetActivityType() == dungeonActivityType
   end
 
-  refreshDungeonDifficulty()
+  refreshDungeonActivityType()
   extender:CheckAllWhere(checkFunc)
   ZO_ACTIVITY_FINDER_ROOT_MANAGER:StartSearch()
 end
@@ -84,10 +73,11 @@ end
 local function queueForMissingQuests()
   local function checkFunc(_obj_)
     local obj = _obj_
-    return obj.gafeQuest and obj.node.data:GetActivityType() == dungeonDifficulty
+    return obj.gafeQuest and
+        obj.node.data:GetActivityType() == dungeonActivityType
   end
 
-  refreshDungeonDifficulty()
+  refreshDungeonActivityType()
   extender:CheckAllWhere(checkFunc)
   ZO_ACTIVITY_FINDER_ROOT_MANAGER:StartSearch()
 end
@@ -96,37 +86,19 @@ end
 local function queueForMissingSets()
   local function checkFunc(_obj_)
     local obj = _obj_
-    return obj.gafeSets and obj.node.data:GetActivityType() == dungeonDifficulty
+    return obj.gafeSets and
+        obj.node.data:GetActivityType() == dungeonActivityType
   end
 
-  refreshDungeonDifficulty()
+  refreshDungeonActivityType()
   extender:CheckAllWhere(checkFunc)
   ZO_ACTIVITY_FINDER_ROOT_MANAGER:StartSearch()
 end
 
 --- Queues a random dungeon at the current effective difficulty.
 local function queueForRandomDungeon()
-  if IsCurrentlySearchingForGroup() then
-    return
-  end
-
-  refreshDungeonDifficulty()
-
-  ClearGroupFinderSearch()
-  local activitySetId = GetActivitySetIdByTypeAndIndex(dungeonDifficulty, 1)
-  AddActivityFinderSetSearchEntry(activitySetId)
-
-  local result = StartGroupFinderSearch()
-  if result ~= ACTIVITY_QUEUE_RESULT_SUCCESS then
-    ZO_AlertEvent(EVENT_ACTIVITY_QUEUE_RESULT, result)
-  else
-    LibPanicida.Debug.LogLater(zo_strformat(GAFE.Loc("QueueForActivity"),
-      dungeonDifficulty == LFG_ACTIVITY_DUNGEON
-      and GetString(SI_DUNGEONDIFFICULTY1)
-      or GetString(SI_DUNGEONDIFFICULTY2),
-      GetString(SI_GROUPFINDERCATEGORY_SINGLESELECTDEFAULT0)
-    ))
-  end
+  refreshDungeonActivityType()
+  QueueManager.QueueByActivityType(dungeonActivityType)
 end
 
 -- =============================================================================

@@ -29,7 +29,6 @@
     "CHATTER_START_TALK",
     "CHATTER_TALK_CHOICE",
     "ClearActivityFinderSearch",
-    "ClearGroupFinderSearch",
     "CODEX_WINDOW_SOUNDS",
     "COLLECTIBLE_CATEGORY_TYPE_CHAPTER",
     "COMBAT_MECHANIC_FLAGS_HEALTH",
@@ -224,7 +223,6 @@
     "SOUNDS",
     "StartActivityFinderSearch",
     "StartChatInput",
-    "StartGroupFinderSearch",
     "STATUS_HEADER_TEXT",
     "TIME_FORMAT_PRECISION_SECONDS",
     "TIME_FORMAT_PRECISION_TWELVE_HOUR",
@@ -297,7 +295,13 @@
     "zo_strformat",
     "ZO_Tooltips_HideTextTooltip",
     "ZO_Tooltips_ShowTextTooltip",
-    "ZO_WorldMapInfo"
+    "ZO_WorldMapInfo",
+    "INTERFACE_TEXT_COLOR_NORMAL",
+    "TEXT_ALIGN_CENTER",
+    "BATTLEGROUND_FINDER_MANAGER",
+    "DUNGEON_FINDER_MANAGER",
+    "GetActivityName",
+    "GetActivitySetInfo"
   ],
   "cSpell.words": [
     "GAFE",
