@@ -6,6 +6,7 @@ local pairs = pairs
 local GetCompletedQuestInfo = GetCompletedQuestInfo
 local GetString = GetString
 local ZO_GetEffectiveDungeonDifficulty = ZO_GetEffectiveDungeonDifficulty
+local DUNGEON_FINDER_MANAGER = DUNGEON_FINDER_MANAGER
 
 local GAFE = GroupActivityFinderExtensions
 local QueueManager = GAFE.QueueManager
@@ -66,7 +67,8 @@ local function dungeon()
   QueueManager.ClearSearch()
 
   local activityType = getCurrentDungeonActivityType()
-  local location = QueueManager.FindEligibleLocation({ activityType })
+  local location = QueueManager.FindEligibleLocation(DUNGEON_FINDER_MANAGER,
+    activityType)
 
   if not location then
     LibPanicida.Debug.LogLater("No eligible random dungeon found")

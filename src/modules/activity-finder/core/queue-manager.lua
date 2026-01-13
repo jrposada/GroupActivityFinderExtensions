@@ -153,16 +153,25 @@ function QueueManager.UpdateLocationLockState(location,
 end
 
 --- Finds the first eligible location from a list of activity types.
---- @param activityTypes table Array of LFG_ACTIVITY_* constants
+--- @param activityManager
+--- @param onlyActivity
 --- @return table|nil location The first eligible location or nil if none found
-function QueueManager.FindEligibleLocation(activityTypes)
+function QueueManager.FindEligibleLocation(activityManager, onlyActivity)
+  local modes = activityManager:GetFilterModeData()
+  local activityTypes = modes:GetActivityTypes()
+
   for _, activityType in ipairs(activityTypes) do
-    local locationSetsData = ZO_ACTIVITY_FINDER_ROOT_MANAGER
-        .locationSetsLookupData[activityType]
-    if locationSetsData then
-      for _, setLocation in pairs(locationSetsData) do
-        if setLocation:DoesPlayerMeetLevelRequirements() and not setLocation:IsLocked() then
-          return setLocation
+    if not onlyActivity or LibPanicida.Utils.TableContainsValue(activityTypes, onlyActivity) then
+      local isActivityLocked = activityManager:GetKeyboardObject()
+          :GetLevelLockInfoByActivity(
+            activityType)
+      if not isActivityLocked then
+        local locationsData = ZO_ACTIVITY_FINDER_ROOT_MANAGER:GetLocationsData(
+          activityType)
+        for _, location in ipairs(locationsData) do
+          if modes:IsEntryTypeVisible(location:GetEntryType()) and location:IsActive() and location:DoesPlayerMeetLevelRequirements() then
+            return location
+          end
         end
       end
     end

@@ -3,18 +3,11 @@
 -- =============================================================================
 local pairs = pairs
 local GetString = GetString
+local BATTLEGROUND_FINDER_MANAGER = BATTLEGROUND_FINDER_MANAGER
 
 local GAFE = GroupActivityFinderExtensions
 local QueueManager = GAFE.QueueManager
 
--- =============================================================================
--- Constants
--- =============================================================================
-local BATTLEGROUND_ACTIVITY_TYPES = {
-  LFG_ACTIVITY_BATTLE_GROUND_CHAMPION,
-  LFG_ACTIVITY_BATTLE_GROUND_NON_CHAMPION,
-  LFG_ACTIVITY_BATTLE_GROUND_LOW_LEVEL,
-}
 
 -- =============================================================================
 -- Module Declaration
@@ -34,14 +27,15 @@ local function battleground()
   QueueManager.ClearSearch()
 
   local location = QueueManager.FindEligibleLocation(
-    BATTLEGROUND_ACTIVITY_TYPES)
+    BATTLEGROUND_FINDER_MANAGER)
 
   if not location then
     LibPanicida.Debug.LogLater("No eligible battleground found")
     return
   end
 
-  QueueManager.QueueAndStart(location, GetString(SI_LFGACTIVITY4))
+  QueueManager.QueueAndStart(location,
+    location:GetNameKeyboard())
 end
 
 local commandsList = {
