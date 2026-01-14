@@ -35,6 +35,8 @@ local VERBOSE_FLAG = "verbose"
 -- =============================================================================
 local QueueManager = {}
 
+local dryRun = false
+
 -- =============================================================================
 -- Private Functions
 -- =============================================================================
@@ -172,7 +174,13 @@ function QueueManager.QueueByActivityType(activityType, index)
     if locationSet:IsActive() and not locationSet:IsLocked() then
       locationSet:AddActivitySearchEntry()
 
-      local result = StartActivityFinderSearch()
+      local result = nil
+      if dryRun then
+        result = ACTIVITY_QUEUE_RESULT_SUCCESS
+      else
+        result = StartActivityFinderSearch()
+      end
+
       if result ~= ACTIVITY_QUEUE_RESULT_SUCCESS then
         ZO_AlertEvent(EVENT_ACTIVITY_QUEUE_RESULT, result)
       else
@@ -227,7 +235,13 @@ function QueueManager.QueueWhere(activityType, activityData, condition,
     end
   end
 
-  local result = StartActivityFinderSearch()
+  local result = nil
+  if dryRun then
+    result = ACTIVITY_QUEUE_RESULT_SUCCESS
+  else
+    result = StartActivityFinderSearch()
+  end
+
   if result ~= ACTIVITY_QUEUE_RESULT_SUCCESS then
     ZO_AlertEvent(EVENT_ACTIVITY_QUEUE_RESULT, result)
   else

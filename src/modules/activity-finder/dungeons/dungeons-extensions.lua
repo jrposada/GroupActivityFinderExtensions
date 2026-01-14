@@ -58,47 +58,22 @@ end
 
 --- Queues dungeons for incomplete pledges at the current difficulty.
 local function queueForPledges()
-  local function checkFunc(_obj_)
-    local obj = _obj_
-    return obj.gafePledge and
-        obj.node.data:GetActivityType() == dungeonActivityType
-  end
-
-  refreshDungeonActivityType()
-  extender:CheckAllWhere(checkFunc)
-  ZO_ACTIVITY_FINDER_ROOT_MANAGER:StartSearch()
+  DungeonCommands.Pledges()
 end
 
 --- Queues dungeons with incomplete quests at the current difficulty.
 local function queueForMissingQuests()
-  local function checkFunc(_obj_)
-    local obj = _obj_
-    return obj.gafeQuest and
-        obj.node.data:GetActivityType() == dungeonActivityType
-  end
-
-  refreshDungeonActivityType()
-  extender:CheckAllWhere(checkFunc)
-  ZO_ACTIVITY_FINDER_ROOT_MANAGER:StartSearch()
+  DungeonCommands.Quests()
 end
 
 --- Queues dungeons with incomplete item sets at the current difficulty.
 local function queueForMissingSets()
-  local function checkFunc(_obj_)
-    local obj = _obj_
-    return obj.gafeSets and
-        obj.node.data:GetActivityType() == dungeonActivityType
-  end
-
-  refreshDungeonActivityType()
-  extender:CheckAllWhere(checkFunc)
-  ZO_ACTIVITY_FINDER_ROOT_MANAGER:StartSearch()
+  DungeonCommands.Sets()
 end
 
 --- Queues a random dungeon at the current effective difficulty.
 local function queueForRandomDungeon()
-  refreshDungeonActivityType()
-  QueueManager.QueueByActivityType(dungeonActivityType)
+  DungeonCommands.Dungeon()
 end
 
 -- =============================================================================
