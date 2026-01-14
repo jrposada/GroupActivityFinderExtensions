@@ -38,13 +38,12 @@ function BattlegroundsExtensions.Init()
   local onActivityFinderStatusUpdate = RewardTracker
       .CreateCompletionHandler({
         activityType = LFG_ACTIVITY_BATTLE_GROUND_NON_CHAMPION,
-        completionState = BATTLEGROUND_STATE_FINISHED,
         extender = extender,
         delayMs = BATTLEGROUND_REWARD_CHECK_DELAY_MS,
       })
 
   EVENT_MANAGER:RegisterForEvent(
-    extender.root .. "Activity_Update",
+    GAFE.name .. extender.root .. "Activity_Update",
     EVENT_BATTLEGROUND_STATE_CHANGED,
     onActivityFinderStatusUpdate
   )

@@ -219,7 +219,6 @@ function DungeonsExtensions.Init()
 
   local onActivityFinderStatusUpdate = RewardTracker.CreateCompletionHandler({
     activityType = LFG_ACTIVITY_DUNGEON,
-    completionState = ACTIVITY_FINDER_STATUS_COMPLETE,
     extender = extender,
     delayMs = 1000,
   })
@@ -255,7 +254,7 @@ function DungeonsExtensions.Init()
     onQuestRemoved
   )
   EVENT_MANAGER:RegisterForEvent(
-    extender.root .. "Activity_Update",
+    GAFE.name .. extender.root .. "Activity_Update",
     EVENT_ACTIVITY_FINDER_STATUS_UPDATE,
     onActivityFinderStatusUpdate
   )
