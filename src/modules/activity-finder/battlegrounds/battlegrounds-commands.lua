@@ -21,7 +21,6 @@ local BattlegroundCommands = {}
 --- Queues a random battleground based on player eligibility.
 local function battleground()
   local activityType = nil
-  LibPanicida.Debug.LogLater("Player level: " .. GetUnitLevel("player"))
   if GetUnitLevel("player") ~= 50 then
     activityType = LFG_ACTIVITY_BATTLE_GROUND_LOW_LEVEL
   else

@@ -6,7 +6,6 @@ local table_insert = table.insert
 
 local ClearActivityFinderSearch = ClearActivityFinderSearch
 local GetMaxLevel = GetMaxLevel
-local GetString = GetString
 local GetUnitChampionPoints = GetUnitChampionPoints
 local GetUnitLevel = GetUnitLevel
 local IsActiveWorldBattleground = IsActiveWorldBattleground
@@ -160,22 +159,33 @@ function QueueManager.QueueByActivityType(activityType, index)
 
   ClearActivityFinderSearch()
 
-  local activitySetId = GetActivitySetIdByTypeAndIndex(activityType, 1)
+  local isGroupRelevant = IsUnitGrouped(PLAYER_UNIT)
+  local isLeader = IsUnitGroupLeader(PLAYER_UNIT)
+  local activityRequiresRoles = ZO_DoesActivityTypeRequireRoles(activityType)
+  local locationSetLookupData = ZO_ACTIVITY_FINDER_ROOT_MANAGER
+      .locationSetsLookupData[activityType]
 
-  AddActivityFinderSetSearchEntry(activitySetId)
+  for _, locationSet in pairs(locationSetLookupData) do
+    UpdateLocationLockState(locationSet, activityRequiresRoles,
+      isGroupRelevant, isLeader)
 
-  local result = StartActivityFinderSearch()
-  if result ~= ACTIVITY_QUEUE_RESULT_SUCCESS then
-    ZO_AlertEvent(EVENT_ACTIVITY_QUEUE_RESULT, result)
-  else
-    local activitySetName = GetActivitySetInfo(activityType)
+    if locationSet:IsActive() and not locationSet:IsLocked() then
+      locationSet:AddActivitySearchEntry()
 
-    LibPanicida.Debug.LogLater(
-      zo_strformat(
-        GAFE.Loc("QueueForActivity"),
-        activitySetName
-      )
-    )
+      local result = StartActivityFinderSearch()
+      if result ~= ACTIVITY_QUEUE_RESULT_SUCCESS then
+        ZO_AlertEvent(EVENT_ACTIVITY_QUEUE_RESULT, result)
+      else
+        LibPanicida.Debug.LogLater(
+          zo_strformat(
+            GAFE.Loc("QueueForActivity"),
+            locationSet:GetNameKeyboard()
+          )
+        )
+      end
+
+      return
+    end
   end
 end
 
@@ -233,19 +243,3 @@ end
 
 -- Module Registration
 GAFE.QueueManager = QueueManager
-
-
--- Save the original method
-local originalAddActivitySearchEntry = ZO_ActivityFinderLocation_Set
-    .AddActivitySearchEntry
-
--- Override with your modified version
-function ZO_ActivityFinderLocation_Set:AddActivitySearchEntry(...)
-  -- Add your debug here
-  d("AddActivitySearchEntry called")
-  d("Arguments:", ...)
-  d('ID: ' .. self:GetId())
-
-  -- Call the original method and return its result
-  return originalAddActivitySearchEntry(self, ...)
-end
