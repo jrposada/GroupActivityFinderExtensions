@@ -5,15 +5,15 @@ local libScroll = LibScroll
 local BattlegroundsExtensions = GAFE.BattlegroundsExtensions
 local DungeonsExtensions = GAFE.DungeonsExtensions
 
-GAFE_DailiesSchedule = ZO_Object:Subclass()
+local DailiesSchedule = ZO_Object:Subclass()
 
-function GAFE_DailiesSchedule:New(...)
+function DailiesSchedule:New(...)
   local instance = ZO_Object.New(self)
   instance:Initialize(...)
   return instance
 end
 
-function GAFE_DailiesSchedule:Initialize(control)
+function DailiesSchedule:Initialize(control)
   self.control = control
   self.rowsControlData = {}
 
@@ -24,11 +24,12 @@ function GAFE_DailiesSchedule:Initialize(control)
   self:InitializeEvents()
 end
 
-function GAFE_DailiesSchedule:InitializeControls()
+function DailiesSchedule:InitializeControls()
   self:InitializeFragment()
+  self:InitializeCountdownLabel()
 end
 
-function GAFE_DailiesSchedule:InitializeFragment()
+function DailiesSchedule:InitializeFragment()
   local function SetupHeaderRow(rowControl, data)
     -- Do whatever you want/need to setup the control
     local control = rowControl
@@ -125,7 +126,7 @@ function GAFE_DailiesSchedule:InitializeFragment()
   self.scrollList = scrollList
 end
 
-function GAFE_DailiesSchedule:UpdateDataRows()
+function DailiesSchedule:UpdateDataRows()
   for _, rowControlData in pairs(self.rowsControlData) do
     local control = rowControlData.control
     local data = rowControlData.data
@@ -141,27 +142,48 @@ function GAFE_DailiesSchedule:UpdateDataRows()
       data.characterId,
       GAFE.SavedVars.dungeons)
 
-    dungeon:SetText(nextDailyDungeon > 0 and
-      ZO_FormatTime(nextDailyDungeon, TIME_FORMAT_STYLE_COLONS,
-        TIME_FORMAT_PRECISION_SECONDS) or "|cFFD700Available|r")
-    battleground:SetText(nextDailyBattleground > 0 and
-      ZO_FormatTime(nextDailyBattleground, TIME_FORMAT_STYLE_COLONS,
-        TIME_FORMAT_PRECISION_SECONDS) or
-      "|cFFD700Available|r")
+    dungeon:SetText(nextDailyDungeon > 0 and GAFE.Loc("Done") or
+      "|cFFD700" .. GAFE.Loc("Available") .. "|r")
+    battleground:SetText(nextDailyBattleground > 0 and GAFE.Loc("Done") or
+      "|cFFD700" .. GAFE.Loc("Available") .. "|r")
+  end
+
+  self:UpdateCountdownLabel()
+end
+
+function DailiesSchedule:InitializeCountdownLabel()
+  self.countdownLabel = WINDOW_MANAGER:CreateControl(
+    self.control:GetName() .. "Countdown", self.control, CT_LABEL)
+  self.countdownLabel:SetFont("ZoFontWinH4")
+  self.countdownLabel:SetColor(GetInterfaceColor(
+    INTERFACE_COLOR_TYPE_TEXT_COLORS,
+    INTERFACE_TEXT_COLOR_NORMAL))
+  self.countdownLabel:ClearAnchors()
+  self.countdownLabel:SetAnchor(BOTTOM, self.control, BOTTOM, 0, -10)
+  self.countdownLabel:SetHorizontalAlignment(TEXT_ALIGN_CENTER)
+end
+
+function DailiesSchedule:UpdateCountdownLabel()
+  local timeRemaining = GAFE.RewardTracker.GetTimeUntilDailyReset()
+
+  if timeRemaining > 0 then
+    local formattedTime = ZO_FormatTime(timeRemaining, TIME_FORMAT_STYLE_COLONS,
+      TIME_FORMAT_PRECISION_SECONDS)
+    self.countdownLabel:SetText(GAFE.Loc("NextReset") .. ": " .. formattedTime)
   end
 end
 
-function GAFE_DailiesSchedule:InitializeEvents()
+function DailiesSchedule:InitializeEvents()
   ZO_PreHookHandler(GAFE_DailiesWindowScrollList, 'OnEffectivelyShown',
     function()
       self:UpdateDataRows()
-      EM:RegisterForUpdate("GAFE_DailiesSchedule_UpdateScrollList", 1000,
+      EM:RegisterForUpdate("DailiesSchedule_UpdateScrollList", 1000,
         function() self:UpdateDataRows() end)
     end)
   ZO_PreHookHandler(GAFE_DailiesWindowScrollList, 'OnEffectivelyHidden',
-    function() EM:UnregisterForUpdate("GAFE_DailiesSchedule_UpdateScrollList") end)
+    function() EM:UnregisterForUpdate("DailiesSchedule_UpdateScrollList") end)
 end
 
 function GAFE_DailiesSchedule_Init(control)
-  GAFE.ActivitySchedule = GAFE_DailiesSchedule:New(control)
+  GAFE.ActivitySchedule = DailiesSchedule:New(control)
 end
