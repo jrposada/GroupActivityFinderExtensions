@@ -142,9 +142,11 @@ function DailiesSchedule:UpdateDataRows()
       data.characterId,
       GAFE.SavedVars.dungeons)
 
-    dungeon:SetText(nextDailyDungeon > 0 and GAFE.Loc("Done") or
+    dungeon:SetText(nextDailyDungeon > 0 and
+      ("|c32CD32" .. GAFE.Loc("Done") .. "|r") or
       "|cFFD700" .. GAFE.Loc("Available") .. "|r")
-    battleground:SetText(nextDailyBattleground > 0 and GAFE.Loc("Done") or
+    battleground:SetText(nextDailyBattleground > 0 and
+      ("|c32CD32" .. GAFE.Loc("Done") .. "|r") or
       "|cFFD700" .. GAFE.Loc("Available") .. "|r")
   end
 
