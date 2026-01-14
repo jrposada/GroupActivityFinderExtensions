@@ -147,7 +147,7 @@ Or use [code] blocks for better formatting.
 
 ## Output Format
 
-Save the converted content to a file named `README.bbcode` or `DESCRIPTION.bbcode` in the `/mnt/user-data/outputs` directory.
+Save the converted content to a file named `README.bbcode` or `DESCRIPTION.bbcode` in the projects docs directory.
 
 The output should be:
 - Clean and readable

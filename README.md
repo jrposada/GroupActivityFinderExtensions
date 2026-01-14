@@ -63,6 +63,16 @@ A dedicated panel accessible from the Group & Activity Finder showing:
 
 - Shows your currently active armory build on the character panel (Requires you to interact with the armory system to initialize. Just save or restore any build to get started)
 
+## Slash Commands
+
+| Command | Description |
+|---------|-------------|
+| `/qp` | Queue for dungeons with incomplete pledges in your journal |
+| `/qq` | Queue for dungeons with incomplete quests |
+| `/qs` | Queue for dungeons with incomplete item set collections |
+| `/qd` | Queue for a random dungeon |
+| `/qb` | Queue for a random battleground |
+
 ## AI Assistance Notice
 
 This addon was developed with the assistance of AI coding tools. All code has been reviewed and tested by human developers to ensure proper functionality within ESO.
