@@ -3,6 +3,13 @@
 set -e
 
 VERSION=${1:-"0.0.0"}
+
+# Convert semantic version (major.minor.patch) to incremental addon version
+# Zero-padded 2 digits per segment: MM.mm.pp -> MMmmpp
+# Example: 1.2.3 -> 010203, 2.15.10 -> 021510
+IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
+ADDON_VERSION=$(printf "%03d%03d%03d" "$MAJOR" "$MINOR" "$PATCH")
+
 ADDON_NAME="GroupActivityFinderExtensions"
 DIST_DIR="./dist"
 BUILD_DIR="${DIST_DIR}/${ADDON_NAME}"
@@ -18,8 +25,9 @@ echo "Creating temporary directory: ${BUILD_DIR}"
 mkdir -p "${BUILD_DIR}"
 
 ADDON_FILE="${ADDON_NAME}.addon"
-echo "Updating version to ${VERSION} in ${ADDON_FILE}"
+echo "Updating version to ${VERSION} (AddOnVersion: ${ADDON_VERSION}) in ${ADDON_FILE}"
 sed -i.bak "s/^## Version:.*$/## Version: ${VERSION}/" "$ADDON_FILE"
+sed -i.bak "s/^## AddOnVersion:.*$/## AddOnVersion: ${ADDON_VERSION}/" "$ADDON_FILE"
 rm -f "${ADDON_FILE}.bak"  # Remove backup file
 
 echo "Copying files..."
