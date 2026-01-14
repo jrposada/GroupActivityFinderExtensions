@@ -15,7 +15,9 @@ local function UpdateChestTimes(_, isCompleted, _, _, _, _, questId)
   }
 
   local canGetChest = GAFE_TRIALS_CHESTS.GetTimeUntilNextChest(
-    GetCurrentCharacterId(), questId) <= 0
+    GetCurrentCharacterId(),
+    questId
+  ) <= 0
   if trialQuest[questId] and isCompleted and canGetChest then
     GAFE_TRIALS_CHESTS.ResetChest(questId)
   end
@@ -55,10 +57,16 @@ end
 
 function GAFE_TRIALS_CHESTS.GetTimeUntilNextChest(characterId, questId)
   local result = 0
-
   local completedTimeStamp = GAFE.SavedVars.trials.chests[characterId][questId]
+
   if completedTimeStamp then
-    result = GetDiffBetweenTimeStamps(completedTimeStamp + 604800, GetTimeStamp()) -- 604800 = 1 week
+    local currentWeekStart = GAFE.RewardTracker.GetCurrentWeeklyResetTimestamp()
+
+    -- If completed during or after current week's reset, chest is locked until next Tuesday
+    if completedTimeStamp >= currentWeekStart then
+      result = GAFE.RewardTracker.GetTimeUntilWeeklyReset()
+    end
+    -- Otherwise chest is available (completedTimeStamp < currentWeekStart)
   end
 
   return result >= 0 and result or 0
