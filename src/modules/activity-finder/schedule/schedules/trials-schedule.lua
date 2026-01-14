@@ -165,7 +165,7 @@ function GAFE_TrialsSchedule:UpdateCountdownLabel()
   if timeRemaining > 0 then
     local formattedTime = ZO_FormatTime(
       timeRemaining,
-      TIME_FORMAT_STYLE_SHOW_LARGEST_UNIT_DESCRIPTIVE,
+      TIME_FORMAT_STYLE_SHOW_LARGEST_TWO_UNITS,
       TIME_FORMAT_PRECISION_SECONDS
     )
     self.countdownLabel:SetText(GAFE.Loc("WeeklyReset") .. ": " .. formattedTime)

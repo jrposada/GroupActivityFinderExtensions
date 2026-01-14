@@ -364,8 +364,11 @@ function ActivityFinderExtender:UpdatePurpleRewardTimer()
   if timeUntilNextReward > 0 then
     self.premiumRewardTimerControl:SetHidden(false)
 
-    local textStartTime = ZO_FormatTime(timeUntilNextReward,
-      TIME_FORMAT_STYLE_COLONS, TIME_FORMAT_PRECISION_SECONDS)
+    local textStartTime = ZO_FormatTime(
+      timeUntilNextReward,
+      TIME_FORMAT_STYLE_SHOW_LARGEST_TWO_UNITS,
+      TIME_FORMAT_PRECISION_SECONDS
+    )
 
     self.premiumRewardTimerControl:SetText(GAFE.Loc("NextReward") ..
       " " .. textStartTime)

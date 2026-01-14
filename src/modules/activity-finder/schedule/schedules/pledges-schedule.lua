@@ -321,8 +321,11 @@ function PledgesSchedule:UpdateCountdownLabel()
   local timeRemaining = GAFE.RewardTracker.GetTimeUntilDailyReset()
 
   if timeRemaining > 0 then
-    local formattedTime = ZO_FormatTime(timeRemaining, TIME_FORMAT_STYLE_COLONS,
-      TIME_FORMAT_PRECISION_SECONDS)
+    local formattedTime = ZO_FormatTime(
+      timeRemaining,
+      TIME_FORMAT_STYLE_SHOW_LARGEST_TWO_UNITS,
+      TIME_FORMAT_PRECISION_SECONDS
+    )
     self.countdownLabel:SetText(GAFE.Loc("NextReset") .. ": " .. formattedTime)
   end
 end

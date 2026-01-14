@@ -126,9 +126,11 @@ local function InitializeTimer()
   local function UpdateTimer()
     local searchStartTimeMs = GetLFGSearchTimes()
     local timeSinceSearchStartMs = GetFrameTimeMilliseconds() - searchStartTimeMs
-    local textStartTime = ZO_FormatTimeMilliseconds(timeSinceSearchStartMs,
+    local textStartTime = ZO_FormatTimeMilliseconds(
+      timeSinceSearchStartMs,
       TIME_FORMAT_STYLE_COLONS,
-      TIME_FORMAT_PRECISION_TWELVE_HOUR)
+      TIME_FORMAT_PRECISION_TWELVE_HOUR
+    )
 
     timerLabel:SetText(zo_strformat(SI_ACTIVITY_QUEUE_STATUS_LABEL_FORMAT,
       ACTUAL_HEADER_TEXT, NO_ICON,

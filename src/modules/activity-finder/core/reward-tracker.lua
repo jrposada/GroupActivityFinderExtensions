@@ -41,21 +41,22 @@ end
 --- @return number timestamp The Unix timestamp of the most recent Tuesday reset
 function RewardTracker.GetCurrentWeeklyResetTimestamp()
   local dailyResetBase = LibPanicida.Utils.GetDailyResetBase()
-  local now = GetTimeStamp()
+  local today = LibPanicida.Utils.GetDailyResetDay()
 
-  local daysSinceEpochReset = math.floor((now - dailyResetBase) / SECONDS_PER_DAY)
-  local dayOfWeek = daysSinceEpochReset % 7 -- 0=Sunday when epoch base is Sunday
+  -- Unix epoch (Jan 1, 1970) was Thursday. In 0=Sunday system, Thursday=4
+  local dayOfWeek = (today + 4) % 7 -- 0=Sunday, 2=Tuesday
 
   local daysSinceTuesday = (dayOfWeek - TUESDAY + 7) % 7
 
   -- If we're on Tuesday but before reset time, use last Tuesday
-  local todayReset = dailyResetBase + (daysSinceEpochReset * SECONDS_PER_DAY)
-  if daysSinceTuesday == 0 and now < todayReset then
-    daysSinceTuesday = 7
+  if daysSinceTuesday == 0 then
+    local todayReset = dailyResetBase + (today * SECONDS_PER_DAY)
+    if GetTimeStamp() < todayReset then
+      daysSinceTuesday = 7
+    end
   end
 
-  return dailyResetBase +
-      ((daysSinceEpochReset - daysSinceTuesday) * SECONDS_PER_DAY)
+  return dailyResetBase + ((today - daysSinceTuesday) * SECONDS_PER_DAY)
 end
 
 --- Calculates time until the next weekly reset (Tuesday at daily reset time).
