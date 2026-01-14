@@ -1,4 +1,5 @@
 local GAFE = GroupActivityFinderExtensions
+local EVENT_MANAGER = EVENT_MANAGER
 local LQD = LibQuestData
 local libScroll = LibScroll
 local LUP = LibUndauntedPledges
@@ -15,16 +16,16 @@ local function GetPledgesOfDay(dayOffset)
   }
 end
 
-GAFE_PledgesSchedule = ZO_Object:Subclass()
+local PledgesSchedule = ZO_Object:Subclass()
 
 
-function GAFE_PledgesSchedule:New(...)
+function PledgesSchedule:New(...)
   local instance = ZO_Object.New(self)
   instance:Initialize(...)
   return instance
 end
 
-function GAFE_PledgesSchedule:Initialize(control)
+function PledgesSchedule:Initialize(control)
   self.control = control
 
   self.filter = self.control:GetNamedChild("Filter")
@@ -43,13 +44,14 @@ function GAFE_PledgesSchedule:Initialize(control)
   self:InitializeEvents()
 end
 
-function GAFE_PledgesSchedule:InitializeControls()
+function PledgesSchedule:InitializeControls()
   self:InitializeFilter()
   self:InitializeTodayFragment()
   self:InitializeUpcomingFragment()
+  self:InitializeCountdownLabel()
 end
 
-function GAFE_PledgesSchedule:InitializeFilter()
+function PledgesSchedule:InitializeFilter()
   local function OnFilterChanged(...)
     self:OnFilterChanged(...)
   end
@@ -70,7 +72,7 @@ function GAFE_PledgesSchedule:InitializeFilter()
   self.filterComboBox:SelectItem(todayEntry)
 end
 
-function GAFE_PledgesSchedule:InitializeTodayFragment()
+function PledgesSchedule:InitializeTodayFragment()
   local function SetupHeaderRow(rowControl, data)
     -- Do whatever you want/need to setup the control
     local control = rowControl
@@ -167,7 +169,7 @@ function GAFE_PledgesSchedule:InitializeTodayFragment()
   self:RefreshTodayPledges()
 end
 
-function GAFE_PledgesSchedule:InitializeUpcomingFragment()
+function PledgesSchedule:InitializeUpcomingFragment()
   local function SetupHeaderRow(rowControl, data, scrollList)
     -- Do whatever you want/need to setup the control
     local control = rowControl
@@ -277,20 +279,55 @@ function GAFE_PledgesSchedule:InitializeUpcomingFragment()
   self.upcomingScrollList = scrollList
 end
 
-function GAFE_PledgesSchedule:OnFilterChanged(comboBox, entryText, entry)
+function PledgesSchedule:OnFilterChanged(comboBox, entryText, entry)
   self.today:SetHidden(entry.data ~= 'today')
   self.upcoming:SetHidden(entry.data ~= 'upcoming')
 end
 
-function GAFE_PledgesSchedule:InitializeEvents()
+function PledgesSchedule:InitializeEvents()
   local function OnShown()
     self:RefreshTodayPledges()
+    self:UpdateCountdownLabel()
+    EVENT_MANAGER:RegisterForUpdate(
+      "GAFE_PledgesSchedule_UpdateCountdown",
+      1000,
+      function() self:UpdateCountdownLabel() end
+    )
+  end
+
+  local function OnHidden()
+    EVENT_MANAGER:UnregisterForUpdate("GAFE_PledgesSchedule_UpdateCountdown")
   end
 
   ZO_PreHookHandler(self.today, 'OnEffectivelyShown', OnShown)
+  ZO_PreHookHandler(self.today, 'OnEffectivelyHidden', OnHidden)
 end
 
-function GAFE_PledgesSchedule:RefreshTodayPledges()
+function PledgesSchedule:InitializeCountdownLabel()
+  self.countdownLabel = WINDOW_MANAGER:CreateControl(
+    self.control:GetName() .. "Countdown",
+    self.control, CT_LABEL
+  )
+  self.countdownLabel:SetFont("ZoFontWinH4")
+  self.countdownLabel:SetColor(GetInterfaceColor(
+    INTERFACE_COLOR_TYPE_TEXT_COLORS,
+    INTERFACE_TEXT_COLOR_NORMAL))
+  self.countdownLabel:ClearAnchors()
+  self.countdownLabel:SetAnchor(BOTTOM, self.control, BOTTOM, 0, -10)
+  self.countdownLabel:SetHorizontalAlignment(TEXT_ALIGN_CENTER)
+end
+
+function PledgesSchedule:UpdateCountdownLabel()
+  local timeRemaining = GAFE.RewardTracker.GetTimeUntilDailyReset()
+
+  if timeRemaining > 0 then
+    local formattedTime = ZO_FormatTime(timeRemaining, TIME_FORMAT_STYLE_COLONS,
+      TIME_FORMAT_PRECISION_SECONDS)
+    self.countdownLabel:SetText(GAFE.Loc("NextReset") .. ": " .. formattedTime)
+  end
+end
+
+function PledgesSchedule:RefreshTodayPledges()
   -- Add data to scroll list.
   local dataItems = {}
   local numCharacters = GetNumCharacters()
@@ -301,17 +338,20 @@ function GAFE_PledgesSchedule:RefreshTodayPledges()
     local data = {
       character = zo_strformat("<<1>>", characterName),
       maj = LibPanicida.Utils.TableContainsKey(
-        donePledges,
-        self.todayPledges[1]
-      ) and 'Done' or "|cFFD700Available|r",
+            donePledges,
+            self.todayPledges[1]
+          ) and ("|c32CD32" .. GAFE.Loc("Done") .. "|r") or
+          ("|cFFD700" .. GAFE.Loc("Available") .. "|r"),
       glirion = LibPanicida.Utils.TableContainsKey(
-        donePledges,
-        self.todayPledges[2]
-      ) and 'Done' or "|cFFD700Available|r",
+            donePledges,
+            self.todayPledges[2]
+          ) and ("|c32CD32" .. GAFE.Loc("Done") .. "|r") or
+          ("|cFFD700" .. GAFE.Loc("Available") .. "|r"),
       urgarlag = LibPanicida.Utils.TableContainsKey(
-        donePledges,
-        self.todayPledges[3]
-      ) and 'Done' or "|cFFD700Available|r"
+            donePledges,
+            self.todayPledges[3]
+          ) and ("|c32CD32" .. GAFE.Loc("Done") .. "|r") or
+          ("|cFFD700" .. GAFE.Loc("Available") .. "|r")
     }
     dataItems[i] = data
   end
@@ -319,5 +359,5 @@ function GAFE_PledgesSchedule:RefreshTodayPledges()
 end
 
 function GAFE_PledgesSchedule_Init(control)
-  GAFE.ActivitySchedule = GAFE_PledgesSchedule:New(control)
+  GAFE.ActivitySchedule = PledgesSchedule:New(control)
 end
