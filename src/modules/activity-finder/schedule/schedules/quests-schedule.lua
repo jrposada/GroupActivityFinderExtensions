@@ -5,15 +5,15 @@ local LQD = LibQuestData
 
 local dataItems = {}
 
-GAFE_QuestsSchedule = ZO_Object:Subclass()
+local QuestsSchedule = ZO_Object:Subclass()
 
-function GAFE_QuestsSchedule:New(...)
+function QuestsSchedule:New(...)
   local instance = ZO_Object.New(self)
   instance:Initialize(...)
   return instance
 end
 
-function GAFE_QuestsSchedule:Initialize(control)
+function QuestsSchedule:Initialize(control)
   self.control = control
 
   self.characterFilter = self.control:GetNamedChild("CharacterFilter")
@@ -28,7 +28,7 @@ function GAFE_QuestsSchedule:Initialize(control)
   self:InitializeEvents()
 end
 
-function GAFE_QuestsSchedule:InitializeData()
+function QuestsSchedule:InitializeData()
   local allZones = LibQuestData_GetAllZones()
   for zoneName, zone in pairs(allZones) do
     local quests = {}
@@ -58,18 +58,18 @@ function GAFE_QuestsSchedule:InitializeData()
   end)
 end
 
-function GAFE_QuestsSchedule:InitializeControls()
+function QuestsSchedule:InitializeControls()
   self:InitializeFragment()
   self:InitializeFilters()
   self:InitializeCountdownLabel()
 end
 
-function GAFE_QuestsSchedule:InitializeFilters()
+function QuestsSchedule:InitializeFilters()
   self:InitializeCharacterFilter()
   self:InitializeZoneFilter()
 end
 
-function GAFE_QuestsSchedule:InitializeCharacterFilter()
+function QuestsSchedule:InitializeCharacterFilter()
   local function OnFilterChanged(...)
     self:OnCharacterFilterChanged(...)
   end
@@ -99,7 +99,7 @@ function GAFE_QuestsSchedule:InitializeCharacterFilter()
   self.characterFilterComboBox:SelectItem(currentCharacterEntry)
 end
 
-function GAFE_QuestsSchedule:InitializeZoneFilter()
+function QuestsSchedule:InitializeZoneFilter()
   local function OnFilterChanged(...)
     self:OnZoneFilterChanged(...)
   end
@@ -126,7 +126,7 @@ function GAFE_QuestsSchedule:InitializeZoneFilter()
   self.zoneFilterComboBox:SelectItem(favouritesEntry)
 end
 
-function GAFE_QuestsSchedule:InitializeFragment()
+function QuestsSchedule:InitializeFragment()
   local function SetupDataRow(rowControl, data, scrollList)
     -- Do whatever you want/need to setup the control
     local control = rowControl
@@ -185,18 +185,18 @@ function GAFE_QuestsSchedule:InitializeFragment()
     function() self.scrollList:Update(dataItems) end)
 end
 
-function GAFE_QuestsSchedule:OnCharacterFilterChanged(comboBox, entryText, entry)
+function QuestsSchedule:OnCharacterFilterChanged(comboBox, entryText, entry)
   self.characterId = entry.data
   self.scrollList:Update(dataItems)
 end
 
-function GAFE_QuestsSchedule:OnZoneFilterChanged(comboBox, entryText, entry)
+function QuestsSchedule:OnZoneFilterChanged(comboBox, entryText, entry)
   -- TODO: implement
   -- self.characterId = entry.data
   -- self.scrollList:Update(dataItems)
 end
 
-function GAFE_QuestsSchedule:InitializeCountdownLabel()
+function QuestsSchedule:InitializeCountdownLabel()
   self.countdownLabel = WINDOW_MANAGER:CreateControl(
     self.control:GetName() .. "Countdown", self.control, CT_LABEL)
   self.countdownLabel:SetFont("ZoFontWinH4")
@@ -208,7 +208,7 @@ function GAFE_QuestsSchedule:InitializeCountdownLabel()
   self.countdownLabel:SetHorizontalAlignment(TEXT_ALIGN_CENTER)
 end
 
-function GAFE_QuestsSchedule:UpdateCountdownLabel()
+function QuestsSchedule:UpdateCountdownLabel()
   local timeRemaining = GAFE.RewardTracker.GetTimeUntilDailyReset()
   local formattedTime = ZO_FormatTime(
     timeRemaining,
@@ -218,7 +218,7 @@ function GAFE_QuestsSchedule:UpdateCountdownLabel()
   self.countdownLabel:SetText(GAFE.Loc("NextReset") .. ": " .. formattedTime)
 end
 
-function GAFE_QuestsSchedule:InitializeEvents()
+function QuestsSchedule:InitializeEvents()
   ZO_PreHookHandler(self.control, 'OnEffectivelyShown',
     function()
       self:UpdateCountdownLabel()
@@ -233,5 +233,5 @@ function GAFE_QuestsSchedule:InitializeEvents()
 end
 
 function GAFE_QuestsSchedule_Init(control)
-  GAFE.ActivitySchedule = GAFE_QuestsSchedule:New(control)
+  GAFE.QuestsSchedule = QuestsSchedule:New(control)
 end
