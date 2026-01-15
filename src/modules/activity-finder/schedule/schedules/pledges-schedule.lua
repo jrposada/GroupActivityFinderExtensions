@@ -362,5 +362,5 @@ function PledgesSchedule:RefreshTodayPledges()
 end
 
 function GAFE_PledgesSchedule_Init(control)
-  GAFE.ActivitySchedule = PledgesSchedule:New(control)
+  GAFE.PledgesSchedule = PledgesSchedule:New(control)
 end

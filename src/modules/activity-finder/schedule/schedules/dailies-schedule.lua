@@ -190,5 +190,5 @@ function DailiesSchedule:InitializeEvents()
 end
 
 function GAFE_DailiesSchedule_Init(control)
-  GAFE.ActivitySchedule = DailiesSchedule:New(control)
+  GAFE.DailiesSchedule = DailiesSchedule:New(control)
 end
