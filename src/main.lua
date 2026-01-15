@@ -23,7 +23,7 @@ local GAFE = GroupActivityFinderExtensions
 
 --- Initializes all addon modules after saved variables are loaded.
 local function initializeModules()
-  GAFE_TRIALS_CHESTS.Init()
+  GAFE.TrialsChests.Init()
   GAFE.GroupExtensions.Init()
   GAFE.DungeonsExtensions.Init()
   GAFE.DungeonCommands.Init()

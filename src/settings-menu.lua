@@ -155,7 +155,7 @@ function GAFE.SettingsMenu.Init()
           type = "button",
           name = GAFE.Loc("TrialAetherianArchive"),
           func = function()
-            return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
+            return GAFE.TrialsChests.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
             GAFE_ACTIVITY_ID.NormalAetherianArchive].q)
           end,
           width = "half",
@@ -166,7 +166,7 @@ function GAFE.SettingsMenu.Init()
           type = "button",
           name = GAFE.Loc("TrialHelRaCitadel"),
           func = function()
-            return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
+            return GAFE.TrialsChests.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
             GAFE_ACTIVITY_ID.NormalHelRaCitadel].q)
           end,
           width = "half",
@@ -177,7 +177,7 @@ function GAFE.SettingsMenu.Init()
           type = "button",
           name = GAFE.Loc("TrialSanctumOphidia"),
           func = function()
-            return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
+            return GAFE.TrialsChests.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
             GAFE_ACTIVITY_ID.NormalSanctumOphidia].q)
           end,
           width = "half",
@@ -188,7 +188,7 @@ function GAFE.SettingsMenu.Init()
           type = "button",
           name = GAFE.Loc("TrialMawOfLorkhaj"),
           func = function()
-            return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
+            return GAFE.TrialsChests.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
             GAFE_ACTIVITY_ID.NormalMawOfLorkhaj].q)
           end,
           width = "half",
@@ -199,7 +199,7 @@ function GAFE.SettingsMenu.Init()
           type = "button",
           name = GAFE.Loc("TrialHallsOfFabrication"),
           func = function()
-            return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
+            return GAFE.TrialsChests.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
             GAFE_ACTIVITY_ID.NormalHallsOfFabrication].q)
           end,
           width = "half",
@@ -210,7 +210,7 @@ function GAFE.SettingsMenu.Init()
           type = "button",
           name = GAFE.Loc("TrialAsylumSanctorium"),
           func = function()
-            return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
+            return GAFE.TrialsChests.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
             GAFE_ACTIVITY_ID.NormalAsylumSanctorium].q)
           end,
           width = "half",
@@ -221,7 +221,7 @@ function GAFE.SettingsMenu.Init()
           type = "button",
           name = GAFE.Loc("TrialCloudrest"),
           func = function()
-            return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
+            return GAFE.TrialsChests.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
             GAFE_ACTIVITY_ID.NormalCloudrest].q)
           end,
           width = "half",
@@ -232,7 +232,7 @@ function GAFE.SettingsMenu.Init()
           type = "button",
           name = GAFE.Loc("TrialSunspire"),
           func = function()
-            return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
+            return GAFE.TrialsChests.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
             GAFE_ACTIVITY_ID.NormalSunspire].q)
           end,
           width = "half",
@@ -243,7 +243,7 @@ function GAFE.SettingsMenu.Init()
           type = "button",
           name = GAFE.Loc("TrialKynesAegis"),
           func = function()
-            return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
+            return GAFE.TrialsChests.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
             GAFE_ACTIVITY_ID.NormalKynesAegis].q)
           end,
           width = "half",
@@ -254,7 +254,7 @@ function GAFE.SettingsMenu.Init()
           type = "button",
           name = GAFE.Loc("TrialDreadsailReef"),
           func = function()
-            return GAFE_TRIALS_CHESTS.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
+            return GAFE.TrialsChests.ResetChest(GAFE_TRIALS_ACTIVITY_DATA[
             GAFE_ACTIVITY_ID.NormalDreadsailReef].q)
           end,
           width = "half",

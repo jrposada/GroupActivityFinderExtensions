@@ -1,6 +1,26 @@
+-- =============================================================================
+-- LOCALIZED GLOBALS
+-- =============================================================================
+
 local GAFE = GroupActivityFinderExtensions
 local EM = EVENT_MANAGER
+local WM = WINDOW_MANAGER
 local libScroll = LibScroll
+
+local GetCurrentCharacterId = GetCurrentCharacterId
+local GetNumCharacters = GetNumCharacters
+local GetCharacterInfo = GetCharacterInfo
+local GetInterfaceColor = GetInterfaceColor
+local ZO_FormatTime = ZO_FormatTime
+local zo_strformat = zo_strformat
+local ZO_PreHookHandler = ZO_PreHookHandler
+local ZO_ComboBox = ZO_ComboBox
+local ZO_ComboBox_ObjectFromContainer = ZO_ComboBox_ObjectFromContainer
+local ZO_Object = ZO_Object
+
+-- =============================================================================
+-- CONSTANTS
+-- =============================================================================
 
 local ORDERED_TRIALS_ID = {
   AetherianArchive = 1,
@@ -16,40 +36,65 @@ local ORDERED_TRIALS_ID = {
   DreadsailReef = 11,
 }
 
-local dataItems = {
-  [ORDERED_TRIALS_ID.AetherianArchive] = { label = GAFE.Loc("TrialAetherianArchive"), activityId = GAFE_ACTIVITY_ID.NormalAetherianArchive },
-  [ORDERED_TRIALS_ID.HelRaCitadel] = { label = GAFE.Loc("TrialHelRaCitadel"), activityId = GAFE_ACTIVITY_ID.NormalHelRaCitadel },
-  [ORDERED_TRIALS_ID.SanctumOphidia] = { label = GAFE.Loc("TrialSanctumOphidia"), activityId = GAFE_ACTIVITY_ID.NormalSanctumOphidia },
-  [ORDERED_TRIALS_ID.MawOfLorkhaj] = { label = GAFE.Loc("TrialMawOfLorkhaj"), activityId = GAFE_ACTIVITY_ID.NormalMawOfLorkhaj },
-  [ORDERED_TRIALS_ID.HallsOfFabrication] = { label = GAFE.Loc("TrialHallsOfFabrication"), activityId = GAFE_ACTIVITY_ID.NormalHallsOfFabrication },
-  [ORDERED_TRIALS_ID.AsylumSanctorium] = { label = GAFE.Loc("TrialAsylumSanctorium"), activityId = GAFE_ACTIVITY_ID.NormalAsylumSanctorium },
-  [ORDERED_TRIALS_ID.Cloudrest] = { label = GAFE.Loc("TrialCloudrest"), activityId = GAFE_ACTIVITY_ID.NormalCloudrest },
-  [ORDERED_TRIALS_ID.Sunspire] = { label = GAFE.Loc("TrialSunspire"), activityId = GAFE_ACTIVITY_ID.NormalSunspire },
-  [ORDERED_TRIALS_ID.KynesAegis] = { label = GAFE.Loc("TrialKynesAegis"), activityId = GAFE_ACTIVITY_ID.NormalKynesAegis },
-  [ORDERED_TRIALS_ID.Rockgrove] = { label = GAFE.Loc("TrialRockgrove"), activityId = GAFE_ACTIVITY_ID.NormalRockgrove },
-  [ORDERED_TRIALS_ID.DreadsailReef] = { label = GAFE.Loc("TrialDreadsailReef"), activityId = GAFE_ACTIVITY_ID.NormalDreadsailReef }
-}
+local UPDATE_INTERVAL_MS = 1000
+local ROW_HEIGHT = 30
+local LABEL_WIDTH = 350
+local PLEDGE_WIDTH = 165
+
+-- =============================================================================
+-- MODULE DECLARATION
+-- =============================================================================
 
 local TrialsSchedule = ZO_Object:Subclass()
 
+-- =============================================================================
+-- PRIVATE FUNCTIONS
+-- =============================================================================
+
+--- Builds the data items table mapping trial IDs to their display data.
+--- @return table dataItems Map of trial IDs to label and activityId
+local function buildDataItems()
+  return {
+    [ORDERED_TRIALS_ID.AetherianArchive] = { label = GAFE.Loc("TrialAetherianArchive"), activityId = GAFE_ACTIVITY_ID.NormalAetherianArchive },
+    [ORDERED_TRIALS_ID.HelRaCitadel] = { label = GAFE.Loc("TrialHelRaCitadel"), activityId = GAFE_ACTIVITY_ID.NormalHelRaCitadel },
+    [ORDERED_TRIALS_ID.SanctumOphidia] = { label = GAFE.Loc("TrialSanctumOphidia"), activityId = GAFE_ACTIVITY_ID.NormalSanctumOphidia },
+    [ORDERED_TRIALS_ID.MawOfLorkhaj] = { label = GAFE.Loc("TrialMawOfLorkhaj"), activityId = GAFE_ACTIVITY_ID.NormalMawOfLorkhaj },
+    [ORDERED_TRIALS_ID.HallsOfFabrication] = { label = GAFE.Loc("TrialHallsOfFabrication"), activityId = GAFE_ACTIVITY_ID.NormalHallsOfFabrication },
+    [ORDERED_TRIALS_ID.AsylumSanctorium] = { label = GAFE.Loc("TrialAsylumSanctorium"), activityId = GAFE_ACTIVITY_ID.NormalAsylumSanctorium },
+    [ORDERED_TRIALS_ID.Cloudrest] = { label = GAFE.Loc("TrialCloudrest"), activityId = GAFE_ACTIVITY_ID.NormalCloudrest },
+    [ORDERED_TRIALS_ID.Sunspire] = { label = GAFE.Loc("TrialSunspire"), activityId = GAFE_ACTIVITY_ID.NormalSunspire },
+    [ORDERED_TRIALS_ID.KynesAegis] = { label = GAFE.Loc("TrialKynesAegis"), activityId = GAFE_ACTIVITY_ID.NormalKynesAegis },
+    [ORDERED_TRIALS_ID.Rockgrove] = { label = GAFE.Loc("TrialRockgrove"), activityId = GAFE_ACTIVITY_ID.NormalRockgrove },
+    [ORDERED_TRIALS_ID.DreadsailReef] = { label = GAFE.Loc("TrialDreadsailReef"), activityId = GAFE_ACTIVITY_ID.NormalDreadsailReef }
+  }
+end
+
+-- =============================================================================
+-- PUBLIC FUNCTIONS (Class Methods)
+-- =============================================================================
+
+--- Creates a new TrialsSchedule instance.
+--- @param ... any Constructor arguments passed to Initialize
+--- @return table instance The new TrialsSchedule instance
 function TrialsSchedule:New(...)
   local instance = ZO_Object.New(self)
   instance:Initialize(...)
   return instance
 end
 
+--- Initializes the TrialsSchedule with the given control.
+--- @param control any The parent UI control
 function TrialsSchedule:Initialize(control)
   self.control = control
-
   self.filter = self.control:GetNamedChild("Filter")
-
   self.listContainer = self.control:GetNamedChild("ContainerListContainer")
-
   self.characterId = GetCurrentCharacterId()
+  self.dataItems = buildDataItems()
 
   self:InitializeControls()
 end
 
+--- Initializes all UI controls and event handlers.
 function TrialsSchedule:InitializeControls()
   self:InitializeFragment()
   self:InitializeFilter()
@@ -57,6 +102,7 @@ function TrialsSchedule:InitializeControls()
   self:InitializeEvents()
 end
 
+--- Initializes the character filter dropdown.
 function TrialsSchedule:InitializeFilter()
   local function OnFilterChanged(...)
     self:OnFilterChanged(...)
@@ -87,28 +133,30 @@ function TrialsSchedule:InitializeFilter()
   self.filterComboBox:SelectItem(currentCharacterEntry)
 end
 
+--- Initializes the scroll list fragment for displaying trials.
 function TrialsSchedule:InitializeFragment()
+  local dataItems = self.dataItems
+
+  --- Sets up an individual row in the scroll list.
+  --- @param rowControl userdata The row control to set up
+  --- @param data table The data for this row
+  --- @param scrollList userdata The parent scroll list
   local function SetupDataRow(rowControl, data, scrollList)
     local trialsData = GAFE_TRIALS_ACTIVITY_DATA
 
-    -- Do whatever you want/need to setup the control
     local control = rowControl
     local label = control:GetNamedChild("Label")
     local state = control:GetNamedChild("State")
 
-    local height = 30
-    local labelWidth = 350
-    local pledgeWidth = 165
-
-    label:SetDimensions(labelWidth, height)
+    label:SetDimensions(LABEL_WIDTH, ROW_HEIGHT)
     label:SetAnchor(TOPLEFT, control, TOPLEFT, 0, 0)
-    state:SetDimensions(pledgeWidth, height)
+    state:SetDimensions(PLEDGE_WIDTH, ROW_HEIGHT)
     state:SetAnchor(TOPRIGHT, control, TOPRIGHT, 0, 0)
 
     label:SetText(data.label)
     local activityData = trialsData[data.activityId]
-    if activityData and GAFE_TRIALS_CHESTS ~= nil then
-      local chestAvailable = GAFE_TRIALS_CHESTS.GetTimeUntilNextChest(
+    if activityData then
+      local chestAvailable = GAFE.TrialsChests.GetTimeUntilNextChest(
         self.characterId,
         activityData.q
       ) <= 0
@@ -122,11 +170,10 @@ function TrialsSchedule:InitializeFragment()
 
   local parent = self.listContainer
 
-  -- Create the scroll list
   local scrollData = {
     name          = "GAFE_TrialsWindowScrollList",
     parent        = parent,
-    rowHeight     = 30,
+    rowHeight     = ROW_HEIGHT,
     rowTemplate   = "GAFE_TrialsScheduleRow",
     setupCallback = SetupDataRow,
   }
@@ -143,13 +190,18 @@ function TrialsSchedule:InitializeFragment()
     function() self.scrollList:Update(dataItems) end)
 end
 
+--- Handles filter dropdown selection changes.
+--- @param comboBox any The combo box control
+--- @param entryText string The selected entry text
+--- @param entry table The selected entry data
 function TrialsSchedule:OnFilterChanged(comboBox, entryText, entry)
   self.characterId = entry.data
-  self.scrollList:Update(dataItems)
+  self.scrollList:Update(self.dataItems)
 end
 
+--- Initializes the countdown label for weekly reset timer.
 function TrialsSchedule:InitializeCountdownLabel()
-  self.countdownLabel = WINDOW_MANAGER:CreateControl(
+  self.countdownLabel = WM:CreateControl(
     self.control:GetName() .. "Countdown", self.control, CT_LABEL)
   self.countdownLabel:SetFont("ZoFontWinH4")
   self.countdownLabel:SetColor(GetInterfaceColor(
@@ -160,6 +212,7 @@ function TrialsSchedule:InitializeCountdownLabel()
   self.countdownLabel:SetHorizontalAlignment(TEXT_ALIGN_CENTER)
 end
 
+--- Updates the countdown label with time until weekly reset.
 function TrialsSchedule:UpdateCountdownLabel()
   local timeRemaining = GAFE.RewardTracker.GetTimeUntilWeeklyReset()
   if timeRemaining > 0 then
@@ -172,17 +225,25 @@ function TrialsSchedule:UpdateCountdownLabel()
   end
 end
 
+--- Initializes show/hide event handlers for the control.
 function TrialsSchedule:InitializeEvents()
   ZO_PreHookHandler(self.control, 'OnEffectivelyShown',
     function()
       self:UpdateCountdownLabel()
-      EM:RegisterForUpdate("GAFE_TrialsSchedule_UpdateCountdown", 1000,
+      EM:RegisterForUpdate("GAFE_TrialsSchedule_UpdateCountdown",
+        UPDATE_INTERVAL_MS,
         function() self:UpdateCountdownLabel() end)
     end)
   ZO_PreHookHandler(self.control, 'OnEffectivelyHidden',
     function() EM:UnregisterForUpdate("GAFE_TrialsSchedule_UpdateCountdown") end)
 end
 
+-- =============================================================================
+-- MODULE REGISTRATION
+-- =============================================================================
+
+--- Global initialization function called from XML.
+--- @param control any The control to initialize
 function GAFE_TrialsSchedule_Init(control)
   GAFE.TrialsSchedule = TrialsSchedule:New(control)
 end
