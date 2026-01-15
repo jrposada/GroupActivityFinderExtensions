@@ -30,15 +30,15 @@ local dataItems = {
   [ORDERED_TRIALS_ID.DreadsailReef] = { label = GAFE.Loc("TrialDreadsailReef"), activityId = GAFE_ACTIVITY_ID.NormalDreadsailReef }
 }
 
-GAFE_TrialsSchedule = ZO_Object:Subclass()
+local TrialsSchedule = ZO_Object:Subclass()
 
-function GAFE_TrialsSchedule:New(...)
+function TrialsSchedule:New(...)
   local instance = ZO_Object.New(self)
   instance:Initialize(...)
   return instance
 end
 
-function GAFE_TrialsSchedule:Initialize(control)
+function TrialsSchedule:Initialize(control)
   self.control = control
 
   self.filter = self.control:GetNamedChild("Filter")
@@ -50,14 +50,14 @@ function GAFE_TrialsSchedule:Initialize(control)
   self:InitializeControls()
 end
 
-function GAFE_TrialsSchedule:InitializeControls()
+function TrialsSchedule:InitializeControls()
   self:InitializeFragment()
   self:InitializeFilter()
   self:InitializeCountdownLabel()
   self:InitializeEvents()
 end
 
-function GAFE_TrialsSchedule:InitializeFilter()
+function TrialsSchedule:InitializeFilter()
   local function OnFilterChanged(...)
     self:OnFilterChanged(...)
   end
@@ -87,7 +87,7 @@ function GAFE_TrialsSchedule:InitializeFilter()
   self.filterComboBox:SelectItem(currentCharacterEntry)
 end
 
-function GAFE_TrialsSchedule:InitializeFragment()
+function TrialsSchedule:InitializeFragment()
   local function SetupDataRow(rowControl, data, scrollList)
     local trialsData = GAFE_TRIALS_ACTIVITY_DATA
 
@@ -143,12 +143,12 @@ function GAFE_TrialsSchedule:InitializeFragment()
     function() self.scrollList:Update(dataItems) end)
 end
 
-function GAFE_TrialsSchedule:OnFilterChanged(comboBox, entryText, entry)
+function TrialsSchedule:OnFilterChanged(comboBox, entryText, entry)
   self.characterId = entry.data
   self.scrollList:Update(dataItems)
 end
 
-function GAFE_TrialsSchedule:InitializeCountdownLabel()
+function TrialsSchedule:InitializeCountdownLabel()
   self.countdownLabel = WINDOW_MANAGER:CreateControl(
     self.control:GetName() .. "Countdown", self.control, CT_LABEL)
   self.countdownLabel:SetFont("ZoFontWinH4")
@@ -160,7 +160,7 @@ function GAFE_TrialsSchedule:InitializeCountdownLabel()
   self.countdownLabel:SetHorizontalAlignment(TEXT_ALIGN_CENTER)
 end
 
-function GAFE_TrialsSchedule:UpdateCountdownLabel()
+function TrialsSchedule:UpdateCountdownLabel()
   local timeRemaining = GAFE.RewardTracker.GetTimeUntilWeeklyReset()
   if timeRemaining > 0 then
     local formattedTime = ZO_FormatTime(
@@ -172,7 +172,7 @@ function GAFE_TrialsSchedule:UpdateCountdownLabel()
   end
 end
 
-function GAFE_TrialsSchedule:InitializeEvents()
+function TrialsSchedule:InitializeEvents()
   ZO_PreHookHandler(self.control, 'OnEffectivelyShown',
     function()
       self:UpdateCountdownLabel()
@@ -184,5 +184,5 @@ function GAFE_TrialsSchedule:InitializeEvents()
 end
 
 function GAFE_TrialsSchedule_Init(control)
-  GAFE.ActivitySchedule = GAFE_TrialsSchedule:New(control)
+  GAFE.TrialsSchedule = TrialsSchedule:New(control)
 end
