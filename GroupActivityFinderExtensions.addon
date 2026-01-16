@@ -43,6 +43,7 @@ src/modules/activity-finder/core/base-extender.lua
 src/modules/activity-finder/dungeons/pledge-tracker.lua
 
 src/modules/activity-finder/group/group-extensions.lua
+src/modules/activity-finder/group/unit-frame-extensions.lua
 src/modules/activity-finder/dungeons/dungeons-commands.lua
 src/modules/activity-finder/dungeons/dungeons-extensions.lua
 src/modules/activity-finder/battlegrounds/battlegrounds-commands.lua

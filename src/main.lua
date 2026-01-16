@@ -25,6 +25,7 @@ local GAFE = GroupActivityFinderExtensions
 local function initializeModules()
   GAFE.TrialsChests.Init()
   GAFE.GroupExtensions.Init()
+  GAFE.UnitFrameExtensions.Init()
   GAFE.DungeonsExtensions.Init()
   GAFE.DungeonCommands.Init()
   GAFE.BattlegroundsExtensions.Init()
