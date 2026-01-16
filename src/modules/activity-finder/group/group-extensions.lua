@@ -1,20 +1,26 @@
+-- ============================================================================
 -- Localized Globals
-local ZO_ShouldPreferUserId = ZO_ShouldPreferUserId
-local ZO_ScrollList_GetData = ZO_ScrollList_GetData
-local ZO_PostHook = ZO_PostHook
-local zo_strformat = zo_strformat
-local SetTooltipText = SetTooltipText
-local GROUP_LIST = GROUP_LIST
-local InformationTooltip = InformationTooltip
-local SI_GROUP_LIST_PANEL_CHARACTER_NAME = SI_GROUP_LIST_PANEL_CHARACTER_NAME
-local ZO_SocialListKeyboard = ZO_SocialListKeyboard
-
+-- ============================================================================
 local GAFE = GroupActivityFinderExtensions
 
+local GROUP_LIST = GROUP_LIST
+local InformationTooltip = InformationTooltip
+local SetTooltipText = SetTooltipText
+local SI_GROUP_LIST_PANEL_CHARACTER_NAME = SI_GROUP_LIST_PANEL_CHARACTER_NAME
+local ZO_PostHook = ZO_PostHook
+local ZO_ScrollList_GetData = ZO_ScrollList_GetData
+local ZO_ShouldPreferUserId = ZO_ShouldPreferUserId
+local ZO_SocialListKeyboard = ZO_SocialListKeyboard
+local zo_strformat = zo_strformat
+
+-- ============================================================================
 -- Module Declaration
+-- ============================================================================
 local GroupExtensions = {}
 
+-- ============================================================================
 -- Private Functions
+-- ============================================================================
 
 --- Sets up group list entry with user ID preference support.
 --- Wraps the base SetupGroupEntry to display displayName when user prefers IDs.
@@ -55,7 +61,9 @@ local function updateTooltipHook(self, control)
   end
 end
 
+-- ============================================================================
 -- Public Functions
+-- ============================================================================
 
 --- Initializes the group extensions module.
 --- Hooks into GROUP_LIST to support user ID preference display.
@@ -66,5 +74,7 @@ function GroupExtensions.Init()
     updateTooltipHook)
 end
 
+-- ============================================================================
 -- Module Registration
+-- ============================================================================
 GAFE.GroupExtensions = GroupExtensions
