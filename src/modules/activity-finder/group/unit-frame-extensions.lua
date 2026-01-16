@@ -9,12 +9,8 @@ local EVENT_MANAGER = EVENT_MANAGER
 local GetGroupUnitTagByIndex = GetGroupUnitTagByIndex
 local GetUnitEffectiveChampionPoints = GetUnitEffectiveChampionPoints
 local GetUnitLevel = GetUnitLevel
-local IsUnitChampion = IsUnitChampion
 local IsUnitOnline = IsUnitOnline
-local LEFT = LEFT
 local MAX_GROUP_SIZE_THRESHOLD = MAX_GROUP_SIZE_THRESHOLD
-local RIGHT = RIGHT
-local ZO_GetChampionPointsIconSmall = ZO_GetChampionPointsIconSmall
 local ZO_PostHook = ZO_PostHook
 local ZO_UnitFrameObject = ZO_UnitFrameObject
 local ZO_UnitFrames_GetUnitFrame = ZO_UnitFrames_GetUnitFrame
@@ -28,7 +24,11 @@ local CHAMPION_ICON_SIZE = 16
 local LEVEL_LABEL_WIDTH = 60
 local LEVEL_LABEL_HEIGHT = 20
 local LEVEL_LABEL_OFFSET_X = 0
-local LEVEL_LABEL_OFFSET_Y = 9
+local LEVEL_LABEL_OFFSET_Y_NORMAL = 9
+local LEVEL_LABEL_OFFSET_Y_RAID = -7
+local LEVEL_LABEL_FONT_NORMAL = "ZoFontGameBold"
+local LEVEL_LABEL_FONT_RAID = "ZoFontGameBold"
+
 
 -- ============================================================================
 -- Module Declaration
@@ -37,6 +37,11 @@ local UnitFrameExtensions = {}
 
 -- Cache for created level labels keyed by frame name
 local levelLabels = {}
+
+local ignoreTags = {
+  ["reticleover"] = true,
+  ["reticleovertarget"] = true
+}
 
 -- ============================================================================
 -- Private Functions
@@ -64,16 +69,22 @@ local function GetOrCreateLevelLabel(unitFrame)
     return nil
   end
 
+  local isRaidUnitFrame = frameName:find("^ZO_RaidUnitFrame") ~= nil
+  local offsetY = isRaidUnitFrame and LEVEL_LABEL_OFFSET_Y_RAID or
+      LEVEL_LABEL_OFFSET_Y_NORMAL
+  local fontName = isRaidUnitFrame and LEVEL_LABEL_FONT_RAID or
+      LEVEL_LABEL_FONT_NORMAL
+
   -- Create new label using LibPanicida
   local labelName = frameName .. "_GAFE_Level"
   local levelLabel = LibPanicida.Controls.Label(
     labelName,
     frame,
     { LEVEL_LABEL_WIDTH, LEVEL_LABEL_HEIGHT },
-    { TOPLEFT, nameLabel, BOTTOMLEFT, LEVEL_LABEL_OFFSET_X, LEVEL_LABEL_OFFSET_Y },
-    "ZoFontGameBold",
+    { TOPLEFT, nameLabel, BOTTOMLEFT, LEVEL_LABEL_OFFSET_X, offsetY },
+    fontName,
     nil,
-    { 0, 1 } -- left-aligned horizontally, center vertically
+    { TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER }
   )
 
   if not levelLabel then
@@ -89,7 +100,7 @@ end
 --- Updates the level display for a specific unit frame.
 --- @param unitTag string The unit tag (e.g., "group1")
 local function UpdateUnitFrameLevel(unitTag)
-  if not unitTag or not DoesUnitExist(unitTag) then
+  if not unitTag or not DoesUnitExist(unitTag) or ignoreTags[unitTag] then
     return
   end
 
@@ -104,7 +115,7 @@ local function UpdateUnitFrameLevel(unitTag)
   end
 
   -- Check if unit is online
-  if not IsUnitOnline(unitTag) then
+  if not IsUnitOnline(unitTag) or IsUnitDead(unitTag) then
     levelLabel:SetHidden(true)
     return
   end
