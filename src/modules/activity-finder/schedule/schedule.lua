@@ -1,4 +1,6 @@
+-- =============================================================================
 -- Localized Globals
+-- =============================================================================
 local GAFE = GroupActivityFinderExtensions
 local WINDOW_MANAGER = WINDOW_MANAGER
 local GROUP_MENU_KEYBOARD = GROUP_MENU_KEYBOARD
@@ -6,14 +8,20 @@ local ZO_FadeSceneFragment = ZO_FadeSceneFragment
 local ZO_ACTIVITY_FINDER_SORT_PRIORITY = ZO_ACTIVITY_FINDER_SORT_PRIORITY
 local GuiRoot = GuiRoot
 
+-- =============================================================================
 -- Constants
+-- =============================================================================
 local BASE_DUNGEONS_PRIORITY = ZO_ACTIVITY_FINDER_SORT_PRIORITY.DUNGEONS
 local ACTIVITY_PRIORITY = BASE_DUNGEONS_PRIORITY + 1000
 
+-- =============================================================================
 -- Module Declaration
+-- =============================================================================
 local Schedule = {}
 
+-- =============================================================================
 -- Public Functions
+-- =============================================================================
 
 --- Initializes the Activity Schedule panel and registers it with the group menu.
 --- Creates the UI control and adds the schedule category to GROUP_MENU_KEYBOARD.
@@ -37,5 +45,7 @@ function Schedule.Init()
   })
 end
 
+-- =============================================================================
 -- Module Registration
+-- =============================================================================
 GAFE.Schedule = Schedule
