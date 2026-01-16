@@ -1,4 +1,6 @@
+-- =============================================================================
 -- Localized Globals
+-- =============================================================================
 local EVENT_MANAGER = EVENT_MANAGER
 local EVENT_QUEST_REMOVED = EVENT_QUEST_REMOVED
 local GetCharacterInfo = GetCharacterInfo
@@ -9,14 +11,20 @@ local pairs = pairs
 
 local GAFE = GroupActivityFinderExtensions
 
+-- =============================================================================
 -- Constants
--- Lookup table for trial quests that reward weekly chests (built lazily)
+-- =============================================================================
+-- Lookup table for trial quests that reward weekly chests (lazily initialized)
 local TRIAL_QUEST_IDS = nil
 
+-- =============================================================================
 -- Module Declaration
+-- =============================================================================
 local TrialsChests = {}
 
+-- =============================================================================
 -- Private Functions
+-- =============================================================================
 
 --- Builds the trial quest lookup table from activity data.
 --- Uses lazy initialization to ensure GAFE.TRIALS_ACTIVITY_DATA is available.
@@ -68,7 +76,9 @@ local function UpdateChestTimes(_, isCompleted, _, _, _, _, questId)
   end
 end
 
+-- =============================================================================
 -- Public Functions
+-- =============================================================================
 
 --- Initializes the trials chest tracking system.
 --- Sets up saved variables for all characters and registers event handlers.
@@ -132,5 +142,7 @@ function TrialsChests.ResetChest(questId)
   GAFE.SavedVars.trials.chests[characterId][questId] = GetTimeStamp()
 end
 
+-- =============================================================================
 -- Module Registration
+-- =============================================================================
 GAFE.TrialsChests = TrialsChests
