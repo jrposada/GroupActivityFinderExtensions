@@ -1,7 +1,53 @@
+-- ============================================================================
+-- Localized Globals
+-- ============================================================================
 local GAFE = GroupActivityFinderExtensions
 
+local ACHIEVEMENTS = ACHIEVEMENTS
+local CanExitInstanceImmediately = CanExitInstanceImmediately
+local EVENT_MANAGER = EVENT_MANAGER
+local GetAchievementInfo = GetAchievementInfo
+local GetCategoryInfoFromAchievementId = GetCategoryInfoFromAchievementId
+local GetCompletedQuestInfo = GetCompletedQuestInfo
+local GetCurrentCharacterId = GetCurrentCharacterId
+local GetFastTravelNodeInfo = GetFastTravelNodeInfo
+local GetString = GetString
+local GetTimeStamp = GetTimeStamp
+local GROUP_LIST = GROUP_LIST
+local ITEM_SET_COLLECTIONS_DATA_MANAGER = ITEM_SET_COLLECTIONS_DATA_MANAGER
+local KEYBIND_STRIP = KEYBIND_STRIP
+local SCENE_MANAGER = SCENE_MANAGER
+local ZO_ACTIVITY_FINDER_ROOT_MANAGER = ZO_ACTIVITY_FINDER_ROOT_MANAGER
+local ZO_CheckButton_OnClicked = ZO_CheckButton_OnClicked
+local ZO_Dialogs_ShowDialog = ZO_Dialogs_ShowDialog
+local ZO_Dialogs_ShowPlatformDialog = ZO_Dialogs_ShowPlatformDialog
+local ZO_FormatTime = ZO_FormatTime
+local ZO_Object = ZO_Object
+local ZO_PreHookHandler = ZO_PreHookHandler
+local pairs = pairs
+local table_insert = table.insert
+local zo_strformat = zo_strformat
+
+-- ============================================================================
+-- Constants
+-- ============================================================================
+local SECONDS_PER_DAY = 86400
+
+-- ============================================================================
+-- Module Declaration
+-- ============================================================================
 local ActivityFinderExtender = ZO_Object:Subclass()
 
+-- ============================================================================
+-- Private Functions
+-- ============================================================================
+
+-- ============================================================================
+-- Public Functions
+-- ============================================================================
+
+--- Creates a new ActivityFinderExtender instance.
+--- @return table The new ActivityFinderExtender instance
 function ActivityFinderExtender:New()
   local activityFinderExtender = ZO_Object.New(self)
   return activityFinderExtender
@@ -15,8 +61,9 @@ end
 ---@field rewardsVars any
 ---@field root string
 ---@field treeEntry any
----Initialize object
----@param params initialize_params
+
+--- Initializes the ActivityFinderExtender with the provided parameters.
+--- @param params initialize_params Configuration parameters for initialization
 function ActivityFinderExtender:Initialize(params)
   self.characterId = GetCurrentCharacterId()
   self.customExtensions = params.customExtensions
@@ -25,42 +72,40 @@ function ActivityFinderExtender:Initialize(params)
   self.onShown = params.onShown
   self.rewardsVars = params.rewardsVars
   self.root = params.root
-  self.textureSize = GroupActivityFinderExtensions.SavedVars.textureSize
+  self.textureSize = GAFE.SavedVars.textureSize
 
   -- Leave Group
-  table.insert(self.keybindStripGroup,
-    {
-      alignment = KEYBIND_STRIP_ALIGN_CENTER,
-      name = GetString(SI_GROUP_LEAVE),
-      keybind = "UI_SHORTCUT_NEGATIVE",
-      callback = function()
-        ZO_Dialogs_ShowDialog("GROUP_LEAVE_DIALOG")
-      end,
-      visible = function()
-        return GROUP_LIST.groupSize and GROUP_LIST.groupSize > 0
-      end
-    })
+  table_insert(self.keybindStripGroup, {
+    alignment = KEYBIND_STRIP_ALIGN_CENTER,
+    name = GetString(SI_GROUP_LEAVE),
+    keybind = "UI_SHORTCUT_NEGATIVE",
+    callback = function()
+      ZO_Dialogs_ShowDialog("GROUP_LEAVE_DIALOG")
+    end,
+    visible = function()
+      return GROUP_LIST.groupSize and GROUP_LIST.groupSize > 0
+    end
+  })
 
   -- Leave Instance
-  table.insert(self.keybindStripGroup,
-    {
-      alignment = KEYBIND_STRIP_ALIGN_CENTER,
-      name = GetString(SI_GROUP_MENU_LEAVE_INSTANCE_KEYBIND),
-      keybind = "UI_SHORTCUT_QUATERNARY",
-      callback = function()
-        ZO_Dialogs_ShowDialog("INSTANCE_LEAVE_DIALOG")
-      end,
-      visible = CanExitInstanceImmediately
-      -- and (not GROUP_LIST.groupSize or GROUP_LIST.groupSize == 0)
-    })
+  table_insert(self.keybindStripGroup, {
+    alignment = KEYBIND_STRIP_ALIGN_CENTER,
+    name = GetString(SI_GROUP_MENU_LEAVE_INSTANCE_KEYBIND),
+    keybind = "UI_SHORTCUT_QUATERNARY",
+    callback = function()
+      ZO_Dialogs_ShowDialog("INSTANCE_LEAVE_DIALOG")
+    end,
+    visible = CanExitInstanceImmediately
+  })
+
   if params.treeEntry then self:InitializeSetupFunction(params.treeEntry) end
   self:InitializeRandomReward()
   self:InitializeEvents()
 end
 
-function ActivityFinderExtender:InitializeSetupFunction(_treeEntry_)
-  local treeEntry = _treeEntry_
-
+--- Initializes the setup function for tree entries to add custom icons and data.
+--- @param treeEntry table The tree entry to extend with custom setup logic
+function ActivityFinderExtender:InitializeSetupFunction(treeEntry)
   local baseSetupFunction = treeEntry.setupFunction
   self.pool = treeEntry.objectPool
 
@@ -120,17 +165,16 @@ function ActivityFinderExtender:InitializeSetupFunction(_treeEntry_)
         "ZoFontGameLarge", nil, { 0, 1 }, "ACTIVITY_ID " .. activityId)
     end
 
-    if (self.customExtensions) then
-      self.customExtensions(node, control, data,
-        open)
+    if self.customExtensions then
+      self.customExtensions(node, control, data, open)
     end
   end
 
   treeEntry.setupFunction = setupFunction
 end
 
+--- Initializes the random reward timer control.
 function ActivityFinderExtender:InitializeRandomReward()
-  -- Initialize control.
   self.singularSectionRewards = _G
       [self.root .. "Finder_Keyboard" .. "SingularSectionRewardsSectionHeader"]
   if self.singularSectionRewards then
@@ -142,6 +186,7 @@ function ActivityFinderExtender:InitializeRandomReward()
   end
 end
 
+--- Initializes event handlers for section visibility and keybind management.
 function ActivityFinderExtender:InitializeEvents()
   self.isKeyboardListSectionVisible = false
   self.isSingularSectionVisible = false
@@ -185,10 +230,16 @@ function ActivityFinderExtender:InitializeEvents()
 
   local keyboardSection = _G[self.root .. 'Finder_KeyboardListSection']
   if keyboardSection then
-    ZO_PreHookHandler(keyboardSection, 'OnEffectivelyShown',
-      OnKeyboardListSectionShown)
-    ZO_PreHookHandler(keyboardSection, 'OnEffectivelyHidden',
-      OnKeyboardListSectionHidden)
+    ZO_PreHookHandler(
+      keyboardSection,
+      'OnEffectivelyShown',
+      OnKeyboardListSectionShown
+    )
+    ZO_PreHookHandler(
+      keyboardSection,
+      'OnEffectivelyHidden',
+      OnKeyboardListSectionHidden
+    )
   end
 
   local singularSection = _G[self.root .. 'Finder_KeyboardSingularSection']
@@ -198,7 +249,6 @@ function ActivityFinderExtender:InitializeEvents()
     ZO_PreHookHandler(singularSection, 'OnEffectivelyHidden',
       OnSingularSectionHidden)
   end
-
 
   ZO_ACTIVITY_FINDER_ROOT_MANAGER:RegisterCallback("OnUpdateGroupStatus",
     OnUpdateGroupStatus)
@@ -218,24 +268,31 @@ function ActivityFinderExtender:InitializeEvents()
       EVENT_MANAGER:UnregisterForUpdate(eventName)
     end
 
-    ZO_PreHookHandler(self.singularSectionRewards, 'OnEffectivelyShown',
-      OnRandomActivitySectionShown)
-    ZO_PreHookHandler(self.singularSectionRewards, 'OnEffectivelyHidden',
-      OnRandomActivitySectionHidden)
+    ZO_PreHookHandler(
+      self.singularSectionRewards,
+      'OnEffectivelyShown',
+      OnRandomActivitySectionShown
+    )
+    ZO_PreHookHandler(
+      self.singularSectionRewards,
+      'OnEffectivelyHidden',
+      OnRandomActivitySectionHidden
+    )
   end
 end
 
-function ActivityFinderExtender:AddAchievement(_achivementId_, _controlName_,
-                                               _parent_, _texture_)
-  local achievementId, controlName, parent, texture =
-      _achivementId_, _controlName_, _parent_, _texture_
-  local sceneManager = SCENE_MANAGER
-  local achievements = ACHIEVEMENTS
-
+--- Adds an achievement icon to the control.
+--- @param achievementId number|nil The achievement ID to display
+--- @param controlName string The name for the created control
+--- @param parent table The parent control
+--- @param texture string The texture path for the icon
+--- @return table The created icon control
+function ActivityFinderExtender:AddAchievement(achievementId, controlName, parent,
+                                               texture)
   local function showAchievement()
-    if select(1, GetCategoryInfoFromAchievementId(achievementId)) ~= nil then
-      sceneManager:ShowBaseScene()
-      achievements:ShowAchievement(achievementId)
+    if GetCategoryInfoFromAchievementId(achievementId) ~= nil then
+      SCENE_MANAGER:ShowBaseScene()
+      ACHIEVEMENTS:ShowAchievement(achievementId)
     end
   end
 
@@ -254,11 +311,13 @@ function ActivityFinderExtender:AddAchievement(_achivementId_, _controlName_,
   return self:AddIcon(controlName, parent, text, showAchievement, tooltip, hidden)
 end
 
-function ActivityFinderExtender:AddQuest(_questId_, _controlName_, _parent_,
-                                         _texture_)
-  local questId, controlName, parent, texture = _questId_, _controlName_,
-      _parent_, _texture_
-
+--- Adds a quest completion icon to the control.
+--- @param questId number|nil The quest ID to check completion for
+--- @param controlName string The name for the created control
+--- @param parent table The parent control
+--- @param texture string The texture path for the icon
+--- @return table The created icon control
+function ActivityFinderExtender:AddQuest(questId, controlName, parent, texture)
   local text, isQuestCompleted = nil, false
   if questId then
     isQuestCompleted = GetCompletedQuestInfo(questId) ~= "" and true or false
@@ -273,8 +332,11 @@ function ActivityFinderExtender:AddQuest(_questId_, _controlName_, _parent_,
     parent.gafeQuest)
 end
 
-function ActivityFinderExtender:AddWayshrine(_nodeIndex_, _parent_)
-  local nodeIndex, parent = _nodeIndex_, _parent_
+--- Adds a wayshrine fast travel button to the control.
+--- @param nodeIndex number|nil The wayshrine node index
+--- @param parent table The parent control
+--- @return table The created button control
+function ActivityFinderExtender:AddWayshrine(nodeIndex, parent)
   local knownNode, name = nil, nil
 
   local function FastTravel()
@@ -304,17 +366,18 @@ function ActivityFinderExtender:AddWayshrine(_nodeIndex_, _parent_)
   return button
 end
 
-function ActivityFinderExtender:AddSets(_setsIds_, _parent_)
-  local setsIds, parent = _setsIds_, _parent_
-
+--- Adds set collection completion icons to the control.
+--- @param setsIds table|nil Array of set IDs to check completion for
+--- @param parent table The parent control
+--- @return table The created icon control
+function ActivityFinderExtender:AddSets(setsIds, parent)
   local text, hasAllSets = nil, true
   if setsIds then
     for _, setId in pairs(setsIds) do
       local setCollectionData = ITEM_SET_COLLECTIONS_DATA_MANAGER
           :GetItemSetCollectionData(setId)
-      local numUnlockedPieces, numPieces =
-          setCollectionData:GetNumUnlockedPieces(),
-          setCollectionData:GetNumPieces()
+      local numUnlockedPieces = setCollectionData:GetNumUnlockedPieces()
+      local numPieces = setCollectionData:GetNumPieces()
       hasAllSets = hasAllSets and numUnlockedPieces == numPieces
     end
 
@@ -331,16 +394,25 @@ function ActivityFinderExtender:AddSets(_setsIds_, _parent_)
     parent.gafeSets)
 end
 
+--- Formats a texture path into an ESO texture string.
+--- @param texture string The texture path
+--- @param size number|nil Optional size override (defaults to self.textureSize)
+--- @return string The formatted texture string
 function ActivityFinderExtender:FormatTexture(texture, size)
   if size == nil then size = self.textureSize end
   return "|t" .. size .. ":" .. size .. ":" .. texture .. "|t"
 end
 
-function ActivityFinderExtender:AddIcon(_controlName_, _parent_, _text_,
-                                        _func_, _tooltip_, _hidden_)
-  local controlName, parent, text, func, tooltip, hidden =
-      _controlName_, _parent_, _text_, _func_, _tooltip_, _hidden_
-
+--- Adds a generic icon button to the control.
+--- @param controlName string The name for the created control
+--- @param parent table The parent control
+--- @param text string|nil The text/texture to display
+--- @param func function|nil The callback function when clicked
+--- @param tooltip string|nil Optional tooltip text
+--- @param hidden boolean|nil Whether the control should be hidden
+--- @return table The created button control
+function ActivityFinderExtender:AddIcon(controlName, parent, text, func, tooltip,
+                                        hidden)
   local position = self.position
   self.position = position - self.textureSize
 
@@ -357,6 +429,7 @@ function ActivityFinderExtender:AddIcon(_controlName_, _parent_, _text_,
   )
 end
 
+--- Updates the premium reward timer display.
 function ActivityFinderExtender:UpdatePurpleRewardTimer()
   local timeUntilNextReward = self.GetTimeUntilNextReward(self.characterId,
     self.rewardsVars)
@@ -377,11 +450,11 @@ function ActivityFinderExtender:UpdatePurpleRewardTimer()
   end
 end
 
-function ActivityFinderExtender:CheckAllWhere(_checkFunc_)
-  local checkFunc = _checkFunc_
-
+--- Checks or unchecks all activities matching the provided filter function.
+--- @param checkFunc function Filter function that returns true for activities to check
+function ActivityFinderExtender:CheckAllWhere(checkFunc)
   local m_active = self.pool.m_Active
-  for k, obj in pairs(m_active) do
+  for _, obj in pairs(m_active) do
     if checkFunc(obj) and obj.check:GetState() == 0 then
       ZO_CheckButton_OnClicked(obj.check)
       ZO_ACTIVITY_FINDER_ROOT_MANAGER:ToggleLocationSelected(obj.node.data)
@@ -392,14 +465,17 @@ function ActivityFinderExtender:CheckAllWhere(_checkFunc_)
   end
 end
 
-function ActivityFinderExtender.GetTimeUntilNextReward(characterId,
-                                                       rewardsVars)
+--- Calculates the time remaining until the next daily reward reset.
+--- @param characterId string The character ID to check rewards for
+--- @param rewardsVars table The rewards saved variables table
+--- @return number The number of seconds until next reward, or 0 if available now
+function ActivityFinderExtender.GetTimeUntilNextReward(characterId, rewardsVars)
   local result = 0
   local completedTimeStamp = rewardsVars.randomRewards[characterId]
   local today = LibPanicida.Utils.GetDailyResetDay()
 
-  local nextReset = (today + 1) * 86400 +
-      LibPanicida.Utils.GetDailyResetBase() -- 86400 = 1 day
+  local nextReset = (today + 1) * SECONDS_PER_DAY +
+      LibPanicida.Utils.GetDailyResetBase()
 
   if LibPanicida.Utils.GetDailyResetDay(completedTimeStamp or 0) >= today then
     result = nextReset - GetTimeStamp()
@@ -408,5 +484,7 @@ function ActivityFinderExtender.GetTimeUntilNextReward(characterId,
   return result
 end
 
+-- ============================================================================
 -- Module Registration
+-- ============================================================================
 GAFE.ActivityFinderExtender = ActivityFinderExtender
