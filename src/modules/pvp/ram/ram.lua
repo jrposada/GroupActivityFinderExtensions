@@ -1,4 +1,6 @@
+-- =============================================================================
 -- Localized Globals
+-- =============================================================================
 local ZO_Object = ZO_Object
 local ZO_StatusBar_SetGradientColor = ZO_StatusBar_SetGradientColor
 local ZO_POWER_BAR_GRADIENT_COLORS = ZO_POWER_BAR_GRADIENT_COLORS
@@ -17,16 +19,22 @@ local SI_SIEGE_BAR_NAME = SI_SIEGE_BAR_NAME
 
 local GAFE = GroupActivityFinderExtensions
 
+-- =============================================================================
 -- Constants
+-- =============================================================================
 local MAX_ESCORTS_SHOWN = 6
 local MIN_MET_TEXTURE = "EsoUI/Art/AvA/AvA_ram_slot_green.dds"
 local MIN_NOT_MET_TEXTURE = "EsoUI/Art/AvA/AvA_ram_slot_red.dds"
 local SPOT_NOT_FILLED_TEXTURE = "EsoUI/Art/AvA/AvA_ram_slot_empty.dds"
 
+-- =============================================================================
 -- Module Declaration
+-- =============================================================================
 local Ram = ZO_Object:Subclass()
 
+-- =============================================================================
 -- Private Functions
+-- =============================================================================
 
 --- Creates and positions the escort indicator controls.
 --- @param self table The Ram instance
@@ -64,7 +72,9 @@ local function onLeaveRamEscort(self)
   self:UpdateVisibility()
 end
 
+-- =============================================================================
 -- Public Functions
+-- =============================================================================
 
 --- Creates a new Ram instance.
 --- @param control any The UI control element
