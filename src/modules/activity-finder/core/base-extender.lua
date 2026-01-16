@@ -12,7 +12,6 @@ local GetCompletedQuestInfo = GetCompletedQuestInfo
 local GetCurrentCharacterId = GetCurrentCharacterId
 local GetFastTravelNodeInfo = GetFastTravelNodeInfo
 local GetString = GetString
-local GetTimeStamp = GetTimeStamp
 local GROUP_LIST = GROUP_LIST
 local ITEM_SET_COLLECTIONS_DATA_MANAGER = ITEM_SET_COLLECTIONS_DATA_MANAGER
 local KEYBIND_STRIP = KEYBIND_STRIP
@@ -27,11 +26,6 @@ local ZO_PreHookHandler = ZO_PreHookHandler
 local pairs = pairs
 local table_insert = table.insert
 local zo_strformat = zo_strformat
-
--- ============================================================================
--- Constants
--- ============================================================================
-local SECONDS_PER_DAY = 86400
 
 -- ============================================================================
 -- Module Declaration
@@ -470,18 +464,14 @@ end
 --- @param rewardsVars table The rewards saved variables table
 --- @return number The number of seconds until next reward, or 0 if available now
 function ActivityFinderExtender.GetTimeUntilNextReward(characterId, rewardsVars)
-  local result = 0
   local completedTimeStamp = rewardsVars.randomRewards[characterId]
   local today = LibPanicida.Utils.GetDailyResetDay()
 
-  local nextReset = (today + 1) * SECONDS_PER_DAY +
-      LibPanicida.Utils.GetDailyResetBase()
-
   if LibPanicida.Utils.GetDailyResetDay(completedTimeStamp or 0) >= today then
-    result = nextReset - GetTimeStamp()
+    return GAFE.RewardTracker.GetTimeUntilDailyReset()
   end
 
-  return result
+  return 0
 end
 
 -- ============================================================================
