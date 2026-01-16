@@ -53,6 +53,8 @@ src/modules/activity-finder/schedule/schedule.lua
 
 src/modules/map/map.lua
 
+src/modules/inventory/armory.lua
+src/modules/inventory/currency-tracker.lua
 src/modules/inventory/inventory.lua
 
 src/modules/pvp/ram/ram.lua

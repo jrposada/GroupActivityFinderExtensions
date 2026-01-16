@@ -63,6 +63,14 @@ A dedicated panel accessible from the Group & Activity Finder showing:
 
 - Shows your currently active armory build on the character panel (Requires you to interact with the armory system to initialize. Just save or restore any build to get started)
 
+### Currency Tracker
+
+- Displays daily currency gains next to each currency in the Inventory Wallet
+- Tracks gold, Alliance Points, Tel Var Stones, and other currencies
+- Positive gains shown in green
+- Automatically resets at daily reset
+- Bank deposits/withdrawals are excluded from tracking
+
 ## Slash Commands
 
 | Command | Description |

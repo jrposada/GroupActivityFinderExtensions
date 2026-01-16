@@ -38,6 +38,10 @@ local defaultVars = {
   },
   armory = {
     currentBuildIndex = {}
+  },
+  currencyTracker = {
+    day = 0,
+    currencies = {}
   }
 }
 
