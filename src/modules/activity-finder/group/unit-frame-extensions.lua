@@ -9,6 +9,7 @@ local EVENT_MANAGER = EVENT_MANAGER
 local GetGroupUnitTagByIndex = GetGroupUnitTagByIndex
 local GetUnitEffectiveChampionPoints = GetUnitEffectiveChampionPoints
 local GetUnitLevel = GetUnitLevel
+local IsUnitDead = IsUnitDead
 local IsUnitOnline = IsUnitOnline
 local MAX_GROUP_SIZE_THRESHOLD = MAX_GROUP_SIZE_THRESHOLD
 local ZO_HIGHLIGHT_TEXT = ZO_HIGHLIGHT_TEXT
@@ -197,6 +198,14 @@ local function OnGroupUpdate()
   UpdateAllGroupFrameLevels()
 end
 
+--- Event handler for unit death state changes.
+--- @param eventCode number The event code
+--- @param unitTag string The unit tag whose death state changed
+--- @param isDead boolean Whether the unit is now dead
+local function OnUnitDeathStateChanged(eventCode, unitTag, isDead)
+  UpdateUnitFrameLevel(unitTag)
+end
+
 --- Callback handler for unit frame anchor updates.
 local function OnUnitFrameAnchorsUpdated()
   UpdateAllGroupFrameLevels()
@@ -222,6 +231,8 @@ function UnitFrameExtensions.Init()
     OnGroupUpdate)
   EVENT_MANAGER:RegisterForEvent(ADDON_NAME .. "_UnitFrames",
     EVENT_GROUP_MEMBER_CONNECTED_STATUS, OnGroupUpdate)
+  EVENT_MANAGER:RegisterForEvent(ADDON_NAME .. "_UnitFrames",
+    EVENT_UNIT_DEATH_STATE_CHANGED, OnUnitDeathStateChanged)
 
   -- Register for callback when unit frame anchors are updated
   CALLBACK_MANAGER:RegisterCallback("OnUnitFrameAnchorsUpdated",
