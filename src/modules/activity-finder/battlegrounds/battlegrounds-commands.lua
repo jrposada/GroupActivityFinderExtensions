@@ -2,8 +2,6 @@
 -- Localized Globals
 -- =============================================================================
 local pairs = pairs
-local GetString = GetString
-local BATTLEGROUND_FINDER_MANAGER = BATTLEGROUND_FINDER_MANAGER
 
 local GAFE = GroupActivityFinderExtensions
 local QueueManager = GAFE.QueueManager
