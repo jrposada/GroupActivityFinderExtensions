@@ -11,7 +11,9 @@ local GetUnitEffectiveChampionPoints = GetUnitEffectiveChampionPoints
 local GetUnitLevel = GetUnitLevel
 local IsUnitOnline = IsUnitOnline
 local MAX_GROUP_SIZE_THRESHOLD = MAX_GROUP_SIZE_THRESHOLD
+local ZO_HIGHLIGHT_TEXT = ZO_HIGHLIGHT_TEXT
 local ZO_PostHook = ZO_PostHook
+local ZO_SELECTED_TEXT = ZO_SELECTED_TEXT
 local ZO_UnitFrameObject = ZO_UnitFrameObject
 local ZO_UnitFrames_GetUnitFrame = ZO_UnitFrames_GetUnitFrame
 local zo_iconTextFormat = zo_iconTextFormat
@@ -21,6 +23,8 @@ local zo_iconTextFormat = zo_iconTextFormat
 -- ============================================================================
 local ADDON_NAME = GAFE.name
 local CHAMPION_ICON_SIZE = 16
+local FADED_ALPHA_VALUE = 0.4
+local FULL_ALPHA_VALUE = 1
 local LEVEL_LABEL_WIDTH = 60
 local LEVEL_LABEL_HEIGHT = 20
 local LEVEL_LABEL_OFFSET_X = 0
@@ -95,6 +99,33 @@ local function GetOrCreateLevelLabel(unitFrame)
   levelLabels[frameName] = levelLabel
 
   return levelLabel
+end
+
+--- Updates the level label alpha and color to match native unit frame fade behavior.
+--- @param unitFrame table The unit frame object
+--- @param isNearby boolean Whether the unit is in support range
+local function UpdateLevelLabelAlpha(unitFrame, isNearby)
+  if not unitFrame or not unitFrame.frame then
+    return
+  end
+
+  local frameName = unitFrame.frame:GetName()
+  local levelLabel = levelLabels[frameName]
+  if not levelLabel then
+    return
+  end
+
+  local unitTag = unitFrame:GetUnitTag()
+  local color
+  if unitTag == "reticleover" then
+    color = ZO_SELECTED_TEXT
+  else
+    color = ZO_HIGHLIGHT_TEXT
+  end
+
+  local alphaValue = isNearby and FULL_ALPHA_VALUE or FADED_ALPHA_VALUE
+  levelLabel:SetColor(color:UnpackRGBA())
+  levelLabel:SetAlpha(alphaValue)
 end
 
 --- Updates the level display for a specific unit frame.
@@ -202,6 +233,11 @@ function UnitFrameExtensions.Init()
     if unitTag then
       UpdateUnitFrameLevel(unitTag)
     end
+  end)
+
+  -- Hook into DoAlphaUpdate to fade level label with native controls
+  ZO_PostHook(ZO_UnitFrameObject, "DoAlphaUpdate", function(self, isNearby)
+    UpdateLevelLabelAlpha(self, isNearby)
   end)
 
   -- Initial update for any existing group
