@@ -9,7 +9,7 @@ local DungeonCommands = GAFE.DungeonCommands
 local QueueManager = GAFE.QueueManager
 local RewardTracker = GAFE.RewardTracker
 local PledgeTracker = GAFE.PledgeTracker
-local dungeonData = GAFE_DUNGEONS_ACTIVITY_DATA
+local dungeonData = GAFE.DUNGEONS_ACTIVITY_DATA
 
 -- =============================================================================
 -- Module Declaration

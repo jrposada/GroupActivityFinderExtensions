@@ -19,7 +19,7 @@ local TrialsChests = {}
 -- Private Functions
 
 --- Builds the trial quest lookup table from activity data.
---- Uses lazy initialization to ensure GAFE_TRIALS_ACTIVITY_DATA is available.
+--- Uses lazy initialization to ensure GAFE.TRIALS_ACTIVITY_DATA is available.
 --- @return table A lookup table mapping quest IDs to true
 local function GetTrialQuestIds()
   if TRIAL_QUEST_IDS then
@@ -27,16 +27,16 @@ local function GetTrialQuestIds()
   end
 
   TRIAL_QUEST_IDS = {
-    [GAFE_TRIALS_ACTIVITY_DATA[GAFE_ACTIVITY_ID.NormalAetherianArchive].q] = true,
-    [GAFE_TRIALS_ACTIVITY_DATA[GAFE_ACTIVITY_ID.NormalHelRaCitadel].q] = true,
-    [GAFE_TRIALS_ACTIVITY_DATA[GAFE_ACTIVITY_ID.NormalSanctumOphidia].q] = true,
-    [GAFE_TRIALS_ACTIVITY_DATA[GAFE_ACTIVITY_ID.NormalMawOfLorkhaj].q] = true,
-    [GAFE_TRIALS_ACTIVITY_DATA[GAFE_ACTIVITY_ID.NormalHallsOfFabrication].q] = true,
-    [GAFE_TRIALS_ACTIVITY_DATA[GAFE_ACTIVITY_ID.NormalAsylumSanctorium].q] = true,
-    [GAFE_TRIALS_ACTIVITY_DATA[GAFE_ACTIVITY_ID.NormalCloudrest].q] = true,
-    [GAFE_TRIALS_ACTIVITY_DATA[GAFE_ACTIVITY_ID.NormalSunspire].q] = true,
-    [GAFE_TRIALS_ACTIVITY_DATA[GAFE_ACTIVITY_ID.NormalKynesAegis].q] = true,
-    [GAFE_TRIALS_ACTIVITY_DATA[GAFE_ACTIVITY_ID.NormalDreadsailReef].q] = true,
+    [GAFE.TRIALS_ACTIVITY_DATA[GAFE.ACTIVITY_ID.NormalAetherianArchive].q] = true,
+    [GAFE.TRIALS_ACTIVITY_DATA[GAFE.ACTIVITY_ID.NormalHelRaCitadel].q] = true,
+    [GAFE.TRIALS_ACTIVITY_DATA[GAFE.ACTIVITY_ID.NormalSanctumOphidia].q] = true,
+    [GAFE.TRIALS_ACTIVITY_DATA[GAFE.ACTIVITY_ID.NormalMawOfLorkhaj].q] = true,
+    [GAFE.TRIALS_ACTIVITY_DATA[GAFE.ACTIVITY_ID.NormalHallsOfFabrication].q] = true,
+    [GAFE.TRIALS_ACTIVITY_DATA[GAFE.ACTIVITY_ID.NormalAsylumSanctorium].q] = true,
+    [GAFE.TRIALS_ACTIVITY_DATA[GAFE.ACTIVITY_ID.NormalCloudrest].q] = true,
+    [GAFE.TRIALS_ACTIVITY_DATA[GAFE.ACTIVITY_ID.NormalSunspire].q] = true,
+    [GAFE.TRIALS_ACTIVITY_DATA[GAFE.ACTIVITY_ID.NormalKynesAegis].q] = true,
+    [GAFE.TRIALS_ACTIVITY_DATA[GAFE.ACTIVITY_ID.NormalDreadsailReef].q] = true,
   }
 
   return TRIAL_QUEST_IDS

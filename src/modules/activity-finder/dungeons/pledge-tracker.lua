@@ -36,7 +36,7 @@ local pledgesInJournal = {}
 --- @param questName string The quest name to look up
 --- @return number|nil pledgeId The pledge ID or nil if not found
 local function questNameToPledgeId(questName)
-  for _, data in pairs(GAFE_DUNGEONS_ACTIVITY_DATA) do
+  for _, data in pairs(GAFE.DUNGEONS_ACTIVITY_DATA) do
     if data.p then
       local pledgeName = LQD:get_quest_name(data.p, GAFE.lang)
       if questName == pledgeName then

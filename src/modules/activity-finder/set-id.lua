@@ -1,4 +1,6 @@
-GAFE_SET_ID = {
+local GAFE = GroupActivityFinderExtensions
+
+local SET_ID = {
   Sellistrix = 271,
   LamiasSong = 303,
   Medusa = 304,
@@ -268,3 +270,5 @@ GAFE_SET_ID = {
   ToolsOfTheTrapmaster = 826,
   XanmeerSpellweaver = 825,
 }
+
+GAFE.SET_ID = SET_ID

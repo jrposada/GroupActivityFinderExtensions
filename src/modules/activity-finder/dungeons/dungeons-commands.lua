@@ -9,7 +9,7 @@ local ZO_GetEffectiveDungeonDifficulty = ZO_GetEffectiveDungeonDifficulty
 local GAFE = GroupActivityFinderExtensions
 local QueueManager = GAFE.QueueManager
 local PledgeTracker = GAFE.PledgeTracker
-local DungeonActivityData = GAFE_DUNGEONS_ACTIVITY_DATA
+local DungeonActivityData = GAFE.DUNGEONS_ACTIVITY_DATA
 
 -- =============================================================================
 -- Constants
@@ -32,7 +32,7 @@ local DungeonCommands = {}
 --- @return number activityType LFG_ACTIVITY_DUNGEON or LFG_ACTIVITY_MASTER_DUNGEON
 function DungeonCommands.GetCurrentDungeonActivityType()
   local savedVars = GAFE.SavedVars
-  return savedVars.collapse == GAFE_COLLAPSE_MODE.Group and
+  return savedVars.collapse == GAFE.COLLAPSE_MODE.Group and
       (
         ZO_GetEffectiveDungeonDifficulty() == DUNGEON_DIFFICULTY_NORMAL
         and LFG_ACTIVITY_DUNGEON
@@ -40,7 +40,7 @@ function DungeonCommands.GetCurrentDungeonActivityType()
       )
       or
       (
-        savedVars.collapse == GAFE_COLLAPSE_MODE.Normal
+        savedVars.collapse == GAFE.COLLAPSE_MODE.Normal
         and LFG_ACTIVITY_DUNGEON
         or LFG_ACTIVITY_MASTER_DUNGEON
       )

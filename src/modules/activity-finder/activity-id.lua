@@ -1,4 +1,6 @@
-GAFE_ACTIVITY_ID = {
+local GAFE = GroupActivityFinderExtensions
+
+local ACTIVITY_ID = {
   -- ZOs
   NormalFungalGrottoI       = 2,
   VeteranFungalGrottoI      = 299,
@@ -208,3 +210,5 @@ GAFE_ACTIVITY_ID = {
   NormalDreadsailReef       = 10021,
   VeteranDreadsailReef      = 10022
 }
+
+GAFE.ACTIVITY_ID = ACTIVITY_ID
