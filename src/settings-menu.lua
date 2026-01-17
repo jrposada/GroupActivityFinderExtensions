@@ -101,6 +101,16 @@ function GAFE.SettingsMenu.Init()
       end
     },
     {
+      type = "checkbox",
+      name = GAFE.Loc("Settings_TTCPrice"),
+      tooltip = GAFE.Loc("Settings_TTCPrice_Tooltip"),
+      getFunc = function() return saveData.ttcPrice.enabled end,
+      setFunc = function(value)
+        saveData.ttcPrice.enabled = value
+      end,
+      requiresReload = true
+    },
+    {
       type = "submenu",
       name = GAFE.Loc("Settings_CompatibilityTitle"),
       controls = {

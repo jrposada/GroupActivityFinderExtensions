@@ -71,6 +71,16 @@ A dedicated panel accessible from the Group & Activity Finder showing:
 - Automatically resets at daily reset
 - Bank deposits/withdrawals are excluded from tracking
 
+### _(Optional)_ Tamriel Trade Centre Price Display
+
+- Requires Tamriel Trade Centre to be installed.
+- Replaces vendor sell prices with Tamriel Trade Centre market prices in inventory
+  - Green: < 5k
+  - Blue: 5k-20k
+  - Purple: 20k-100k
+  - Gold: > 100k
+- Compatible with backpack, bank, and craft bag
+
 ## Slash Commands
 
 | Command | Description |

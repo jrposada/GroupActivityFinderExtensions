@@ -42,6 +42,9 @@ local defaultVars = {
   currencyTracker = {
     day = 0,
     currencies = {}
+  },
+  ttcPrice = {
+    enabled = false
   }
 }
 

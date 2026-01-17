@@ -60,4 +60,10 @@ GAFE.Localization = {
   NextReset = "Next reset",
   WeeklyReset = "Weekly reset",
   QueueForActivity = "Queued for <<1>>",
+  Settings_TTCPrice = "Show TTC prices in inventory",
+  Settings_TTCPrice_Tooltip =
+  "Replace vendor sell prices with TTC market prices (requires TamrielTradeCentre addon)",
+  TTCPrice_DealFinder = "Deal Finder",
+  TTCPrice_DealFinder_Tooltip =
+  "Filter search results by profit margin percentage",
 }

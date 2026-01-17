@@ -26,6 +26,9 @@ function Inventory.Init()
   -- Initialize currency tracker (hooks wallet UI)
   GAFE.CurrencyTracker.Init()
 
+  -- Initialize TTC price display (hooks inventory and guild store)
+  GAFE.TTCPrice.Init()
+
   -- Armory: Hook character panel show
   ZO_PreHookHandler(ZO_Character, 'OnEffectivelyShown', function()
     GAFE.Armory.OnShown()
@@ -63,7 +66,12 @@ function Inventory.Init()
     GAFE.name .. "_Inventory_CurrencyTracker",
     EVENT_CURRENCY_UPDATE,
     function(_, currencyType, _, newAmount, oldAmount, reason)
-      GAFE.CurrencyTracker.OnCurrencyUpdate(currencyType, newAmount, oldAmount, reason)
+      GAFE.CurrencyTracker.OnCurrencyUpdate(
+        currencyType,
+        newAmount,
+        oldAmount,
+        reason
+      )
     end
   )
 end

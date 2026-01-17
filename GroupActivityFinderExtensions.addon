@@ -5,6 +5,7 @@
 ## AddOnVersion: semantic-release
 ## APIVersion: 101048
 ## DependsOn: LibPanicida>=002000000 LibSavedVars>=60007 LibAddonMenu-2.0>=41 LibQuestData>=276 LibScroll>=002 LibUndauntedPledges>=102020
+## OptionalDependsOn: AwesomeGuildStore TamrielTradeCentre
 ## SavedVariables: GroupActivityFinderExtensions_Vars
 
 ; DISCLAIMER:
@@ -55,6 +56,7 @@ src/modules/map/map.lua
 
 src/modules/inventory/armory.lua
 src/modules/inventory/currency-tracker.lua
+src/modules/inventory/ttc-price.lua
 src/modules/inventory/inventory.lua
 
 src/modules/pvp/ram/ram.lua
