@@ -56,7 +56,9 @@ src/modules/map/map.lua
 
 src/modules/inventory/armory.lua
 src/modules/inventory/currency-tracker.lua
+src/modules/inventory/inventory-slot-hooks.lua
 src/modules/inventory/ttc-price.lua
+src/modules/inventory/crafted-icon.lua
 src/modules/inventory/inventory.lua
 
 src/modules/pvp/ram/ram.lua

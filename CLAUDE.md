@@ -79,6 +79,17 @@ local SECONDS_PER_DAY = 86400  -- Used for daily reset calculations
 - **Event Registration**: Register for ESO events properly using `EVENT_MANAGER`
 - **Saved Variables**: Use `ZO_SavedVars` for persistent data
 - **UI Elements**: Prefix UI control names with addon identifier
+- **Function Hooking**:
+  - For global functions: Use `ZO_PostHook`
+  - For table/object methods: Use `SecurePostHook` (never `ZO_PostHook`)
+
+```lua
+-- Global functions: use ZO_PostHook
+ZO_PostHook("GlobalFunctionName", hookFunction)
+
+-- Table/object methods: use SecurePostHook
+SecurePostHook(SomeTable, "MethodName", hookFunction)
+```
 
 ### Project Structure
 

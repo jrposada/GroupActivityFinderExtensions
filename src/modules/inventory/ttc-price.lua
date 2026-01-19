@@ -291,23 +291,9 @@ local function SetTTCMargin(rowControl, slot)
   )
 end
 
---- Hooks the inventory list to replace prices with TTC prices.
-local function InitInventory()
-  local inventoryDataType = {
-    ZO_PlayerInventoryList.dataTypes[1],
-    ZO_PlayerBankBackpack.dataTypes[1],
-    ZO_CraftBagList.dataTypes[1],
-  }
-
-  for _, dataType in pairs(inventoryDataType) do
-    if dataType then
-      local baseSetupCallback = dataType.setupCallback
-      dataType.setupCallback = function(control, data, ...)
-        baseSetupCallback(control, data, ...)
-        SetTTCPrice(control, data)
-      end
-    end
-  end
+--- Registers the TTC price callback with the inventory slot hooks.
+local function RegisterInventoryCallback()
+  GAFE.InventorySlotHooks.RegisterCallback(SetTTCPrice)
 end
 
 local function AgsInitializeResulList(self, tradingHouseWrapper, searchManager)
@@ -417,7 +403,7 @@ function TTCPrice.Init()
     return
   end
 
-  InitInventory()
+  RegisterInventoryCallback()
   InitAGSIntegration()
 end
 

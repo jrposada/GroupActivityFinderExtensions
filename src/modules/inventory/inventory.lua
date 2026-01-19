@@ -26,8 +26,14 @@ function Inventory.Init()
   -- Initialize currency tracker (hooks wallet UI)
   GAFE.CurrencyTracker.Init()
 
-  -- Initialize TTC price display (hooks inventory and guild store)
+  -- Initialize TTC price display (registers inventory slot callback)
   GAFE.TTCPrice.Init()
+
+  -- Initialize crafted icon display (registers inventory slot callback)
+  GAFE.CraftedIcon.Init()
+
+  -- Initialize inventory slot hooks (must be called after all callbacks are registered)
+  GAFE.InventorySlotHooks.Init()
 
   -- Armory: Hook character panel show
   ZO_PreHookHandler(ZO_Character, 'OnEffectivelyShown', function()
