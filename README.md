@@ -76,6 +76,15 @@ A dedicated panel accessible from the Group & Activity Finder showing:
 - Displays a crafted icon on player-crafted items in inventory
 - Works in backpack, bank, and craft bag
 
+### Group Unit Frame Enhancements
+
+- **Level Display**: Shows player level or Champion Points directly on group unit frames
+  - Displays below the player name on both small group and raid frames
+  - Automatically fades when group members are out of support range
+  - Updates dynamically on level-ups and Champion Point changes
+- **User ID Preference Support**: When "Prefer User ID" is enabled in ESO settings, the group list displays account names instead of character names
+  - Hover over a group member to see their character name in a tooltip
+
 ### _(Optional)_ Tamriel Trade Centre Price Display
 
 - Requires Tamriel Trade Centre to be installed.
