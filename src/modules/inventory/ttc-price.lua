@@ -393,6 +393,10 @@ end
 
 --- Initializes the TTC Price module.
 function TTCPrice.Init()
+  if not GAFE.SavedVars.beta then
+    return
+  end
+
   -- Check if TamrielTradeCentre is available
   if not TamrielTradeCentre or not TamrielTradeCentrePrice then
     return
