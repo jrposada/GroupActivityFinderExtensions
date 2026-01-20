@@ -2,6 +2,12 @@
 
 Enhances the Group & Activity Finder with quality-of-life improvements for daily pledges, trials, battlegrounds, and more. Designed for keyboard-friendly navigation and reduced clicking.
 
+## Compatibility
+
+### Master Merchant
+
+If you have Master Merchant installed with "Replace Inventory Values" enabled, the TTC Price Display feature will be automatically disabled. Master Merchant's price display takes precedence to avoid conflicts. To use this addon's TTC prices instead, disable "Replace Inventory Values" in Master Merchant's settings.
+
 ## Dependencies
 
 - [LibAddonMenu-2.0](https://www.esoui.com/downloads/info7-LibAddonMenu.html)

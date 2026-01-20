@@ -7,23 +7,13 @@
 -------------------------------------------------------------------------------
 -- Localized Globals
 -------------------------------------------------------------------------------
-local BAG_BACKPACK = BAG_BACKPACK
-local BAG_BANK = BAG_BANK
-local BAG_SUBSCRIBER_BANK = BAG_SUBSCRIBER_BANK
-local BAG_VIRTUAL = BAG_VIRTUAL
-local CURRENCY_DONT_SHOW_ALL = CURRENCY_DONT_SHOW_ALL
+local AwesomeGuildStore = AwesomeGuildStore
 local CURT_MONEY = CURT_MONEY
 local GetItemLink = GetItemLink
-local GetItemLinkSellPricePerUnit = GetItemLinkSellPricePerUnit
-local math_floor = math.floor
-local pairs = pairs
+local MasterMerchant = MasterMerchant
 local TamrielTradeCentre = TamrielTradeCentre
 local TamrielTradeCentrePrice = TamrielTradeCentrePrice
 local ZO_CurrencyControl_SetSimpleCurrency = ZO_CurrencyControl_SetSimpleCurrency
-local ZO_CurrencyControl_FormatCurrencyAndAppendIcon =
-    ZO_CurrencyControl_FormatCurrencyAndAppendIcon
-local WINDOW_MANAGER = WINDOW_MANAGER
-local AwesomeGuildStore = AwesomeGuildStore
 
 local GAFE = GroupActivityFinderExtensions
 
@@ -162,6 +152,14 @@ end
 local function SetTTCPrice(control, slot)
   local sellPriceControl = control:GetNamedChild("SellPriceText")
   if not sellPriceControl then
+    return
+  end
+
+  if MasterMerchant and MasterMerchant.systemSavedVariables and MasterMerchant.systemSavedVariables.replaceInventoryValues then
+    -- MasterMerchant has Price override enabled. Restore control to default.
+
+    FitStackLabel(sellPriceControl, 1)
+    UpdatePerUnitLabel(sellPriceControl, 1, slot.sellPrice)
     return
   end
 

@@ -104,9 +104,23 @@ function GAFE.SettingsMenu.Init()
       type = "checkbox",
       name = GAFE.Loc("Settings_TTCPrice"),
       tooltip = GAFE.Loc("Settings_TTCPrice_Tooltip"),
-      getFunc = function() return saveData.ttcPrice.enabled end,
+      getFunc = function()
+        -- Return false when Master Merchant's price replacement is enabled
+        if MasterMerchant and MasterMerchant.systemSavedVariables and MasterMerchant.systemSavedVariables.replaceInventoryValues then
+          return false
+        end
+        return saveData.ttcPrice.enabled
+      end,
       setFunc = function(value)
         saveData.ttcPrice.enabled = value
+      end,
+      disabled = function()
+        return MasterMerchant and MasterMerchant.systemSavedVariables and MasterMerchant.systemSavedVariables.replaceInventoryValues
+      end,
+      warning = function()
+        if MasterMerchant and MasterMerchant.systemSavedVariables and MasterMerchant.systemSavedVariables.replaceInventoryValues then
+          return GAFE.Loc("Settings_TTCPrice_MasterMerchantConflict")
+        end
       end,
       requiresReload = true
     },

@@ -5,7 +5,7 @@
 ## AddOnVersion: semantic-release
 ## APIVersion: 101048
 ## DependsOn: LibPanicida>=002000000 LibSavedVars>=60007 LibAddonMenu-2.0>=41 LibQuestData>=276 LibScroll>=002 LibUndauntedPledges>=102020
-## OptionalDependsOn: AwesomeGuildStore>=3274 TamrielTradeCentre
+## OptionalDependsOn: AwesomeGuildStore>=3274 TamrielTradeCentre MasterMerchant>=3824
 ## SavedVariables: GroupActivityFinderExtensions_Vars
 
 ; DISCLAIMER:

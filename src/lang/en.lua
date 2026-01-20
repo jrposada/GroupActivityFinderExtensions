@@ -63,6 +63,8 @@ GAFE.Localization = {
   Settings_TTCPrice = "Show TTC prices in inventory",
   Settings_TTCPrice_Tooltip =
   "Replace vendor sell prices with TTC market prices (requires TamrielTradeCentre addon)",
+  Settings_TTCPrice_MasterMerchantConflict =
+  "Master Merchant's 'Replace Inventory Values' is enabled. Disable it in Master Merchant settings to use this feature.",
   TTCPrice_DealFinder = "Deal Finder",
   TTCPrice_DealFinder_Tooltip =
   "Filter search results by profit margin percentage",
