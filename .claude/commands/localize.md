@@ -13,7 +13,7 @@ Synchronizes and translates language files using `en.lua` as the authoritative s
 ## Source and Target Files
 
 - **Source**: `src/lang/en.lua` (authoritative)
-- **Targets**: `src/lang/de.lua`, `src/lang/fr.lua`, `src/lang/ru.lua`
+- **Targets**: `src/lang/de.lua`, `src/lang/fr.lua`, `src/lang/ru.lua`, `src/lang/es.lua`
 
 ## Workflow
 
@@ -25,7 +25,7 @@ Read `src/lang/en.lua` and extract:
 
 ### Step 2: Read Target Files
 
-For each target language file (`de.lua`, `fr.lua`, `ru.lua`):
+For each target language file (`de.lua`, `fr.lua`, `ru.lua`, `es.lua`):
 - Extract existing translations
 - Compare keys against source to find:
   - **Missing keys**: Present in en.lua but not in target (need translation)
