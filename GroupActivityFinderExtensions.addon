@@ -62,9 +62,6 @@ src/modules/inventory/crafted-icon.lua
 src/modules/inventory/armory-icon.lua
 src/modules/inventory/inventory.lua
 
-src/modules/pvp/ram/ram.lua
-src/modules/pvp/ram/ram.xml
-
 src/modules/activity-finder/schedule/schedules/dailies-schedule.lua
 src/modules/activity-finder/schedule/schedules/dailies-schedule.xml
 src/modules/activity-finder/schedule/schedules/pledges-schedule.lua
