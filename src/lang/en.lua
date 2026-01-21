@@ -3,6 +3,7 @@ local GAFE = GroupActivityFinderExtensions
 GAFE.lang = "en"
 GAFE.Localization = {
   ActivitySchedule = "Schedule",
+  ArmoryIcon_Tooltip = "This item is part of builds:",
   AutoConfirm = "Auto confirm",
   AutoInvite = "Auto invite",
   Available = "Available",

@@ -32,6 +32,9 @@ function Inventory.Init()
   -- Initialize crafted icon display (registers inventory slot callback)
   GAFE.CraftedIcon.Init()
 
+  -- Initialize armory icon display (registers inventory slot callback)
+  GAFE.ArmoryIcon.Init()
+
   -- Initialize inventory slot hooks (must be called after all callbacks are registered)
   GAFE.InventorySlotHooks.Init()
 
@@ -55,6 +58,7 @@ function Inventory.Init()
     EVENT_ARMORY_BUILD_SAVE_RESPONSE,
     function(_, result, buildIndex)
       GAFE.Armory.OnBuildSaved(result, buildIndex)
+      GAFE.ArmoryIcon.OnBuildUpdated()
     end
   )
 
@@ -64,6 +68,7 @@ function Inventory.Init()
     EVENT_ARMORY_BUILD_UPDATED,
     function(_, buildIndex)
       GAFE.Armory.OnBuildUpdated(buildIndex)
+      GAFE.ArmoryIcon.OnBuildUpdated()
     end
   )
 
