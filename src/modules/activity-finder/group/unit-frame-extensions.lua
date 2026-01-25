@@ -17,7 +17,6 @@ local ZO_PostHook = ZO_PostHook
 local ZO_SELECTED_TEXT = ZO_SELECTED_TEXT
 local ZO_UnitFrameObject = ZO_UnitFrameObject
 local ZO_UnitFrames_GetUnitFrame = ZO_UnitFrames_GetUnitFrame
-local zo_iconTextFormat = zo_iconTextFormat
 
 -- ============================================================================
 -- Constants

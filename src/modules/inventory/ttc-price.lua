@@ -8,6 +8,7 @@
 -- Localized Globals
 -------------------------------------------------------------------------------
 local AwesomeGuildStore = AwesomeGuildStore
+local MasterMerchant = MasterMerchant
 local CURT_MONEY = CURT_MONEY
 local GetItemLink = GetItemLink
 local MasterMerchant = MasterMerchant
@@ -20,18 +21,6 @@ local GAFE = GroupActivityFinderExtensions
 -------------------------------------------------------------------------------
 -- Constants
 -------------------------------------------------------------------------------
--- Use nil for currency options to let ESO use its defaults
--- Custom options require complete fields including color functions
-
--- Profit margin thresholds and colors
-local MARGIN_THRESHOLDS = {
-  { threshold = 0.65, color = "|cFFD700" }, -- Gold: > 65%
-  { threshold = 0.50, color = "|c9e2df4" }, -- Purple: 50-65%
-  { threshold = 0.35, color = "|c398df7" }, -- Blue: 35-50%
-  { threshold = 0.20, color = "|c32CD32" }, -- Green: 20-35%
-}
-local MIN_PROFIT_AMOUNT = 3000
-local COLOR_END = "|r"
 local PRICE_THRESHOLDS = {
   { threshold = 100000, color = ZO_ColorDef:New(1, 0.843, 0) },         -- Gold: > 100k
   { threshold = 20000,  color = ZO_ColorDef:New(0.620, 0.176, 0.957) }, -- Purple: 20k-100k
@@ -43,14 +32,13 @@ local SELL_PRICE_LABEL_OFFSET_Y = -8
 local SELL_UNIT_PRICE_LABEL_OFFSET_X = 0
 local SELL_UNIT_PRICE_LABEL_OFFSET_Y = 0
 local PER_UNIT_LABEL_SUFFIX = "PerUnit"
-local COIN_ICON = "|t16:16:EsoUI/Art/currency/currency_gold.dds|t"
+local AVERAGE_PRICE_TEXTURE = "EsoUI/Art/Guild/tabIcon_roster_%s.dds"
+local LISTING_INPUT_BUTTON_SIZE = 24
 
 -------------------------------------------------------------------------------
 -- Module Declaration
 -------------------------------------------------------------------------------
 local TTCPrice = {}
-
-local originalAgsInitializeResultList
 
 -------------------------------------------------------------------------------
 -- Private Functions
@@ -203,125 +191,65 @@ local function SetTTCPrice(control, slot)
     { color.r, color.g, color.b, color.a })
 end
 
---- Gets margin data for an item based on TTC price vs listing price.
---- @param ttcPrice number The TTC price
---- @param listingStackPrice number The current listing price
---- @param listingStackCount number Listing stack count
---- @return number margin The profit margin percentage (0-1)
---- @return number profit The absolute profit amount
-local function GetMarginData(ttcPrice, listingStackPrice, listingStackCount)
-  local listingPrice = listingStackPrice / listingStackCount
-  local profit = ttcPrice - listingPrice
-  local margin = profit / ttcPrice
+local function AGSInitializeListingInput(self, tradingHouseWrapper)
+  local ToggleButton = AwesomeGuildStore.class.ToggleButton
+  local buttonContainer = self.priceButtonContainer
 
-  return margin, profit
-end
+  local lastSellPriceControl = buttonContainer:GetNamedChild(
+    "LastSellPriceButton"
+  )
+  local averagePriceControl = buttonContainer:GetNamedChild("AveragePriceButton")
 
---- Gets the color for a given margin value.
---- @param margin number The profit margin (0-1)
---- @param profit number The absolute profit amount
---- @return string|nil color The color code, or nil if below threshold
-local function GetMarginColor(margin, profit)
-  if margin <= 0.20 or profit < MIN_PROFIT_AMOUNT then
-    return nil
-  end
-
-  for _, entry in ipairs(MARGIN_THRESHOLDS) do
-    if margin > entry.threshold then
-      return entry.color
+  local anchorControl = averagePriceControl or lastSellPriceControl
+  local ttcPriceButton = ToggleButton:New(
+    buttonContainer,
+    "$(parent)TTCPriceButton",
+    AVERAGE_PRICE_TEXTURE, 0, 0,
+    LISTING_INPUT_BUTTON_SIZE,
+    LISTING_INPUT_BUTTON_SIZE,
+    GAFE.Loc("SetTTCPrice")
+  )
+  ttcPriceButton.control:ClearAnchors()
+  ttcPriceButton.control:SetAnchor(
+    RIGHT,
+    anchorControl,
+    LEFT,
+    0,
+    0
+  )
+  ttcPriceButton.control:SetDrawLayer(DL_OVERLAY) -- need to set it on every button now
+  ttcPriceButton.HandlePress = function(button)
+    local ttcPrice = GetTTCPrice(self.pendingItemLink)
+    if (ttcPrice) then
+      self:SetUnitPrice(ttcPrice)
     end
   end
-
-  return MARGIN_THRESHOLDS[#MARGIN_THRESHOLDS].color
 end
 
---- Sets up the search result price control with margin indicator.
---- @param rowControl any The search result row control
---- @param slot table The search result data
-local function SetTTCMargin(rowControl, slot)
-  local priceControl = rowControl:GetNamedChild("Price")
-  if not priceControl then
+local function InitAGSSetTTCPrice()
+  if not GAFE.SavedVars.beta then
     return
   end
 
-  LibPanicida.Debug.LogLater("SetTTCMargin2")
-  local inventorySlot = ZO_InventorySlot_GetInventorySlotComponents(control)
-  local slotType = ZO_InventorySlot_GetType(inventorySlot)
-  if slotType ~= SLOT_TYPE_TRADING_HOUSE_ITEM_RESULT then
+  if not TamrielTradeCentre then
     return
   end
 
-  LibPanicida.Debug.LogLater("SetTTCMargin3")
-
-
-  local tradingHouseIndex = ZO_Inventory_GetSlotIndex(inventorySlot)
-  local itemLink = GetTradingHouseSearchResultItemLink(tradingHouseIndex)
-  if not itemLink or not TTC:IsItemLink(link) then
-    return
+  local originalInitializeListingInput = AwesomeGuildStore.class.SellTabWrapper
+      .InitializeListingInput
+  AwesomeGuildStore.class.SellTabWrapper.InitializeListingInput = function(self,
+                                                                           tradingHouseWrapper)
+    originalInitializeListingInput(self, tradingHouseWrapper)
+    AGSInitializeListingInput(self, tradingHouseWrapper)
   end
-  LibPanicida.Debug.LogLater("SetTTCMargin4")
-
-  local ttcPrice = GetTTCPrice(itemLink)
-  if not ttcPrice then
-    return
-  end
-  LibPanicida.Debug.LogLater("SetTTCMargin5")
-
-  local listingStackPrice = slot.purchasePrice
-  local stackCount = slot:GetStackCount()
-  local margin, profit = GetMarginData(ttcPrice, listingStackPrice, stackCount)
-
-
-  local color = GetMarginColor(margin, profit)
-  if not color then
-    return
-  end
-  LibPanicida.Debug.LogLater("SetTTCMargin5")
-
-  LibPanicida.Debug.LogLater("WORKS")
-  local formattedProfit = ZO_CurrencyControl_FormatAndLocalizeCurrency(
-    zo_roundToNearest(profit, 0.01),
-    profit >= 100000
-  )
-  local sellPriceText = sellPriceControl:GetText():gsub("|t.-:.-:", "|t14:14:")
-  sellPriceControl:SetText(
-    color .. "+" .. formattedProfit .. COLOR_END .. " - " .. sellPriceText
-  )
 end
 
---- Registers the TTC price callback with the inventory slot hooks.
-local function RegisterInventoryCallback()
+local function InitTTCInventoryPrice()
+  if not GAFE.SavedVars.ttcPrice or not GAFE.SavedVars.ttcPrice.enabled then
+    return
+  end
+
   GAFE.InventorySlotHooks.RegisterCallback(SetTTCPrice)
-end
-
-local function AgsInitializeResulList(self, tradingHouseWrapper, searchManager)
-  originalAgsInitializeResultList(self, tradingHouseWrapper, searchManager)
-  local dataType = ZO_ScrollList_GetDataTypeTable(self.list.list, 1)
-  if dataType then
-    ZO_PostHook(
-      dataType,
-      "setupCallback",
-      function(control, slot)
-        SetTTCMargin(control, slot)
-      end
-    )
-    -- local baseSetupCallback = dataType.setupCallback
-    -- dataType.setupCallback = function(control, data)
-    --   baseSetupCallback()
-    --   SetTTCMargin(control, data)
-    -- end
-  end
-end
-
-local function InitAGSPriceControl()
-  if GAFE.SavedVars.beta then
-    originalAgsInitializeResultList = AwesomeGuildStore
-        .class
-        .SearchResultListWrapper
-        .InitializeResultList
-    AwesomeGuildStore.class.SearchResultListWrapper.InitializeResultList =
-        AgsInitializeResulList
-  end
 end
 
 --- Initializes AwesomeGuildStore integration if available.
@@ -330,59 +258,7 @@ local function InitAGSIntegration()
     return
   end
 
-  InitAGSPriceControl()
-  -- -- Register a custom filter after AGS initializes
-  -- local function RegisterDealFinderFilter()
-  --   local filterClass = AGS.class.ValueRangeFilterBase
-
-  --   if not filterClass then
-  --     return
-  --   end
-
-  --   local DealFinderFilter = filterClass:Subclass()
-
-  --   function DealFinderFilter:New(...)
-  --     return filterClass.New(self, ...)
-  --   end
-
-  --   function DealFinderFilter:Initialize()
-  --     filterClass.Initialize(
-  --       self,
-  --       1001, -- Custom local filter ID
-  --       "DealFinder",
-  --       { TRADING_HOUSE_FILTER_TYPE_PRICE },
-  --       { 0, 100 },
-  --       GAFE.Loc("TTCPrice_DealFinder"),
-  --       GAFE.Loc("TTCPrice_DealFinder_Tooltip")
-  --     )
-  --     self:SetMinMax(0, 100)
-  --   end
-
-  --   function DealFinderFilter:FilterLocalResult(result)
-  --     local minMargin = self:GetCurrentMin() / 100
-  --     local maxMargin = self:GetCurrentMax() / 100
-
-  --     if minMargin <= 0 and maxMargin >= 1 then
-  --       return true
-  --     end
-
-  --     local margin, profit = GetMarginData(result.purchasePrice, result.itemLink)
-  --     if not margin then
-  --       return minMargin <= 0
-  --     end
-
-  --     return margin >= minMargin and margin <= maxMargin
-  --   end
-
-  --   -- Create and register the filter
-  --   local filter = DealFinderFilter:New()
-  --   AGS:RegisterFilter(filter)
-  -- end
-
-  -- -- Wait for AGS to be ready
-  -- if AGS.RegisterCallback then
-  --   AGS:RegisterCallback(AGS.callback.INITIALIZED, RegisterDealFinderFilter)
-  -- end
+  InitAGSSetTTCPrice()
 end
 
 -------------------------------------------------------------------------------
@@ -391,17 +267,11 @@ end
 
 --- Initializes the TTC Price module.
 function TTCPrice.Init()
-  -- Check if TamrielTradeCentre is available
   if not TamrielTradeCentre or not TamrielTradeCentrePrice then
     return
   end
 
-  -- Check if feature is enabled
-  if not GAFE.SavedVars.ttcPrice or not GAFE.SavedVars.ttcPrice.enabled then
-    return
-  end
-
-  RegisterInventoryCallback()
+  InitTTCInventoryPrice()
   InitAGSIntegration()
 end
 

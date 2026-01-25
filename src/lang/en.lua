@@ -27,7 +27,8 @@ GAFE.Localization = {
   Settings_AutoConfirm = "'Auto confirm' button",
   Settings_AutoConfirmDelay = "'Auto confirm' delay",
   Settings_CompatibilityTitle = "Compatibility",
-  Settings_Description = "Adds a bit of extra functionality and information to the Group & Activity Finder UI",
+  Settings_Description =
+  "Adds a bit of extra functionality and information to the Group & Activity Finder UI",
   Settings_Difficulty = "Difficulty",
   Settings_FavouriteLocation = "Favourite location",
   Settings_HandleQuest = "Automate supported quests",
@@ -39,8 +40,10 @@ GAFE.Localization = {
   Settings_TextureSize = "Icon size",
   Settings_TrialsChest = "Reset chest timers",
   Settings_TTCPrice = "Show TTC prices in inventory",
-  Settings_TTCPrice_MasterMerchantConflict = "Master Merchant's 'Replace Inventory Values' is enabled. Disable it in Master Merchant settings to use this feature.",
-  Settings_TTCPrice_Tooltip = "Replace vendor sell prices with TTC market prices (requires TamrielTradeCentre addon)",
+  Settings_TTCPrice_MasterMerchantConflict =
+  "Master Merchant's 'Replace Inventory Values' is enabled. Disable it in Master Merchant settings to use this feature.",
+  Settings_TTCPrice_Tooltip =
+  "Replace vendor sell prices with TTC market prices (requires TamrielTradeCentre addon)",
   TrialAetherianArchive = "Aetherian Archive",
   TrialAsylumSanctorium = "Asylum Sanctorium",
   TrialCloudrest = "Cloudrest",
@@ -54,6 +57,8 @@ GAFE.Localization = {
   TrialsSchedule = "Trials",
   TrialSunspire = "Sunspire",
   TTCPrice_DealFinder = "Deal Finder",
-  TTCPrice_DealFinder_Tooltip = "Filter search results by profit margin percentage",
+  TTCPrice_DealFinder_Tooltip =
+  "Filter search results by profit margin percentage",
   WeeklyReset = "Weekly reset",
+  SetTTCPrice = "Select TTC Price"
 }
