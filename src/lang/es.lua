@@ -56,4 +56,13 @@ GAFE.Localization = {
   TTCPrice_DealFinder = "Buscador de ofertas",
   TTCPrice_DealFinder_Tooltip = "Filtrar resultados por porcentaje de margen de beneficio",
   WeeklyReset = "Reinicio semanal",
+  SetTTCPrice = "Seleccionar precio TTC",
+  QuestAutomation_OptInKeybind = "Aceptar automáticamente esta misión diaria",
+  QuestAutomation_ConfirmTitle = "¿Recordar preferencia?",
+  QuestAutomation_ConfirmText = "¿Gestionar automáticamente esta misión diaria en futuras visitas? (Gestionar en ajustes después de /reloadui)",
+  Settings_QuestAutomation = "Automatización de misiones",
+  Settings_QuestAutomation_Desc = "Gestionar qué NPCs diarios se manejan automáticamente. Las nuevas entradas aparecen después de /reloadui.",
+  Settings_QuestAutomation_Reset = "Restablecer todas las preferencias",
+  Settings_QuestAutomation_ResetWarning = "Esto eliminará todas las preferencias guardadas. Se te preguntará de nuevo para cada NPC.",
+  Settings_QuestAutomation_NoNpcs = "Aún no hay NPCs activados. Habla con un NPC diario y usa el aviso de activación, luego /reloadui para verlos aquí."
 }

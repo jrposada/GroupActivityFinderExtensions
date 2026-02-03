@@ -56,4 +56,13 @@ GAFE.Localization = {
   TTCPrice_DealFinder = "Chercheur d'affaires",
   TTCPrice_DealFinder_Tooltip = "Filtrer les résultats par pourcentage de marge bénéficiaire",
   WeeklyReset = "Réinitialisation hebdomadaire",
+  SetTTCPrice = "Sélectionner le prix TTC",
+  QuestAutomation_OptInKeybind = "Accepter automatiquement cette quête journalière",
+  QuestAutomation_ConfirmTitle = "Se souvenir de la préférence ?",
+  QuestAutomation_ConfirmText = "Gérer automatiquement cette quête journalière lors des prochaines visites ? (Gérer dans les paramètres après /reloadui)",
+  Settings_QuestAutomation = "Automatisation des quêtes",
+  Settings_QuestAutomation_Desc = "Gérer quels PNJ journaliers sont traités automatiquement. Les nouvelles entrées apparaissent après /reloadui.",
+  Settings_QuestAutomation_Reset = "Réinitialiser toutes les préférences",
+  Settings_QuestAutomation_ResetWarning = "Cela supprimera toutes les préférences enregistrées. Vous serez à nouveau invité pour chaque PNJ.",
+  Settings_QuestAutomation_NoNpcs = "Aucun PNJ n'a encore été activé. Parlez à un PNJ journalier et utilisez l'invite d'activation, puis /reloadui pour les voir ici."
 }

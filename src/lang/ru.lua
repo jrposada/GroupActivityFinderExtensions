@@ -56,4 +56,13 @@ GAFE.Localization = {
   TTCPrice_DealFinder = "Поиск выгодных сделок",
   TTCPrice_DealFinder_Tooltip = "Фильтровать результаты поиска по проценту прибыли",
   WeeklyReset = "Еженедельный сброс",
+  SetTTCPrice = "Выбрать цену TTC",
+  QuestAutomation_OptInKeybind = "Автоматически принять этот ежедневный квест",
+  QuestAutomation_ConfirmTitle = "Запомнить предпочтение?",
+  QuestAutomation_ConfirmText = "Автоматически обрабатывать этот ежедневный квест в будущем? (Управление в настройках после /reloadui)",
+  Settings_QuestAutomation = "Автоматизация квестов",
+  Settings_QuestAutomation_Desc = "Управление автоматической обработкой ежедневных NPC. Новые записи появляются после /reloadui.",
+  Settings_QuestAutomation_Reset = "Сбросить все настройки",
+  Settings_QuestAutomation_ResetWarning = "Это удалит все сохранённые настройки. Вам будет предложено снова для каждого NPC.",
+  Settings_QuestAutomation_NoNpcs = "Пока нет активированных NPC. Поговорите с ежедневным NPC и используйте приглашение на активацию, затем /reloadui чтобы увидеть их здесь."
 }

@@ -56,4 +56,13 @@ GAFE.Localization = {
   TTCPrice_DealFinder = "Schnäppchenfinder",
   TTCPrice_DealFinder_Tooltip = "Suchergebnisse nach Gewinnspanne filtern",
   WeeklyReset = "Wöchentlicher Reset",
+  SetTTCPrice = "TTC-Preis auswählen",
+  QuestAutomation_OptInKeybind = "Diese Tagesquest automatisch annehmen",
+  QuestAutomation_ConfirmTitle = "Einstellung merken?",
+  QuestAutomation_ConfirmText = "Diese Tagesquest zukünftig automatisch bearbeiten? (In den Einstellungen nach /reloadui verwalten)",
+  Settings_QuestAutomation = "Quest-Automatisierung",
+  Settings_QuestAutomation_Desc = "Verwalten, welche täglichen NPCs automatisch behandelt werden. Neue Einträge erscheinen nach /reloadui.",
+  Settings_QuestAutomation_Reset = "Alle Einstellungen zurücksetzen",
+  Settings_QuestAutomation_ResetWarning = "Dies entfernt alle gespeicherten Einstellungen. Sie werden für jeden NPC erneut gefragt.",
+  Settings_QuestAutomation_NoNpcs = "Noch keine NPCs aktiviert. Sprechen Sie mit einem täglichen NPC und nutzen Sie die Aktivierungsaufforderung, dann /reloadui um sie hier zu sehen."
 }
