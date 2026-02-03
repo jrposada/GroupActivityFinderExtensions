@@ -20,6 +20,7 @@ local SelectChatterOption = SelectChatterOption
 local AcceptOfferedQuest = AcceptOfferedQuest
 local CompleteQuest = CompleteQuest
 local EndInteraction = EndInteraction
+local HasCompletedQuest = HasCompletedQuest
 local ipairs = ipairs
 local pairs = pairs
 local table_insert = table.insert
@@ -34,6 +35,8 @@ local LUP = LibUndauntedPledges
 -- Crafting writ quest IDs used to identify writ givers
 local CRAFTING_WRIT_QUEST_ID_1 = 5394
 local CRAFTING_WRIT_QUEST_ID_2 = 5415
+-- Prerequisite quest for Undaunted pledges
+local UNDAUNTED_PLEDGE_PREREQUISITE_QUEST_ID = 5312
 
 -- ============================================================================
 -- Module Declaration
@@ -77,6 +80,12 @@ end
 local function IsCraftingWrit(questId)
   return questId == CRAFTING_WRIT_QUEST_ID_1 or
       questId == CRAFTING_WRIT_QUEST_ID_2
+end
+
+--- Checks if the player has completed the Undaunted prerequisite quest.
+--- @return boolean hasCompletedPrerequisite True if "Taking the Undaunted Pledge" is complete
+local function HasCompletedUndauntedPrerequisite()
+  return HasCompletedQuest(UNDAUNTED_PLEDGE_PREREQUISITE_QUEST_ID)
 end
 
 -- ============================================================================
@@ -163,6 +172,7 @@ function QuestAutomation.AutomaticallyHandleQuests(enable)
 
     if questOffered or questCompleted then
       EndInteraction(INTERACTION_CONVERSATION)
+      return
     end
 
     if contains(QuestAutomation.dailyNpcName, npcName) and not contains(QuestAutomation.craftingWritNpcName, npcName) then
@@ -178,7 +188,8 @@ function QuestAutomation.AutomaticallyHandleQuests(enable)
               HandleQuestOffered
             )
             SelectChatterOption(optionIndex)
-          elseif optionType == CHATTER_START_TALK and IsPledgeGiver(npcName) then
+            break
+          elseif optionType == CHATTER_START_TALK and IsPledgeGiver(npcName) and HasCompletedUndauntedPrerequisite() then
             -- Pledges hide EVENT_QUEST_COMPLETE_DIALOG behind one chatter start
             questCompleted = false
             EVENT_MANAGER:RegisterForEvent(
@@ -187,6 +198,7 @@ function QuestAutomation.AutomaticallyHandleQuests(enable)
               HandleConversationUpdated
             )
             SelectChatterOption(optionIndex)
+            break
           elseif optionType == CHATTER_START_COMPLETE_QUEST then
             questCompleted = false
             EVENT_MANAGER:RegisterForEvent(
@@ -195,6 +207,7 @@ function QuestAutomation.AutomaticallyHandleQuests(enable)
               HandleQuestCompleted
             )
             SelectChatterOption(optionIndex)
+            break
           end
         end
       end
