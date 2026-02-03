@@ -1,7 +1,9 @@
 local GAFE = GroupActivityFinderExtensions
 local LAM = LibAddonMenu2
 
--- local ResetChest = GAFE.TrialChestTimer.ResetChest
+local GetCurrentCharacterId = GetCurrentCharacterId
+local pairs = pairs
+
 local characterId = GetCurrentCharacterId()
 
 GAFE.SettingsMenu = {}
@@ -29,6 +31,77 @@ for id = 1, GetNumFastTravelNodes() do
   end
 end
 table.sort(fastTravelOptions)
+
+--- Builds the controls for the Quest Automation submenu.
+--- Dynamically generates checkboxes for each opted-in NPC.
+--- @return table controls Array of LAM control definitions
+function GAFE.SettingsMenu.BuildQuestAutomationControls()
+  local controls = {}
+
+  -- Description
+  table.insert(controls, {
+    type = "description",
+    text = GAFE.Loc("Settings_QuestAutomation_Desc")
+  })
+
+  -- Get all opted-in NPCs for current character
+  local optedInNpcs = GAFE.QuestAutomationUI and GAFE.QuestAutomationUI.GetAllOptedInNpcs() or {}
+  local hasNpcs = false
+
+  -- Sort NPC names for consistent display
+  local sortedNpcs = {}
+  for npcName, _ in pairs(optedInNpcs) do
+    table.insert(sortedNpcs, npcName)
+    hasNpcs = true
+  end
+  table.sort(sortedNpcs)
+
+  if hasNpcs then
+    -- Generate a checkbox for each NPC
+    for _, npcName in ipairs(sortedNpcs) do
+      table.insert(controls, {
+        type = "checkbox",
+        name = npcName,
+        getFunc = function()
+          local status = GAFE.QuestAutomationUI.GetOptInStatus(npcName)
+          return status == true
+        end,
+        setFunc = function(value)
+          if value then
+            GAFE.QuestAutomationUI.SetOptInStatus(npcName, true)
+          else
+            -- Setting to nil removes from the list (undecided state)
+            GAFE.QuestAutomationUI.SetOptInStatus(npcName, nil)
+          end
+        end
+      })
+    end
+
+    -- Add divider before reset button
+    table.insert(controls, {
+      type = "divider"
+    })
+
+    -- Reset all button
+    table.insert(controls, {
+      type = "button",
+      name = GAFE.Loc("Settings_QuestAutomation_Reset"),
+      func = function()
+        GAFE.QuestAutomationUI.ResetAllPreferences()
+      end,
+      warning = GAFE.Loc("Settings_QuestAutomation_ResetWarning"),
+      isDangerous = true
+    })
+  else
+    -- No NPCs opted in yet
+    table.insert(controls, {
+      type = "description",
+      text = GAFE.Loc("Settings_QuestAutomation_NoNpcs")
+    })
+  end
+
+  return controls
+end
 
 function GAFE.SettingsMenu.Init()
   local saveData = GAFE
@@ -93,15 +166,6 @@ function GAFE.SettingsMenu.Init()
     },
     {
       type = "checkbox",
-      name = GAFE.Loc("Settings_HandleQuest"),
-      getFunc = function() return saveData.dungeons.handlePledgeQuest end,
-      setFunc = function(value)
-        GAFE.QuestAutomation.AutomaticallyHandleQuests(
-          value)
-      end
-    },
-    {
-      type = "checkbox",
       name = GAFE.Loc("Settings_TTCPrice"),
       tooltip = GAFE.Loc("Settings_TTCPrice_Tooltip"),
       getFunc = function()
@@ -123,6 +187,11 @@ function GAFE.SettingsMenu.Init()
         end
       end,
       requiresReload = true
+    },
+    {
+      type = "submenu",
+      name = GAFE.Loc("Settings_QuestAutomation"),
+      controls = GAFE.SettingsMenu.BuildQuestAutomationControls()
     },
     {
       type = "submenu",

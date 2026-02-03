@@ -9,9 +9,11 @@ local defaultVars = {
     dailyPledgeMarker = {
       isIcon = false
     },
-    handlePledgeQuest = true,
     donePledges = {},
     randomRewards = {}
+  },
+  questAutomation = {
+    optIn = {}  -- { [characterId] = { [npcName] = true/false } }
   },
   battlegrounds = {
     randomRewards = {}
@@ -51,7 +53,7 @@ local defaultVars = {
 GroupActivityFinderExtensions = {
   name = "GroupActivityFinderExtensions",
   version = 5.7,
-  varsVersion = 3,
+  varsVersion = 4,
   Localization = {},
   lang = "",
   Loc = function(var)
@@ -139,9 +141,34 @@ local function migration3()
   newSavedVars.autoConfirm.value = autoConfirmValue
 end
 
+local function migration4()
+  -- Default saved vars for migration version target
+  local newVersion = 4
+  local newDefault = GAFE.DefaultVars
+
+  -- Set up locals
+  local savedVars = GroupActivityFinderExtensions_Vars
+  local oldSavedVars = savedVars[GetWorldName()][GetDisplayName()]
+      ["$AccountWide"]
+  local newSavedVars = ZO_SavedVars:NewAccountWide(GAFE.name .. "_Vars",
+    newVersion, nil, newDefault, GetWorldName())
+
+  -- Migrate: remove handlePledgeQuest (replaced by per-quest opt-in)
+  -- All NPCs start as "undecided" (nil) in the new system
+  if oldSavedVars.dungeons then
+    oldSavedVars.dungeons.handlePledgeQuest = nil
+  end
+
+  -- Initialize questAutomation if not present
+  if not newSavedVars.questAutomation then
+    newSavedVars.questAutomation = { optIn = {} }
+  end
+end
+
 local migrations = {
   [2] = migration2,
   [3] = migration3,
+  [4] = migration4,
 }
 
 function GAFE.Vars.Migrate()

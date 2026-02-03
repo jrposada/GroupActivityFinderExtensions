@@ -60,5 +60,14 @@ GAFE.Localization = {
   TTCPrice_DealFinder_Tooltip =
   "Filter search results by profit margin percentage",
   WeeklyReset = "Weekly reset",
-  SetTTCPrice = "Select TTC Price"
+  SetTTCPrice = "Select TTC Price",
+  -- Quest Automation
+  QuestAutomation_OptInKeybind = "Auto-accept this daily",
+  QuestAutomation_ConfirmTitle = "Remember Preference?",
+  QuestAutomation_ConfirmText = "Automatically handle this daily quest in future visits? (Manage in settings after /reloadui)",
+  Settings_QuestAutomation = "Quest Automation",
+  Settings_QuestAutomation_Desc = "Manage which daily NPCs are automatically handled. New entries appear after /reloadui.",
+  Settings_QuestAutomation_Reset = "Reset All Preferences",
+  Settings_QuestAutomation_ResetWarning = "This will remove all saved preferences. You will be prompted again for each NPC.",
+  Settings_QuestAutomation_NoNpcs = "No NPCs have been opted in yet. Talk to a daily NPC and use the opt-in prompt, then /reloadui to see them here."
 }

@@ -56,9 +56,14 @@ A dedicated panel accessible from the Group & Activity Finder showing:
 
 ### Quest Automation
 
-- Auto-accept pledge quests from Undaunted NPCs
-- Auto-complete and turn in pledges after dungeon completion
-- Skip repetitive quest dialogue for daily content
+Streamlines daily quest interactions with a per-NPC opt-in system:
+
+- **First Visit**: When talking to a daily NPC, click the button to auto-accept/complete the quest
+- **Confirmation**: After automation runs, choose whether to remember this preference for future visits
+- **Subsequent Visits**: Opted-in NPCs are fully automated - no prompts needed
+- **Management**: Toggle automation per-NPC in Settings > Quest Automation (requires `/reloadui` after opting in)
+
+Supported NPCs include Undaunted pledge givers and other daily quest NPCs (excluding crafting writ boards).
 
 ### Map & Fast Travel
 

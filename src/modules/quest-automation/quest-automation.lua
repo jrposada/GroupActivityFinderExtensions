@@ -38,12 +38,24 @@ local CRAFTING_WRIT_QUEST_ID_2 = 5415
 -- Prerequisite quest for Undaunted pledges
 local UNDAUNTED_PLEDGE_PREREQUISITE_QUEST_ID = 5312
 
+-- Event names
+local QUEST_OFFERED_EVENT_NAME = GAFE.name .. "_QuestOffered"
+local CONVERSATION_UPDATED_EVENT_NAME = GAFE.name .. "_ConversationUpdated"
+local QUEST_COMPLETED_EVENT_NAME = GAFE.name .. "_QuestCompleted"
+local CHATTER_BEGIN_EVENT_NAME = GAFE.name .. "_QuestAutomation_ChatterBegin"
+local CHATTER_END_EVENT_NAME = GAFE.name .. "_QuestAutomation_ChatterEnd"
+
 -- ============================================================================
 -- Module Declaration
 -- ============================================================================
 local QuestAutomation = {
   dailyNpcName = {},
-  craftingWritNpcName = {}
+  craftingWritNpcName = {},
+  -- State tracking for automation flow
+  questOffered = false,
+  questCompleted = false,
+  currentNpcName = nil,
+  currentOptionCount = 0
 }
 
 -- ============================================================================
@@ -88,6 +100,142 @@ local function HasCompletedUndauntedPrerequisite()
   return HasCompletedQuest(UNDAUNTED_PLEDGE_PREREQUISITE_QUEST_ID)
 end
 
+--- Checks if the given NPC is a daily quest NPC (excluding crafting writs).
+--- @param npcName string The NPC name to check
+--- @return boolean isDailyNpc True if the NPC gives daily quests
+local function IsDailyNpc(npcName)
+  return contains(QuestAutomation.dailyNpcName, npcName) and
+      not contains(QuestAutomation.craftingWritNpcName, npcName)
+end
+
+--- Handler for quest offered event.
+local function HandleQuestOffered()
+  if QuestAutomation.questOffered then
+    EVENT_MANAGER:UnregisterForEvent(QUEST_OFFERED_EVENT_NAME, EVENT_QUEST_OFFERED)
+  end
+
+  QuestAutomation.questOffered = true
+  AcceptOfferedQuest()
+end
+
+--- Handler for quest completed event.
+local function HandleQuestCompleted()
+  EVENT_MANAGER:UnregisterForEvent(QUEST_COMPLETED_EVENT_NAME, EVENT_QUEST_COMPLETE_DIALOG)
+
+  QuestAutomation.questCompleted = true
+  CompleteQuest()
+end
+
+--- Handler for conversation updated event.
+--- @param _ any Unused event code
+--- @param conversationBodyText string The conversation text
+--- @param optionCount number Number of dialog options
+local function HandleConversationUpdated(_, conversationBodyText, optionCount)
+  EVENT_MANAGER:UnregisterForEvent(CONVERSATION_UPDATED_EVENT_NAME, EVENT_QUEST_OFFERED)
+
+  if optionCount ~= 0 then
+    for optionIndex = 1, optionCount + 1 do
+      local optionString, optionType = GetChatterOption(optionIndex)
+      if optionType == CHATTER_TALK_CHOICE then
+        QuestAutomation.questCompleted = false
+        EVENT_MANAGER:RegisterForEvent(
+          QUEST_COMPLETED_EVENT_NAME,
+          EVENT_QUEST_COMPLETE_DIALOG,
+          HandleQuestCompleted
+        )
+        SelectChatterOption(optionIndex)
+      end
+    end
+  end
+end
+
+--- Processes dialog options and executes appropriate automation.
+--- @param optionCount number Number of dialog options
+--- @param npcName string The NPC name
+local function ProcessDialogOptions(optionCount, npcName)
+  if optionCount == 0 then return end
+
+  for optionIndex = 1, optionCount + 1 do
+    local optionString, optionType = GetChatterOption(optionIndex)
+
+    if optionType == CHATTER_START_NEW_QUEST_BESTOWAL then
+      QuestAutomation.questOffered = false
+      EVENT_MANAGER:RegisterForEvent(
+        QUEST_OFFERED_EVENT_NAME,
+        EVENT_QUEST_OFFERED,
+        HandleQuestOffered
+      )
+      SelectChatterOption(optionIndex)
+      break
+    elseif optionType == CHATTER_START_TALK and IsPledgeGiver(npcName) and HasCompletedUndauntedPrerequisite() then
+      -- Pledges hide EVENT_QUEST_COMPLETE_DIALOG behind one chatter start
+      QuestAutomation.questCompleted = false
+      EVENT_MANAGER:RegisterForEvent(
+        CONVERSATION_UPDATED_EVENT_NAME,
+        EVENT_CONVERSATION_UPDATED,
+        HandleConversationUpdated
+      )
+      SelectChatterOption(optionIndex)
+      break
+    elseif optionType == CHATTER_START_COMPLETE_QUEST then
+      QuestAutomation.questCompleted = false
+      EVENT_MANAGER:RegisterForEvent(
+        QUEST_COMPLETED_EVENT_NAME,
+        EVENT_QUEST_COMPLETE_DIALOG,
+        HandleQuestCompleted
+      )
+      SelectChatterOption(optionIndex)
+      break
+    end
+  end
+end
+
+--- Handler for chatter begin event.
+--- @param _ any Unused event code
+--- @param optionCount number Number of dialog options
+--- @param _debugSource_ any Debug source info
+local function HandleChatterBegin(_, optionCount, _debugSource_)
+  local npcName = GetUnitName("interact")
+  QuestAutomation.currentNpcName = npcName
+  QuestAutomation.currentOptionCount = optionCount
+
+  -- Check if automation already in progress
+  if QuestAutomation.questOffered or QuestAutomation.questCompleted then
+    EndInteraction(INTERACTION_CONVERSATION)
+    return
+  end
+
+  -- Check if this is a daily NPC
+  if not IsDailyNpc(npcName) then
+    return
+  end
+
+  -- Get opt-in status from UI module
+  local optInStatus = GAFE.QuestAutomationUI.GetOptInStatus(npcName)
+
+  if optInStatus == true then
+    -- Opted in: run automation immediately
+    ProcessDialogOptions(optionCount, npcName)
+  elseif optInStatus == false then
+    -- Explicitly disabled: do nothing
+    return
+  else
+    -- Undecided (nil): show opt-in prompt
+    GAFE.QuestAutomationUI.ShowOptInPrompt(npcName)
+  end
+end
+
+--- Handler for chatter end event.
+local function HandleChatterEnd()
+  QuestAutomation.questOffered = false
+  QuestAutomation.questCompleted = false
+  QuestAutomation.currentNpcName = nil
+  QuestAutomation.currentOptionCount = 0
+
+  -- Clean up any pending opt-in prompt
+  GAFE.QuestAutomationUI.HideOptInPrompt()
+end
+
 -- ============================================================================
 -- Public Functions
 -- ============================================================================
@@ -117,133 +265,47 @@ function QuestAutomation.Init()
     end
   end
 
-  QuestAutomation.AutomaticallyHandleQuests(
-    GAFE.SavedVars.dungeons.handlePledgeQuest
+  -- Initialize UI module
+  GAFE.QuestAutomationUI.Init()
+
+  -- Always register for chatter events (opt-in check happens inside)
+  QuestAutomation.RegisterEvents()
+end
+
+--- Registers event handlers for quest automation.
+function QuestAutomation.RegisterEvents()
+  EVENT_MANAGER:RegisterForEvent(
+    CHATTER_BEGIN_EVENT_NAME,
+    EVENT_CHATTER_BEGIN,
+    HandleChatterBegin
+  )
+  EVENT_MANAGER:RegisterForEvent(
+    CHATTER_END_EVENT_NAME,
+    EVENT_CHATTER_END,
+    HandleChatterEnd
   )
 end
 
---- Enables or disables automatic quest acceptance and completion for daily NPCs.
---- @param enable boolean True to enable automation, false to disable
-function QuestAutomation.AutomaticallyHandleQuests(enable)
-  local questOfferedEventName, questOffered = GAFE.name .. "_QuestOffered", false
-  local conversationUpdatedEventName = GAFE.name .. "_ConversationUpdated"
-  local questCompletedEventName, questCompleted = GAFE.name .. "_QuestCompleted",
-      false
+--- Unregisters event handlers for quest automation.
+function QuestAutomation.UnregisterEvents()
+  EVENT_MANAGER:UnregisterForEvent(CHATTER_BEGIN_EVENT_NAME, EVENT_CHATTER_BEGIN)
+  EVENT_MANAGER:UnregisterForEvent(CHATTER_END_EVENT_NAME, EVENT_CHATTER_END)
+  EVENT_MANAGER:UnregisterForEvent(QUEST_OFFERED_EVENT_NAME, EVENT_QUEST_OFFERED)
+  EVENT_MANAGER:UnregisterForEvent(QUEST_COMPLETED_EVENT_NAME, EVENT_QUEST_COMPLETE_DIALOG)
+  EVENT_MANAGER:UnregisterForEvent(CONVERSATION_UPDATED_EVENT_NAME, EVENT_QUEST_OFFERED)
+end
 
-  local function HandleQuestOffered()
-    if questOffered then
-      EVENT_MANAGER:UnregisterForEvent(questOfferedEventName, EVENT_QUEST_OFFERED)
-    end
+--- Executes automation for a specific NPC.
+--- Called by the UI when user opts in via keybind/button.
+--- @param npcName string The NPC name to automate
+function QuestAutomation.ExecuteAutomation(npcName)
+  -- Use stored option count from the chatter begin event
+  local optionCount = QuestAutomation.currentOptionCount
 
-    questOffered = true
-    AcceptOfferedQuest()
+  -- If we have options, process them
+  if optionCount > 0 then
+    ProcessDialogOptions(optionCount, npcName)
   end
-
-  local function HandleQuestCompleted()
-    EVENT_MANAGER:UnregisterForEvent(questCompletedEventName,
-      EVENT_QUEST_COMPLETE_DIALOG)
-
-    questCompleted = true
-    CompleteQuest()
-  end
-
-  local function HandleConversationUpdated(_, conversationBodyText, optionCount)
-    EVENT_MANAGER:UnregisterForEvent(conversationUpdatedEventName,
-      EVENT_QUEST_OFFERED)
-
-    if optionCount ~= 0 then
-      for optionIndex = 1, optionCount + 1 do
-        local optionString, optionType = GetChatterOption(optionIndex)
-        if optionType == CHATTER_TALK_CHOICE then
-          questCompleted = false
-          EVENT_MANAGER:RegisterForEvent(
-            questCompletedEventName,
-            EVENT_QUEST_COMPLETE_DIALOG,
-            HandleQuestCompleted
-          )
-          SelectChatterOption(optionIndex)
-        end
-      end
-    end
-  end
-
-  local function HandleChatterBegin(_, optionCount, _debugSource_)
-    local npcName = GetUnitName("interact")
-
-    if questOffered or questCompleted then
-      EndInteraction(INTERACTION_CONVERSATION)
-      return
-    end
-
-    if contains(QuestAutomation.dailyNpcName, npcName) and not contains(QuestAutomation.craftingWritNpcName, npcName) then
-      if optionCount ~= 0 then
-        for optionIndex = 1, optionCount + 1 do
-          local optionString, optionType = GetChatterOption(optionIndex)
-
-          if optionType == CHATTER_START_NEW_QUEST_BESTOWAL then
-            questOffered = false
-            EVENT_MANAGER:RegisterForEvent(
-              questOfferedEventName,
-              EVENT_QUEST_OFFERED,
-              HandleQuestOffered
-            )
-            SelectChatterOption(optionIndex)
-            break
-          elseif optionType == CHATTER_START_TALK and IsPledgeGiver(npcName) and HasCompletedUndauntedPrerequisite() then
-            -- Pledges hide EVENT_QUEST_COMPLETE_DIALOG behind one chatter start
-            questCompleted = false
-            EVENT_MANAGER:RegisterForEvent(
-              conversationUpdatedEventName,
-              EVENT_CONVERSATION_UPDATED,
-              HandleConversationUpdated
-            )
-            SelectChatterOption(optionIndex)
-            break
-          elseif optionType == CHATTER_START_COMPLETE_QUEST then
-            questCompleted = false
-            EVENT_MANAGER:RegisterForEvent(
-              questCompletedEventName,
-              EVENT_QUEST_COMPLETE_DIALOG,
-              HandleQuestCompleted
-            )
-            SelectChatterOption(optionIndex)
-            break
-          end
-        end
-      end
-    end
-  end
-
-  local function HandleChatterEnd()
-    questOffered = false
-    questCompleted = false
-  end
-
-  local chatterBeginName = GAFE.name .. "_QuestAutomation_ChatterBegin"
-  local chatterEndName = GAFE.name .. "_QuestAutomation_ChatterEnd"
-
-  if enable then
-    EVENT_MANAGER:RegisterForEvent(
-      chatterBeginName,
-      EVENT_CHATTER_BEGIN,
-      HandleChatterBegin
-    )
-    EVENT_MANAGER:RegisterForEvent(
-      chatterEndName,
-      EVENT_CHATTER_END,
-      HandleChatterEnd
-    )
-  else
-    EVENT_MANAGER:UnregisterForEvent(chatterBeginName, EVENT_CHATTER_BEGIN)
-    EVENT_MANAGER:UnregisterForEvent(chatterBeginName, EVENT_CHATTER_END)
-    EVENT_MANAGER:UnregisterForEvent(questOfferedEventName, EVENT_QUEST_OFFERED)
-    EVENT_MANAGER:UnregisterForEvent(questCompletedEventName,
-      EVENT_QUEST_COMPLETE_DIALOG)
-    EVENT_MANAGER:UnregisterForEvent(conversationUpdatedEventName,
-      EVENT_QUEST_OFFERED)
-  end
-
-  GAFE.SavedVars.dungeons.handlePledgeQuest = enable
 end
 
 -- ============================================================================
