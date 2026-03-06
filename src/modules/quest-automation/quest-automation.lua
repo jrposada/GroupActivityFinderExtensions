@@ -19,6 +19,8 @@ local EVENT_QUEST_COMPLETE_DIALOG = EVENT_QUEST_COMPLETE_DIALOG
 local EVENT_CONVERSATION_UPDATED = EVENT_CONVERSATION_UPDATED
 local EVENT_CHATTER_BEGIN = EVENT_CHATTER_BEGIN
 local EVENT_CHATTER_END = EVENT_CHATTER_END
+local GetCurrentMapZoneIndex = GetCurrentMapZoneIndex
+local GetZoneId = GetZoneId
 local GetUnitName = GetUnitName
 local GetChatterOption = GetChatterOption
 local SelectChatterOption = SelectChatterOption
@@ -42,6 +44,13 @@ local CRAFTING_WRIT_QUEST_ID_1 = 5394
 local CRAFTING_WRIT_QUEST_ID_2 = 5415
 -- Prerequisite quest for Undaunted pledges
 local UNDAUNTED_PLEDGE_PREREQUISITE_QUEST_ID = 5312
+
+-- Zone IDs for the three Undaunted Enclave locations
+local PLEDGE_VALID_ZONE_IDS = {
+  [19] = true,  -- Stormhaven (Wayrest)
+  [57] = true,  -- Deshaan (Mournhold)
+  [383] = true, -- Grahtwood (Elden Root)
+}
 
 -- Event names
 local QUEST_OFFERED_EVENT_NAME = GAFE.name .. "_QuestOffered"
@@ -94,6 +103,14 @@ local function IsPledgeGiver(npcName)
   return npcName == LUP.GetPledgeGiverName(LUP.BASE1)
       or npcName == LUP.GetPledgeGiverName(LUP.BASE2)
       or npcName == LUP.GetPledgeGiverName(LUP.DLC1)
+end
+
+--- Checks if the player is currently in a valid Undaunted Enclave zone.
+--- Valid zones are the three Undaunted Enclave locations: Wayrest, Mournhold, and Elden Root.
+--- @return boolean isValid True if the player is in a valid pledge location
+local function IsPlayerInValidPledgeLocation()
+  local zoneId = GetZoneId(GetCurrentMapZoneIndex())
+  return PLEDGE_VALID_ZONE_IDS[zoneId] == true
 end
 
 --- Checks if quest ID is one of the crafting writs.
@@ -287,6 +304,11 @@ local function HandleChatterBegin(_, optionCount, _debugSource_)
 
   -- Check if this is a daily NPC
   if not IsDailyNpc(npcName) then
+    return
+  end
+
+  -- Pledge givers must only be automated at an Undaunted Enclave location
+  if IsPledgeGiver(npcName) and not IsPlayerInValidPledgeLocation() then
     return
   end
 
