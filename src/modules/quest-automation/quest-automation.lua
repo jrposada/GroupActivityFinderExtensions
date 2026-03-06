@@ -2,6 +2,11 @@
 -- Localized Globals
 -- ============================================================================
 local EVENT_MANAGER = EVENT_MANAGER
+local KEYBIND_STRIP = KEYBIND_STRIP
+local KEYBIND_STRIP_ALIGN_CENTER = KEYBIND_STRIP_ALIGN_CENTER
+local ZO_Dialogs_RegisterCustomDialog = ZO_Dialogs_RegisterCustomDialog
+local ZO_Dialogs_ShowDialog = ZO_Dialogs_ShowDialog
+local GetCurrentCharacterId = GetCurrentCharacterId
 local QUEST_REPEAT_DAILY = QUEST_REPEAT_DAILY
 local QUEST_REPEAT_REPEATABLE = QUEST_REPEAT_REPEATABLE
 local CHATTER_TALK_CHOICE = CHATTER_TALK_CHOICE
@@ -45,6 +50,8 @@ local QUEST_COMPLETED_EVENT_NAME = GAFE.name .. "_QuestCompleted"
 local CHATTER_BEGIN_EVENT_NAME = GAFE.name .. "_QuestAutomation_ChatterBegin"
 local CHATTER_END_EVENT_NAME = GAFE.name .. "_QuestAutomation_ChatterEnd"
 
+local DIALOG_NAME = "GAFE_QUEST_AUTOMATION_CONFIRM"
+
 -- ============================================================================
 -- Module Declaration
 -- ============================================================================
@@ -55,7 +62,11 @@ local QuestAutomation = {
   questOffered = false,
   questCompleted = false,
   currentNpcName = nil,
-  currentOptionCount = 0
+  currentOptionCount = 0,
+  -- Keybind strip state
+  pendingNpcName = nil,
+  keybindDescriptor = nil,
+  keybindAdded = false,
 }
 
 -- ============================================================================
@@ -108,19 +119,95 @@ local function IsDailyNpc(npcName)
       not contains(QuestAutomation.craftingWritNpcName, npcName)
 end
 
+--- Saves the opt-in preference for an NPC on the current character.
+--- @param npcName string The NPC name
+--- @param value boolean|nil True to opt in, false to opt out, nil to reset
+local function SaveOptInPreference(npcName, value)
+  local characterId = GetCurrentCharacterId()
+  local optIn = GAFE.SavedVars.questAutomation.optIn
+
+  if not optIn[characterId] then
+    optIn[characterId] = {}
+  end
+
+  optIn[characterId][npcName] = value
+end
+
+--- Gets the opt-in status for an NPC on the current character.
+--- @param npcName string The NPC name
+--- @return boolean|nil status True if opted in, false if disabled, nil if undecided
+local function GetOptInStatus(npcName)
+  local characterId = GetCurrentCharacterId()
+  local optIn = GAFE.SavedVars.questAutomation.optIn
+
+  if not optIn[characterId] then
+    return nil
+  end
+
+  return optIn[characterId][npcName]
+end
+
+--- Shows the confirmation dialog to remember the automation preference.
+--- @param npcName string The NPC name to save preference for
+local function ShowConfirmationDialog(npcName)
+  ZO_Dialogs_ShowDialog(DIALOG_NAME, { npcName = npcName })
+end
+
+--- Hides the opt-in prompt and cleans up keybind strip state.
+local function HideOptInPrompt()
+  QuestAutomation.pendingNpcName = nil
+
+  -- Guard against double-remove
+  if QuestAutomation.keybindAdded then
+    QuestAutomation.keybindAdded = false
+    KEYBIND_STRIP:RemoveKeybindButton(QuestAutomation.keybindDescriptor)
+  end
+end
+
+--- Callback when the user activates the opt-in keybind.
+local function OptInAndAutomate()
+  local npcName = QuestAutomation.pendingNpcName
+  if not npcName then return end
+
+  -- Hide the prompt immediately
+  HideOptInPrompt()
+
+  -- Trigger the automation for this interaction
+  QuestAutomation.ExecuteAutomation(npcName)
+
+  -- Show confirmation dialog to save preference
+  ShowConfirmationDialog(npcName)
+end
+
+--- Shows the opt-in keybind strip prompt for the given NPC.
+--- @param npcName string The NPC name to show prompt for
+local function ShowOptInPrompt(npcName)
+  QuestAutomation.pendingNpcName = npcName
+
+  -- Guard against double-add
+  if not QuestAutomation.keybindAdded then
+    QuestAutomation.keybindAdded = true
+    KEYBIND_STRIP:AddKeybindButton(QuestAutomation.keybindDescriptor)
+    KEYBIND_STRIP:SetHidden(false)
+  end
+end
+
 --- Handler for quest offered event.
 local function HandleQuestOffered()
   if QuestAutomation.questOffered then
-    EVENT_MANAGER:UnregisterForEvent(QUEST_OFFERED_EVENT_NAME, EVENT_QUEST_OFFERED)
+    EVENT_MANAGER:UnregisterForEvent(QUEST_OFFERED_EVENT_NAME,
+      EVENT_QUEST_OFFERED)
   end
 
   QuestAutomation.questOffered = true
   AcceptOfferedQuest()
 end
 
+
 --- Handler for quest completed event.
 local function HandleQuestCompleted()
-  EVENT_MANAGER:UnregisterForEvent(QUEST_COMPLETED_EVENT_NAME, EVENT_QUEST_COMPLETE_DIALOG)
+  EVENT_MANAGER:UnregisterForEvent(QUEST_COMPLETED_EVENT_NAME,
+    EVENT_QUEST_COMPLETE_DIALOG)
 
   QuestAutomation.questCompleted = true
   CompleteQuest()
@@ -131,7 +218,8 @@ end
 --- @param conversationBodyText string The conversation text
 --- @param optionCount number Number of dialog options
 local function HandleConversationUpdated(_, conversationBodyText, optionCount)
-  EVENT_MANAGER:UnregisterForEvent(CONVERSATION_UPDATED_EVENT_NAME, EVENT_QUEST_OFFERED)
+  EVENT_MANAGER:UnregisterForEvent(CONVERSATION_UPDATED_EVENT_NAME,
+    EVENT_QUEST_OFFERED)
 
   if optionCount ~= 0 then
     for optionIndex = 1, optionCount + 1 do
@@ -196,6 +284,12 @@ end
 --- @param _debugSource_ any Debug source info
 local function HandleChatterBegin(_, optionCount, _debugSource_)
   local npcName = GetUnitName("interact")
+
+  -- Check if this is a daily NPC
+  if not IsDailyNpc(npcName) then
+    return
+  end
+
   QuestAutomation.currentNpcName = npcName
   QuestAutomation.currentOptionCount = optionCount
 
@@ -205,13 +299,7 @@ local function HandleChatterBegin(_, optionCount, _debugSource_)
     return
   end
 
-  -- Check if this is a daily NPC
-  if not IsDailyNpc(npcName) then
-    return
-  end
-
-  -- Get opt-in status from UI module
-  local optInStatus = GAFE.QuestAutomationUI.GetOptInStatus(npcName)
+  local optInStatus = GetOptInStatus(npcName)
 
   if optInStatus == true then
     -- Opted in: run automation immediately
@@ -221,7 +309,7 @@ local function HandleChatterBegin(_, optionCount, _debugSource_)
     return
   else
     -- Undecided (nil): show opt-in prompt
-    GAFE.QuestAutomationUI.ShowOptInPrompt(npcName)
+    ShowOptInPrompt(npcName)
   end
 end
 
@@ -233,7 +321,7 @@ local function HandleChatterEnd()
   QuestAutomation.currentOptionCount = 0
 
   -- Clean up any pending opt-in prompt
-  GAFE.QuestAutomationUI.HideOptInPrompt()
+  HideOptInPrompt()
 end
 
 -- ============================================================================
@@ -265,8 +353,36 @@ function QuestAutomation.Init()
     end
   end
 
-  -- Initialize UI module
-  GAFE.QuestAutomationUI.Init()
+  -- Register confirmation dialog
+  ZO_Dialogs_RegisterCustomDialog(DIALOG_NAME, {
+    title = {
+      text = GAFE.Loc("QuestAutomation_ConfirmTitle")
+    },
+    mainText = {
+      text = GAFE.Loc("QuestAutomation_ConfirmText")
+    },
+    buttons = {
+      {
+        text = SI_DIALOG_CONFIRM,
+        callback = function(dialog)
+          local npcName = dialog.data.npcName
+          SaveOptInPreference(npcName, true)
+        end
+      },
+      {
+        text = SI_DIALOG_DECLINE
+        -- Do nothing - one-time automation only
+      }
+    }
+  })
+
+  -- Create keybind descriptor
+  QuestAutomation.keybindDescriptor = {
+    alignment = KEYBIND_STRIP_ALIGN_CENTER,
+    name = GAFE.Loc("QuestAutomation_OptInKeybind"),
+    keybind = "UI_SHORTCUT_QUINARY",
+    callback = OptInAndAutomate,
+  }
 
   -- Always register for chatter events (opt-in check happens inside)
   QuestAutomation.RegisterEvents()
@@ -291,12 +407,14 @@ function QuestAutomation.UnregisterEvents()
   EVENT_MANAGER:UnregisterForEvent(CHATTER_BEGIN_EVENT_NAME, EVENT_CHATTER_BEGIN)
   EVENT_MANAGER:UnregisterForEvent(CHATTER_END_EVENT_NAME, EVENT_CHATTER_END)
   EVENT_MANAGER:UnregisterForEvent(QUEST_OFFERED_EVENT_NAME, EVENT_QUEST_OFFERED)
-  EVENT_MANAGER:UnregisterForEvent(QUEST_COMPLETED_EVENT_NAME, EVENT_QUEST_COMPLETE_DIALOG)
-  EVENT_MANAGER:UnregisterForEvent(CONVERSATION_UPDATED_EVENT_NAME, EVENT_QUEST_OFFERED)
+  EVENT_MANAGER:UnregisterForEvent(QUEST_COMPLETED_EVENT_NAME,
+    EVENT_QUEST_COMPLETE_DIALOG)
+  EVENT_MANAGER:UnregisterForEvent(CONVERSATION_UPDATED_EVENT_NAME,
+    EVENT_QUEST_OFFERED)
 end
 
 --- Executes automation for a specific NPC.
---- Called by the UI when user opts in via keybind/button.
+--- Called when user opts in via keybind.
 --- @param npcName string The NPC name to automate
 function QuestAutomation.ExecuteAutomation(npcName)
   -- Use stored option count from the chatter begin event
@@ -306,6 +424,39 @@ function QuestAutomation.ExecuteAutomation(npcName)
   if optionCount > 0 then
     ProcessDialogOptions(optionCount, npcName)
   end
+end
+
+--- Gets the opt-in status for an NPC on the current character.
+--- @param npcName string The NPC name
+--- @return boolean|nil status True if opted in, false if disabled, nil if undecided
+function QuestAutomation.GetOptInStatus(npcName)
+  return GetOptInStatus(npcName)
+end
+
+--- Sets the opt-in status for an NPC on the current character.
+--- @param npcName string The NPC name
+--- @param value boolean|nil True to opt in, false to opt out, nil to reset
+function QuestAutomation.SetOptInStatus(npcName, value)
+  SaveOptInPreference(npcName, value)
+end
+
+--- Resets all opt-in preferences for the current character.
+function QuestAutomation.ResetAllPreferences()
+  local characterId = GetCurrentCharacterId()
+  GAFE.SavedVars.questAutomation.optIn[characterId] = {}
+end
+
+--- Gets all opted-in NPCs for the current character.
+--- @return table npcs Table of { npcName = status } pairs
+function QuestAutomation.GetAllOptedInNpcs()
+  local characterId = GetCurrentCharacterId()
+  local optIn = GAFE.SavedVars.questAutomation.optIn
+
+  if not optIn[characterId] then
+    return {}
+  end
+
+  return optIn[characterId]
 end
 
 -- ============================================================================

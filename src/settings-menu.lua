@@ -45,7 +45,7 @@ function GAFE.SettingsMenu.BuildQuestAutomationControls()
   })
 
   -- Get all opted-in NPCs for current character
-  local optedInNpcs = GAFE.QuestAutomationUI and GAFE.QuestAutomationUI.GetAllOptedInNpcs() or {}
+  local optedInNpcs = GAFE.QuestAutomation.GetAllOptedInNpcs()
   local hasNpcs = false
 
   -- Sort NPC names for consistent display
@@ -63,15 +63,15 @@ function GAFE.SettingsMenu.BuildQuestAutomationControls()
         type = "checkbox",
         name = npcName,
         getFunc = function()
-          local status = GAFE.QuestAutomationUI.GetOptInStatus(npcName)
+          local status = GAFE.QuestAutomation.GetOptInStatus(npcName)
           return status == true
         end,
         setFunc = function(value)
           if value then
-            GAFE.QuestAutomationUI.SetOptInStatus(npcName, true)
+            GAFE.QuestAutomation.SetOptInStatus(npcName, true)
           else
             -- Setting to nil removes from the list (undecided state)
-            GAFE.QuestAutomationUI.SetOptInStatus(npcName, nil)
+            GAFE.QuestAutomation.SetOptInStatus(npcName, nil)
           end
         end
       })
@@ -87,7 +87,7 @@ function GAFE.SettingsMenu.BuildQuestAutomationControls()
       type = "button",
       name = GAFE.Loc("Settings_QuestAutomation_Reset"),
       func = function()
-        GAFE.QuestAutomationUI.ResetAllPreferences()
+        GAFE.QuestAutomation.ResetAllPreferences()
       end,
       warning = GAFE.Loc("Settings_QuestAutomation_ResetWarning"),
       isDangerous = true
