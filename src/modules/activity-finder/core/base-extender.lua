@@ -28,6 +28,12 @@ local table_insert = table.insert
 local zo_strformat = zo_strformat
 
 -- ============================================================================
+-- Constants
+-- ============================================================================
+local ICON_COMPLETED_ALPHA = 1
+local ICON_INCOMPLETE_ALPHA = 0.15
+
+-- ============================================================================
 -- Module Declaration
 -- ============================================================================
 local ActivityFinderExtender = ZO_Object:Subclass()
@@ -290,19 +296,23 @@ function ActivityFinderExtender:AddAchievement(achievementId, controlName, paren
     end
   end
 
-  local text, hidden, tooltip = nil, false, nil
+  local text, isCompleted, tooltip = nil, true, nil
   if achievementId then
-    local achievementName, _, _, icon, isCompleted, _, _ = GetAchievementInfo(
+    local achievementName, _, _, icon, completed, _, _ = GetAchievementInfo(
       achievementId)
-    text = isCompleted and self:FormatTexture(texture) or ""
+    isCompleted = completed
+    text = self:FormatTexture(texture)
     tooltip = self:FormatTexture(icon) .. zo_strformat(achievementName)
-    hidden = not isCompleted
   elseif GAFE.SavedVars.developerMode and achievementId == nil then
     text = "-"
-    hidden = false
   end
 
-  return self:AddIcon(controlName, parent, text, showAchievement, tooltip, hidden)
+  local button = self:AddIcon(controlName, parent, text, showAchievement, tooltip,
+    false)
+  if button and achievementId then
+    button:SetAlpha(isCompleted and ICON_COMPLETED_ALPHA or ICON_INCOMPLETE_ALPHA)
+  end
+  return button
 end
 
 --- Adds a quest completion icon to the control.
@@ -315,15 +325,21 @@ function ActivityFinderExtender:AddQuest(questId, controlName, parent, texture)
   local text, isQuestCompleted = nil, false
   if questId then
     isQuestCompleted = GetCompletedQuestInfo(questId) ~= "" and true or false
-    text = isQuestCompleted and self:FormatTexture(texture) or ""
+    text = self:FormatTexture(texture)
     parent.gafeQuest = not isQuestCompleted
     self.hasQuests = self.hasQuests or parent.gafeQuest
   elseif GAFE.SavedVars.developerMode and questId == nil then
     text = "-"
+    isQuestCompleted = true
   end
 
-  return self:AddIcon(controlName, parent, text, function() end, nil,
-    parent.gafeQuest)
+  local button = self:AddIcon(controlName, parent, text, function() end, nil,
+    false)
+  if button and questId then
+    button:SetAlpha(isQuestCompleted and ICON_COMPLETED_ALPHA or
+      ICON_INCOMPLETE_ALPHA)
+  end
+  return button
 end
 
 --- Adds a wayshrine fast travel button to the control.
@@ -375,17 +391,20 @@ function ActivityFinderExtender:AddSets(setsIds, parent)
       hasAllSets = hasAllSets and numUnlockedPieces == numPieces
     end
 
-    text = hasAllSets and
-        self:FormatTexture(
-          "/esoui/art/crafting/smithing_tabicon_armorset_up.dds") or
-        ""
+    text = self:FormatTexture(
+      "/esoui/art/crafting/smithing_tabicon_armorset_up.dds")
     parent.gafeSets = not hasAllSets
   elseif GAFE.SavedVars.developerMode then
     text = "-"
+    hasAllSets = true
   end
 
-  return self:AddIcon(parent:GetName() .. "sets", parent, text, nil, nil,
-    parent.gafeSets)
+  local button = self:AddIcon(parent:GetName() .. "sets", parent, text, nil, nil,
+    false)
+  if button and setsIds then
+    button:SetAlpha(hasAllSets and ICON_COMPLETED_ALPHA or ICON_INCOMPLETE_ALPHA)
+  end
+  return button
 end
 
 --- Formats a texture path into an ESO texture string.
